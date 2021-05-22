@@ -87,3 +87,12 @@ cp -v "${HOME}/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 cp -v "${HOME}/.config/sublime-text-3/Packages/User/Package Control.sublime-settings" \
 "${DST}/config/sublime-text-3/Packages/User/"
 
+cp -v "${HOME}/Documents/copy.sh" \
+"${DST}"
+
+cp -v "${HOME}/Documents/anime.sh" \
+"${DST}"
+
+cp -v "${HOME}/Videos/videoToGif.sh" \
+"${DST}"
+
