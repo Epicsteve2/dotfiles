@@ -93,6 +93,12 @@ cp -v "${HOME}/Documents/copy.sh" \
 cp -v "${HOME}/Documents/anime.sh" \
 "${DST}"
 
+cp -v "${HOME}/Documents/clearPlaylist.sh" \
+"${DST}"
+
+cp -v "${HOME}/Documents/clearPlaylist.lua" \
+"${DST}"
+
 cp -v "${HOME}/Videos/videoToGif.sh" \
 "${DST}"
 
