@@ -1,0 +1,4 @@
+[
+		{ "keys": ["f1"], "command": "show_overlay", "args": {"overlay": "command_palette"} },
+		{ "keys": ["ctrl+t"], "command": "new_file" },
+]
