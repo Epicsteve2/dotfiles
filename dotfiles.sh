@@ -9,7 +9,8 @@ if [[ "$#" -ge 1 ]]; then
 
 	if [[ "$1" == "purge" ]]; then
 		#shopt -s dotglob
-		rm -vrf "${DST}/"*
+		#rm -vrf "${DST}/"*
+		echo Purging bad
 		exit
 	fi
 
