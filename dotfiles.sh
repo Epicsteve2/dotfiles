@@ -27,7 +27,7 @@ if ! [[ -d "$DST/mpv/scripts" ]]; then
 fi
 
 if ! [[ -d "$DST/mpv/script-opts" ]]; then
-	mkdir -vp "$DST/script-opts"
+	mkdir -vp "$DST/mpv/script-opts"
 fi
 
 if ! [[ -d "$DST/config" ]]; then
@@ -55,13 +55,13 @@ cp -v "${HOME}/.config/mpv/scripts/crop.lua" \
 "${DST}/mpv/scripts"
 
 cp -v "${HOME}/.config/mpv/script-opts/crop.conf" \
-"${DST}/mpv/script-opts"
+"${DST}/mpv/script-opts/"
 
 cp -v "${HOME}/.config/bakamplayer.ini" \
 "${DST}/config"
 
 cp -v "${HOME}/.bashrc" \
-"${DST}/bashrn"
+"${DST}/bashrc"
 
 cp -v "${HOME}/.inputrc" \
 "${DST}/inputrc"
