@@ -78,7 +78,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(git)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -119,6 +119,9 @@ bindkey "\e[3;5~" kill-word
 alias l='ls -hAlF'
 alias p="ping -c 50 8.8.8.8"
 alias h="cat ~/.bashrc ~/.bash_functions && echo '' && alias"
-alias cdiscord="google-chrome --app=https://discordapp.com/app &"
-alias remove='mv --force -t ~/.local/share/Trash'
+alias cdiscord="google-chrome --app=https://discordapp.com/app &" # NO NEED LETS GO
+alias remove='mv --force --verbose -t ~/.local/share/Trash'
 alias g="git status"
+
+setopt NO_LIST_AMBIGUOUS
+# p10k configure
