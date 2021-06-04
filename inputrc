@@ -1,3 +1,7 @@
 set show-all-if-ambiguous on
 set completion-ignore-case on
 #bind "set menu-complete-display-prefix on"
+"^[[1;5C": forward-word
+"^[[1;5D": backward-word
+"\C-h": backward-kill-word
+"\e[3;5~": kill-word
