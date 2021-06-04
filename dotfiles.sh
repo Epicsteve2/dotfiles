@@ -70,6 +70,9 @@ cp -v "${HOME}/.inputrc" \
 cp -v "${HOME}/.profile" \
 "${DST}/profile"
 
+cp -v "${HOME}/.zshrc" \
+"${DST}/zshrc"
+
 cp -v "${HOME}/.bash_functions" \
 "${DST}/bash_functions"
 

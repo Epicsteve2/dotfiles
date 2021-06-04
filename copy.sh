@@ -3,6 +3,7 @@
 #find . -type f -name '*.jpg' -exec cp '{}' /media/stephen/Steve64gb/'{}' ';'
 
 SRC="${HOME}/Videos"
+#DST="/media/${LOGNAME}/Steve64gb/screenshots"
 DST="/home/stephen/Desktop/junk"
 
 # DSTLIST=()
