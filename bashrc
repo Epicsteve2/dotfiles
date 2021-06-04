@@ -104,7 +104,7 @@ alias pip="pip3"
 alias p="ping -c 50 8.8.8.8"
 #alias shut="sudo hdparm -Y /dev/sdb"
 alias h="cat ~/.bashrc ~/.bash_functions && echo '' && alias"
-alias cdiscord="google-chrome --app=https://discordapp.com/app &"
+alias cdiscord="google-chrome --app=https://discordapp.com/app &" # NO NEED LETS GO
 #alias lt='ls --human-readable --size -1 -S --classify'
 alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | column -t | egrep ^/dev/ | sort"
 alias left='ls -t -1'

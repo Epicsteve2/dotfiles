@@ -73,6 +73,9 @@ cp -v "${HOME}/.profile" \
 cp -v "${HOME}/.zshrc" \
 "${DST}/zshrc"
 
+cp -v "${HOME}/.p10k.zsh" \
+"${DST}/p10k.zsh"
+
 cp -v "${HOME}/.bash_functions" \
 "${DST}/bash_functions"
 
