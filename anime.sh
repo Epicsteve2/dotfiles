@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-ANIME='[Reaktor] Legend of the Galactic Heroes - Ginga Eiyuu Densetsu [720p][x265][10-bit]'
+ANIME='[Judas] Majo no Tabitabi (Season 1) [1080p][HEVC x265 10bit][Eng-Subs]'
 
 PARENTLOCATION="/mnt/3ADED414DED3C5F3/Anime n Movies"
 PARENTLOCATIONREAL="/mnt/3ADED414DED3C5F3/Anime n Movies"
