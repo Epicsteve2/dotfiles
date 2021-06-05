@@ -109,3 +109,6 @@ cp -v "${HOME}/Documents/clearPlaylist.lua" \
 cp -v "${HOME}/Videos/videoToGif.sh" \
 "${DST}"
 
+cp -v "${HOME}/CodeMonkey/Python/anime.py" \
+"${DST}"
+
