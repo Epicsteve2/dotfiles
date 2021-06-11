@@ -13,3 +13,6 @@ cp -v "${HOME}/.zshenv" \
 
 cp -v "${HOME}/.p10k.zsh" \
 "${HOME}/git/dotfiles/p10kOsx.zsh"
+
+cp -v "${HOME}/DockRemove.sh" \
+"${HOME}/git/dotfiles/"

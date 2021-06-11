@@ -6,8 +6,8 @@ alias p="ping -c 50 8.8.8.8"
 alias clr="printf '\33c\e[3J'"
 alias g="git status"
 
-export CLICOLOR=1
-export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+# export CLICOLOR=1
+# export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 #/usr/local/Cellar/openjdk/15.0.2
 #echo 'export PATH="/usr/local/opt/openjdk/bin:$PATH"' >> ~/.zshrc
 #export GIT_DIR=~/git
@@ -16,13 +16,13 @@ export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 #export PATH="$PATH:/Users/sguo/Library/Python/3.8/bin"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/
 # overwritten by sdkman
-export PATH="$PATH:$HOME/git/edge-dev-tools/ci"
+# export PATH="$PATH:$HOME/git/edge-dev-tools/ci"
 export PATH=/usr/local/bin:$PATH
 export GRADLE_HOME=/usr/local/Cellar/gradle/7.0.2
 
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+#   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+#   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # ssh-add ~/.ssh/id_ed25519
 eval "$(pyenv init -)"
