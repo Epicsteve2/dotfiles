@@ -94,3 +94,21 @@ https://github.com/sindresorhus/awesome
 https://github.com/agarrharr/awesome-cli-apps
 
 https://github.com/satwikkansal/wtfpython
+
+https://github.com/topics/awesome?o=desc&s=stars
+
+https://github.com/jaywcjlove/awesome-mac
+
+https://github.com/trimstray/the-book-of-secret-knowledge
+
+https://github.com/prakhar1989/awesome-courses
+
+https://github.com/dypsilon/frontend-dev-bookmarks
+
+https://github.com/viatsko/awesome-vscode
+
+https://github.com/nikitavoloboev/my-mac-os
+
+https://github.com/AllThingsSmitty/css-protips
+
+https://github.com/gztchan/awesome-design
