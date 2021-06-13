@@ -112,3 +112,7 @@ https://github.com/nikitavoloboev/my-mac-os
 https://github.com/AllThingsSmitty/css-protips
 
 https://github.com/gztchan/awesome-design
+
+https://github.com/emoacht/Monitorian
+
+https://github.com/rockowitz/ddcutil
