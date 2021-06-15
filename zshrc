@@ -122,7 +122,7 @@ bindkey "^[[1;5D" backward-word
 bindkey "\C-h" backward-kill-word
 bindkey "\e[3;5~" kill-word
 
-alias ll='ls -hAlF --group-directories-first'
+alias ll='ls -hAlFv --group-directories-first'
 alias l='exa --long --icons --all --all --header --extended --group-directories-first --classify'
 alias p="ping -c 50 8.8.8.8"
 alias h="cat ~/.bashrc ~/.bash_functions && echo '' && alias"
