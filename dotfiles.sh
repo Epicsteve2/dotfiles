@@ -112,3 +112,9 @@ cp -v "${HOME}/Videos/videoToGif.sh" \
 cp -v "${HOME}/CodeMonkey/Python/anime.py" \
 "${DST}"
 
+cp -v "${HOME}/.config/kitty/kitty.conf" \
+"${DST}/kitty"
+
+cp -v "${HOME}/.config/kitty/kitty.conf" \
+"${DST}/kitty"
+

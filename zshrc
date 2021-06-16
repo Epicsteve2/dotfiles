@@ -82,6 +82,7 @@ plugins=(
   git
   zsh-autosuggestions
   zsh-syntax-highlighting
+  pip
   # fast-syntax-highlighting
   # zsh-completions
 )
@@ -123,16 +124,18 @@ bindkey "\C-h" backward-kill-word
 bindkey "\e[3;5~" kill-word
 
 alias ll='ls -hAlFv --group-directories-first'
-alias l='exa --long --icons --all --all --header --extended --group-directories-first --classify'
+alias l='exa --long --icons --all --header --extended --git --group-directories-first --classify'
 alias p="ping -c 50 8.8.8.8"
-alias h="cat ~/.bashrc ~/.bash_functions && echo '' && alias"
+# alias h="cat ~/.bashrc ~/.bash_functions && echo '' && alias"
+alias h="history | less +G"
 alias cdiscord="google-chrome --app=https://discordapp.com/app &" # NO NEED LETS GO
 alias remove='mv --force --verbose -t ~/.local/share/Trash'
 alias g="git status"
 alias tldr="tldr --theme ocean"
-alias bat="bat --paging=never"
-alias cat="bat"
+alias bat="bat --number"
+alias cat="bat -pp"
 alias grep="rg"
+alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
 export LESS="--RAW-CONTROL-CHARS"
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
@@ -151,14 +154,43 @@ export LESS_TERMCAP_ZW=$(tput rsupm)
 export GROFF_NO_SGR=1   
 
 export LS_COLORS='no=00;38;5;250:rs=0:di=01;38;5;198:ln=01;38;5;37:mh=00:pi=48;5;230;38;5;136;01:so=48;5;230;38;5;136;01:do=48;5;230;38;5;136;01:bd=48;5;230;38;5;244;01:cd=48;5;230;38;5;244;01:or=48;5;235;38;5;160:su=48;5;160;38;5;230:sg=48;5;136;38;5;230:ca=30;41:tw=48;5;64;38;5;230:ow=48;5;235;38;5;33:st=48;5;33;38;5;230:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:ex=01;38;5;82:*.cmd=00;38;5;82:*.exe=00;38;5;82:*.com=00;38;5;82:*.btm=00;38;5;82:*.bat=00;38;5;82:*.jpg=00;38;5;37:*.jpeg=00;38;5;37:*.png=00;38;5;37:*.gif=00;38;5;37:*.bmp=00;38;5;37:*.xbm=00;38;5;37:*.xpm=00;38;5;37:*.tif=00;38;5;37:*.tiff=00;38;5;37:*.pdf=00;38;5;98:*.odf=00;38;5;98:*.doc=00;38;5;98:*.ppt=00;38;5;98:*.pptx=00;38;5;98:*.db=00;38;5;98:*.aac=00;38;5;208:*.au=00;38;5;208:*.flac=00;38;5;208:*.mid=00;38;5;208:*.midi=00;38;5;208:*.mka=00;38;5;208:*.mp3=00;38;5;208:*.mpc=00;38;5;208:*.ogg=00;38;5;208:*.ra=00;38;5;208:*.wav=00;38;5;208:*.m4a=00;38;5;208:*.axa=00;38;5;208:*.oga=00;38;5;208:*.spx=00;38;5;208:*.xspf=00;38;5;208:*.mov=01;38;5;208:*.mpg=01;38;5;208:*.mpeg=01;38;5;208:*.3gp=01;38;5;208:*.m2v=01;38;5;208:*.mkv=01;38;5;208:*.ogm=01;38;5;208:*.mp4=01;38;5;208:*.m4v=01;38;5;208:*.mp4v=01;38;5;208:*.vob=01;38;5;208:*.qt=01;38;5;208:*.nuv=01;38;5;208:*.wmv=01;38;5;208:*.asf=01;38;5;208:*.rm=01;38;5;208:*.rmvb=01;38;5;208:*.flc=01;38;5;208:*.avi=01;38;5;208:*.fli=01;38;5;208:*.flv=01;38;5;208:*.gl=01;38;5;208:*.m2ts=01;38;5;208:*.divx=01;38;5;208:*.log=00;38;5;240:*.bak=00;38;5;240:*.aux=00;38;5;240:*.bbl=00;38;5;240:*.blg=00;38;5;240:*~=00;38;5;240:*#=00;38;5;240:*.part=00;38;5;240:*.incomplete=00;38;5;240:*.swp=00;38;5;240:*.tmp=00;38;5;240:*.temp=00;38;5;240:*.o=00;38;5;240:*.pyc=00;38;5;240:*.class=00;38;5;240:*.cache=00;38;5;240:';
+export EXA_COLORS="${LS_COLORS}"
 
 
 setopt NO_LIST_AMBIGUOUS
 autoload -U compinit && compinit
+
+kitty + complete setup zsh | source /dev/stdin
+
+export EDITOR=micro
+export VISUAL=${EDITOR}
 
 # Java stuff
 # openjdk-11-jdk-headless/focal-updates,focal-security,now 11.0.11+9-0ubuntu2~20.04 amd64 [installed]
 # openjdk-11-jre-headless/focal-updates,focal-security,now 11.0.11+9-0ubuntu2~20.04 amd64 [installed,automatic]
 # openjdk-11-jre/focal-updates,focal-security,now 11.0.11+9-0ubuntu2~20.04 amd64 [installed]
 
+export HISTFILE="${HOME}/.zsh_history"
+export HISTSIZE=50000
+export SAVEHIST=$HISTSIZE 
+
 # p10k configure
+# setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+# setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+# setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+# setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+# setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+precmd () {print -Pn "\e]0;%~\a"}
+title() { export TITLE="$*" }
+DISABLE_AUTO_TITLE="true"
+
+# if [[ $TERM == "xterm-kitty" ]]; then
+#   neofetch
+# fi
