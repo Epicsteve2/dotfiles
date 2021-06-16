@@ -1,6 +1,10 @@
 # dotfiles
 Monitor: lg 27gl650f
 
+`git diff bbe71b8722c65a40aab184fca05935bc68b02e6e 35e684ddbeb4b5a936dc7c8041b32fb2661ad490`
+
+^ breaks!!
+
 https://github.com/tldr-pages/tldr
 
 https://github.com/ryanoasis/nerd-fonts
