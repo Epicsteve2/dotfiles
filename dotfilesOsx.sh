@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cp -v "${HOME}/.zshrc"  \
+cp -v "${HOME}/.zshrc" \
 "${HOME}/git/dotfiles/zshrcOsx"
 
 cp -v "${HOME}/.bash_profile" \
@@ -16,3 +16,6 @@ cp -v "${HOME}/.p10k.zsh" \
 
 cp -v "${HOME}/DockRemove.sh" \
 "${HOME}/git/dotfiles/"
+
+cp -v "${HOME}/.gitconfig" \
+"${HOME}/git/dotfiles/gitconfigOsx"
