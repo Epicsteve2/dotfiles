@@ -6,6 +6,8 @@ Monitor: lg 27gl650f
 
 ^ breaks!! in delta...
 
+https://github.com/pqrs-org/Karabiner-Elements
+
 https://github.com/tldr-pages/tldr
 
 https://github.com/ryanoasis/nerd-fonts
