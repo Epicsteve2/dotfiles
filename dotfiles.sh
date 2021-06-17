@@ -119,4 +119,5 @@ cp -v "${HOME}/.config/kitty/kitty.conf" \
 "${DST}/kitty"
 
 cp -v "${HOME}/.gitconfig" \
-"${DST]/gitconfig"
+"${DST}/gitconfig"
+
