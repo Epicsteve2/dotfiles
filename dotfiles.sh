@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+set -e
+
 DST="${HOME}/CodeMonkey/dotfiles"
 
 if [[ "$#" -ge 1 ]]; then

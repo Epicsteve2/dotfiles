@@ -97,7 +97,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+  # git
   aws
   # brew
   zsh-autosuggestions
@@ -157,6 +157,8 @@ alias h="history | less +G"
 alias bat='bat --number'
 alias cat='bat -pp'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+alias fd="fd --hidden --no-ignore"
+# alias grep="rg"
 
 
 # batdiff() {
@@ -190,6 +192,9 @@ export PATH="$PATH:$HOME/git/edge-dev-tools/ci"
 # export PATH=/usr/local/bin:$PATH
 # export GRADLE_HOME=/usr/local/Cellar/gradle/7.0.2
 # eval "$(pyenv init -)"
+
+export EDITOR=micro
+export VISUAL=${EDITOR}
 
 export NVM_DIR="$HOME/.nvm"
   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm

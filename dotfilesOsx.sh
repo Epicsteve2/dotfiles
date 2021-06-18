@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+set -e # exit if fail
+
 cp -v "${HOME}/.zshrc" \
 "${HOME}/git/dotfiles/zshrcOsx"
 
