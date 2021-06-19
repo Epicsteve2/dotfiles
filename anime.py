@@ -1,19 +1,20 @@
-#!usr/bin/env python3
-ANIME = "Kono Subarashii Sekai ni Shukufuku wo! 2"
-ANIMEDIRECTORY = "/mnt/3ADED414DED3C5F3/Anime n Movies/[Cerberus] KonoSuba S1 + S2 + OVA + Movie [BD 1080p HEVC 10-bit OPUS] [Dual-Audio]"
-
-PARENTLOCATION = "/mnt/3ADED414DED3C5F3/Anime n Movies"
-SCRIPTLOCATION = "/home/stephen/Documents/clearPlaylist.lua"
-THISSCRIPT = "/home/stephen/CodeMonkey/Python/anime.py"
-COPYLOCATION = "/home/stephen/Documents/copy.sh"
+#!/usr/bin/env python
+ANIME = "[Judas] Beastars (Season 2) [1080p][HEVC x265 10bit][Eng-Subs]"
+ANIMEDIRECTORY = "D:/Anime n Movies"
+PARENTLOCATION = "D:/Anime n Movies"
+SCRIPTLOCATION = "C:/Users/Stephen/CodeMonkey/dotfiles/clearPlaylist.lua"
+THISSCRIPT = "C:/Users/Stephen/CodeMonkey/Python/anime.py"
+# COPYLOCATION = "/home/stephen/Documents/copy.sh"
 
 import os
+from pathlib import Path
 from typing import List
 from os import listdir
 from os.path import isfile, join
-import subprocess
-import sys
+# import subprocess
+# import sys
 from subprocess import Popen, PIPE, STDOUT
+from pathlib import Path
 
 
 def get_immediate_subdirectories(a_dir: str) -> List[str]:
@@ -80,24 +81,25 @@ def chooseAnime(searchLocation: str) -> None:
     data[2] = 'ANIMEDIRECTORY = "' + ANIMEDIRECTORY + '"\n'
     with open(THISSCRIPT, "w") as file:
         file.writelines(data)
+    watchAnime()
 
 
 print("Current anime:", ANIME + "\n")
 print(
     """[Enter]: Watch
-    [1]: set
-    [2]: rm
-    [3]: purge
-    [4]: copy
+[  1  ]: set
+[  2  ]: rm
+[  3  ]: purge
+[  4  ]: copy
 """
 )
 
+os.chdir(ANIMEDIRECTORY + "/" + ANIME)
 
 def watchAnime() -> None:
     global ANIMEDIRECTORY
     global ANIME
-
-    os.chdir(ANIMEDIRECTORY + "/" + ANIME)
+    
     # print(os.getcwd())
 
     # command = subprocess.run(
@@ -142,15 +144,31 @@ def setAnime():
 
 
 def rmAnime():
-    print("r")
+    playlist = Path(ANIMEDIRECTORY + "/" + ANIME + "/playlist.txt")
+    if playlist.is_file():
+        print("Removing " + ANIMEDIRECTORY + "/" + ANIME + "/playlist.txt")
+        os.remove(ANIMEDIRECTORY + "/" + ANIME + "/playlist.txt")
+    else:
+        print("Can't find playlist.txt")
+    
 
 
 def purgeAnime():
-    print("p")
+    os.chdir(PARENTLOCATION)
+    # fileList = glob.glob("*.txt")
+    print("Removing...")
+    for path in Path(PARENTLOCATION).rglob('playlist.txt'):
+        print(path)
+        os.remove(path)
+    # print(fileList)
+    # print("p")
 
 
 def copyAnime():
-    print("c")
+    # os.chdir(PARENTLOCATION)
+    # for path in Path(PARENTLOCATION).rglob('*.jpg'):
+        # print(path)
+    print("Nothing to copy...")
 
 
 userInput = input("Enter a number: ")
@@ -159,6 +177,8 @@ if not userInput.isdigit():
 
 userInput = int(userInput)
 options = {1: setAnime, 2: rmAnime, 3: purgeAnime, 4: copyAnime}
+x = options.items()
+# print(x.__contains__(1))
 options.get(userInput, watchAnime)()
 
 # import glob

@@ -13,7 +13,8 @@
 --local msg = require 'mp.msg'
 --local options = require 'mp.options'
 
-local playlist_loc = "/home/stephen/Documents/clearPlaylist.sh"
+-- local playlist_loc = "/home/stephen/Documents/clearPlaylist.sh"
+local playlist_loc = "C:\\Users\\Stephen\\CodeMonkey\\dotfiles\\clearPlaylist.py"
 local utils = require 'mp.utils'
 require 'mp'
 
@@ -38,7 +39,13 @@ local function remove(event)
 		--mp.osd_message("rm from playlist")
 		--mp.commandv("run","sed", "-i", "1d", inputFile .. "/playlist.txt");
 		--mp.osd_message("${HOME}/.config/mpv/scripts/clearPlaylist.sh")
-		mp.commandv("run", playlist_loc, inputFile);
+		-- file = io.open ("D:\\Anime n Movies\\[Judas] Beastars (Season 2) [1080p][HEVC x265 10bit][Eng-Subs]\\anime.txt", "w")
+		-- io.output(file)
+		-- io.write("WTRF")
+		-- io.write(playlist_loc .. "\n" .. inputFile)
+		-- io.close(file)
+		-- os.execute("\"" .. playlist_loc .. "\" \"".. inputFile .. "\"");
+		mp.commandv("run", "py.exe" , playlist_loc, inputFile);
 	end
 
 	
