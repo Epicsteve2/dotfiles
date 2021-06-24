@@ -1,0 +1,51 @@
+timedatectl set-ntp true
+timedatectl status # don't need
+# make partitions...
+
+mkfs.btrfs /dev/sd...
+mkfs.fat -F32 /dev/sd...
+mount /dev/sd.. /mnt # filesystem
+pacstrap /mnt base linux linux-firmware
+genfstab -U /mnt >> /mnt/etc/fstab
+# nano /mnt/etc/fstab # don't need
+arch-chroot /mnt
+ln -sf /usr/share/zoneinfo/Canada/Eastern /etc/localtime
+hwclock --systohc
+pacman -S micro sudo #nano networkmanager grub efibootmgr dosfstools os-prober mtools git 
+# systemctl enable NetworkManager
+mkdir /boot/EFI 
+mount /dev/sd.1 /boot/EFI
+# grub-install /dev/sd...
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck # /dev/sd
+# grub-install --target=x86_64-efi --bootloader-id=GRUB --recheck --efi-directory=/boot/EFI --no-nvram -removable --force
+grub-mkconfig -o /boot/grub/grub.cfg 
+
+micro /etc/locale.gen # edit line 177
+locale-gen
+micro /etc/locale.conf
+# LANG=en_US.UTF-8
+micro /etc/hostname
+# SteveArch
+micro /etc/hosts
+# 127.0.0.1	localhost
+# ::1		localhost
+# 127.0.1.1	myhostname.localdomain	myhostname
+passwd 
+# password
+# useradd -m stephen
+useradd -m -G wheel.video.audio.optical.storage -s /bin/zsh username
+# usermod -s /bin/zsh stephen
+# usermod -aG wheel stephen
+passwd stephen
+
+EDITOR=micro
+visudo
+
+pacman -S xorg plasma plasma-wayland-session kde-applications
+
+systemctl enable sddm.service
+systemctl enable NetworkManager.service
+
+# uncomment 82, 85, add 
+# Defaults !tty_tickets
+pacman -S git zsh exa firefox htop neofetch ripgrep fd bat tldr mpv obs peek #flameshot kitty copyq
