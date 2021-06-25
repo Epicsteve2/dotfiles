@@ -17,13 +17,13 @@ export SAVEHIST=$HISTSIZE
 # export SAVEHIST=50000
 
 # setopt BANG_HIST                 # Treat the '!' character specially during expansion.
-setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+# setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.
 # setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
 setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
 # setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
-# setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
 # setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 # setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
@@ -150,7 +150,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias g="git status"
 alias ls='ls -G' # colors
-alias ll='ls -oAlF'
+alias ll='ls -AlFo'
 alias l='exa --long --icons --all --header --git --group-directories-first --classify'
 alias h="history | less +G"
 # alias cat='bat --number --paging=never'
@@ -158,7 +158,7 @@ alias bat='bat --number'
 alias cat='bat -pp'
 alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 alias fd="fd --hidden --no-ignore"
-# alias grep="rg"
+alias rg="rg --hidden --no-ignore"
 
 
 # batdiff() {
@@ -189,6 +189,7 @@ setopt NO_LIST_AMBIGUOUS
 # export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/
 # overwritten by sdkman
 export PATH="$PATH:$HOME/git/edge-dev-tools/ci"
+PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 # export PATH=/usr/local/bin:$PATH
 # export GRADLE_HOME=/usr/local/Cellar/gradle/7.0.2
 # eval "$(pyenv init -)"
