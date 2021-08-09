@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+clear
+set -e
+# set -x
+
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+RESETCOLOR=$(tput setaf 7) #white
+RESETCOLOR=$(tput sgr0)
+
+# if ! command -v stow &>/dev/null; then
+#     echo >&2 "${RED}stow${RESETCOLOR} could not be found"
+#     exit 1
+# fi
+
+# echo hi
+
+echo "${CYAN}[   1   ]${RESETCOLOR} Copy to home"
+echo "${CYAN}[   2   ]${RESETCOLOR} Symlink"
+echo "${CYAN}[   3   ]${RESETCOLOR} Delete"
+echo "${CYAN}[   4   ]${RESETCOLOR} Copy from home"
+echo "${CYAN}[ Enter ]${RESETCOLOR} Exit"
+echo
+
+read -rp "${YELLOW}Enter a choice: ${RESETCOLOR}" USER_INPUT
+
+if [[ -z $USER_INPUT ]]; then
+    exit
+fi
+
+IS_NUMBER='^[0-9]+$'
+if ! [[ $USER_INPUT =~ $IS_NUMBER ]]; then
+    echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
+    exit 1
+fi
+
+if ((USER_INPUT < 1 || USER_INPUT > 4)); then
+    echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
+    exit 1
+fi
+
+if [[ $USER_INPUT == 1 ]]; then
+    COMMAND="cp --verbose --recursive"
+elif [[ $USER_INPUT == 2 ]]; then
+    COMMAND="ln --symbolic --verbose --force --relative"
+elif [[ $USER_INPUT == 4 ]]; then
+    cp -vr ~/.zshrc     zshrc     
+    cp -vr ~/.nanorc    nanorc    
+    cp -vr ~/.gitconfig gitconfig 
+    cp -vr ~/.p10k.zsh  p10k.zsh  
+    cp -r ~/.oh-my-zsh oh-my-zsh 
+else 
+    COMMAND="echo"
+fi
+
+# echo "${COMMAND}"
+
+exit
+
+${COMMAND} zshrc     ~/.zshrc
+${COMMAND} nanorc    ~/.nanorc
+${COMMAND} gitconfig ~/.gitconfig
+${COMMAND} p10k.zsh  ~/.p10k.zsh
+${COMMAND} oh-my-zsh ~/.oh-my-zsh
+
+# ln --symbolic \
+#     --verbose \
+#     --force \
+#     --relative \
+#     zshrc \
+#     ~/.zshrc
+
+# ln --symbolic \
+#     --verbose \
+#     --force \
+#     --relative \
+#     nanorc \
+#     ~/.nanorc
+
+# ln --symbolic \
+#     --verbose \
+#     --force \
+#     --relative \
+#     gitconfig \
+#     ~/.gitconfig
+
+# ln --symbolic \
+#     --verbose \
+#     --force \
+#     --relative \
+#     p10k.zsh \
+#     ~/.p10k.zsh
+
+# ln --symbolic \
+#     --verbose \
+#     --force \
+#     --relative \
+#     oh-my-zsh \
+#     ~/.oh-my-zsh
+
+# ln --symbolic \
+#     --verbose \
+#     --force \
+#     --relative \
+#     mpv \
+#     ~/.config/mpv
+
+# exit
+
+# stow \
+#     --verbose \
+#     --target="${HOME}/" \
+#     --dotfiles \
+#     dot-anime.txt
