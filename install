@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-clear
+
 set -e
 # set -x
 
@@ -16,8 +16,6 @@ RESETCOLOR=$(tput sgr0)
 #     echo >&2 "${RED}stow${RESETCOLOR} could not be found"
 #     exit 1
 # fi
-
-# echo hi
 
 echo "${CYAN}[   1   ]${RESETCOLOR} Copy to home"
 echo "${CYAN}[   2   ]${RESETCOLOR} Symlink"
@@ -54,10 +52,13 @@ elif [[ $USER_INPUT == 4 ]]; then
     cp -vr ~/.p10k.zsh  p10k.zsh  
     cp -r ~/.oh-my-zsh oh-my-zsh 
 else 
-    COMMAND="echo"
+    rm -v ~/.zshrc     
+    rm -v ~/.nanorc   
+    rm -v ~/.gitconfig
+    rm -v ~/.p10k.zsh 
+    rm -rf ~/.oh-my-zsh 
 fi
 
-# echo "${COMMAND}"
 
 exit
 

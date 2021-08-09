@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/stephen/.oh-my-zsh"
+export ZSH="${HOME}/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -127,12 +127,12 @@ bindkey "\e[3;5~" kill-word
 alias ll='ls -hAlFv --group-directories-first'
 alias l='exa --long --icons --all --header --extended --git --group-directories-first --classify'
 alias p="ping -c 50 8.8.8.8"
-alias aptgetu="sudo apt-get update && sudo apt-get upgrade"
 alias g="git status"
 alias tldr="tldr --theme ocean"
 alias bat="bat --number"
 alias cat="bat -pp"
-alias aptu="sudo apt update && echo -e "\n\n" && apt list --upgradable"
+# alias aptgetu="sudo apt-get update && sudo apt-get upgrade"
+# alias aptu="sudo apt update && echo -e "\n\n" && apt list --upgradable"
 # alias h="cat ~/.bashrc ~/.bash_functions && echo '' && alias"
 # alias h="history | less +G"
 # alias cdiscord="google-chrome --app=https://discordapp.com/app &" # NO NEED LETS GO
@@ -157,7 +157,6 @@ alias aptu="sudo apt update && echo -e "\n\n" && apt list --upgradable"
 # export GROFF_NO_SGR=1   
 export MANPAGER="most"
 
-
 export BAT_PAGER='less -R'
 
 export LS_COLORS='no=00;38;5;250:rs=0:di=01;38;5;198:ln=01;38;5;37:mh=00:pi=48;5;230;38;5;136;01:so=48;5;230;38;5;136;01:do=48;5;230;38;5;136;01:bd=48;5;230;38;5;244;01:cd=48;5;230;38;5;244;01:or=48;5;235;38;5;160:su=48;5;160;38;5;230:sg=48;5;136;38;5;230:ca=30;41:tw=48;5;64;38;5;230:ow=48;5;235;38;5;33:st=48;5;33;38;5;230:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:ex=01;38;5;82:*.cmd=00;38;5;82:*.exe=00;38;5;82:*.com=00;38;5;82:*.btm=00;38;5;82:*.bat=00;38;5;82:*.jpg=00;38;5;37:*.jpeg=00;38;5;37:*.png=00;38;5;37:*.gif=00;38;5;37:*.bmp=00;38;5;37:*.xbm=00;38;5;37:*.xpm=00;38;5;37:*.tif=00;38;5;37:*.tiff=00;38;5;37:*.pdf=00;38;5;98:*.odf=00;38;5;98:*.doc=00;38;5;98:*.ppt=00;38;5;98:*.pptx=00;38;5;98:*.db=00;38;5;98:*.aac=00;38;5;208:*.au=00;38;5;208:*.flac=00;38;5;208:*.mid=00;38;5;208:*.midi=00;38;5;208:*.mka=00;38;5;208:*.mp3=00;38;5;208:*.mpc=00;38;5;208:*.ogg=00;38;5;208:*.ra=00;38;5;208:*.wav=00;38;5;208:*.m4a=00;38;5;208:*.axa=00;38;5;208:*.oga=00;38;5;208:*.spx=00;38;5;208:*.xspf=00;38;5;208:*.mov=01;38;5;208:*.mpg=01;38;5;208:*.mpeg=01;38;5;208:*.3gp=01;38;5;208:*.m2v=01;38;5;208:*.mkv=01;38;5;208:*.ogm=01;38;5;208:*.mp4=01;38;5;208:*.m4v=01;38;5;208:*.mp4v=01;38;5;208:*.vob=01;38;5;208:*.qt=01;38;5;208:*.nuv=01;38;5;208:*.wmv=01;38;5;208:*.asf=01;38;5;208:*.rm=01;38;5;208:*.rmvb=01;38;5;208:*.flc=01;38;5;208:*.avi=01;38;5;208:*.fli=01;38;5;208:*.flv=01;38;5;208:*.gl=01;38;5;208:*.m2ts=01;38;5;208:*.divx=01;38;5;208:*.log=00;38;5;240:*.bak=00;38;5;240:*.aux=00;38;5;240:*.bbl=00;38;5;240:*.blg=00;38;5;240:*~=00;38;5;240:*#=00;38;5;240:*.part=00;38;5;240:*.incomplete=00;38;5;240:*.swp=00;38;5;240:*.tmp=00;38;5;240:*.temp=00;38;5;240:*.o=00;38;5;240:*.pyc=00;38;5;240:*.class=00;38;5;240:*.cache=00;38;5;240:';
@@ -167,9 +166,9 @@ export EXA_COLORS="${LS_COLORS}"
 setopt NO_LIST_AMBIGUOUS
 autoload -U compinit && compinit
 
-kitty + complete setup zsh | source /dev/stdin
+# kitty + complete setup zsh | source /dev/stdin
 
-export EDITOR=micro
+export EDITOR=nano
 export VISUAL=${EDITOR}
 
 # Java stuff
@@ -177,7 +176,7 @@ export VISUAL=${EDITOR}
 # openjdk-11-jre-headless/focal-updates,focal-security,now 11.0.11+9-0ubuntu2~20.04 amd64 [installed,automatic]
 # openjdk-11-jre/focal-updates,focal-security,now 11.0.11+9-0ubuntu2~20.04 amd64 [installed]
 
-export HISTFILE="${HOME}/.zsh_history"
+export HISTFILE="${HOME}/.history"
 export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE 
 
@@ -204,6 +203,6 @@ DISABLE_AUTO_TITLE="true"
 # export PATH="${PATH}:/home/stephen/.cargo/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
+[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+[ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
 
