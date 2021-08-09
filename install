@@ -66,7 +66,8 @@ ${COMMAND} zshrc     ~/.zshrc
 ${COMMAND} nanorc    ~/.nanorc
 ${COMMAND} gitconfig ~/.gitconfig
 ${COMMAND} p10k.zsh  ~/.p10k.zsh
-${COMMAND} oh-my-zsh ~/.oh-my-zsh
+
+# ${COMMAND} oh-my-zsh ~/.oh-my-zsh
 
 # ln --symbolic \
 #     --verbose \
