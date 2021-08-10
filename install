@@ -21,6 +21,8 @@ echo "${CYAN}[   1   ]${RESETCOLOR} Copy to home"
 echo "${CYAN}[   2   ]${RESETCOLOR} Symlink"
 echo "${CYAN}[   3   ]${RESETCOLOR} Delete"
 echo "${CYAN}[   4   ]${RESETCOLOR} Copy from home"
+echo "${CYAN}[   5   ]${RESETCOLOR} Install oh-my-zsh"
+echo "${CYAN}[   6   ]${RESETCOLOR} Install oh-my-zsh plugins"
 echo "${CYAN}[ Enter ]${RESETCOLOR} Exit"
 echo
 
@@ -36,7 +38,7 @@ if ! [[ $USER_INPUT =~ $IS_NUMBER ]]; then
     exit 1
 fi
 
-if ((USER_INPUT < 1 || USER_INPUT > 4)); then
+if ((USER_INPUT < 1 || USER_INPUT > 5)); then
     echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
     exit 1
 fi
@@ -50,7 +52,8 @@ elif [[ $USER_INPUT == 3 ]]; then
     rm -v  ~/.nanorc   
     rm -v  ~/.gitconfig
     rm -v  ~/.p10k.zsh 
-    # rm -rf ~/.oh-my-zsh 
+    rm -rf ~/.oh-my-zsh 
+    rm -rf ~/.fzf
     exit
 elif [[ $USER_INPUT == 4 ]]; then
     cp -vr ~/.zshrc     zshrc     
@@ -59,22 +62,41 @@ elif [[ $USER_INPUT == 4 ]]; then
     cp -vr ~/.p10k.zsh  p10k.zsh  
     # cp -r  ~/.oh-my-zsh oh-my-zsh 
     exit
+elif [[ $USER_INPUT == 5 ]]; then
+    if command -v curl &>/dev/null; then
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    elif command -v wget &>/dev/null; then
+        sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    elif command -v fetch &>/dev/null; then
+        sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"   
+    fi
+    echo >&2 "${RED}Error: Somehow you don't have ${CYAN}curl wget fetch${RESETCOLOR}"
+    exit 1
+elif [[ $USER_INPUT == 6 ]]; then
+    echo "${CYAN}powerlevel10k${RESETCOLOR}"
+    git clone --depth=1 -- https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    #echo "${CYAN}zsh-autocomplete${RESETCOLOR}"
+    #git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+    echo "${CYAN}zsh-autosuggestions${RESETCOLOR}"
+    git clone           -- https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    echo "${CYAN}zsh-syntax-highlighting${RESETCOLOR}"
+    git clone           -- https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 fi
 
-read -p "${YELLOW}Install ${CYAN}oh my zsh${YELLOW}? [y/N]: ${RESETCOLOR}" -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+#read -p "${YELLOW}Install ${CYAN}oh my zsh${YELLOW}? [y/N]: ${RESETCOLOR}" -n 1 -r
+#echo    # (optional) move to a new line
+#if [[ $REPLY =~ ^[Yy]$ ]]; then
     # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
     #|| sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
     #|| sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     
     #chsh -s $(which zsh)
 
-    git clone --depth=1 -- https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
-    git clone           -- https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    git clone           -- https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-fi
+ #   git clone --depth=1 -- https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  #  git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+   # git clone           -- https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    #git clone           -- https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+#fi
 
 ${COMMAND} zshrc     ~/.zshrc
 ${COMMAND} nanorc    ~/.nanorc
@@ -90,57 +112,3 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
 fi
-
-
-
-# ${COMMAND} oh-my-zsh ~/.oh-my-zsh
-
-# ln --symbolic \
-#     --verbose \
-#     --force \
-#     --relative \
-#     zshrc \
-#     ~/.zshrc
-
-# ln --symbolic \
-#     --verbose \
-#     --force \
-#     --relative \
-#     nanorc \
-#     ~/.nanorc
-
-# ln --symbolic \
-#     --verbose \
-#     --force \
-#     --relative \
-#     gitconfig \
-#     ~/.gitconfig
-
-# ln --symbolic \
-#     --verbose \
-#     --force \
-#     --relative \
-#     p10k.zsh \
-#     ~/.p10k.zsh
-
-# ln --symbolic \
-#     --verbose \
-#     --force \
-#     --relative \
-#     oh-my-zsh \
-#     ~/.oh-my-zsh
-
-# ln --symbolic \
-#     --verbose \
-#     --force \
-#     --relative \
-#     mpv \
-#     ~/.config/mpv
-
-# exit
-
-# stow \
-#     --verbose \
-#     --target="${HOME}/" \
-#     --dotfiles \
-#     dot-anime.txt
