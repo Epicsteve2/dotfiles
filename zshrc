@@ -80,7 +80,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   # git
-  # zsh-autosuggestions
+  zsh-autosuggestions
   zsh-autocomplete
   zsh-syntax-highlighting
   pip
@@ -130,7 +130,7 @@ alias p="ping -c 50 8.8.8.8"
 alias g="git status"
 alias tldr="tldr --theme ocean"
 alias bat="bat --number"
-alias cat="bat -pp"
+# alias cat="bat -pp"
 # alias aptgetu="sudo apt-get update && sudo apt-get upgrade"
 # alias aptu="sudo apt update && echo -e "\n\n" && apt list --upgradable"
 # alias h="cat ~/.bashrc ~/.bash_functions && echo '' && alias"
@@ -182,7 +182,7 @@ export SAVEHIST=$HISTSIZE
 
 # p10k configure
 # setopt BANG_HIST                 # Treat the '!' character specially during expansion.
-# setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.
 # setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
@@ -203,6 +203,6 @@ DISABLE_AUTO_TITLE="true"
 # export PATH="${PATH}:/home/stephen/.cargo/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
-[ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
+# [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
+# [ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
 

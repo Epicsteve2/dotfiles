@@ -50,23 +50,40 @@ elif [[ $USER_INPUT == 3 ]]; then
     rm -v  ~/.nanorc   
     rm -v  ~/.gitconfig
     rm -v  ~/.p10k.zsh 
-    rm -rf ~/.oh-my-zsh 
+    # rm -rf ~/.oh-my-zsh 
     exit
 elif [[ $USER_INPUT == 4 ]]; then
     cp -vr ~/.zshrc     zshrc     
     cp -vr ~/.nanorc    nanorc    
     cp -vr ~/.gitconfig gitconfig 
     cp -vr ~/.p10k.zsh  p10k.zsh  
-    cp -r  ~/.oh-my-zsh oh-my-zsh 
+    # cp -r  ~/.oh-my-zsh oh-my-zsh 
     exit
+fi
+
+read -p "${YELLOW}Install ${CYAN}oh my zsh${YELLOW}? [y/N]: ${RESETCOLOR}" -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+    || sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+    || sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    
+    chsh -s $(which zsh)
+
+    git clone --depth=1 -- https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+    git clone           -- https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone           -- https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 fi
 
 ${COMMAND} zshrc     ~/.zshrc
 ${COMMAND} nanorc    ~/.nanorc
 ${COMMAND} gitconfig ~/.gitconfig
 ${COMMAND} p10k.zsh  ~/.p10k.zsh
-${COMMAND} oh-my-zsh ~/.oh-my-zsh
+# ${COMMAND} oh-my-zsh ~/.oh-my-zsh
 
+# https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Monofur.zip
+# https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
 read -p "${YELLOW}Install ${CYAN}fzf${YELLOW}? [y/N]: ${RESETCOLOR}" -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]; then
