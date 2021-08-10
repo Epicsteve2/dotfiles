@@ -45,27 +45,36 @@ if [[ $USER_INPUT == 1 ]]; then
     COMMAND="cp --verbose --recursive"
 elif [[ $USER_INPUT == 2 ]]; then
     COMMAND="ln --symbolic --verbose --force --relative"
+elif [[ $USER_INPUT == 3 ]]; then
+    rm -v  ~/.zshrc     
+    rm -v  ~/.nanorc   
+    rm -v  ~/.gitconfig
+    rm -v  ~/.p10k.zsh 
+    rm -rf ~/.oh-my-zsh 
+    exit
 elif [[ $USER_INPUT == 4 ]]; then
     cp -vr ~/.zshrc     zshrc     
     cp -vr ~/.nanorc    nanorc    
     cp -vr ~/.gitconfig gitconfig 
     cp -vr ~/.p10k.zsh  p10k.zsh  
-    cp -r ~/.oh-my-zsh oh-my-zsh 
-else 
-    rm -v ~/.zshrc     
-    rm -v ~/.nanorc   
-    rm -v ~/.gitconfig
-    rm -v ~/.p10k.zsh 
-    rm -rf ~/.oh-my-zsh 
+    cp -r  ~/.oh-my-zsh oh-my-zsh 
+    exit
 fi
-
-
-exit
 
 ${COMMAND} zshrc     ~/.zshrc
 ${COMMAND} nanorc    ~/.nanorc
 ${COMMAND} gitconfig ~/.gitconfig
 ${COMMAND} p10k.zsh  ~/.p10k.zsh
+${COMMAND} oh-my-zsh ~/.oh-my-zsh
+
+read -p "${YELLOW}Install ${CYAN}fzf${YELLOW}? [y/N]: ${RESETCOLOR}" -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+fi
+
+
 
 # ${COMMAND} oh-my-zsh ~/.oh-my-zsh
 
