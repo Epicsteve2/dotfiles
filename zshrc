@@ -85,7 +85,7 @@ plugins=(
   zsh-syntax-highlighting
   pip
   # fast-syntax-highlighting
-  # zsh-completions
+  zsh-completions
 )
 
 source $ZSH/oh-my-zsh.sh
