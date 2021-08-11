@@ -170,3 +170,8 @@ DISABLE_AUTO_TITLE="true"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# for zsh autocompletions
+zstyle ':autocomplete:*' fzf-completion yes
+zstyle ':autocomplete:*' widget-style menu-select
+zstyle ':autocomplete:*' insert-unambiguous yes
