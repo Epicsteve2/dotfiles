@@ -20,8 +20,9 @@ copyFiles() {
     ${COMMAND} microSettings.json ~/.config/microSettings
     ${COMMAND} mpv ~/.config/mpv
     #mkdir --parents --verbose ~/.config/sublime-text-3/Packages/User
-
-    echo -e "\n${CYAN}[   1   ]${RESETCOLOR} Powerlevel10k fancy"
+    
+    echo
+    echo "${CYAN}[   1   ]${RESETCOLOR} Powerlevel10k fancy"
     echo "${CYAN}[   2   ]${RESETCOLOR} Powerlevel10k clean"
     echo "${CYAN}[ Enter ]${RESETCOLOR} Exit"
     echo
@@ -45,16 +46,8 @@ copyFiles() {
         ${COMMAND} p10kClean.zsh  ~/.p10k.zsh
     fi
     
-    echo -e "\n${CYAN}Cloning nano-syntax-highlighting...${RESETCOLOR}"
-    if command -v curl &>/dev/null; then
-        curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
-    elif command -v wget &>/dev/null; then
-        wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -O- | sh
-    else
-        echo >&2 "${RED}Error: Somehow you don't have ${CYAN}curl wget${RESETCOLOR}"
-        return
-    fi
-    echo -e "\n${CYAN}[   1   ]${RESETCOLOR} nano 4"
+    echo
+    echo "${CYAN}[   1   ]${RESETCOLOR} nano 4"
     echo "${CYAN}[   2   ]${RESETCOLOR} nano 5"
     echo "${CYAN}[ Enter ]${RESETCOLOR} Exit"
     echo
@@ -71,7 +64,18 @@ copyFiles() {
         echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
         return
     fi
-
+    
+    echo
+    echo "${CYAN}Cloning nano-syntax-highlighting...${RESETCOLOR}"
+    if command -v curl &>/dev/null; then
+        curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
+    elif command -v wget &>/dev/null; then
+        wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -O- | sh
+    else
+        echo >&2 "${RED}Error: Somehow you don't have ${CYAN}curl wget${RESETCOLOR}"
+        return
+    fi
+  
     if [[ $USER_INPUT == 1 ]]; then
         ${COMMAND} nanorc4    ~/.nanorc
     elif [[ $USER_INPUT == 2 ]]; then
@@ -134,11 +138,14 @@ while true; do
         git clone --depth=1 -- https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
         #echo "${CYAN}zsh-autocomplete${RESETCOLOR}"
         #git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
-        echo "\n${CYAN}Cloning zsh-autosuggestions...${RESETCOLOR}"
+        echo
+        echo "${CYAN}Cloning zsh-autosuggestions...${RESETCOLOR}"
         git clone           -- https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-        echo "\n${CYAN}Cloning zsh-syntax-highlighting...${RESETCOLOR}"
+        echo
+        echo "${CYAN}Cloning zsh-syntax-highlighting...${RESETCOLOR}"
         git clone           -- https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-        echo "\n${CYAN}Cloning zsh-completions...${RESETCOLOR}"
+        echo
+        echo "${CYAN}Cloning zsh-completions...${RESETCOLOR}"
         git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
     elif [[ $USER_INPUT == 7 ]]; then
         git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
