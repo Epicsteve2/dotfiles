@@ -21,7 +21,7 @@ copyFiles() {
     ${COMMAND} mpv ~/.config/mpv
     #mkdir --parents --verbose ~/.config/sublime-text-3/Packages/User
 
-    echo "\n${CYAN}[   1   ]${RESETCOLOR} Powerlevel10k fancy"
+    echo -e "\n${CYAN}[   1   ]${RESETCOLOR} Powerlevel10k fancy"
     echo "${CYAN}[   2   ]${RESETCOLOR} Powerlevel10k clean"
     echo "${CYAN}[ Enter ]${RESETCOLOR} Exit"
     echo
@@ -40,12 +40,12 @@ copyFiles() {
     fi
 
     if [[ $USER_INPUT == 1 ]]; then
-        ${COMMAND} p10kFancy  ~/.p10k.zsh
+        ${COMMAND} p10kFancy.zsh  ~/.p10k.zsh
     elif [[ $USER_INPUT == 2 ]]; then
-        ${COMMAND} p10kClean  ~/.p10k.zsh
+        ${COMMAND} p10kClean.zsh  ~/.p10k.zsh
     fi
     
-    echo "\n${CYAN}Cloning nano-syntax-highlighting...${RESETCOLOR}"
+    echo -e "\n${CYAN}Cloning nano-syntax-highlighting...${RESETCOLOR}"
     if command -v curl &>/dev/null; then
         curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
     elif command -v wget &>/dev/null; then
@@ -54,7 +54,7 @@ copyFiles() {
         echo >&2 "${RED}Error: Somehow you don't have ${CYAN}curl wget${RESETCOLOR}"
         return
     fi
-    echo "\n${CYAN}[   1   ]${RESETCOLOR} nano 4"
+    echo -e "\n${CYAN}[   1   ]${RESETCOLOR} nano 4"
     echo "${CYAN}[   2   ]${RESETCOLOR} nano 5"
     echo "${CYAN}[ Enter ]${RESETCOLOR} Exit"
     echo
