@@ -79,13 +79,13 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  # git
   zsh-autosuggestions
-  # zsh-autocomplete
   zsh-syntax-highlighting
   pip
-  # fast-syntax-highlighting
   zsh-completions
+  # git
+  # zsh-autocomplete
+  # fast-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -131,30 +131,9 @@ alias g="git status"
 alias tldr="tldr --theme ocean"
 alias bat="bat --number"
 # alias cat="bat -pp"
-# alias aptgetu="sudo apt-get update && sudo apt-get upgrade"
-# alias aptu="sudo apt update && echo -e "\n\n" && apt list --upgradable"
+alias aptgetu="sudo apt-get update && sudo apt-get upgrade"
+alias aptu="sudo apt update && echo -e "\n\n" && apt list --upgradable && echo -e "\n\n" && sudo apt upgrade"
 # alias h="cat ~/.bashrc ~/.bash_functions && echo '' && alias"
-# alias h="history | less +G"
-# alias cdiscord="google-chrome --app=https://discordapp.com/app &" # NO NEED LETS GO
-# alias remove='mv --force --verbose -t ~/.local/share/Trash'
-# alias grep="rg"
-# alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-
-# export LESS="--RAW-CONTROL-CHARS"
-# export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
-# export LESS_TERMCAP_md=$(tput bold; tput setaf 6) # cyan
-# export LESS_TERMCAP_me=$(tput sgr0)
-# export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4) # yellow on blue
-# export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
-# export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7) # white
-# export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
-# export LESS_TERMCAP_mr=$(tput rev)
-# export LESS_TERMCAP_mh=$(tput dim)
-# export LESS_TERMCAP_ZN=$(tput ssubm)
-# export LESS_TERMCAP_ZV=$(tput rsubm)
-# export LESS_TERMCAP_ZO=$(tput ssupm)
-# export LESS_TERMCAP_ZW=$(tput rsupm)
-# export GROFF_NO_SGR=1   
 export MANPAGER="most"
 
 export BAT_PAGER='less -R'
@@ -166,21 +145,13 @@ export EXA_COLORS="${LS_COLORS}"
 setopt NO_LIST_AMBIGUOUS
 autoload -U compinit && compinit
 
-# kitty + complete setup zsh | source /dev/stdin
-
 export EDITOR=nano
 export VISUAL=${EDITOR}
-
-# Java stuff
-# openjdk-11-jdk-headless/focal-updates,focal-security,now 11.0.11+9-0ubuntu2~20.04 amd64 [installed]
-# openjdk-11-jre-headless/focal-updates,focal-security,now 11.0.11+9-0ubuntu2~20.04 amd64 [installed,automatic]
-# openjdk-11-jre/focal-updates,focal-security,now 11.0.11+9-0ubuntu2~20.04 amd64 [installed]
 
 export HISTFILE="${HOME}/.history"
 export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE 
 
-# p10k configure
 # setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
@@ -197,12 +168,5 @@ precmd () {print -Pn "\e]0;%~\a"}
 title() { export TITLE="$*" }
 DISABLE_AUTO_TITLE="true"
 
-# if [[ $TERM == "xterm-kitty" ]]; then
-#   neofetch
-# fi
-# export PATH="${PATH}:/home/stephen/.cargo/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
-# [ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
-

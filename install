@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+clear
 set -e
 # set -x
 
@@ -12,107 +12,154 @@ CYAN=$(tput setaf 6)
 RESETCOLOR=$(tput setaf 7) #white
 RESETCOLOR=$(tput sgr0)
 
-# if ! command -v stow &>/dev/null; then
-#     echo >&2 "${RED}stow${RESETCOLOR} could not be found"
-#     exit 1
-# fi
+copyFiles() {
+    ${COMMAND} zshrc     ~/.zshrc
+    ${COMMAND} gitconfig ~/.gitconfig
 
-echo "${CYAN}[   1   ]${RESETCOLOR} Copy to home"
-echo "${CYAN}[   2   ]${RESETCOLOR} Symlink"
-echo "${CYAN}[   3   ]${RESETCOLOR} Delete"
-echo "${CYAN}[   4   ]${RESETCOLOR} Copy from home"
-echo "${CYAN}[   5   ]${RESETCOLOR} Install oh-my-zsh"
-echo "${CYAN}[   6   ]${RESETCOLOR} Install oh-my-zsh plugins"
-echo "${CYAN}[ Enter ]${RESETCOLOR} Exit"
-echo
+    mkdir --parents --verbose ~/.config/micro
+    ${COMMAND} microSettings.json ~/.config/microSettings
+    ${COMMAND} mpv ~/.config/mpv
+    #mkdir --parents --verbose ~/.config/sublime-text-3/Packages/User
 
-read -rp "${YELLOW}Enter a choice: ${RESETCOLOR}" USER_INPUT
-
-if [[ -z $USER_INPUT ]]; then
-    exit
-fi
-
-IS_NUMBER='^[0-9]+$'
-if ! [[ $USER_INPUT =~ $IS_NUMBER ]]; then
-    echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
-    exit 1
-fi
-
-if ((USER_INPUT < 1 || USER_INPUT > 6)); then
-    echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
-    exit 1
-fi
-
-if [[ $USER_INPUT == 1 ]]; then
-    COMMAND="cp --verbose --recursive"
-elif [[ $USER_INPUT == 2 ]]; then
-    COMMAND="ln --symbolic --verbose --force --relative"
-elif [[ $USER_INPUT == 3 ]]; then
-    rm -v  ~/.zshrc     
-    rm -v  ~/.nanorc   
-    rm -v  ~/.gitconfig
-    rm -v  ~/.p10k.zsh 
-    rm -rf ~/.oh-my-zsh 
-    rm -rf ~/.fzf
-    exit
-elif [[ $USER_INPUT == 4 ]]; then
-    cp -vr ~/.zshrc     zshrc     
-    cp -vr ~/.nanorc    nanorc    
-    cp -vr ~/.gitconfig gitconfig 
-    cp -vr ~/.p10k.zsh  p10k.zsh  
-    # cp -r  ~/.oh-my-zsh oh-my-zsh 
-    exit
-elif [[ $USER_INPUT == 5 ]]; then
-    if command -v curl &>/dev/null; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    elif command -v wget &>/dev/null; then
-        sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    elif command -v fetch &>/dev/null; then
-        sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"   
+    echo "\n${CYAN}[   1   ]${RESETCOLOR} Powerlevel10k fancy"
+    echo "${CYAN}[   2   ]${RESETCOLOR} Powerlevel10k clean"
+    echo "${CYAN}[ Enter ]${RESETCOLOR} Exit"
+    echo
+    read -rp "${YELLOW}Enter a choice: ${RESETCOLOR}" USER_INPUT
+    if [[ -z $USER_INPUT ]]; then
+        return
     fi
-    echo >&2 "${RED}Error: Somehow you don't have ${CYAN}curl wget fetch${RESETCOLOR}"
-    exit 1
-elif [[ $USER_INPUT == 6 ]]; then
-    echo "${CYAN}powerlevel10k${RESETCOLOR}"
-    git clone --depth=1 -- https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    #echo "${CYAN}zsh-autocomplete${RESETCOLOR}"
-    #git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
-    echo "${CYAN}zsh-autosuggestions${RESETCOLOR}"
-    git clone           -- https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    echo "${CYAN}zsh-syntax-highlighting${RESETCOLOR}"
-    git clone           -- https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    echo "${CYAN}zsh-completions${RESETCOLOR}"
-    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+    IS_NUMBER='^[0-9]+$'
+    if ! [[ $USER_INPUT =~ $IS_NUMBER ]]; then
+        echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
+        return
+    fi
+    if ((USER_INPUT < 1 || USER_INPUT > 2)); then
+        echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
+        return
+    fi
 
-    exit
-fi
-
-#read -p "${YELLOW}Install ${CYAN}oh my zsh${YELLOW}? [y/N]: ${RESETCOLOR}" -n 1 -r
-#echo    # (optional) move to a new line
-#if [[ $REPLY =~ ^[Yy]$ ]]; then
-    # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
-    #|| sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
-    #|| sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    if [[ $USER_INPUT == 1 ]]; then
+        ${COMMAND} p10kFancy  ~/.p10k.zsh
+    elif [[ $USER_INPUT == 2 ]]; then
+        ${COMMAND} p10kClean  ~/.p10k.zsh
+    fi
     
-    #chsh -s $(which zsh)
+    echo "\n${CYAN}Cloning nano-syntax-highlighting...${RESETCOLOR}"
+    if command -v curl &>/dev/null; then
+        curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
+    elif command -v wget &>/dev/null; then
+        wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -O- | sh
+    else
+        echo >&2 "${RED}Error: Somehow you don't have ${CYAN}curl wget${RESETCOLOR}"
+        return
+    fi
+    echo "\n${CYAN}[   1   ]${RESETCOLOR} nano 4"
+    echo "${CYAN}[   2   ]${RESETCOLOR} nano 5"
+    echo "${CYAN}[ Enter ]${RESETCOLOR} Exit"
+    echo
+    read -rp "${YELLOW}Enter a choice: ${RESETCOLOR}" USER_INPUT
+    if [[ -z $USER_INPUT ]]; then
+        return
+    fi
+    IS_NUMBER='^[0-9]+$'
+    if ! [[ $USER_INPUT =~ $IS_NUMBER ]]; then
+        echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
+        return
+    fi
+    if ((USER_INPUT < 1 || USER_INPUT > 2)); then
+        echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
+        return
+    fi
 
- #   git clone --depth=1 -- https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-  #  git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
-   # git clone           -- https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    #git clone           -- https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-#fi
+    if [[ $USER_INPUT == 1 ]]; then
+        ${COMMAND} nanorc4    ~/.nanorc
+    elif [[ $USER_INPUT == 2 ]]; then
+        ${COMMAND} nanorc5    ~/.nanorc
+    fi
+}
 
-${COMMAND} zshrc     ~/.zshrc
-${COMMAND} nanorc    ~/.nanorc
-${COMMAND} gitconfig ~/.gitconfig
-${COMMAND} p10k.zsh  ~/.p10k.zsh
-# ${COMMAND} oh-my-zsh ~/.oh-my-zsh
-
-# https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Monofur.zip
-# https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
-read -p "${YELLOW}Install ${CYAN}fzf${YELLOW}? [y/N]: ${RESETCOLOR}" -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
-fi
+while true; do
+    echo "${CYAN}[   1   ]${RESETCOLOR} Copy to home"
+    echo "${CYAN}[   2   ]${RESETCOLOR} Symlink"
+    echo "${CYAN}[   3   ]${RESETCOLOR} Delete"
+    echo "${CYAN}[   4   ]${RESETCOLOR} Copy from home"
+    echo "${CYAN}[   5   ]${RESETCOLOR} Install oh-my-zsh"
+    echo "${CYAN}[   6   ]${RESETCOLOR} Install oh-my-zsh plugins"
+    echo "${CYAN}[   7   ]${RESETCOLOR} Install fzf"
+    echo "${CYAN}[   8   ]${RESETCOLOR} Install fonts"
+    echo "${CYAN}[ Enter ]${RESETCOLOR} Exit"
+    echo
+    read -rp "${YELLOW}Enter a choice: ${RESETCOLOR}" USER_INPUT
+    if [[ -z $USER_INPUT ]]; then
+        exit
+    fi
+    IS_NUMBER='^[0-9]+$'
+    if ! [[ $USER_INPUT =~ $IS_NUMBER ]]; then
+        echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
+    fi
+    if ((USER_INPUT < 1 || USER_INPUT > 8)); then
+        echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
+    fi
+    
+    if [[ $USER_INPUT == 1 ]]; then
+        COMMAND="cp --verbose --recursive"
+        copyFiles
+    elif [[ $USER_INPUT == 2 ]]; then
+        COMMAND="ln --symbolic --verbose --force --relative"
+        copyFiles
+    elif [[ $USER_INPUT == 3 ]]; then
+        rm --verbose  ~/.zshrc     
+        rm --verbose  ~/.nanorc   
+        rm --verbose  ~/.gitconfig
+        rm --verbose  ~/.p10k.zsh 
+        rm --recursive --force ~/.oh-my-zsh 
+        rm --recursive --force ~/.fzf
+    elif [[ $USER_INPUT == 4 ]]; then
+        cp --verbose --recursive ~/.zshrc     zshrc     
+        cp --verbose --recursive ~/.nanorc    nanorc    
+        cp --verbose --recursive ~/.gitconfig gitconfig 
+        cp --verbose --recursive ~/.p10k.zsh  p10k.zsh
+    elif [[ $USER_INPUT == 5 ]]; then
+        if command -v curl &>/dev/null; then
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        elif command -v wget &>/dev/null; then
+            sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        elif command -v fetch &>/dev/null; then
+            sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"   
+        fi
+        echo >&2 "${RED}Error: Somehow you don't have ${CYAN}curl wget fetch${RESETCOLOR}"
+    elif [[ $USER_INPUT == 6 ]]; then
+        echo "${CYAN}Cloning powerlevel10k...${RESETCOLOR}"
+        git clone --depth=1 -- https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+        #echo "${CYAN}zsh-autocomplete${RESETCOLOR}"
+        #git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+        echo "\n${CYAN}Cloning zsh-autosuggestions...${RESETCOLOR}"
+        git clone           -- https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        echo "\n${CYAN}Cloning zsh-syntax-highlighting...${RESETCOLOR}"
+        git clone           -- https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        echo "\n${CYAN}Cloning zsh-completions...${RESETCOLOR}"
+        git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+    elif [[ $USER_INPUT == 7 ]]; then
+        git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install
+        # read -p "${YELLOW}Install ${CYAN}fzf${YELLOW}? [y/N]: ${RESETCOLOR}" -n 1 -r
+        # echo    # (optional) move to a new line
+        # if [[ $REPLY =~ ^[Yy]$ ]]; then
+        #     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        #     ~/.fzf/install
+        # fi
+    elif [[ $USER_INPUT == 8 ]]; then
+        # echo "${CYAN}Downloading Monofur${RESETCOLOR}"
+        # wget "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Monofur.zip"
+        # echo "${CYAN}Downloading FireCode${RESETCOLOR}"
+        # curl --location --remote-name "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip" 
+        # unzip -d font/ -j FiraCode.zip "Fira Code*Complete.ttf"
+        # unzip -d font/ -j Monofur.zip "*Complete.ttf"
+        #/usr/share/fonts /usr/local/share/fonts  ~/.font ~/.local/share/fonts
+        mkdir --parents --verbose ~/.local/share/fonts/
+        cp --archive fonts/. ~/.local/share/fonts/
+        fc-cache --force --verbose
+    fi
+    echo
+done
