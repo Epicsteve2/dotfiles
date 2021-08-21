@@ -41,6 +41,10 @@ copyFiles() {
     if addFile bashrc; then ${COMMAND} bashrc     ~/.bashrc; fi
     if addFile gitconfig; then ${COMMAND} gitconfig ~/.gitconfig; fi
     if addFile mpv; then ${COMMAND} mpv ~/.config/mpv; fi
+    if addFile hyper.js; then 
+        mkdir --parents --verbose ~/.config/Hyper
+        ${COMMAND} hyper.js ~/.config/Hyper/.hyper.js
+    fi
     if addFile micro; then 
         mkdir --parents --verbose ~/.config/micro
         ${COMMAND} microSettings.json ~/.config/micro/settings.json 
@@ -92,13 +96,14 @@ while true; do
         2)  COMMAND="ln --symbolic --verbose --force --relative"
             copyFiles;;
 
-        3)  rm --verbose  ~/.zshrc     
-            rm --verbose  ~/.bashrc     
-            rm --verbose  ~/.nanorc   
-            rm --verbose  ~/.gitconfig
-            rm --verbose  ~/.p10k.zsh 
-            rm --verbose  ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
-            rm --verbose  ~/.config/micro
+        3)  rm --force --verbose ~/.zshrc     
+            rm --force --verbose ~/.bashrc     
+            rm --force --verbose ~/.nanorc   
+            rm --force --verbose ~/.gitconfig
+            rm --force --verbose ~/.p10k.zsh 
+            rm --force --verbose ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
+            rm --force --verbose ~/.config/micro
+            rm --force --verbose ~/.config/Hyper/.hyper.js
             echo "${YELLOW}removing mpv...${RESETCOLOR}"
             rm --recursive --force  ~/.config/mpv  
             echo "${YELLOW}removing oh-my-zsh...${RESETCOLOR}"
