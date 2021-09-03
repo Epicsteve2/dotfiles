@@ -174,4 +174,4 @@ DISABLE_AUTO_TITLE="true"
 # for zsh autocompletions
 zstyle ':autocomplete:*' fzf-completion yes
 zstyle ':autocomplete:*' widget-style menu-select
-zstyle ':autocomplete:*' insert-unambiguous yes
+# zstyle ':autocomplete:*' insert-unambiguous no
