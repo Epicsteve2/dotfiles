@@ -171,7 +171,7 @@ module.exports = {
     "editor:paste": ["ctrl+shift+v", "ctrl+v"],
     "pane:close": ["ctrl+shift+w", "ctrl+w"],
     "tab:new": ["ctrl+shift+t", "ctrl+t"],
-    "window:close": ["ctrl+shift+q", "ctrl+q"],
+    "window:close": ["ctrl+shift+q"],
     },
 };
 //# sourceMappingURL=config-default.js.map
