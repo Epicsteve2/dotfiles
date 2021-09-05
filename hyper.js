@@ -153,8 +153,8 @@ module.exports = {
         "hyper-media-control",
         "hyper-opacity",
         // "hyperpower",
-        "space-pull",
-        "hyper-monokai-deluxe",
+        //"space-pull",
+        //"hyper-monokai-deluxe",
 
         // "hyper-history",
     ],

@@ -131,8 +131,26 @@ alias g="git status"
 alias tldr="tldr --theme ocean"
 alias bat="bat --number"
 # alias cat="bat -pp"
-alias aptgetu="sudo apt-get update && sudo apt-get upgrade"
-alias aptu="sudo apt update && echo -e "\n\n" && apt list --upgradable && echo -e "\n\n" && sudo apt upgrade"
+aptgetu() {
+  sudo apt-get update
+  tput setaf 1
+  echo "Upgrading..."
+  tput sgr0
+  sudo apt-get upgrade
+}
+aptu() {
+  sudo apt update
+
+  tput setaf 1
+  echo "Listing..."
+  tput sgr0
+  apt list --upgradable
+
+  tput setaf 1
+  echo "Upgrading..."
+  tput sgr0
+  sudo apt upgrade
+}
 # alias h="cat ~/.bashrc ~/.bash_functions && echo '' && alias"
 export MANPAGER="most"
 
@@ -174,4 +192,4 @@ DISABLE_AUTO_TITLE="true"
 # for zsh autocompletions
 zstyle ':autocomplete:*' fzf-completion yes
 zstyle ':autocomplete:*' widget-style menu-select
-zstyle ':autocomplete:*' insert-unambiguous yes
+# zstyle ':autocomplete:*' insert-unambiguous yes
