@@ -193,3 +193,5 @@ DISABLE_AUTO_TITLE="true"
 zstyle ':autocomplete:*' fzf-completion yes
 zstyle ':autocomplete:*' widget-style menu-select
 # zstyle ':autocomplete:*' insert-unambiguous yes
+
+[ -f /etc/zsh_command_not_found ] && source /etc/zsh_command_not_found
