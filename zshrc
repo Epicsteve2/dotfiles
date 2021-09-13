@@ -134,6 +134,7 @@ alias bat="bat --number"
 aptgetu() {
   sudo apt-get update
   tput setaf 1
+  echo
   echo "Upgrading..."
   tput sgr0
   sudo apt-get upgrade
@@ -142,11 +143,13 @@ aptu() {
   sudo apt update
 
   tput setaf 1
+  echo
   echo "Listing..."
   tput sgr0
   apt list --upgradable
 
   tput setaf 1
+  echo
   echo "Upgrading..."
   tput sgr0
   sudo apt upgrade

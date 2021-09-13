@@ -127,10 +127,11 @@ module.exports = {
         disableAutoUpdates: false,
         // for advanced config flags please refer to https://hyper.is/#cfg
         opacity: 0.85,
-        monokaiDeluxe: {
+        //monokaiDeluxe: {
             // borderWidth: '2px',
-            theme: 'reloaded'
-        },
+        //    theme: 'reloaded'
+        //},
+        modifierKeys: { altIsMeta: true },
         showHamburgerMenu: true,
     },
     // a list of plugins to fetch and install from npm
@@ -154,7 +155,7 @@ module.exports = {
         "hyper-opacity",
         // "hyperpower",
         //"space-pull",
-        //"hyper-monokai-deluxe",
+        "hyper-monokai-deluxe",
 
         // "hyper-history",
     ],
@@ -172,6 +173,7 @@ module.exports = {
     "pane:close": ["ctrl+shift+w", "ctrl+w"],
     "tab:new": ["ctrl+shift+t", "ctrl+t"],
     "window:close": ["ctrl+shift+q"],
+    "window:hamburgerMenu": "",
     },
 };
 //# sourceMappingURL=config-default.js.map

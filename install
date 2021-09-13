@@ -41,10 +41,7 @@ copyFiles() {
     if addFile bashrc; then ${COMMAND} bashrc     ~/.bashrc; fi
     if addFile gitconfig; then ${COMMAND} gitconfig ~/.gitconfig; fi
     if addFile mpv; then ${COMMAND} mpv ~/.config/mpv; fi
-    if addFile hyper.js; then
-        mkdir --parents --verbose ~/.config/Hyper
-        ${COMMAND} hyper.js ~/.config/Hyper/config.json
-    fi
+    if addFile hyper.js; then ${COMMAND} hyper.js ~/.hyper.js; fi
     if addFile micro; then
         mkdir --parents --verbose ~/.config/micro
         ${COMMAND} microSettings.json ~/.config/micro/settings.json
