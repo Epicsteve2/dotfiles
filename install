@@ -59,7 +59,7 @@ copyFiles() {
 
 	if addFile cudatext; then
 		mkdir --parents --verbose ~/.config/cudatext/settings/
-		${COMMAD} cudatext.json ~/.config/cudatext/settings/user.json
+		${COMMAND} cudatext.json ~/.config/cudatext/settings/user.json
 	fi
 
     echo
