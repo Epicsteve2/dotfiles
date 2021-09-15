@@ -57,6 +57,11 @@ copyFiles() {
         ${COMMAND} htoprc ~/.config/htop/htoprc
     fi
 
+	if addFile cudatext; then
+		mkdir --parents --verbose ~/.config/cudatext/settings/
+		${COMMAD} cudatext.json ~/.config/user.json
+	fi
+
     echo
     chooseFromList "Powerlevel10k fancy" "Powerlevel10k clean" "Next"
     if [[ -n $REPLY ]]; then
