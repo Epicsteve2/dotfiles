@@ -14,6 +14,7 @@ tasks:
         --file Dockerfile.alpine
         --tag {{.ALPINE_IMAGE}} 
         .
+        
   zsh-into-alpine:
     desc: Run bash for the docker test container
     deps:
@@ -25,14 +26,6 @@ tasks:
           --rm 
           --entrypoint zsh 
           {{.ALPINE_IMAGE}}
-  # run-alpine:
-  #   desc: Run docker
-  #   deps:
-  #     - docker-build-alpine
-  #   cmds:
-  #     - docker run 
-  #         --interactive
-  #         {{.ALPINE_IMAGE}}
 
   docker-build-ubuntu:
     desc: asd
@@ -53,11 +46,4 @@ tasks:
           --rm 
           --entrypoint zsh 
           {{.UBUNTU_IMAGE}}
-  # run-alpine:
-  #   desc: Run dockerd
-  #   deps:
-  #     - docker-build-alpine
-  #   cmds:
-  #     - docker run 
-  #         --interactive
-  #         {{.UBUNTU_IMAGE}}
+  

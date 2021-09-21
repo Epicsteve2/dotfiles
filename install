@@ -146,6 +146,7 @@ while true; do
         8)  mkdir --parents --verbose ~/.local/share/fonts/
             cp --archive fonts/. ~/.local/share/fonts/
             fc-cache --force --verbose;;
+            
         9)  echo "${CYAN}Downloading exa..${RESETCOLOR}"
             curl -s https://api.github.com/repos/ogham/exa/releases/latest \
                 | grep "exa-linux-x86_64-v" \
