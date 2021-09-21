@@ -9,7 +9,6 @@ YELLOW=$(tput setaf 3)
 BLUE=$(tput setaf 4)
 MAGENTA=$(tput setaf 5)
 CYAN=$(tput setaf 6)
-RESETCOLOR=$(tput setaf 7) #white
 RESETCOLOR=$(tput sgr0)
 
 addFile() {
@@ -30,8 +29,8 @@ chooseFromList() {
     for (( i=1; i<=${#}-1; i++ )) do
         echo "${CYAN}[   ${i}   ]${RESETCOLOR} $(eval echo \$${i})"
     done
-    echo "${CYAN}[ Enter ]${RESETCOLOR} $(eval echo \$${#})"
-    read -p "${YELLOW}Enter a choice: ${RESETCOLOR}" -n 1 -r
+    echo "${CYAN}[ Enter ]${RESETCOLOR} $(eval echo \"\$\{${#}\}\")"
+    read -p "${YELLOW}Enter a choice: ${RESETCOLOR}" -r
     echo
 }
 
@@ -147,11 +146,14 @@ while true; do
         8)  mkdir --parents --verbose ~/.local/share/fonts/
             cp --archive fonts/. ~/.local/share/fonts/
             fc-cache --force --verbose;;
-        9)  curl -s https://api.github.com/repos/ogham/exa/releases/latest \
+        9)  echo "${CYAN}Downloading exa..${RESETCOLOR}"
+            curl -s https://api.github.com/repos/ogham/exa/releases/latest \
                 | grep "exa-linux-x86_64-v" \
                 | cut -d : -f 2,3 \
                 | tr -d \" \
                 | wget -i -
+            echo "${CYAN}Unzipping exa..${RESETCOLOR}"
+            
             # unzip -j exa*.zip bin/exa -d /usr/local/bin
             # unzip -j exa*.zip man/exa.1 -d /usr/share/man/man1
             # unzip -j exa*.zip completions/exa.zsh -d /usr/local/share/zsh/site-functions
@@ -159,7 +161,7 @@ while true; do
             sudo mv --verbose exa /usr/local/bin/exa 
             sudo mv --verbose exa.1 /usr/share/man/man1 #manpath something
             sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions 
-            # rm exa*.zip;;
+            rm exa*.zip;;
 
         *) echo "${RED}Error: Not a valid input${RESETCOLOR}";;
     esac
