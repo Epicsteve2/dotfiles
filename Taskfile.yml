@@ -1,0 +1,63 @@
+# https://taskfile.dev
+
+version: '3'
+
+env:
+  ALPINE_IMAGE: dotfiles-alpine
+  UBUNTU_IMAGE: dotfiles-ubuntu
+
+tasks:
+  docker-build-alpine:
+    desc: b
+    cmds:
+      - docker build 
+        --file Dockerfile.alpine
+        --tag {{.ALPINE_IMAGE}} 
+        .
+  zsh-into-alpine:
+    desc: Run bash for the docker test container
+    deps:
+      - docker-build
+    cmds:
+      - docker run 
+          --interactive 
+          --tty 
+          --rm 
+          --entrypoint zsh 
+          {{.ALPINE_IMAGE}}
+  # run-alpine:
+  #   desc: Run docker
+  #   deps:
+  #     - docker-build-alpine
+  #   cmds:
+  #     - docker run 
+  #         --interactive
+  #         {{.ALPINE_IMAGE}}
+
+  docker-build-ubuntu:
+    desc: asd
+    cmds:
+      - docker build
+          --file Dockerfile.ubuntu 
+          --tag {{.UBUNTU_IMAGE}} 
+          .
+
+  zsh-into-ubuntu:
+    desc: Run bash for the docker test containerd
+    deps:
+      - docker-build-ubuntu
+    cmds:
+      - docker run 
+          --interactive 
+          --tty 
+          --rm 
+          --entrypoint zsh 
+          {{.UBUNTU_IMAGE}}
+  # run-alpine:
+  #   desc: Run dockerd
+  #   deps:
+  #     - docker-build-alpine
+  #   cmds:
+  #     - docker run 
+  #         --interactive
+  #         {{.UBUNTU_IMAGE}}

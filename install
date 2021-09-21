@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 clear -x
 
-set -e
 # set -x
 
 RED=$(tput setaf 1)
@@ -93,7 +92,7 @@ copyFiles() {
 }
 
 while true; do
-    chooseFromList "Copy to home" "Symlink" "Delete" "Copy from home" "Install oh-my-zsh" "Install oh-my-zsh plugins" "Install fzf" "Install fonts" "Exit"
+    chooseFromList "Copy to home" "Symlink" "Delete" "Copy from home" "Install oh-my-zsh" "Install oh-my-zsh plugins" "Install fzf" "Install fonts" "Install exa" "Exit"
     echo
     if [[ -z $REPLY ]]; then exit; fi
     case $REPLY in
@@ -148,6 +147,19 @@ while true; do
         8)  mkdir --parents --verbose ~/.local/share/fonts/
             cp --archive fonts/. ~/.local/share/fonts/
             fc-cache --force --verbose;;
+        9)  curl -s https://api.github.com/repos/ogham/exa/releases/latest \
+                | grep "exa-linux-x86_64-v" \
+                | cut -d : -f 2,3 \
+                | tr -d \" \
+                | wget -i -
+            # unzip -j exa*.zip bin/exa -d /usr/local/bin
+            # unzip -j exa*.zip man/exa.1 -d /usr/share/man/man1
+            # unzip -j exa*.zip completions/exa.zsh -d /usr/local/share/zsh/site-functions
+            unzip -j exa*.zip bin/exa man/exa.1 completions/exa.zsh
+            sudo mv --verbose exa /usr/local/bin/exa 
+            sudo mv --verbose exa.1 /usr/share/man/man1 #manpath something
+            sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions 
+            # rm exa*.zip;;
 
         *) echo "${RED}Error: Not a valid input${RESETCOLOR}";;
     esac
