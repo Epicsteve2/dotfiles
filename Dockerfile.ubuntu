@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-RUN apt update && \
-    apt install \ 
+RUN apt-get update && \
+    apt-get install --no-install-recommends \ 
         zsh \ 
         curl \ 
         wget \ 
@@ -10,7 +10,9 @@ RUN apt update && \
         htop \ 
         micro \
         nano \ 
-        --yes 
+        --yes && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/*
 
 WORKDIR /root
 COPY . /root/

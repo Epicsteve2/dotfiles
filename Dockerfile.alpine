@@ -1,6 +1,15 @@
 FROM alpine:3.14
 
-RUN apk add zsh bash ncurses curl nano htop git micro wget
+RUN apk add --no-cache \
+    zsh \
+    bash \
+    ncurses \
+    curl \
+    nano \
+    htop \
+    git \
+    micro \
+    wget
 
 WORKDIR /root
 COPY . /root/
