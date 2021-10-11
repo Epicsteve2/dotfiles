@@ -27,7 +27,7 @@ ping "$1" |
             <<<"$REPLY" awk '{print $5 " " $7 " " $8}' \
             	| sed --expression "s/ time=/: ${CYAN}/" \
             	    --expression "s/ ms/${RESETCOLOR}ms/" \
-            	    --expression "s/icmp_seq=/${RESETCOLOR}Ping $1 #/"
+            	    --expression "s/icmp_seq=/Ping $1 #/"
         else
             echo "${RED}${REPLY}${RESETCOLOR}"
         fi
@@ -36,5 +36,6 @@ ping "$1" |
         | tee >(sed \
             --unbuffered \
             --regexp-extended \
-            's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' \
-            > ~/wifi-logs/ping"$1".log)
+            --expression 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' \
+            --expression 's/\x1b\(B//g' \
+            >> ~/wifi-logs/ping"$1".log)
