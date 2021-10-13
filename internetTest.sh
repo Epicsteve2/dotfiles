@@ -18,6 +18,7 @@ elif ! command -v ts &> /dev/null; then
 fi
 
 LOG_FILE="${HOME}/wifi-logs/ping$1.log"
+mkdir --parents "${HOME}/wifi-logs"
 echo "Outputting to ${CYAN}${LOG_FILE}${RESETCOLOR}"
 
 # idk why tf this works. Ignores SIGINT...?
