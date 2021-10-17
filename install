@@ -50,6 +50,11 @@ copyFiles() {
         ${COMMAND} wezterm.lua ~/.config/wezterm/wezterm.lua
     fi
 
+    if addFile bottom; then 
+        mkdir --parents --verbose ~/.config/bottom/
+        ${COMMAND} bottom.toml ~/.config/bottom/bottom.toml
+    fi
+
     if addFile sublime-text; then
         mkdir --parents --verbose ~/.config/sublime-text-3/Packages/User
         ${COMMAND} Preferences.sublime-settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings

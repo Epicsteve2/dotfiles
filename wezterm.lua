@@ -19,7 +19,7 @@ local customKeys = {
   {key="RightArrow", mods="CTRL|SHIFT|ALT", action=wezterm.action{AdjustPaneSize={"Right", 1}}},
   {key="w", mods="CTRL", action=wezterm.action{CloseCurrentPane={confirm=true}}},
   {key="{", mods="SHIFT|ALT", action=wezterm.action{MoveTabRelative=-1}},
-  {key="}", mods="SHIFT|ALT", action=wezterm.action{MoveTabRelative=1}}, 
+  {key="}", mods="SHIFT|ALT", action=wezterm.action{MoveTabRelative=1}},
   -- {event={Up={streak=1, button="Left"}}, mods="CTRL", action="OpenLinkAtMouseCursor",},
   -- {event={Up={streak=1, button="Left"}}, mods="ALT", action="OpenLinkAtMouseCursor",},
   {key="PageUp", mods="CTRL", action=wezterm.action{ScrollByLine=-1}},
@@ -38,28 +38,12 @@ local customKeys = {
   {key="f", mods="CTRL", action=wezterm.action{Search={CaseInSensitiveString=""}}},
   {key="f", mods="CTRL|SHIFT", action=wezterm.action{Search={CaseSensitiveString=""}}},
   {key="f", mods="CTRL|SHIFT|ALT", action=wezterm.action{Search={Regex=""}}},
-  -- {key="Backspace", mods="CTRL", action={SendKey={key="Backspace", mods="ALT"}}},
-  -- {key="Backspace", mods="CTRL", action=wezterm.action{SendString=''}}, 
-  -- {key="Backspace", action="DisableDefaultAssignment"},
-  -- {key="Backspace", mods="CTRL", action="DisableDefaultAssignment"},
-  -- {key="Backspace", mods="CTRL", action="DisableDefaultAssignment"},
-  -- {key="raw:\u{8}", mods="CTRL", action={SendString='\xb'}},
-  -- {key="raw:\u{8}", mods="CTRL", action="DisableDefaultAssignment"},
-  -- {key="Backspace", mods="ALT", action="DisableDefaultAssignment"},
-  -- {key="d", mods="ALT", action="DisableDefaultAssignment"},
-  -- TODO: fix ctrl+backspace
-
-  -- {key="Backspace", mods="", action="DisableDefaultAssignment"},
-  -- {key="Delete", mods="CTRL", action="DisableDefaultAssignment"},
-  -- {key="Delete", mods="ALT", action="DisableDefaultAssignment"},
+  -- new versions only
+  {key="Backspace", mods="CTRL", action={SendKey={key="w", mods="CTRL"}}},
 }
 
 for i = 1, 9 do
-  table.insert(customKeys, {
-    key=tostring(i),
-    mods="ALT",
-    action=wezterm.action{ActivateTab=i-1},
-  })
+  table.insert(customKeys, {key=tostring(i), mods="ALT", action=wezterm.action{ActivateTab=i-1},})
 end
 
 return {
