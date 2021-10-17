@@ -62,10 +62,11 @@ ping "$1" |& \
     done) \
         | ts \
         | sed --unbuffered "s/^/${GREEN}/" \
-        | tee >(sed \
-            --unbuffered \
-            --regexp-extended \
-            --expression 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' \
-            --expression 's/\x1b\(B//g' \
-            >> "$LOG_FILE") \
-        | tee --append "${HOME}/wifi-logs/ping$1-color.log"
+        | tee --append \
+            "${HOME}/wifi-logs/ping$1-color.log" \
+            >(sed \
+                --unbuffered \
+                --regexp-extended \
+                --expression 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' \
+                --expression 's/\x1b\(B//g' \
+                >> "$LOG_FILE")
