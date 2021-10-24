@@ -73,6 +73,11 @@ copyFiles() {
 		mkdir --parents --verbose ~/.config/tmuxinator/
 		${COMMAND} wifi-logs.yml ~/.config/tmuxinator/wifi-logs.yml
 	fi
+
+	if addFile anime-scripts; then
+		${COMMAND} scripts/anime.sh ~/Documents/anime.sh
+		${COMMAND} scripts/clearAnime.lua ~/Documents/clearPlaylist.lua
+	fi
 	
     echo
     chooseFromList "Powerlevel10k fancy" "Powerlevel10k clean" "Next"

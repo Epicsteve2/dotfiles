@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-CURRENT_ANIME='/mnt/3ADED414DED3C5F3/Anime n Movies/Natsume Yuujinchou Complete Batch/Natsume Yuujinchou Go'
+CURRENT_ANIME='/'
 
 clear -x
 set -e
@@ -13,8 +13,8 @@ CYAN=$(tput setaf 6)
 RESETCOLOR=$(tput sgr0)
 
 ANIME_LOCATION="/mnt/3ADED414DED3C5F3/Anime n Movies"
-THIS_SCRIPT='/home/stephen/CodeMonkey/bashTest/betterAnime.sh'
-LUA_SCRIPT='/home/stephen/CodeMonkey/bashTest/clearPlaylist.lua'
+THIS_SCRIPT='$HOME/Documents/betterAnime.sh'
+LUA_SCRIPT='$HOME/Documents/clearPlaylist.lua'
 
 
 chooseFromList() {
@@ -82,12 +82,12 @@ while true; do
         1)  setAnime;;
         2)  rm --verbose "${CURRENT_ANIME}/playlist.txt" || true;; #echo >&2 "$YELLOW${CURRENT_ANIME}/playlist.txt$RED doesn't exist $RESETCOLOR";;
         3)  find "${ANIME_LOCATION}" -name "playlist.txt" -delete -print;; #-exec rm -vf "{}" \;;;
-        4)  mkdir --parents ~/copy-test/
+        4)  mkdir --parents $HOME/copy-test/
             find "${ANIME_LOCATION}" -type f -name '*.jpg' \
                 | xargs \
                     --max-args=1 \
                     --replace={} \
-                    -- cp --verbose "{}" ~/copy-test/;;
+                    -- cp --verbose "{}" ${HOME}/copy-test/;;
         q)  exit;;
         *)  cd "$CURRENT_ANIME"
             mpv --script="$LUA_SCRIPT"\
