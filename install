@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 clear -x
-
 # set -x
 
 RED=$(tput setaf 1)
@@ -18,7 +17,7 @@ addFile() {
     fi
 
     read -p "${CYAN}add ${YELLOW}${1}${CYAN}? [y/N]: ${RESETCOLOR}" -n 1 -r
-    echo    # (optional) move to a new line
+    echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         return 0
     fi
@@ -56,8 +55,8 @@ copyFiles() {
     fi
 
     if addFile sublime-text; then
-        mkdir --parents --verbose ~/.config/sublime-text-3/Packages/User
-        ${COMMAND} Preferences.sublime-settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
+        mkdir --parents --verbose ~/.config/sublime-text/Packages/User
+        ${COMMAND} Preferences.sublime-settings ~/.config/sublime-text/Packages/User/Preferences.sublime-settings
     fi
 
 	if addFile htoprc; then
@@ -70,6 +69,11 @@ copyFiles() {
 		${COMMAND} cudatext.json ~/.config/cudatext/settings/user.json
 	fi
 
+	if addFile wifi-logs-tmux; then
+		mkdir --parents --verbose ~/.config/tmuxinator/
+		${COMMAND} wifi-logs.yml ~/.config/tmuxinator/wifi-logs.yml
+	fi
+	
     echo
     chooseFromList "Powerlevel10k fancy" "Powerlevel10k clean" "Next"
     if [[ -n $REPLY ]]; then
@@ -174,7 +178,7 @@ while true; do
             sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions 
             rm exa*.zip;;
 
-        *) echo "${RED}Error: Not a valid input${RESETCOLOR}";;
+        *)  echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}";;
     esac
     echo
 done
