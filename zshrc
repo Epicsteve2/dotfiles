@@ -170,3 +170,5 @@ zstyle ':autocomplete:*' widget-style menu-select
 # zstyle ':autocomplete:*' insert-unambiguous yes
 
 [ -f /etc/zsh_command_not_found ] && source /etc/zsh_command_not_found
+bindkey "${key[Up]}" fzf-history-widget
+export FZF_CTRL_R_OPTS="--height=60% --bind=left:accept --bind=space:accept --bind=right:accept --preview 'echo {}' --preview-window down:3:wrap"
