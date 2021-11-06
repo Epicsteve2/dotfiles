@@ -22,32 +22,32 @@ mkdir --parents "${HOME}/wifi-logs"
 echo "Outputting to ${CYAN}${LOG_FILE}${RESETCOLOR}"
 
 # idk why tf this works. Ignores SIGINT...?
-trap '' SIGINT
+# trap '' SIGINT
 
-ping "$1" |& \
-    while read -r; do
-        if [[ $REPLY == "64 bytes from $1"* ]]; then
-            # Outputs with color only certain columns 
-            <<<"$REPLY" awk '{print $5 " " $7 " " $8}' \
-            	| sed --expression "s/ time=/: ${CYAN}/" \
-            	    --expression "s/ ms/${RESETCOLOR}ms/" \
-            	    --expression "s/icmp_seq=/${RESETCOLOR}Ping $1 #/"
-        else
-            echo "${RED}${REPLY}${RESETCOLOR}"
-        fi
-    done \
-        | ts \
-        | sed --unbuffered "s/^/${GREEN}/" \
-        | tee >(sed \
-            --unbuffered \
-            --regexp-extended \
-            --expression 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' \
-            --expression 's/\x1b\(B//g' \
-            >> "$LOG_FILE")
-            # Remove colors before appending to log
+# ping "$1" |& \
+#     while read -r; do
+#         if [[ $REPLY == "64 bytes from $1"* ]]; then
+#             # Outputs with color only certain columns 
+#             <<<"$REPLY" awk '{print $5 " " $7 " " $8}' \
+#             	| sed --expression "s/ time=/: ${CYAN}/" \
+#             	    --expression "s/ ms/${RESETCOLOR}ms/" \
+#             	    --expression "s/icmp_seq=/${RESETCOLOR}Ping $1 #/"
+#         else
+#             echo "${RED}${REPLY}${RESETCOLOR}"
+#         fi
+#     done \
+#         | ts \
+#         | sed --unbuffered "s/^/${GREEN}/" \
+#         | tee >(sed \
+#             --unbuffered \
+#             --regexp-extended \
+#             --expression 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' \
+#             --expression 's/\x1b\(B//g' \
+#             >> "$LOG_FILE")
+#             # Remove colors before appending to log
 
-exit
-    
+# exit
+
 ping "$1" |& \
     (trap '' SIGINT && while read -r -t 2 || echo -n; do
         if [[ $REPLY == "64 bytes from $1"* ]]; then
@@ -64,8 +64,7 @@ ping "$1" |& \
         | sed --unbuffered "s/^/${GREEN}/" \
         | tee --append \
             "${HOME}/wifi-logs/ping$1-color.log" \
-            >(sed \
-                --unbuffered \
+            >(sed --unbuffered \
                 --regexp-extended \
                 --expression 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' \
                 --expression 's/\x1b\(B//g' \

@@ -69,9 +69,9 @@ copyFiles() {
 		${COMMAND} cudatext.json ~/.config/cudatext/settings/user.json
 	fi
 
-	if addFile wifi-logs-tmux; then
+	if addFile wifi-test-tmux; then
 		mkdir --parents --verbose ~/.config/tmuxinator/
-		${COMMAND} wifi-logs.yml ~/.config/tmuxinator/wifi-logs.yml
+		${COMMAND} wifi-test.yml ~/.config/tmuxinator/wifi-logs.yml
 	fi
 
 	if addFile anime-scripts; then

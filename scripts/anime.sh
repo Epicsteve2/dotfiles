@@ -47,8 +47,9 @@ setAnime() {
         >&2 echo "${RED}Invalid input${RESETCOLOR}"
 	    exit 1
     fi
-    
+
     echo
+    # i forgot what this does
     ANIME=$(sed <<<$ANIME_LIST --quiet "${REPLY}p")
     echo "Anime chosen: $GREEN$ANIME$RESETCOLOR"
 
@@ -64,11 +65,12 @@ setAnime() {
 
     CURRENT_ANIME="${ANIME_LOCATION}/${ANIME}"
     # Source https://unix.stackexchange.com/questions/129059/how-to-ensure-that-string-interpolated-into-sed-substitution-escapes-all-metac
-    ESCAPED_CURRENT_ANIME=$(<<<$CURRENT_ANIME sed 's:[\\/&]:\\&:g;$!s/$/\\/')
+    # doesn't escape | unfortunately, which is what i'm using as the deliminiter
+    ESCAPED_CURRENT_ANIME=$(<<<"$CURRENT_ANIME" sed 's:[\\/&]:\\&:g;$!s/$/\\/')
     sed --in-place "2s|.*|CURRENT_ANIME='${ESCAPED_CURRENT_ANIME}'|" "${THIS_SCRIPT}"
 
     if ! [ -f "${ANIME_LOCATION}/${ANIME}/playlist.txt" ]; then # checks if playlist exists
-		ls --indicator-style=slash "${CURRENT_ANIME}" | grep --extended-regexp --invert-match '\.txt|\.jpg|/' > "${CURRENT_ANIME}/playlist.txt" 
+		ls --indicator-style=slash "${CURRENT_ANIME}" | grep --extended-regexp --invert-match '\.txt|\.jpg|/' > "${CURRENT_ANIME}/playlist.txt"
 		echo -e "Created ${PINK}playlist.txt${NC} at ${CURRENT_ANIME}\n"
 	fi
 }

@@ -58,6 +58,6 @@ windows:
     - main:
         layout: even-horizontal
         panes:
-            - ~/internetTest.sh 192.168.1.1
-            - ~/internetTest.sh 8.8.8.8
-            - ~/internetTest.sh 9.9.9.9
+            - exec ~/internetTest.sh 192.168.1.1
+            - exec ~/internetTest.sh 8.8.8.8
+            - exec ~/internetTest.sh 9.9.9.9
