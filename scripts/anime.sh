@@ -2,7 +2,7 @@
 CURRENT_ANIME='/'
 
 clear -x
-set -e
+set -eu -o pipefail
 
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -63,8 +63,9 @@ setAnime() {
     fi
 
     CURRENT_ANIME="${ANIME_LOCATION}/${ANIME}"
-
-    sed --in-place "2s|.*|CURRENT_ANIME='${CURRENT_ANIME}'|" "${THIS_SCRIPT}"
+    # Source https://unix.stackexchange.com/questions/129059/how-to-ensure-that-string-interpolated-into-sed-substitution-escapes-all-metac
+    ESCAPED_CURRENT_ANIME=$(<<<$CURRENT_ANIME sed 's:[\\/&]:\\&:g;$!s/$/\\/')
+    sed --in-place "2s|.*|CURRENT_ANIME='${ESCAPED_CURRENT_ANIME}'|" "${THIS_SCRIPT}"
 
     if ! [ -f "${ANIME_LOCATION}/${ANIME}/playlist.txt" ]; then # checks if playlist exists
 		ls --indicator-style=slash "${CURRENT_ANIME}" | grep --extended-regexp --invert-match '\.txt|\.jpg|/' > "${CURRENT_ANIME}/playlist.txt" 
