@@ -66,6 +66,8 @@ setAnime() {
     CURRENT_ANIME="${ANIME_LOCATION}/${ANIME}"
     # Source https://unix.stackexchange.com/questions/129059/how-to-ensure-that-string-interpolated-into-sed-substitution-escapes-all-metac
     # doesn't escape | unfortunately, which is what i'm using as the deliminiter
+    # I think for |, we do
+    # sed 's:[\\|/&]:\\&:g;$!s/$/\\/')
     ESCAPED_CURRENT_ANIME=$(<<<"$CURRENT_ANIME" sed 's:[\\/&]:\\&:g;$!s/$/\\/')
     sed --in-place "2s|.*|CURRENT_ANIME='${ESCAPED_CURRENT_ANIME}'|" "${THIS_SCRIPT}"
 
