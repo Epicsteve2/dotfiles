@@ -147,8 +147,10 @@ while true; do
 
         6)  echo "${CYAN}Cloning powerlevel10k...${RESETCOLOR}"
             git clone --depth=1 -- https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-            echo "${CYAN}zsh-autocomplete${RESETCOLOR}"
-            git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+            # echo "${CYAN}zsh-autocomplete${RESETCOLOR}"
+            # git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+            echo "${CYAN}Cloning fzf-tab${RESETCOLOR}"
+            git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
             echo
             echo "${CYAN}Cloning zsh-autosuggestions...${RESETCOLOR}"
             git clone           -- https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

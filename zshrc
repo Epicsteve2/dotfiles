@@ -128,7 +128,7 @@ aptu() {
   sudo apt upgrade
 }
 # alias h="cat ~/.bashrc ~/.bash_functions && echo '' && alias"
-export MANPAGER="most"
+# export MANPAGER="most"
 
 export BAT_PAGER='less -R'
 
