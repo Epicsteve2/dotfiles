@@ -172,21 +172,23 @@ zstyle ':autocomplete:*' widget-style menu-select
 
 [ -f /etc/zsh_command_not_found ] && source /etc/zsh_command_not_found
 # bindkey "${key[Up]}" fzf-history-widget
-export FZF_CTRL_R_OPTS="--height=80% --bind=left:accept --bind=space:accept --bind=right:accept --preview 'echo {}' --preview-window down:3:wrap"
+export FZF_CTRL_R_OPTS="--height=90% --preview 'bat --color=always -pp -l zsh <<<{}' --preview-window down:3:wrap"
 
 fzf-up-arrow-widget() {
   #Source https://github.com/junegunn/fzf/issues/477#issuecomment-631707533
   local extra_ctrl_r="--height=90% 
-         --preview 'bat --color=always -pp -l zsh <<<{}' --preview-window down:3:wrap"
+         --preview 'bat --color=always -pp -l zsh --line-range=:500 <<<{}' --preview-window down:3:wrap"
+
+  # local select_keys=(tab right) 
 
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
   selected=( $(fc -rl 1 | perl -ne 'print if !$seen{(/^\s*[0-9]+\**\s+(.*)/, $1)}++' |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort,ctrl-z:ignore --expect=tab $extra_ctrl_r --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort,ctrl-z:ignore --expect=tab,right $extra_ctrl_r --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
   local ret=$?
   if [ -n "$selected" ]; then
     local select=0
-    if [[ $selected[1] == tab ]]; then
+    if [[ $selected[1] == tab ]] || [[ $selected[1] == right ]]; then
       select=1
       shift selected
     fi
@@ -204,46 +206,25 @@ bindkey "${terminfo[kcuu1]}" fzf-up-arrow-widget
 
 # zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 # export LESSOPEN='|~/.lessfilter %s'
-
-setopt globdots
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-# zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:bat:*' fzf-preview 'bat -pp --color=always $realpath'
 
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
-
-# it is an example. you can change it
-# zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
-#   'git diff $word | delta'|
-# zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
-#   'git log --color=always $word'
-# zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-#   'git help $word | bat -plman --color=always'
-# zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
-#   'case "$group" in
-#   "commit tag") git show --color=always $word ;;
-#   *) git show --color=always $word | delta ;;
-#   esac'
-# zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
-#   'case "$group" in
-#   "modified file") git diff $word | delta ;;
-#   "recent commit object name") git show --color=always $word | delta ;;
-#   *) git log --color=always $word ;;
-#   esac'
 
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':fzf-tab:*' fzf-bindings 'shift-tab:accept'
 zstyle ':fzf-tab:*' continuous-trigger 'tab'
 zstyle ':fzf-tab:*' accept-line enter
 
-# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# # preview directory's content with exa when completing cd
-# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+jql () {
+  jq . "$1" --color-output | less --RAW-CONTROL-CHARS
+}
 
 palette() {
     local -a colors
