@@ -49,7 +49,7 @@ copyFiles() {
         ${COMMAND} wezterm.lua ~/.config/wezterm/wezterm.lua
     fi
 
-    if addFile bottom; then 
+    if addFile bottom; then
         mkdir --parents --verbose ~/.config/bottom/
         ${COMMAND} bottom.toml ~/.config/bottom/bottom.toml
     fi
@@ -78,7 +78,12 @@ copyFiles() {
 		${COMMAND} scripts/anime.sh ~/Documents/anime.sh
 		${COMMAND} scripts/clearAnime.lua ~/Documents/clearPlaylist.lua
 	fi
-	
+
+	if addFile terminator; then
+		mkdir --parents --verbose ~/.config/terminator/
+		${COMMAND} terminator.config ~/.config/terminator/config
+	fi
+
     echo
     chooseFromList "Powerlevel10k fancy" "Powerlevel10k clean" "Next"
     if [[ -n $REPLY ]]; then
@@ -167,7 +172,7 @@ while true; do
         8)  mkdir --parents --verbose ~/.local/share/fonts/
             cp --archive fonts/. ~/.local/share/fonts/
             fc-cache --force --verbose;;
-            
+
         9)  echo "${CYAN}Downloading exa..${RESETCOLOR}"
             curl -s https://api.github.com/repos/ogham/exa/releases/latest \
                 | grep "exa-linux-x86_64-v" \
@@ -175,14 +180,14 @@ while true; do
                 | tr -d \" \
                 | wget -i -
             echo "${CYAN}Unzipping exa..${RESETCOLOR}"
-            
+
             # unzip -j exa*.zip bin/exa -d /usr/local/bin
             # unzip -j exa*.zip man/exa.1 -d /usr/share/man/man1
             # unzip -j exa*.zip completions/exa.zsh -d /usr/local/share/zsh/site-functions
             unzip -j exa*.zip bin/exa man/exa.1 completions/exa.zsh
-            sudo mv --verbose exa /usr/local/bin/exa 
+            sudo mv --verbose exa /usr/local/bin/exa
             sudo mv --verbose exa.1 /usr/share/man/man1 #manpath something
-            sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions 
+            sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions
             rm exa*.zip;;
 
         *)  echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}";;
