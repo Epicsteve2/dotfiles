@@ -1,0 +1,34 @@
+[helpers]
+
+[default]
+depends = []
+
+[default.files]
+"Preferences.sublime-settings" = "/.config/sublime-text/Packages/User/Preferences.sublime-settings"
+bashrc = "~/.bashrc"
+"bottom.toml" = "~/.config/bottom/bottom.toml"
+# fonts = ""
+gitconfig = "~/.gitconfig"
+htoprc = "~/.config/htop/htoprc"
+"hyper.js" = "~/.hyper.js"
+"microSettings.json" = "~/.config/micro/settings.json"
+mpv = "~/.config/mpv"
+
+# scripts = ""
+"terminator.config" = "~/.config/terminator/config"
+"wezterm.lua" = "~/.config/wezterm/wezterm.lua"
+# "windows-terminal.json" = ""
+zshrc = "~/.zshrc"
+"plugins.toml" = "~/.config/sheldon/plugins.toml"
+
+[default.variables]
+
+[nano4.files]
+nanorc4 = "~/.nanorc"
+[nano5.files]
+nanorc5 = "~/.nanorc"
+
+[p10kClean.files]
+"p10kClean.zsh" = "~/.p10k.zsh"
+[p10kFancy.files]
+"p10kFancy.zsh" = "~/.p10k.zsh"
