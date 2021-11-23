@@ -1,0 +1,454 @@
+## Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
+
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh" # pull behavior same as clone, source init.zsh
+zinit light starship/starship
+# zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit ice depth=1 wait"1" lucid; zinit light ajeetdsouza/zoxide
+zinit ice wait"0a" lucid atload'_zsh_autosuggest_start'; zinit light zsh-users/zsh-autosuggestions
+# zinit ice wait"0c" lucid atinit"zpcompinit;zpcdreplay"; zinit light zdharma-continuum/fast-syntax-highlighting
+zinit ice wait"0a" lucid; zinit light zsh-users/zsh-syntax-highlighting
+# zinit load marlonrichert/zsh-autocomplete
+zinit ice wait"0a" lucid; zinit load Aloxaf/fzf-tab
+zinit ice wait"1" lucid blockf; zinit light zsh-users/zsh-completions
+# zinit ice wait"1" lucid as"completion"; zinit snippet OMZ::plugins/docker-compose/_docker-compose
+# zinit ice wait"1" lucid as"completion"; zinit snippet OMZ::plugins/docker/_docker
+# zinit ice wait"1" lucid as"completion"; zinit snippet OMZ::plugins/pip/_pip
+# zinit ice wait'1' as"completion" lucid; zinit snippet OMZP::/terraform/_terraform
+zinit light 'chrissicool/zsh-256color' # idk what this does
+zinit light ohmyzsh/ohmyzsh
+BASE16_THEME=monokai; zinit ice atload"base16_${BASE16_THEME}"; zinit light "chriskempson/base16-shell"
+# zinit light chitoku-k/fzf-zsh-completions
+
+# EXA
+zinit ice wait"2" lucid from"gh-r" as"program" mv"bin/exa* -> exa"; zinit light ogham/exa
+zinit ice wait blockf atpull'zinit creinstall -q .'
+# DELTA
+zinit ice lucid wait"0" as"program" from"gh-r" pick"delta*/delta"; zinit light 'dandavison/delta'
+# DUST
+zinit ice wait"2" lucid from"gh-r" as"program" mv"dust*/dust -> dust" pick"dust" atload"alias du=dust"; zinit light bootandy/dust
+# DUF
+zinit ice lucid wait"0" as"program" from"gh-r" bpick='*linux_amd64.deb' pick"usr/bin/duf" atload"alias df=duf"; zinit light muesli/duf
+# BAT
+zinit ice from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat" atload"alias cat=bat"; zinit light sharkdp/bat
+# BAT-EXTRAS
+# zinit ice wait"1" as"program" pick"src/batgrep.sh" lucid; zinit ice wait"1" as"program" pick"src/batdiff.sh" lucid
+# zinit light eth-p/bat-extras
+# alias bd=batdiff.sh
+# alias man=batman.sh
+# alias batgrep=batgrep.sh
+# RIPGREP
+zinit ice from"gh-r" as"program" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"; zinit light BurntSushi/ripgrep
+# FD
+zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"; zinit light sharkdp/fd
+# FZF
+zinit ice from"gh-r" as"command"; zinit light junegunn/fzf
+zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null"; zinit light junegunn/fzf
+# RANGER
+zinit ice depth'1' as"program" pick"ranger.py"; zinit light ranger/ranger
+
+superrg () {
+    INITIAL_QUERY=""
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
+        fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --disabled --query "$INITIAL_QUERY" \
+            --height=90% --layout=reverse
+}
+
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.config/broot/launcher/bash/br ] && source /home/patrick/.config/broot/launcher/bash/br
+
+fzf-up-arrow-widget() {
+  #Source https://github.com/junegunn/fzf/issues/477#issuecomment-631707533
+  local extra_ctrl_r="--preview 'bat --color=always -pp -l zsh <<<{}' --preview-window down:3:wrap"
+
+  local selected num
+  setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
+  selected=( $(fc -rl 1 | perl -ne 'print if !$seen{(/^\s*[0-9]+\**\s+(.*)/, $1)}++' |
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --header='tab to edit, enter to execute' --bind=ctrl-r:toggle-sort,ctrl-z:ignore --expect=tab $extra_ctrl_r --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+  local ret=$?
+  if [ -n "$selected" ]; then
+    local select=0
+    if [[ $selected[1] == tab ]]; then
+      select=1
+      shift selected
+    fi
+    num=$selected[1]
+    if [ -n "$num" ]; then
+      zle vi-fetch-history -n $num
+      [[ $select == 0 ]] && zle accept-line
+    fi
+  fi
+  zle reset-prompt
+  return $ret
+}
+zle -N fzf-up-arrow-widget fzf-up-arrow-widget
+bindkey "${terminfo[kcuu1]}" fzf-up-arrow-widget
+bindkey "${key[Up]}" fzf-up-arrow-widget
+
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "\C-h" backward-kill-word
+bindkey "\e[3;5~" kill-word
+
+aptu() {
+  sudo apt update
+
+  tput setaf 1 && echo "Listing..." && tput sgr0
+  apt list --upgradable # | fzf do smth here
+
+  tput setaf 1 && echo "Upgrading..." && tput sgr0
+  sudo apt upgrade
+}
+
+apt-search() {
+  apt-cache search '' \
+    | sort \
+    | cut --delimiter ' ' --fields 1 \
+    | fzf --multi --cycle --reverse --preview 'apt-cache show {1}' \
+    # | xargs -r sudo apt install -y
+}
+
+pacman-search() {
+  pacman -Ss '' \
+    | sort \
+    | cut --delimiter ' ' --fields 1 \
+    | fzf --multi --cycle --reverse --preview 'pacman -Ss {1}' \
+    # | xargs -r sudo pacman -S
+}
+
+export BAT_PAGER='less -F -S -R -M -i'
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export LS_COLORS='no=0:rs=0:di=01;38;5;198:ln=01;38;5;37:mh=00:pi=48;5;230;38;5;136;01:so=48;5;230;38;5;136;01:do=48;5;230;38;5;136;01:bd=48;5;230;38;5;244;01:cd=48;5;230;38;5;244;01:or=48;5;235;38;5;160:su=48;5;160;38;5;230:sg=48;5;136;38;5;230:ca=30;41:tw=48;5;64;38;5;230:ow=48;5;235;38;5;33:st=48;5;33;38;5;230:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:ex=01;38;5;82:*.cmd=00;38;5;82:*.exe=00;38;5;82:*.com=00;38;5;82:*.btm=00;38;5;82:*.bat=00;38;5;82:*.jpg=00;38;5;37:*.jpeg=00;38;5;37:*.png=00;38;5;37:*.gif=00;38;5;37:*.bmp=00;38;5;37:*.xbm=00;38;5;37:*.xpm=00;38;5;37:*.tif=00;38;5;37:*.tiff=00;38;5;37:*.pdf=00;38;5;98:*.odf=00;38;5;98:*.doc=00;38;5;98:*.ppt=00;38;5;98:*.pptx=00;38;5;98:*.db=00;38;5;98:*.aac=00;38;5;208:*.au=00;38;5;208:*.flac=00;38;5;208:*.mid=00;38;5;208:*.midi=00;38;5;208:*.mka=00;38;5;208:*.mp3=00;38;5;208:*.mpc=00;38;5;208:*.ogg=00;38;5;208:*.ra=00;38;5;208:*.wav=00;38;5;208:*.m4a=00;38;5;208:*.axa=00;38;5;208:*.oga=00;38;5;208:*.spx=00;38;5;208:*.xspf=00;38;5;208:*.mov=01;38;5;208:*.mpg=01;38;5;208:*.mpeg=01;38;5;208:*.3gp=01;38;5;208:*.m2v=01;38;5;208:*.mkv=01;38;5;208:*.ogm=01;38;5;208:*.mp4=01;38;5;208:*.m4v=01;38;5;208:*.mp4v=01;38;5;208:*.vob=01;38;5;208:*.qt=01;38;5;208:*.nuv=01;38;5;208:*.wmv=01;38;5;208:*.asf=01;38;5;208:*.rm=01;38;5;208:*.rmvb=01;38;5;208:*.flc=01;38;5;208:*.avi=01;38;5;208:*.fli=01;38;5;208:*.flv=01;38;5;208:*.gl=01;38;5;208:*.m2ts=01;38;5;208:*.divx=01;38;5;208:*.log=00;38;5;240:*.bak=00;38;5;240:*.aux=00;38;5;240:*.bbl=00;38;5;240:*.blg=00;38;5;240:*~=00;38;5;240:*#=00;38;5;240:*.part=00;38;5;240:*.incomplete=00;38;5;240:*.swp=00;38;5;240:*.tmp=00;38;5;240:*.temp=00;38;5;240:*.o=00;38;5;240:*.pyc=00;38;5;240:*.class=00;38;5;240:*.cache=00;38;5;240:';
+export EXA_COLORS="${LS_COLORS}"
+export LSCOLORS=$LS_COLORS
+
+export EDITOR=nano
+export VISUAL=${EDITOR}
+export PAGER='less'
+export SHELL='/usr/bin/zsh'
+
+export HISTFILE="${HOME}/.history"
+export HISTSIZE=100000
+export SAVEHIST=$HISTSIZE
+
+# setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+# setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+# setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+# setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+# setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+
+
+zstyle ':completion:*:git-checkout:*' sort false
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
+zstyle ':fzf-tab:*' fzf-bindings 'shift-tab:accept'
+zstyle ':fzf-tab:*' continuous-trigger 'tab'
+zstyle ':fzf-tab:*' accept-line enter
+zstyle ':fzf-tab:*' fzf-flags '--header="tab to continue completing, enter to execute, shift+tab to accept and edit, esc to cancel"'
+
+
+# zstyle ':autocomplete:*' fzf-completion yes
+# zstyle ':autocomplete:*' widget-style menu-select
+# zstyle ':autocomplete:*' insert-unambiguous yes
+
+alias ll='ls -hAlFv --group-directories-first --color=always'
+alias l='exa --long --icons --all --header --extended --git --group-directories-first --classify'
+alias bat="bat --number"
+
+# No arguments: `git status`
+# With arguments: acts like `git`
+g() {
+  if [[ $# -gt 0 ]]; then
+    git "$@"
+  else
+    git status
+  fi
+}
+
+# Based on http://stackoverflow.com/a/41420448/4757 {{{
+function expand-multiple-dots() {
+    local MATCH
+    if [[ $LBUFFER =~ '(^| )\.\.\.+' ]]; then
+        LBUFFER=$LBUFFER:fs%\.\.\.%../..%
+    fi
+}
+
+function expand-multiple-dots-then-expand-or-complete() {
+    zle expand-multiple-dots
+    zle expand-or-complete
+}
+
+function expand-multiple-dots-then-accept-line() {
+    zle expand-multiple-dots
+    zle accept-line
+}
+
+zle -N expand-multiple-dots
+zle -N expand-multiple-dots-then-expand-or-complete
+zle -N expand-multiple-dots-then-accept-line
+bindkey '^I' expand-multiple-dots-then-expand-or-complete
+bindkey '^M' expand-multiple-dots-then-accept-line
+#}}}
+
+# Git specific filters from https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
+# stole from https://github.com/parkercoates/dotfiles/blob/master/.zsh/fzf.zsh {{{
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+gf() {
+  is_in_git_repo || return
+  git -c color.status=always status --short |
+  fzf-tmux -m --ansi --nth 2..,.. \
+    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
+  cut -c4- | sed 's/.* -> //'
+}
+gb() {
+  is_in_git_repo || return
+  git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  fzf-tmux --ansi --multi --tac --preview-window right:70% \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+  sed 's/^..//' | cut -d' ' -f1 |
+  sed 's#^remotes/##'
+}
+gt() {
+  is_in_git_repo || return
+  git tag --sort -version:refname |
+  fzf-tmux --multi --preview-window right:70% \
+    --preview 'git show --color=always {} | head -'$LINES
+}
+gh() {
+  is_in_git_repo || return
+  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph |
+  fzf-tmux --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+    --header 'Press CTRL-S to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+  grep -o '[a-f0-9]\{7,\}'
+}
+gr() {
+  is_in_git_repo || return
+  git remote -v | awk '{print $1 "\t" $2}' | uniq |
+  fzf-tmux --tac \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
+  cut -d$'\t' -f1
+}
+#}}}
+# fshow() {
+#   git log --graph --color=always \
+#       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+#   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+#       --bind "ctrl-m:execute:
+#                 (grep -o '[a-f0-9]\{7\}' | head -1 |
+#                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+#                 {}
+# FZF-EOF"
+# }
+
+# git-fshow() {
+# 	local g=(
+# 		git log
+# 		--graph
+# 		--format='%C(auto)%h%d %s %C(white)%C(bold)%cr'
+# 		--color=always
+# 		"$@"
+# 	)
+
+# 	local fzf=(
+# 		fzf
+# 		--ansi
+# 		--reverse
+# 		--tiebreak=index
+# 		--no-sort
+# 		--bind=ctrl-s:toggle-sort
+# 		--preview 'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1; }; f {}'
+# 	)
+# 	$g | $fzf
+# }
+
+# git-commit-show () 
+# {
+#   git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"  | \
+#    fzf --ansi --no-sort --reverse --tiebreak=index --preview \
+#    'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}' \
+#    --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:
+#                 (grep -o '[a-f0-9]\{7\}' | head -1 |
+#                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+#                 {}
+# FZF-EOF" --preview-window=right:60%
+# }
+
+# alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
+
+# Taken from https://gist.github.com/junegunn/f4fca918e937e6bf5bad {{{
+alias glNoGraph='git log --color=always --format="%C(auto)%h %an %C(blue)%s %C(yellow)%cr"'
+_gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
+_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | delta'"
+_viewGitLogLineUnfancy="$_gitLogLineToHash | xargs -I % sh -c 'git show %'"
+
+# gls - git commit browser with previews and vim integration 
+gls() {
+    glNoGraph |
+        fzf --no-sort --reverse --tiebreak=index --no-multi \
+            --ansi --preview="$_viewGitLogLine" \
+                --header "enter to view, alt-y to copy hash, alt-v to open in ${EDITOR}" \
+                --bind "enter:execute:$_viewGitLogLine   | less -R" \
+                --bind "alt-v:execute:$_viewGitLogLineUnfancy | ${EDITOR} -" \
+                --bind "alt-y:execute:$_gitLogLineToHash | xclip"
+}
+
+fman() {
+    man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man | col -bx | bat -l man -p --color always' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
+}
+# Get the colors in the opened man page itself
+export MANPAGER="sh -c 'col -bx | bat -l man -p --paging always'"
+
+fbr() {
+  local branches branch
+  branches=$(git --no-pager branch -vv) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
+# fbr - checkout git branch (including remote branches)
+fbr() {
+  local branches branch
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+fco() {
+  local tags branches target
+  branches=$(
+    git --no-pager branch --all \
+      --format="%(if)%(HEAD)%(then)%(else)%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%1B[0;34;1mbranch%09%1B[m%(refname:short)%(end)%(end)" \
+    | sed '/^$/d') || return
+  tags=$(
+    git --no-pager tag | awk '{print "\x1b[35;1mtag\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$branches"; echo "$tags") |
+    fzf --no-hscroll --no-multi -n 2 \
+        --ansi) || return
+  git checkout $(awk '{print $2}' <<<"$target" )
+}
+
+fcs() {
+  local commits commit
+  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
+  commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
+  echo -n $(echo "$commit" | sed "s/ .*//")
+}
+
+# fstash - easier way to deal with stashes
+# type fstash to get a list of your stashes
+# enter shows you the contents of the stash
+# ctrl-d shows a diff of the stash against your current HEAD
+# ctrl-b checks the stash out as a branch, for easier merging
+fstash() {
+  local out q k sha
+  while out=$(
+    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
+    fzf --ansi --no-sort --query="$q" --print-query \
+        --expect=ctrl-d,ctrl-b);
+  do
+    mapfile -t out <<< "$out"
+    q="${out[0]}"
+    k="${out[1]}"
+    sha="${out[-1]}"
+    sha="${sha%% *}"
+    [[ -z "$sha" ]] && continue
+    if [[ "$k" == 'ctrl-d' ]]; then
+      git diff $sha
+    elif [[ "$k" == 'ctrl-b' ]]; then
+      git stash branch "stash-$sha" $sha
+      break;
+    else
+      git stash show -p $sha
+    fi
+  done
+}
+
+# git log show with fzf
+gli() {
+
+  # param validation
+  if [[ ! `git log -n 1 $@ | head -n 1` ]] ;then
+    return
+  fi
+
+  # filter by file string
+  local filter
+  # param existed, git log for file if existed
+  if [ -n $@ ] && [ -f $@ ]; then
+    filter="-- $@"
+  fi
+
+  # git command
+  local gitlog=(
+    git log
+    --graph --color=always
+    --abbrev=7
+    --format='%C(auto)%h %an %C(blue)%s %C(yellow)%cr'
+    $@
+  )
+
+  # fzf command
+  local fzf=(
+    fzf
+    --ansi --no-sort --reverse --tiebreak=index
+    --preview "f() { set -- \$(echo -- \$@ | grep -o '[a-f0-9]\{7\}'); [ \$# -eq 0 ] || git show --color=always \$1 $filter | delta; }; f {}"
+    --bind "ctrl-q:abort,ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % $filter | less -R') << 'FZF-EOF'
+                {}
+                FZF-EOF"
+   --preview-window=right:60%
+  )
+
+  # piping them
+  $gitlog | $fzf
+}
+#}}}
+
+# alias p="ping -c 50 8.8.8.8"
+# alias tldr="tldr --theme ocean"
+# alias cd='z'
+
+# [ -f /etc/bash.command-not-found ] && source /etc/bash.command-not-found
+
+
+# cd when typing a directory
+# setopt auto_cd
+
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# autoload -U compinit && compinit
+autoload -Uz compinit bashcompinit
+compinit
+bashcompinit
