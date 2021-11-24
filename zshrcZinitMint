@@ -22,6 +22,7 @@ BASE16_THEME=monokai; zinit ice atload"base16_${BASE16_THEME}"; zinit light "chr
 zinit light ohmyzsh/ohmyzsh
 zinit light 'chrissicool/zsh-256color' # idk what this does lol
 zinit ice depth=1 wait"1" lucid; zinit snippet OMZP::/zoxide
+# weird bug when typing 'git ' but whatever
 zinit ice wait"0a" lucid atload'_zsh_autosuggest_start'; zinit light zsh-users/zsh-autosuggestions
 # zinit ice wait"0c" lucid atinit"zpcompinit;zpcdreplay"; zinit light zdharma-continuum/fast-syntax-highlighting
 # wait this sucks
@@ -186,11 +187,12 @@ alias bat="bat --number"
 
 # No arguments: `git status`
 # With arguments: acts like `git`
-g() {
+alias g=git
+git () {
   if [[ $# -gt 0 ]]; then
-    git "$@"
+    /usr/bin/git "$@"
   else
-    git status
+    /usr/bin/git status
   fi
 }
 
