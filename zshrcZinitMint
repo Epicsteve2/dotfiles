@@ -187,12 +187,13 @@ alias bat="bat --number"
 
 # No arguments: `git status`
 # With arguments: acts like `git`
+GIT_LOCALTION=$(which git)
 alias g=git
 git () {
   if [[ $# -gt 0 ]]; then
-    /usr/bin/git "$@"
+    $GIT_LOCALTION "$@"
   else
-    /usr/bin/git status
+    $GIT_LOCALTION status
   fi
 }
 
