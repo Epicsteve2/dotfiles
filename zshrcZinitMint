@@ -16,60 +16,61 @@ zinit ice as"command" from"gh-r" \
           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
           atpull"%atclone" src"init.zsh" # pull behavior same as clone, source init.zsh
 zinit light starship/starship
+# zinit light romkatv/zsh-defer
 # zinit ice depth=1; zinit light romkatv/powerlevel10k
-zinit ice depth=1 wait"1" lucid; zinit light ajeetdsouza/zoxide
+BASE16_THEME=monokai; zinit ice atload"base16_${BASE16_THEME}"; zinit light "chriskempson/base16-shell"
+zinit light ohmyzsh/ohmyzsh
+zinit light 'chrissicool/zsh-256color' # idk what this does lol
+zinit ice depth=1 wait"1" lucid; zinit snippet OMZP::/zoxide
 zinit ice wait"0a" lucid atload'_zsh_autosuggest_start'; zinit light zsh-users/zsh-autosuggestions
 # zinit ice wait"0c" lucid atinit"zpcompinit;zpcdreplay"; zinit light zdharma-continuum/fast-syntax-highlighting
-zinit ice wait"0a" lucid; zinit light zsh-users/zsh-syntax-highlighting
+# wait this sucks
+zinit light zsh-users/zsh-syntax-highlighting
 # zinit load marlonrichert/zsh-autocomplete
-zinit ice wait"0a" lucid; zinit load Aloxaf/fzf-tab
-zinit ice wait"1" lucid blockf; zinit light zsh-users/zsh-completions
+zinit ice wait"0a" lucid; zinit light Aloxaf/fzf-tab
+zinit ice wait"1" lucid; zinit light wfxr/forgit
+zinit ice wait"1" lucid atload"zicompinit; zicdreplay" blockf; zinit light zsh-users/zsh-completions
 # zinit ice wait"1" lucid as"completion"; zinit snippet OMZ::plugins/docker-compose/_docker-compose
 # zinit ice wait"1" lucid as"completion"; zinit snippet OMZ::plugins/docker/_docker
-# zinit ice wait"1" lucid as"completion"; zinit snippet OMZ::plugins/pip/_pip
-# zinit ice wait'1' as"completion" lucid; zinit snippet OMZP::/terraform/_terraform
-zinit light 'chrissicool/zsh-256color' # idk what this does
-zinit light ohmyzsh/ohmyzsh
-BASE16_THEME=monokai; zinit ice atload"base16_${BASE16_THEME}"; zinit light "chriskempson/base16-shell"
+# zinit ice wait'1' lucid as"completion"; zinit snippet OMZP::/terraform/_terraform
+zinit ice wait"1" lucid as"completion"; zinit snippet OMZ::plugins/pip/_pip
+zinit ice wait"1" lucid; zinit snippet OMZP::fzf
+zinit ice wait"1" lucid atload"zicompinit; zicdreplay" blockf ; zinit snippet OMZP::kubectl
+zinit ice wait"1" lucid atload"zicompinit; zicdreplay" blockf ; zinit snippet OMZP::aws # this sources it twice. aws is dumb
+zinit ice wait"1" lucid; zinit snippet OMZP::globalias
+GLOBALIAS_FILTER_VALUES=(l)
+# zinit ice wait"1" lucid; zinit snippet OMZ::plugins/thefuck
 # zinit light chitoku-k/fzf-zsh-completions
 
-# EXA
-zinit ice wait"2" lucid from"gh-r" as"program" mv"bin/exa* -> exa"; zinit light ogham/exa
-zinit ice wait blockf atpull'zinit creinstall -q .'
-# DELTA
-zinit ice lucid wait"0" as"program" from"gh-r" pick"delta*/delta"; zinit light 'dandavison/delta'
-# DUST
-zinit ice wait"2" lucid from"gh-r" as"program" mv"dust*/dust -> dust" pick"dust" atload"alias du=dust"; zinit light bootandy/dust
-# DUF
-zinit ice lucid wait"0" as"program" from"gh-r" bpick='*linux_amd64.deb' pick"usr/bin/duf" atload"alias df=duf"; zinit light muesli/duf
-# BAT
-zinit ice from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat" atload"alias cat=bat"; zinit light sharkdp/bat
-# BAT-EXTRAS
-# zinit ice wait"1" as"program" pick"src/batgrep.sh" lucid; zinit ice wait"1" as"program" pick"src/batdiff.sh" lucid
-# zinit light eth-p/bat-extras
-# alias bd=batdiff.sh
-# alias man=batman.sh
-# alias batgrep=batgrep.sh
-# RIPGREP
-zinit ice from"gh-r" as"program" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"; zinit light BurntSushi/ripgrep
-# FD
-zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"; zinit light sharkdp/fd
-# FZF
-zinit ice from"gh-r" as"command"; zinit light junegunn/fzf
-zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null"; zinit light junegunn/fzf
-# RANGER
-zinit ice depth'1' as"program" pick"ranger.py"; zinit light ranger/ranger
+DOWNLOAD_CLI_PROGRAMS=2
+if [[ -n $DOWNLOAD_CLI_PROGRAMS ]]; then
+  # EXA
+  zinit ice wait"2" lucid from"gh-r" as"program" mv"bin/exa* -> exa"; zinit light ogham/exa
+  zinit ice wait blockf atpull'zinit creinstall -q .'
+  # DELTA
+  zinit ice lucid wait"0" as"program" from"gh-r" pick"delta*/delta"; zinit light 'dandavison/delta'
+  # DUST
+  zinit ice wait"2" lucid from"gh-r" as"program" mv"dust*/dust -> dust" pick"dust" atload"alias du=dust"; zinit light bootandy/dust
+  # DUF
+  zinit ice lucid wait"0" as"program" from"gh-r" bpick='*linux_amd64.deb' pick"usr/bin/duf" atload"alias df=duf"; zinit light muesli/duf
+  # BAT
+  zinit ice from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat" atload"alias cat=bat"; zinit light sharkdp/bat
+  # BAT-EXTRAS
+  zinit ice wait"1" as"program" pick"src/batgrep.sh" lucid; zinit ice wait"1" as"program" pick"src/batdiff.sh" lucid
+  zinit light eth-p/bat-extras
+  alias batdiff=batdiff.sh
+  alias batgrep=batgrep.sh
+  # RIPGREP
+  zinit ice from"gh-r" as"program" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"; zinit light BurntSushi/ripgrep
+  # FD
+  zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"; zinit light sharkdp/fd
+  # FZF
+  zinit ice from"gh-r" as"command"; zinit light junegunn/fzf
+  zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null"; zinit light junegunn/fzf
+  # RANGER
+  zinit ice depth'1' as"program" pick"ranger.py"; zinit light ranger/ranger
+fi
 
-superrg () {
-    INITIAL_QUERY=""
-    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
-    FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
-        fzf --bind "change:reload:$RG_PREFIX {q} || true" \
-            --ansi --disabled --query "$INITIAL_QUERY" \
-            --height=90% --layout=reverse
-}
-
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.config/broot/launcher/bash/br ] && source /home/patrick/.config/broot/launcher/bash/br
 
 fzf-up-arrow-widget() {
@@ -131,8 +132,8 @@ pacman-search() {
     # | xargs -r sudo pacman -S
 }
 
-export BAT_PAGER='less -F -S -R -M -i'
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export BAT_PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
+export MANPAGER="sh -c 'col -bx | bat --language man --plain'"
 export LS_COLORS='no=0:rs=0:di=01;38;5;198:ln=01;38;5;37:mh=00:pi=48;5;230;38;5;136;01:so=48;5;230;38;5;136;01:do=48;5;230;38;5;136;01:bd=48;5;230;38;5;244;01:cd=48;5;230;38;5;244;01:or=48;5;235;38;5;160:su=48;5;160;38;5;230:sg=48;5;136;38;5;230:ca=30;41:tw=48;5;64;38;5;230:ow=48;5;235;38;5;33:st=48;5;33;38;5;230:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:ex=01;38;5;82:*.cmd=00;38;5;82:*.exe=00;38;5;82:*.com=00;38;5;82:*.btm=00;38;5;82:*.bat=00;38;5;82:*.jpg=00;38;5;37:*.jpeg=00;38;5;37:*.png=00;38;5;37:*.gif=00;38;5;37:*.bmp=00;38;5;37:*.xbm=00;38;5;37:*.xpm=00;38;5;37:*.tif=00;38;5;37:*.tiff=00;38;5;37:*.pdf=00;38;5;98:*.odf=00;38;5;98:*.doc=00;38;5;98:*.ppt=00;38;5;98:*.pptx=00;38;5;98:*.db=00;38;5;98:*.aac=00;38;5;208:*.au=00;38;5;208:*.flac=00;38;5;208:*.mid=00;38;5;208:*.midi=00;38;5;208:*.mka=00;38;5;208:*.mp3=00;38;5;208:*.mpc=00;38;5;208:*.ogg=00;38;5;208:*.ra=00;38;5;208:*.wav=00;38;5;208:*.m4a=00;38;5;208:*.axa=00;38;5;208:*.oga=00;38;5;208:*.spx=00;38;5;208:*.xspf=00;38;5;208:*.mov=01;38;5;208:*.mpg=01;38;5;208:*.mpeg=01;38;5;208:*.3gp=01;38;5;208:*.m2v=01;38;5;208:*.mkv=01;38;5;208:*.ogm=01;38;5;208:*.mp4=01;38;5;208:*.m4v=01;38;5;208:*.mp4v=01;38;5;208:*.vob=01;38;5;208:*.qt=01;38;5;208:*.nuv=01;38;5;208:*.wmv=01;38;5;208:*.asf=01;38;5;208:*.rm=01;38;5;208:*.rmvb=01;38;5;208:*.flc=01;38;5;208:*.avi=01;38;5;208:*.fli=01;38;5;208:*.flv=01;38;5;208:*.gl=01;38;5;208:*.m2ts=01;38;5;208:*.divx=01;38;5;208:*.log=00;38;5;240:*.bak=00;38;5;240:*.aux=00;38;5;240:*.bbl=00;38;5;240:*.blg=00;38;5;240:*~=00;38;5;240:*#=00;38;5;240:*.part=00;38;5;240:*.incomplete=00;38;5;240:*.swp=00;38;5;240:*.tmp=00;38;5;240:*.temp=00;38;5;240:*.o=00;38;5;240:*.pyc=00;38;5;240:*.class=00;38;5;240:*.cache=00;38;5;240:';
 export EXA_COLORS="${LS_COLORS}"
 export LSCOLORS=$LS_COLORS
@@ -328,22 +329,6 @@ fman() {
 }
 # Get the colors in the opened man page itself
 export MANPAGER="sh -c 'col -bx | bat -l man -p --paging always'"
-
-fbr() {
-  local branches branch
-  branches=$(git --no-pager branch -vv) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
-}
-
-# fbr - checkout git branch (including remote branches)
-fbr() {
-  local branches branch
-  branches=$(git branch --all | grep -v HEAD) &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
-}
 fco() {
   local tags branches target
   branches=$(
@@ -364,35 +349,6 @@ fcs() {
   commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
   commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
   echo -n $(echo "$commit" | sed "s/ .*//")
-}
-
-# fstash - easier way to deal with stashes
-# type fstash to get a list of your stashes
-# enter shows you the contents of the stash
-# ctrl-d shows a diff of the stash against your current HEAD
-# ctrl-b checks the stash out as a branch, for easier merging
-fstash() {
-  local out q k sha
-  while out=$(
-    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
-    fzf --ansi --no-sort --query="$q" --print-query \
-        --expect=ctrl-d,ctrl-b);
-  do
-    mapfile -t out <<< "$out"
-    q="${out[0]}"
-    k="${out[1]}"
-    sha="${out[-1]}"
-    sha="${sha%% *}"
-    [[ -z "$sha" ]] && continue
-    if [[ "$k" == 'ctrl-d' ]]; then
-      git diff $sha
-    elif [[ "$k" == 'ctrl-b' ]]; then
-      git stash branch "stash-$sha" $sha
-      break;
-    else
-      git stash show -p $sha
-    fi
-  done
 }
 
 # git log show with fzf
@@ -441,14 +397,7 @@ gli() {
 # alias tldr="tldr --theme ocean"
 # alias cd='z'
 
-# [ -f /etc/bash.command-not-found ] && source /etc/bash.command-not-found
-
-
-# cd when typing a directory
-# setopt auto_cd
-
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# autoload -U compinit && compinit
-autoload -Uz compinit bashcompinit
-compinit
-bashcompinit
+
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
