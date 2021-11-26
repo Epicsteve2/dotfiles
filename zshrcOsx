@@ -106,15 +106,16 @@ plugins=(
   # pipenv
   aws
   zsh-autosuggestions
-  #zsh-autocomplete # this is the crap at the bottom
   zsh-syntax-highlighting
+  #zsh-autocomplete # this is the crap at the bottom
+  globalias ### wtf this inturupts syntax highlighting???
   zsh-completions
   
   #gradle-completion
   kubectl
   #nvm
   pip
-  zsh-better-npm-completion
+  # zsh-better-npm-completion
   docker
   fzf-tab
   forgit
@@ -186,8 +187,8 @@ export SDKMAN_DIR="/Users/sguo/.sdkman"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-zstyle ':autocomplete:*' fzf-completion yes
-zstyle ':autocomplete:*' widget-style menu-select
+# zstyle ':autocomplete:*' fzf-completion yes
+# zstyle ':autocomplete:*' widget-style menu-select
 # zstyle ':autocomplete:*' insert-unambiguous no
 # zstyle ':autocomplete:*' default-context history-incremental-search-backward
 
@@ -256,11 +257,12 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':fzf-tab:*' fzf-bindings 'shift-tab:accept'
 zstyle ':fzf-tab:*' continuous-trigger 'tab'
 zstyle ':fzf-tab:*' accept-line enter
-zstyle ':fzf-tab:*' fzf-flags '--header="tab to continue completing, enter to execute, shift+tab to accept and edit, esc to cancel"'
+zstyle ':fzf-tab:*' fzf-flags '--header="tab to continue completing, enter to execute, shift+tab to accept and edit, esc to cancel"' '--height=60%'
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
+# found from fzf-scripts
 superrg () {
     declare preview='bat --color=always --style=header,numbers -H {2} {1} | grep -C3 {q}'
 
@@ -281,7 +283,8 @@ superrg () {
     --phony \
     --bind="change:reload:rg -n ${list_files:+-l} --color=always {q}" \
     --bind="enter:execute:${EDITOR} {1}" \
-    --preview="[[ -n {1} ]] && $preview"
+    --preview="[[ -n {1} ]] && $preview" \
+    --preview-window=up
 }
 
 lfcd () {
@@ -344,14 +347,17 @@ gl() {
 
 # No arguments: `git status`
 # With arguments: acts like `git`
-g () {
+
+GIT_LOCALTION=$(which git)
+alias g=git
+git () {
   if [[ $# -gt 0 ]]; then
-    git "$@"
+    $GIT_LOCALTION "$@"
   else
     forgit
     echo
     echo
-    git status
+    $GIT_LOCALTION status
   fi
 }
 
@@ -359,21 +365,21 @@ export FORGIT_LOG_GRAPH_ENABLE=false
 export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
 
 forgit() {
-    cat <<EOF
-Interactive git log but better ($(tput setaf 1)gl$(tput sgr0))
-Interactive git add selector ($(tput setaf 1)ga$(tput sgr0))
-Interactive git log viewer ($(tput setaf 1)glo$(tput sgr0))
-Interactive .gitignore generator ($(tput setaf 1)gi$(tput sgr0))
-Interactive git diff viewer ($(tput setaf 1)gd)$(tput sgr0)
-Interactive git reset HEAD <file> selector ($(tput setaf 1)grh$(tput sgr0))
-Interactive git checkout <file> selector ($(tput setaf 1)gcf$(tput sgr0))
-Interactive git checkout <branch> selector ($(tput setaf 1)gcb$(tput sgr0))
-Interactive git checkout <commit> selector ($(tput setaf 1)gco$(tput sgr0))
-Interactive git stash viewer ($(tput setaf 1)gss$(tput sgr0))
-Interactive git clean selector ($(tput setaf 1)gclean$(tput sgr0))
-Interactive git cherry-pick selector ($(tput setaf 1)gcp$(tput sgr0))
-Interactive git rebase -i selector ($(tput setaf 1)grb$(tput sgr0))
-Interactive git commit --fixup && git rebase -i --autosquash selector ($(tput setaf 1)gfu$(tput sgr0))
+    cat <<EOF | column -ts '|'
+($(tput setaf 1)gl$(tput sgr0))|Interactive git log but better
+($(tput setaf 1)ga$(tput sgr0))|Interactive git add selector
+($(tput setaf 1)glo$(tput sgr0))|Interactive git log viewer
+($(tput setaf 1)gi$(tput sgr0))|Interactive .gitignore generator
+($(tput setaf 1)gd$(tput sgr0))|Interactive git diff viewer
+($(tput setaf 1)grh$(tput sgr0))|Interactive git reset HEAD <file> selector
+($(tput setaf 1)gcf$(tput sgr0))|Interactive git checkout <file> selector
+($(tput setaf 1)gcb$(tput sgr0))|Interactive git checkout <branch> selector
+($(tput setaf 1)gco$(tput sgr0))|Interactive git checkout <commit> selector
+($(tput setaf 1)gss$(tput sgr0))|Interactive git stash viewer
+($(tput setaf 1)gclean$(tput sgr0))|Interactive git clean selector
+($(tput setaf 1)gcp$(tput sgr0))|Interactive git cherry-pick selector
+($(tput setaf 1)grb$(tput sgr0))|Interactive git rebase -i selector
+($(tput setaf 1)gfu$(tput sgr0))|Interactive git commit --fixup && git rebase -i --autosquash selector
 EOF
 }
 
@@ -385,5 +391,97 @@ alt+super+down select_lines
 alt+up swap_line_up
 alt+down swap_line_down
 EOF
-    '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+    '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl' $@
+}
+
+# Delete (one or multiple) selected application(s)
+# mnemonic [B]rew [C]lean [P]lugin (e.g. uninstall)
+bcp() {
+  local uninst=$(brew leaves | fzf -m)
+
+  if [[ $uninst ]]; then
+    for prog in $(echo $uninst);
+    do; brew uninstall $prog; done;
+  fi
+}
+# Install (one or multiple) selected application(s)
+# using "brew search" as source input
+# mnemonic [B]rew [I]nstall [P]lugin
+bip() {
+  local inst=$(brew search | fzf -m)
+
+  if [[ $inst ]]; then
+    for prog in $(echo $inst);
+    do; brew install $prog; done;
+  fi
+}
+# Update (one or multiple) selected application(s)
+# mnemonic [B]rew [U]pdate [P]lugin
+bup() {
+  local upd=$(brew leaves | fzf -m)
+
+  if [[ $upd ]]; then
+    for prog in $(echo $upd);
+    do; brew upgrade $prog; done;
+  fi
+}
+
+brew-search() {
+    # brew search '' | fzf --preview="brew info {}"
+    brew formulae | fzf --preview="HOMEBREW_COLOR=true brew info {}"
+}
+
+FORGIT_HELP=$(<<<'
+Command|Option
+Enter|Confirm
+Tab|Toggle mark and move up
+Shift - Tab|Toggle mark and move down
+?|Toggle preview window
+Alt - W|Toggle preview wrap
+Ctrl - S|Toggle sort
+Ctrl - R|Toggle selection
+Ctrl - Y|Copy commit hash
+Ctrl - K / P|Selection move up
+Ctrl - J / N|Selection move down
+Alt - K / P|Preview move up
+Alt - J / N|Preview move down' column -ts "|")
+# instead of printf, can do $'\t'
+export FORGIT_FZF_DEFAULT_OPTS=" --reverse --header '${FORGIT_HELP}' --height '100%' --ansi "
+# %C = color
+# %h = short commit hash
+# %an = author
+# %d ref name (HEAD, origin)
+# %s subject / commit message
+# cr commit date, relative
+# black is supposed to work... idk waht's up with terminator
+#https://git-scm.com/docs/git-log#Documentation/git-log.txt-emnem
+export FORGIT_LOG_FORMAT='%C(auto)%h %C(green)%an%C(auto)%d %C(reset)%s %C(magenta)%C(bold)%cr%Creset'
+export FORGIT_LOG_GRAPH_ENABLE=false
+
+BREW_LOCATION=$(which brew)
+brew () {
+  if [[ $# -gt 0 ]]; then
+    ${BREW_LOCATION} "$@"
+  else
+    cat <<EOF | column -ts '|'
+($(tput setaf 1)bip$(tput sgr0))|Install (one or multiple) selected application(s)
+($(tput setaf 1)bup$(tput sgr0))|Update (one or multiple) selected application(s)
+($(tput setaf 1)bcp$(tput sgr0))|Delete (one or multiple) selected application(s)
+($(tput setaf 1)brew-search$(tput sgr0))|Brew search
+EOF
+    echo
+    echo
+    ${BREW_LOCATION}
+  fi
+}
+
+function  search-man(){
+    MAN="/usr/bin/man"
+    if [ -n "$1" ]; then
+        $MAN "$@"
+        return $?
+    else
+        $MAN -k . | fzf --reverse --preview="echo {1,2} | sed 's/ (/./' | sed -E 's/\)\s*$//' | xargs $MAN" | awk '{print $1 "." $2}' | tr -d '()' | xargs -r $MAN
+        return $?
+    fi
 }
