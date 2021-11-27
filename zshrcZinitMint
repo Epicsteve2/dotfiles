@@ -251,22 +251,22 @@ EOF
 }
 
 # Based on http://stackoverflow.com/a/41420448/4757 {{{
-function expand-multiple-dots() {
-    local MATCH
-    if [[ $LBUFFER =~ '(^| )\.\.\.+' ]]; then
-        LBUFFER=$LBUFFER:fs%\.\.\.%../..%
-    fi
-}
+# function expand-multiple-dots() {
+#     local MATCH
+#     if [[ $LBUFFER =~ '(^| )\.\.\.+' ]]; then
+#         LBUFFER=$LBUFFER:fs%\.\.\.%../..%
+#     fi
+# }
 
-function expand-multiple-dots-then-expand-or-complete() {
-    zle expand-multiple-dots
-    zle expand-or-complete
-}
+# function expand-multiple-dots-then-expand-or-complete() {
+#     zle expand-multiple-dots
+#     zle expand-or-complete
+# }
 
-function expand-multiple-dots-then-accept-line() {
-    zle expand-multiple-dots
-    zle accept-line
-}
+# function expand-multiple-dots-then-accept-line() {
+#     zle expand-multiple-dots
+#     zle accept-line
+# }
 
 # zle -N expand-multiple-dots
 # zle -N expand-multiple-dots-then-expand-or-complete
@@ -276,53 +276,21 @@ function expand-multiple-dots-then-accept-line() {
 # This breaks autosuggest when running incorrect command
 #}}}
 
-apt_fzf() {
-  command fzf -e +s --multi --cycle --ansi \
+apt_search() {
+  fzf -e +s --multi --cycle --ansi \
+    --reverse \
     --bind='Ctrl-X:toggle-preview' \
     --no-hscroll --inline-info \
-    --header='tab to select multiple packages, Ctrl-X for more info on a package' "$@"
-}
-
-apt_install() {
-  local pkgs count
-  mapfile -t pkgs
-  (( ${#pkgs} > 0 )) || exit
-  count="${#pkgs[@]} package"
-  (( ${#pkgs[@]} > 1 )) && count+='s'
-  printf "installing %s: %s\n" "$count" "${pkgs[*]}"
-  $1 "${pkgs[@]}" < /dev/tty
-}
-
-apt_select_from() {
-  local cmd='command -v'
-  for a; do
-    case "$a" in
-      -c)
-        cmd="$2"
-        shift 2
-        ;;
-    esac
-  done
-  for c; do
-    if $cmd "${c%% *}" &> /dev/null; then
-      echo "$c"
-      return 0
-    fi
-  done
-  return 1
-}
-
-# wtf
-# also colors broke, deal with it later
-apt_search() {
-  apt_fzf --preview="apt-cache show {1} | sed --unbuffered --regexp-extended \"s|^([a-zA-Z0-9-]*?:)|$(tput setaf 1)\1$(tput sgr0)|\"" \
-      --query="$1" \
+    --header='tab to select multiple packages, Ctrl-X for more info on a package' \
+    --preview="apt-cache show {1} | sed --unbuffered --regexp-extended \"s|^([a-zA-Z0-9-]*?:)|$(tput setaf 1)\1$(tput sgr0)|\"" \
+    --query="$1" \
     < <(apt-cache search '.*' | sort |
-      sed -u -r "s|^([^ ]+)|${c_green}\1${c_reset}|") |
+      sed -u -r "s|^([^ ]+)|$(tput setaf 2)\1$(tput sgr0)|") |
     cut -d' ' -f1 |
-    sudo apt install
+    xargs --no-run-if-empty sudo apt install
 }
 
+# https://github.com/DanielFGray/fzf-scripts/blob/master/igr
 superrg () {
     declare preview='bat --color=always --style=header,numbers -H {2} {1} | grep -C3 {q}'
 
@@ -451,6 +419,7 @@ gt() {
 #                 --bind "alt-y:execute:$_gitLogLineToHash | xclip"
 # }
 
+# https://github.com/junegunn/fzf/wiki/Examples#man-pages
 fman() {
     man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man | col -bx | bat -l man -p --color always' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 }
