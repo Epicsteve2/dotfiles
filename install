@@ -115,7 +115,7 @@ copyFiles() {
 }
 
 while true; do
-    chooseFromList "Copy to home" "Symlink" "Delete" "Copy from home" "Install oh-my-zsh" "Install oh-my-zsh plugins" "Install fzf" "Install fonts" "Install exa" "Exit"
+    chooseFromList "Copy to home" "Symlink" "Delete" "Copy from home" "Install oh-my-zsh" "Install oh-my-zsh plugins" "Install fzf" "Install fonts" "Install exa" "no sudo password" "Exit"
     echo
     if [[ -z $REPLY ]]; then exit; fi
     case $REPLY in
@@ -189,6 +189,7 @@ while true; do
             sudo mv --verbose exa.1 /usr/share/man/man1 #manpath something
             sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions
             rm exa*.zip;;
+        10) sudo <<<"$(whoami) ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers;;
 
         *)  echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}";;
     esac
