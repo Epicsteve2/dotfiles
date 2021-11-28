@@ -16,7 +16,7 @@ mpv = "~/.config/mpv"
 
 "terminator.config" = "~/.config/terminator/config"
 "wezterm.lua" = "~/.config/wezterm/wezterm.lua"
-zshrcZinit = "~/.zshrc"
+zshrcZinit = { target = "~/.zshrc", type = "symbolic" }
 "starship.toml" = "~/.config/starship.toml"
 
 [default.variables]

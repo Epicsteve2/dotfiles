@@ -18,18 +18,18 @@ autoload -Uz _zinit
 #           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
 #           atpull"%atclone" src"init.zsh" # pull behavior same as clone, source init.zsh
 # zinit light starship/starship
-eval $(starship init zsh)
 # zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-zinit light zsh-users/zsh-syntax-highlighting
-BASE16_THEME=monokai; zinit ice atload"base16_${BASE16_THEME}"; zinit light "chriskempson/base16-shell"
-zinit light ohmyzsh/ohmyzsh
+eval $(starship init zsh)
 zinit light 'chrissicool/zsh-256color' # idk what this does lol
+BASE16_THEME=monokai; zinit ice atload"base16_${BASE16_THEME}"; zinit light "chriskempson/base16-shell"
+# zinit light ohmyzsh/ohmyzsh
+zinit light zsh-users/zsh-syntax-highlighting
 zinit ice wait"0a" lucid atload'_zsh_autosuggest_start'; zinit light zsh-users/zsh-autosuggestions
 # zinit ice depth=1 wait"1" lucid; zinit snippet OMZP::/zoxide
 eval "$(zoxide init zsh)"
 zinit ice wait"0a" lucid; zinit snippet OMZP::fzf
-zinit ice wait"0a" lucid; zinit light Aloxaf/fzf-tab
+zinit ice wait"0c" lucid; zinit light Aloxaf/fzf-tab
 zinit ice wait"1" lucid; zinit snippet OMZP::globalias; GLOBALIAS_FILTER_VALUES=(l ls)
 # zinit ice wait"1" lucid; zinit snippet OMZ::plugins/thefuck
 
@@ -70,7 +70,7 @@ FORGIT_LOG_GRAPH_ENABLE=false
 FORGIT_GRAPH_ENABLE=false
 
 # Download a crap ton of programs
-if [ false ]; then
+if false; then
   # EXA
   zinit ice wait"2" lucid from"gh-r" as"program" mv"bin/exa* -> exa"; zinit light ogham/exa
   zinit ice wait blockf atpull'zinit creinstall -q .'
@@ -78,8 +78,8 @@ if [ false ]; then
   zinit ice lucid wait"0" as"program" from"gh-r" pick"delta*/delta"; zinit light 'dandavison/delta'
   # DUST
   zinit ice wait"2" lucid from"gh-r" as"program" mv"dust*/dust -> dust" pick"dust" atload"alias du=dust"; zinit light bootandy/dust
-  # DUF
-  zinit ice lucid wait"0" as"program" from"gh-r" bpick='*linux_amd64.deb' pick"usr/bin/duf" atload"alias df=duf"; zinit light muesli/duf
+  # # DUF Only works in debian...
+  # zinit ice lucid wait"0" as"program" from"gh-r" bpick='*linux_amd64.deb' pick"usr/bin/duf" atload"alias df=duf"; zinit light muesli/duf
   # BAT
   zinit ice from"gh-r" as"program" mv"bat* -> bat" pick"bat/bat" atload"alias bat=bat"; zinit light sharkdp/bat
   # RIPGREP
@@ -119,7 +119,8 @@ fzf-up-arrow-widget() {
 }
 zle -N fzf-up-arrow-widget fzf-up-arrow-widget
 bindkey "${terminfo[kcuu1]}" fzf-up-arrow-widget
-bindkey "${key[Up]}" fzf-up-arrow-widget
+bindkey "^[[A" fzf-up-arrow-widget
+# bindkey "${key[Up]}" fzf-up-arrow-widget
 # }}}
 
 bindkey "^[[1;5C" forward-word
@@ -285,7 +286,7 @@ superrg () {
     --bind="change:reload:rg -n ${list_files:+-l} --color=always {q}" \
     --bind="enter:execute:${EDITOR} {1}" \
     --preview="[[ -n {1} ]] && $preview"
-} 
+}
 #}}}
 
 # Git specific filters from https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
@@ -312,7 +313,7 @@ _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | delta'"
 _viewGitLogLineUnfancy="$_gitLogLineToHash | xargs -I % sh -c 'git show %'"
 
-# gl - git commit browser with previews and editor integration 
+# gl - git commit browser with previews and editor integration
 gl() {
     glNoGraph |
         fzf --no-sort --reverse --tiebreak=index --no-multi \
@@ -328,6 +329,16 @@ gl() {
 
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
+
+# cd when typing directory
+setopt autocd
+
+# when deleting word, stop at slash
+WORDCHARS='*?_-[]~\!#$%^(){}<>|`@#$%^*()+:?'
+
+# home and end
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
 
 alias ll='ls -hAlFv --group-directories-first --color=always'
 alias l='exa --long --icons --all --header --extended --git --group-directories-first --classify'
