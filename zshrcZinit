@@ -21,14 +21,15 @@ autoload -Uz _zinit
 # zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 eval $(starship init zsh)
-zinit light 'chrissicool/zsh-256color' # idk what this does lol
+# zinit light 'chrissicool/zsh-256color' # idk what this does lol
 BASE16_THEME=monokai; zinit ice atload"base16_${BASE16_THEME}"; zinit light "chriskempson/base16-shell"
-# zinit light ohmyzsh/ohmyzsh
+# zinit light ohmyzsh/ohmyzsh Sucks on initial install
 zinit light zsh-users/zsh-syntax-highlighting
 zinit ice wait"0a" lucid atload'_zsh_autosuggest_start'; zinit light zsh-users/zsh-autosuggestions
 # zinit ice depth=1 wait"1" lucid; zinit snippet OMZP::/zoxide
 eval "$(zoxide init zsh)"
-zinit ice wait"0a" lucid; zinit snippet OMZP::fzf
+# zinit ice wait"0a" lucid; 
+zinit snippet OMZP::fzf
 zinit ice wait"0c" lucid; zinit light Aloxaf/fzf-tab
 zinit ice wait"1" lucid; zinit snippet OMZP::globalias; GLOBALIAS_FILTER_VALUES=(l ls)
 # zinit ice wait"1" lucid; zinit snippet OMZ::plugins/thefuck
@@ -120,6 +121,7 @@ fzf-up-arrow-widget() {
 zle -N fzf-up-arrow-widget fzf-up-arrow-widget
 bindkey "${terminfo[kcuu1]}" fzf-up-arrow-widget
 bindkey "^[[A" fzf-up-arrow-widget
+bindkey '^R' fzf-up-arrow-widget
 # bindkey "${key[Up]}" fzf-up-arrow-widget
 # }}}
 
@@ -327,6 +329,7 @@ gl() {
 
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# idk what this does lol, completions???
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 
@@ -344,3 +347,7 @@ alias ll='ls -hAlFv --group-directories-first --color=always'
 alias l='exa --long --icons --all --header --extended --git --group-directories-first --classify'
 alias bat="bat --number"
 alias cat="bat --plain --plain"
+alias fzfp="fzf --preview 'bat --color=always -pp --line-range=:500 {}'"
+alias r="source ranger"
+
+# export FZF_CTRL_R_OPTS="--height=90% --preview 'bat --color=always -pp -l zsh <<<{}' --preview-window down:3:wrap"

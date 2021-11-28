@@ -7,15 +7,15 @@ depends = []
 "Preferences.sublime-settings.json" = "~/.config/sublime-text/Packages/User/Preferences.sublime-settings"
 "bottom.toml" = "~/.config/bottom/bottom.toml"
 # "fonts" =  { target = "~/.local/share/fonts/", type = "symbolic" }
-"fonts" = "~/.local/share/fonts/"
+"fonts" = {target = "~/.local/share/fonts/", type = "symbolic" }
 gitconfig = "~/.gitconfig"
 htoprc = "~/.config/htop/htoprc"
-"hyper.js" = "~/.hyper.js"
+# "hyper.js" = "~/.hyper.js"
 "microSettings.json" = "~/.config/micro/settings.json"
 mpv = "~/.config/mpv"
 
 "terminator.config" = "~/.config/terminator/config"
-"wezterm.lua" = "~/.config/wezterm/wezterm.lua"
+# "wezterm.lua" = "~/.config/wezterm/wezterm.lua"
 zshrcZinit = { target = "~/.zshrc", type = "symbolic" }
 "starship.toml" = "~/.config/starship.toml"
 
