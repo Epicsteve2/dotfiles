@@ -138,19 +138,21 @@
 #    type="proc"
 #    default=true
 [[row]]
-	ratio=30
+	ratio=40
 	[[row.child]]
 	type="cpu"
 [[row]]
-	ratio=70
+	ratio=60
 	[[row.child]]
 		ratio=30
-		[[row.child.child]]
-			ratio=70
-			type="mem"
-		[[row.child.child]]
-			ratio=30
-			type="net"
+		type="mem"
+		# ratio=30
+		# [[row.child.child]]
+		# 	ratio=70
+		# 	type="mem"
+		# [[row.child.child]]
+		# 	ratio=30
+		# 	type="net"
 	[[row.child]]
 		ratio=70
 		type="proc"

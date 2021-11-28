@@ -4,22 +4,20 @@
 depends = []
 
 [default.files]
-"Preferences.sublime-settings" = "/.config/sublime-text/Packages/User/Preferences.sublime-settings"
-bashrc = "~/.bashrc"
+"Preferences.sublime-settings.json" = "~/.config/sublime-text/Packages/User/Preferences.sublime-settings"
 "bottom.toml" = "~/.config/bottom/bottom.toml"
-# fonts = ""
+# "fonts" =  { target = "~/.local/share/fonts/", type = "symbolic" }
+"fonts" = "~/.local/share/fonts/"
 gitconfig = "~/.gitconfig"
 htoprc = "~/.config/htop/htoprc"
 "hyper.js" = "~/.hyper.js"
 "microSettings.json" = "~/.config/micro/settings.json"
 mpv = "~/.config/mpv"
 
-# scripts = ""
 "terminator.config" = "~/.config/terminator/config"
 "wezterm.lua" = "~/.config/wezterm/wezterm.lua"
-# "windows-terminal.json" = ""
-zshrc = "~/.zshrc"
-"plugins.toml" = "~/.config/sheldon/plugins.toml"
+zshrcZinit = "~/.zshrc"
+"starship.toml" = "~/.config/starship.toml"
 
 [default.variables]
 

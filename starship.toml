@@ -18,12 +18,13 @@ $line_break\
 $character\
 """
 
-right_format = """
-"""
-
-
-# [directory]
-# truncation_symbol = "…/"
+# # If we want to use right prompt instead of fill
+# right_format = """
+# $status\
+# $cmd_duration\
+# $time\
+# $battery\
+# """
 
 [fill]
 symbol = " "
@@ -34,7 +35,6 @@ success_symbol = "[➜](bold green) "
 error_symbol = "[✗](bold red) "
 
 [time]
-# format = '🕙 [$time]($style) '
 disabled = false
 use_12hr = true
 
@@ -46,8 +46,6 @@ threshold = 100
 
 [status]
 # pipestatus_format 	= "\\[$pipestatus\\] => [$symbol$common_meaning$signal_name$maybe_int]($style)"
-# format = '[\[$symbol $common_meaning$signal_name$maybe_int\]]($style) '
-# format = "[$symbol $status ]($style) "
 format = '[$symbol $common_meaning$signal_name$maybe_int]($style) '
 map_symbol = true
 pipestatus = false
@@ -66,7 +64,6 @@ format = 'on [$symbol$context]($style) '
 ahead = "⇡$count"
 behind = "⇣$count"
 diverged = "⇡$ahead_count⇣$behind_count"
-# diverged = "⇕⇡⇣"
 up_to_date = ""
 untracked =	"?$count"
 stashed = '\$$count'
@@ -75,16 +72,12 @@ staged = "+$count"
 renamed = "»$count"
 deleted = "✘$count"
 
-# [git_branch]
-# format = "on [$symbol$branch]($style) "
-
 [aws]
 symbol = "  "
 [conda]
 symbol = " "
 [dart]
 symbol = " "
-# [directory]
 [docker_context]
 symbol = " "
 [elixir]

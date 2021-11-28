@@ -163,7 +163,7 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 
 #export PATH="$PATH:/home/stephen/snap/flutter/common/flutter/bin"
 
-export VISUAL=subl
+export VISUAL="subl --wait"
 export EDITOR="$VISUAL"
 export JAVA_HOME="/usr/lib/jvm/java-1.11.0-openjdk-amd64"
 

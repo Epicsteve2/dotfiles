@@ -92,7 +92,7 @@ include "~/.nano/zsh.nanorc"
 set constantshow
 set linenumbers
 set mouse
-set smooth
+# set smooth
 set indicator
 set smarthome
 

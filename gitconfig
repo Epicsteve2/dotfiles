@@ -3,15 +3,28 @@
 	email = epicsteveoj@gmail.com
 [credential]
 	helper = store
+[core]
+    pager = delta --line-numbers
+	editor = code --wait
+[diff]
+    colorMoved = default
+    diffFilter = delta --color-only --line-numbers
+[difftool "vscode"]
+	cmd = "code --wait --diff $LOCAL $REMOTE"
 [pager]
-    diff = delta
-    show = delta
+  diff = delta # --side-by-side
+  log = delta
+  reflog = delta
+  show = delta
 [delta]
-    plus-style = "syntax #012800"
-    minus-style = "syntax #340001"
+    # plus-style = "syntax #012800"
+    # minus-style = "syntax #340001"
     syntax-theme = Monokai Extended
     navigate = true
     line-numbers = true
+    hunk-header-style = omit
+    # line-numbers-left-format = "{nm:>4}┊"
+    # line-numbers-right-format = "{np:>4}"
 
 [interactive]
-    diffFilter = delta --color-only
+    diffFilter = delta --color-only --line-numbers
