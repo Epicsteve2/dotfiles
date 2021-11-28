@@ -28,10 +28,8 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit ice wait"0a" lucid atload'_zsh_autosuggest_start'; zinit light zsh-users/zsh-autosuggestions
 # zinit ice depth=1 wait"1" lucid; zinit snippet OMZP::/zoxide
 eval "$(zoxide init zsh)"
-# zinit ice wait"0a" lucid; 
 zinit snippet OMZP::fzf
 zinit ice wait"0c" lucid; zinit light Aloxaf/fzf-tab
-zinit ice wait"1" lucid; zinit snippet OMZP::globalias; GLOBALIAS_FILTER_VALUES=(l ls)
 # zinit ice wait"1" lucid; zinit snippet OMZ::plugins/thefuck
 
 # # Completions
@@ -351,3 +349,16 @@ alias fzfp="fzf --preview 'bat --color=always -pp --line-range=:500 {}'"
 alias r="source ranger"
 
 # export FZF_CTRL_R_OPTS="--height=90% --preview 'bat --color=always -pp -l zsh <<<{}' --preview-window down:3:wrap"
+
+# Expand only the g and k aliases
+# source https://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
+globalias() {
+  EXPAND_ALIASES=(g k)
+   if [[ ${EXPAND_ALIASES[(ie)$LBUFFER]} -le ${#EXPAND_ALIASES} ]]; then
+     zle _expand_alias
+     zle expand-word
+   fi
+   zle self-insert
+}
+zle -N globalias
+bindkey " " globalias
