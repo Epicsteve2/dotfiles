@@ -155,7 +155,7 @@ export LSCOLORS=$LS_COLORS
 export EDITOR=nano
 export VISUAL=${EDITOR}
 export PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
-export SHELL='/usr/bin/zsh'
+export SHELL="$(which zsh)"
 
 export HISTFILE="${HOME}/.zsh_history"
 export HISTSIZE=100000
@@ -362,3 +362,9 @@ globalias() {
 }
 zle -N globalias
 bindkey " " globalias
+
+# shell title https://superuser.com/questions/292652/change-iterm2-window-and-tab-titles-in-zsh
+precmd () { 
+    # dirst is better than pwd
+    echo -ne "\e]1;$(dirs)\a"
+}
