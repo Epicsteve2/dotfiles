@@ -263,7 +263,7 @@ apt-search() {
     < <(apt-cache search '.*' | sort |
       sed -u -r "s|^([^ ]+)|$(tput setaf 2)\1$(tput sgr0)|") |
     cut -d' ' -f1 |
-    xargs --no-run-if-empty sudo apt install
+    xargs --no-run-if-empty --open-tty sudo apt install
 }
 # }}}
 
