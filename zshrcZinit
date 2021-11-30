@@ -139,13 +139,14 @@ aptu() {
   sudo apt upgrade
 }
 
-pacman-search() {
-  pacman -Ss '' \
-    | sort \
-    | cut --delimiter ' ' --fields 1 \
-    | fzf --multi --cycle --reverse --preview 'pacman -Ss {1}' \
-    | xargs --no-run-if-empty sudo pacman -S
-}
+# just install fpf in AUR lol
+# pacman-search() {
+#   pacman -Ss '' \
+#     | sort \
+#     | cut --delimiter ' ' --fields 1 \
+#     | fzf --multi --cycle --reverse --preview 'pacman -Ss {1}' \
+#     | xargs --no-run-if-empty sudo pacman -S
+# }
 
 export BAT_PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
 export MANPAGER="sh -c 'col -bx | bat --language man --plain'"
@@ -184,11 +185,12 @@ zstyle ':completion:*:descriptions' format '[%d]'
 
 # preview directory's content with exa when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
+zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
 zstyle ':fzf-tab:*' fzf-bindings 'shift-tab:accept'
 zstyle ':fzf-tab:*' continuous-trigger 'tab'
 zstyle ':fzf-tab:*' accept-line enter
-zstyle ':fzf-tab:*' fzf-flags '--header="tab to continue completing, enter to execute, shift+tab to accept and edit, esc to cancel"'
+# Disabled cuz bug where last element won't be shown cuz of header
+# zstyle ':fzf-tab:*' fzf-flags '--header="tab to continue completing, enter to execute, shift+tab to accept and edit, esc to cancel"'
 
 alias g="git"
 GIT_LOCATION="$(which git)"
@@ -250,7 +252,7 @@ EOF
 #}}}
 
 # https://github.com/DanielFGray/fzf-scripts/blob/master/pkgsearch {{{
-apt_search() {
+apt-search() {
   fzf -e +s --multi --cycle --ansi \
     --reverse \
     --bind='Ctrl-X:toggle-preview' \
