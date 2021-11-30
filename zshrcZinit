@@ -19,11 +19,12 @@ autoload -Uz _zinit
 #           atpull"%atclone" src"init.zsh" # pull behavior same as clone, source init.zsh
 # zinit light starship/starship
 # zinit ice depth=1; zinit light romkatv/powerlevel10k
-
 eval $(starship init zsh)
+# based off of https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/termsupport.zsh
+zinit ice wait"0a" lucid; zinit light trystan2k/zsh-tab-title
 # zinit light 'chrissicool/zsh-256color' # idk what this does lol
 BASE16_THEME=monokai; zinit ice atload"base16_${BASE16_THEME}"; zinit light "chriskempson/base16-shell"
-# zinit light ohmyzsh/ohmyzsh Sucks on initial install
+# zinit light ohmyzsh/ohmyzsh #Sucks on initial install
 zinit light zsh-users/zsh-syntax-highlighting
 zinit ice wait"0a" lucid atload'_zsh_autosuggest_start'; zinit light zsh-users/zsh-autosuggestions
 # zinit ice depth=1 wait"1" lucid; zinit snippet OMZP::/zoxide
@@ -347,7 +348,7 @@ alias bat="bat --number"
 alias cat="bat --plain --plain"
 alias fzfp="fzf --preview 'bat --color=always -pp --line-range=:500 {}'"
 alias r="source ranger"
-
+alias tldr="tldr --theme=base16"
 # export FZF_CTRL_R_OPTS="--height=90% --preview 'bat --color=always -pp -l zsh <<<{}' --preview-window down:3:wrap"
 
 # Expand only the g and k aliases
@@ -362,9 +363,3 @@ globalias() {
 }
 zle -N globalias
 bindkey " " globalias
-
-# shell title https://superuser.com/questions/292652/change-iterm2-window-and-tab-titles-in-zsh
-precmd () { 
-    # dirst is better than pwd
-    echo -ne "\e]1;$(dirs)\a"
-}
