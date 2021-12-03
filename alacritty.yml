@@ -1,0 +1,19 @@
+font: 
+  size: 14
+  normal: 
+    family: "MesloLGS NF"
+    style: Regular
+  bold: 
+    family: "MesloLGS NF"
+    style: Bold
+  italic: 
+    family: "MesloLGS NF"
+    style: Italic
+  bold_italic:
+    family: "MesloLGS NF"
+    style: Bold Italic
+
+cursor:
+  style:
+    shape: Beam
+    blinking: Off
