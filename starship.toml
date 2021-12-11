@@ -18,6 +18,8 @@ $line_break\
 $character\
 """
 
+command_timeout = 850
+
 # # If we want to use right prompt instead of fill
 # right_format = """
 # $status\
