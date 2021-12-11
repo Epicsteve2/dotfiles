@@ -41,6 +41,7 @@ zinit ice wait"0c" lucid; zinit light Aloxaf/fzf-tab
 # zinit ice wait"1" lucid atload"zicompinit; zicdreplay" blockf; zinit snippet OMZP::aws
 # zinit ice wait"1" lucid atload"zicompinit; zicdreplay" blockf; zinit snippet OMZP::kubectl
 # zinit ice wait"1" lucid as"completion"; zinit snippet OMZP::pip/_pip
+# zinit ice wait"1" lucid as"completion"; zinit snippet https://github.com/alacritty/alacritty/releases/download/v0.9.0/_alacritty
 
 zinit ice wait"1" lucid; zinit light wfxr/forgit
 FORGIT_HELP=$(<<<'
@@ -154,7 +155,7 @@ export LS_COLORS='no=0:rs=0:di=01;38;5;198:ln=01;38;5;37:mh=00:pi=48;5;230;38;5;
 export EXA_COLORS="${LS_COLORS}"
 export LSCOLORS=$LS_COLORS
 
-export EDITOR=nano
+export EDITOR=nvim
 export VISUAL=${EDITOR}
 export PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
 export SHELL="$(which zsh)"
@@ -188,8 +189,8 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # preview directory's content with exa when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
-zstyle ':fzf-tab:*' fzf-bindings 'shift-tab:accept'
-zstyle ':fzf-tab:*' continuous-trigger 'tab'
+zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'
+zstyle ':fzf-tab:*' continuous-trigger shift-tab
 zstyle ':fzf-tab:*' accept-line enter
 # Disabled cuz bug where last element won't be shown cuz of header
 # zstyle ':fzf-tab:*' fzf-flags '--header="tab to continue completing, enter to execute, shift+tab to accept and edit, esc to cancel"'
@@ -352,13 +353,31 @@ alias bat="bat --number"
 alias cat="bat --plain --plain"
 alias fzfp="fzf --preview 'bat --color=always -pp --line-range=:500 {}'"
 alias r="source ranger"
-alias tldr="tldr --theme=base16"
+# alias tldr="tldr --theme=base16"
+alias lfc="lfcd"
+alias ...="../.."
+alias ....="../../.."
+alias vim="spacevim"
+alias vi="spacevim"
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+            if [ "$dir" != "$(pwd)" ]; then
+                cd "$dir"
+            fi
+        fi
+    fi
+}
 # export FZF_CTRL_R_OPTS="--height=90% --preview 'bat --color=always -pp -l zsh <<<{}' --preview-window down:3:wrap"
 
 # Expand only the g and k aliases
 # source https://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
 globalias() {
-  EXPAND_ALIASES=(g k)
+  EXPAND_ALIASES=(g k vi vim)
    if [[ ${EXPAND_ALIASES[(ie)$LBUFFER]} -le ${#EXPAND_ALIASES} ]]; then
      zle _expand_alias
      zle expand-word
