@@ -25,6 +25,7 @@ FILE_LIST=(
     ["microSettings.json"]="${HOME}/.config/micro/settings.json"
     ["p10kClean.zsh"]="${HOME}/.p10k.zsh"
     ["p10kFancy.zsh"]="${HOME}/.p10k.zsh"
+    ["VSCodeSettings.json"]="${HOME}/.config/Code/User/settings.json"
 )
 
 addFile() {
@@ -50,7 +51,16 @@ chooseFromList() {
 }
 
 while true; do
-    chooseFromList "Symlink dotfiles" "Install fonts" "Install fzf" "Install exa" "No sudo password" "Install VSCode Extensions" "Exit"
+    chooseFromList \
+        "Symlink dotfiles" \
+        "Install fonts" \
+        "Install fzf" \
+        "Install exa" \
+        "No sudo password" \
+        "Display dotfile diffs" \
+        "Move current files to git" \
+        "Install VSCode Extensions" \
+        "Exit"
     echo
     if [[ -z $REPLY ]]; then exit; fi
     case $REPLY in
@@ -59,7 +69,7 @@ while true; do
                 if addFile "$file"; then
                     destination="${FILE_LIST[$file]}"
                     mkdir --parents --verbose "$(dirname "$destination")"
-                    cp "$file" .current-files/
+                    cp --archive "$file" .current-files/
                     ln --symbolic --verbose --force --relative .current-files/"$file" "$destination"
                 fi
             done;;
@@ -68,7 +78,7 @@ while true; do
             cp --archive fonts/. ~/.local/share/fonts/
             fc-cache --force --verbose;;
 
-        3)  git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
+        3)  [ ! -d ~/.fzf ] && git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
             ~/.fzf/install;;
 
         4)  echo "${CYAN}Downloading exa..${RESETCOLOR}"
@@ -76,12 +86,9 @@ while true; do
                 | grep "exa-linux-x86_64-v" \
                 | cut -d : -f 2,3 \
                 | tr -d \" \
-                | wget -i -
+                | wget -i - || true
             echo "${CYAN}Unzipping exa..${RESETCOLOR}"
 
-            # unzip -j exa*.zip bin/exa -d /usr/local/bin
-            # unzip -j exa*.zip man/exa.1 -d /usr/share/man/man1
-            # unzip -j exa*.zip completions/exa.zsh -d /usr/local/share/zsh/site-functions
             unzip -j exa*.zip bin/exa man/exa.1 completions/exa.zsh
             sudo mv --verbose exa /usr/local/bin/exa
             sudo mv --verbose exa.1 /usr/share/man/man1 #manpath something
@@ -93,11 +100,25 @@ while true; do
             sudo visudo
             ;;
 
-        6)  # Check if code command exists
+        6)  for file in .current-files/*; do
+                ( [ ! -d "$file" ] &&  cmp --silent "$file" "$(basename "$file")" ) || delta --paging never "$(basename "$file")" "$file" || true
+            done
+            ;;
+
+        7)  for file in .current-files/*; do
+                if [ -d "$file" ] || ! cmp --silent "$file" "$(basename "$file")"; then
+                    delta --paging always "$(basename "$file")" "$file" || true
+                    addFile "$file" && cp --verbose "$file" "$(basename "$file")"
+                fi
+            done
+            ;;
+
+        8)  # Check if code command exists
             command -v code &>/dev/null && \
             while IFS="" read -r line || [ -n "$line" ]; do # safe way of reading a file... i think -> https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash
+                "${YELLOW}Installing ${CYAN}${line}...${RESETCOLOR}"
                 code --install-extension "$line"
-            done < ./VSCodeExtensions.txt
+            done <VSCodeExtensions.txt
             ;;
 
         *)  echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}";;
