@@ -116,8 +116,9 @@ while true; do
         8)  # Check if code command exists
             command -v code &>/dev/null && \
             while IFS="" read -r line || [ -n "$line" ]; do # safe way of reading a file... i think -> https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash
-                "${YELLOW}Installing ${CYAN}${line}...${RESETCOLOR}"
+                echo "${YELLOW}Installing ${CYAN}${line}...${RESETCOLOR}"
                 code --install-extension "$line"
+                echo
             done <VSCodeExtensions.txt
             ;;
 
