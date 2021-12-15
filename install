@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 clear -x
-# set -x
+set -eu -o pipefail #-x
 
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -10,9 +10,26 @@ MAGENTA=$(tput setaf 5)
 CYAN=$(tput setaf 6)
 RESETCOLOR=$(tput sgr0)
 
+declare -A FILE_LIST
+FILE_LIST=(
+    ["zshrcZinit"]="${HOME}/.zshrc"
+    ["gitconfig"]="${HOME}/.gitconfig"
+    ["mpv"]="${HOME}/.config/mpv"
+    ["wezterm.lua"]="${HOME}/.config/wezterm/wezterm.lua"
+    ["Preferences.sublime-settings.json"]="${HOME}/.config/sublime-text/Packages/User/Preferences.sublime-settings"
+    ["terminator.config"]="${HOME}/.config/terminator/config"
+    ["starship.toml"]="${HOME}/.config/starship.toml"
+    ["alacritty.yml"]="${HOME}/.config/alacritty/alacritty.yml"
+    ["bottom.toml"]="${HOME}/.config/bottom/bottom.toml"
+    ["htoprc"]="${HOME}/.config/htop/htoprc"
+    ["microSettings.json"]="${HOME}/.config/micro/settings.json"
+    ["p10kClean.zsh"]="${HOME}/.p10k.zsh"
+    ["p10kFancy.zsh"]="${HOME}/.p10k.zsh"
+)
+
 addFile() {
     if [ -z "$1" ]; then
-        >&2 echo "${RED}No argument supplied${RESETCOLOR}"
+        echo >&2 "${RED}No argument supplied${RESETCOLOR}"
         return 1
     fi
 
@@ -26,154 +43,35 @@ addFile() {
 
 chooseFromList() {
     for (( i=1; i<=${#}-1; i++ )) do
-        echo "${CYAN}[   ${i}   ]${RESETCOLOR} $(eval echo \$${i})"
+        echo "${CYAN}[   ${i}   ]${RESETCOLOR} $(eval echo \$"${i}")"
     done
     echo "${CYAN}[ Enter ]${RESETCOLOR} $(eval echo \"\$\{${#}\}\")"
     read -p "${YELLOW}Enter a choice: ${RESETCOLOR}" -r
-    echo
-}
-
-copyFiles() {
-    if addFile zshrc; then ${COMMAND} zshrc     ~/.zshrc; fi
-    if addFile bashrc; then ${COMMAND} bashrc     ~/.bashrc; fi
-    if addFile gitconfig; then ${COMMAND} gitconfig ~/.gitconfig; fi
-    if addFile mpv; then ${COMMAND} mpv ~/.config/mpv; fi
-    if addFile hyper.js; then ${COMMAND} hyper.js ~/.hyper.js; fi
-    if addFile micro; then
-        mkdir --parents --verbose ~/.config/micro
-        ${COMMAND} microSettings.json ~/.config/micro/settings.json
-    fi
-
-    if addFile wezterm; then
-        mkdir --parents --verbose ~/.config/wezterm/
-        ${COMMAND} wezterm.lua ~/.config/wezterm/wezterm.lua
-    fi
-
-    if addFile bottom; then
-        mkdir --parents --verbose ~/.config/bottom/
-        ${COMMAND} bottom.toml ~/.config/bottom/bottom.toml
-    fi
-
-    if addFile sublime-text; then
-        mkdir --parents --verbose ~/.config/sublime-text/Packages/User
-        ${COMMAND} Preferences.sublime-settings ~/.config/sublime-text/Packages/User/Preferences.sublime-settings
-    fi
-
-	if addFile htoprc; then
-        mkdir --parents --verbose ~/.config/htop
-        ${COMMAND} htoprc ~/.config/htop/htoprc
-    fi
-
-	if addFile cudatext; then
-		mkdir --parents --verbose ~/.config/cudatext/settings/
-		${COMMAND} cudatext.json ~/.config/cudatext/settings/user.json
-	fi
-
-	if addFile wifi-test-tmux; then
-		mkdir --parents --verbose ~/.config/tmuxinator/
-		${COMMAND} wifi-test.yml ~/.config/tmuxinator/wifi-logs.yml
-	fi
-
-	if addFile anime-scripts; then
-		${COMMAND} scripts/anime.sh ~/Documents/anime.sh
-		${COMMAND} scripts/clearAnime.lua ~/Documents/clearPlaylist.lua
-	fi
-
-	if addFile terminator; then
-		mkdir --parents --verbose ~/.config/terminator/
-		${COMMAND} terminator.config ~/.config/terminator/config
-	fi
-
-    echo
-    chooseFromList "Powerlevel10k fancy" "Powerlevel10k clean" "Next"
-    if [[ -n $REPLY ]]; then
-        case ${REPLY} in
-            1) ${COMMAND} p10kFancy.zsh  ~/.p10k.zsh;;
-            2) ${COMMAND} p10kClean.zsh  ~/.p10k.zsh;;
-            *) echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
-        esac
-        echo
-    fi
-
-    chooseFromList "nano 4" "nano 5" "Next"
-    if [[ -n $REPLY ]]; then
-        case ${REPLY} in
-            1) ${COMMAND} nanorc4    ~/.nanorc;;
-            2) ${COMMAND} nanorc5    ~/.nanorc;;
-            *) echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}"
-               return;;
-        esac
-        echo
-        echo "${CYAN}Cloning nano-syntax-highlighting...${RESETCOLOR}"
-        if command -v curl &>/dev/null; then curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
-        elif command -v wget &>/dev/null; then wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -O- | sh
-        else
-            echo >&2 "${RED}Error: Somehow you don't have ${CYAN}curl wget${RESETCOLOR}"
-            return
-        fi
-    fi
 }
 
 while true; do
-    chooseFromList "Copy to home" "Symlink" "Delete" "Copy from home" "Install oh-my-zsh" "Install oh-my-zsh plugins" "Install fzf" "Install fonts" "Install exa" "no sudo password" "Exit"
+    chooseFromList "Symlink dotfiles" "Install fonts" "Install fzf" "Install exa" "No sudo password" "Install VSCode Extensions" "Exit"
     echo
     if [[ -z $REPLY ]]; then exit; fi
     case $REPLY in
-        1)  COMMAND="cp --verbose --recursive"
-            copyFiles;;
+        1)  mkdir --parents --verbose .current-files/
+            for file in "${!FILE_LIST[@]}"; do
+                if addFile "$file"; then
+                    destination="${FILE_LIST[$file]}"
+                    mkdir --parents --verbose "$(dirname "$destination")"
+                    cp "$file" .current-files/
+                    ln --symbolic --verbose --force --relative .current-files/"$file" "$destination"
+                fi
+            done;;
 
-        2)  COMMAND="ln --symbolic --verbose --force --relative"
-            copyFiles;;
-
-        3)  rm --force --verbose ~/.zshrc
-            rm --force --verbose ~/.bashrc
-            rm --force --verbose ~/.nanorc
-            rm --force --verbose ~/.gitconfig
-            rm --force --verbose ~/.p10k.zsh
-            rm --force --verbose ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
-            rm --force --verbose ~/.config/micro
-            rm --force --verbose ~/.config/Hyper/.hyper.js
-            echo "${YELLOW}removing mpv...${RESETCOLOR}"
-            rm --recursive --force  ~/.config/mpv
-            echo "${YELLOW}removing oh-my-zsh...${RESETCOLOR}"
-            rm --recursive --force ~/.oh-my-zsh
-            echo "${YELLOW}removing fzf...${RESETCOLOR}"
-            rm --recursive --force ~/.fzf;;
-
-        4)  cp --verbose --recursive ~/.zshrc     zshrc
-            cp --verbose --recursive ~/.nanorc    nanorc
-            cp --verbose --recursive ~/.gitconfig gitconfig
-            cp --verbose --recursive ~/.p10k.zsh  p10k.zsh;;
-
-        5)  if command -v curl &>/dev/null; then sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-            elif command -v wget &>/dev/null; then sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-            elif command -v fetch &>/dev/null; then sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; fi
-            echo >&2 "${RED}Error: Somehow you don't have ${CYAN}curl wget fetch${RESETCOLOR}";;
-
-        6)  echo "${CYAN}Cloning powerlevel10k...${RESETCOLOR}"
-            git clone --depth=1 -- https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-            # echo "${CYAN}zsh-autocomplete${RESETCOLOR}"
-            # git clone --depth=1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autocomplete
-            echo "${CYAN}Cloning fzf-tab${RESETCOLOR}"
-            git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
-            echo
-            echo "${CYAN}Cloning zsh-autosuggestions...${RESETCOLOR}"
-            git clone           -- https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-            echo
-            echo "${CYAN}Cloning zsh-syntax-highlighting...${RESETCOLOR}"
-            git clone           -- https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-            echo
-            echo "${CYAN}Cloning zsh-completions...${RESETCOLOR}"
-            git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions;;
-
-        7)  git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
-            ~/.fzf/install;;
-
-        8)  mkdir --parents --verbose ~/.local/share/fonts/
+        2)  mkdir --parents --verbose ~/.local/share/fonts/
             cp --archive fonts/. ~/.local/share/fonts/
             fc-cache --force --verbose;;
 
-        9)  echo "${CYAN}Downloading exa..${RESETCOLOR}"
+        3)  git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
+            ~/.fzf/install;;
+
+        4)  echo "${CYAN}Downloading exa..${RESETCOLOR}"
             curl -s https://api.github.com/repos/ogham/exa/releases/latest \
                 | grep "exa-linux-x86_64-v" \
                 | cut -d : -f 2,3 \
@@ -189,7 +87,18 @@ while true; do
             sudo mv --verbose exa.1 /usr/share/man/man1 #manpath something
             sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions
             rm exa*.zip;;
-        10) sudo <<<"$(whoami) ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers;;
+
+        5)  echo "$(whoami) ALL=(ALL) NOPASSWD: ALL"
+            read -n 1 -s -r -p "${YELLOW}Press any key to continue: ${RESETCOLOR}"
+            sudo visudo
+            ;;
+
+        6)  # Check if code command exists
+            command -v code &>/dev/null && \
+            while IFS="" read -r line || [ -n "$line" ]; do # safe way of reading a file... i think -> https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash
+                code --install-extension "$line"
+            done < ./VSCodeExtensions.txt
+            ;;
 
         *)  echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}";;
     esac
