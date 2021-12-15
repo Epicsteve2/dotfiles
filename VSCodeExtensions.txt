@@ -18,5 +18,3 @@ johnpapa.vscode-peacock
 ibm.output-colorizer
 streetsidesoftware.code-spell-checker
 ionutvmi.path-autocomplete
-dcasella.i3
-brettm12345.nixfmt-vscode
