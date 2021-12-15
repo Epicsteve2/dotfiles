@@ -155,6 +155,9 @@ export LS_COLORS='no=0:rs=0:di=01;38;5;198:ln=01;38;5;37:mh=00:pi=48;5;230;38;5;
 export EXA_COLORS="${LS_COLORS}"
 export LSCOLORS=$LS_COLORS
 
+alias vim=nvim
+alias vi=nvim
+
 export EDITOR=nvim
 export VISUAL=${EDITOR}
 export PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'

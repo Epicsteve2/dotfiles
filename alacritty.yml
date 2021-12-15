@@ -1,19 +1,29 @@
-font: 
+font:
   size: 14
-  normal: 
+  normal:
     family: "MesloLGS NF"
     style: Regular
-  bold: 
+  bold:
     family: "MesloLGS NF"
     style: Bold
-  italic: 
+  italic:
     family: "MesloLGS NF"
     style: Italic
   bold_italic:
-    family: "MesloLGS NF"
     style: Bold Italic
+    family: "MesloLGS NF"
+
+selection:
+  save_to_clipboard: true
 
 cursor:
   style:
     shape: Beam
     blinking: Off
+
+window:
+  dynamic_title: true
+  opacity: 0.86
+  padding:
+    x: 5
+    y: 5
