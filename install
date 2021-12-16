@@ -71,12 +71,12 @@ while true; do
                     mkdir --parents --verbose "$(dirname "$destination")"
                     cp --archive "$file" .current-files/
                     [[ -e $destination ]] && mv --verbose "$destination" "$destination".backup
-                    ln --symbolic --verbose --force --relative .current-files/"$file" "$destination"
+                    ln --symbolic --verbose --force "$(pwd)"/.current-files/"$file" "$destination"
                 fi
             done;;
 
         2)  mkdir --parents --verbose ~/.local/share/fonts/
-            cp --archive fonts/. ~/.local/share/fonts/
+            cp --archive --verbose fonts/. ~/.local/share/fonts/
             fc-cache --force --verbose;;
 
         3)  [ ! -d ~/.fzf ] && git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
