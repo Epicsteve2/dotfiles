@@ -70,6 +70,7 @@ while true; do
                     destination="${FILE_LIST[$file]}"
                     mkdir --parents --verbose "$(dirname "$destination")"
                     cp --archive "$file" .current-files/
+                    [[ -e $destination ]] && mv --verbose "$destination" "$destination".backup
                     ln --symbolic --verbose --force --relative .current-files/"$file" "$destination"
                 fi
             done;;
