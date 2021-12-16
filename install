@@ -71,12 +71,12 @@ while true; do
                     mkdir --parents --verbose "$(dirname "$destination")"
                     cp --archive "$file" .current-files/
                     [[ -e $destination ]] && mv --verbose "$destination" "$destination".backup
-                    ln --symbolic --verbose --force "$(pwd)"/.current-files/"$file" "$destination"
+                    ln --symbolic --verbose "$(pwd)"/.current-files/"$file" "$destination"
                 fi
             done;;
 
         2)  mkdir --parents --verbose ~/.local/share/fonts/
-            cp --archive --verbose fonts/. ~/.local/share/fonts/
+            cp --archive --verbose fonts/ ~/.local/share/fonts/
             fc-cache --force --verbose;;
 
         3)  [ ! -d ~/.fzf ] && git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -85,9 +85,9 @@ while true; do
         4)  echo "${CYAN}Downloading exa..${RESETCOLOR}"
             curl -s https://api.github.com/repos/ogham/exa/releases/latest \
                 | grep "exa-linux-x86_64-v" \
-                | cut -d : -f 2,3 \
-                | tr -d \" \
-                | wget -i - || true
+                | cut --delimiter : -f 2,3 \
+                | tr --delete \" \
+                | wget --input-file - || true
             echo "${CYAN}Unzipping exa..${RESETCOLOR}"
 
             unzip -j exa*.zip bin/exa man/exa.1 completions/exa.zsh
@@ -120,7 +120,7 @@ while true; do
                 echo "${YELLOW}Installing ${CYAN}${line}...${RESETCOLOR}"
                 code --install-extension "$line"
                 echo
-            done <VSCodeExtensions.txt
+            done < VSCodeExtensions.txt
             ;;
 
         *)  echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}";;
