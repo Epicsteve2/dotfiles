@@ -94,7 +94,7 @@ while true; do
             sudo mv --verbose exa /usr/local/bin/exa
             sudo mv --verbose exa.1 /usr/share/man/man1 #manpath something
             sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions
-            rm exa*.zip;;
+            rm --verbose exa*.zip;;
 
         5)  echo "$(whoami) ALL=(ALL) NOPASSWD: ALL"
             read -n 1 -s -r -p "${YELLOW}Press any key to continue: ${RESETCOLOR}"
