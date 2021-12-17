@@ -26,6 +26,10 @@ FILE_LIST=(
     ["p10kClean.zsh"]="${HOME}/.p10k.zsh"
     ["p10kFancy.zsh"]="${HOME}/.p10k.zsh"
     ["VSCodeSettings.json"]="${HOME}/.config/Code/User/settings.json"
+    ["picom.conf"]="${HOME}/.config/picom.conf"
+    ["rofi"]="${HOME}/.config/rofi"
+    ["polybar"]="${HOME}/.config/polybar"
+    ["i3"]="${HOME}/.config/i3"
 )
 
 addFile() {
