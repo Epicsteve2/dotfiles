@@ -30,6 +30,8 @@ FILE_LIST=(
     ["rofi"]="${HOME}/.config/rofi"
     ["polybar"]="${HOME}/.config/polybar"
     ["i3"]="${HOME}/.config/i3"
+    ["dunst"]="${HOME}/.config/dunst"
+    ["kmonad"]="${HOME}/.config/kmonad"
 )
 
 addFile() {
@@ -110,10 +112,17 @@ while true; do
             done
             ;;
 
-        7)  for file in .current-files/*; do
-                if [ -d "$file" ] || ! cmp --silent "$file" "$(basename "$file")"; then
+        7)
+            for file in .current-files/*; do
+                if ! diff --recursive --brief "$file" "$(basename "$file")" &> /dev/null; then
                     delta --paging always "$(basename "$file")" "$file" || true
-                    addFile "$file" && cp --verbose "$file" "$(basename "$file")"
+                    addFile "$file" && {
+                        if [[ -d $file ]]; then
+                            rsync --verbose --archive --checksum --human-readable "$file"/ "$(basename "$file")"
+                        else
+                            cp --verbose "$file" "$(basename "$file")"
+                        fi
+                    }
                 fi
             done
             ;;

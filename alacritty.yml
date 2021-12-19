@@ -1,5 +1,5 @@
 font:
-  size: 14
+  size: 12
   normal:
     family: "MesloLGS Nerd Font"
     style: Regular
@@ -21,9 +21,11 @@ cursor:
     shape: Beam
     blinking: Off
 
+background_opacity: 0.86
+
 window:
   dynamic_title: true
-  opacity: 0.86
+  # opacity: 0.8
   padding:
     x: 5
     y: 5
