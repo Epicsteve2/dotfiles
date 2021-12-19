@@ -34,8 +34,8 @@
 )
 
 (defalias
-  0ctl (tap-next-release 0 (layer-toggle zero-focus))
-  
+  0ctl (tap-hold-next 300 0 (layer-toggle zero-focus))
+
   m1 (around lmet (around lctl 1))
   m2 (around lmet (around lctl 2))
   m3 (around lmet (around lctl 3))
