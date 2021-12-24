@@ -40,7 +40,7 @@ addFile() {
         return 1
     fi
 
-    read -p "${CYAN}add ${YELLOW}${1}${CYAN}? [y/N]: ${RESETCOLOR}" -n 1 -r
+    read -p "${CYAN}add ${YELLOW}${1}${CYAN}? [y/N]: ${RESETCOLOR}" -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         return 0
@@ -108,7 +108,7 @@ while true; do
             ;;
 
         6)  for file in .current-files/*; do
-                ( [ ! -d "$file" ] &&  cmp --silent "$file" "$(basename "$file")" ) || delta --paging never "$(basename "$file")" "$file" || true
+                ( [ ! -d "$file" ] &&  cmp --silent "$file" "$(basename "$file")" ) || delta --paging always "$(basename "$file")" "$file" || true
             done
             ;;
 

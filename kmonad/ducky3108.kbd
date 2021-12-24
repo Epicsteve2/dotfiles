@@ -25,7 +25,7 @@
 ;; )
                                                                                          ;; these don't work...
 (defsrc
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause calc KeyMute KeyVolumeDown KeyVolumeUp ;; calc mute vold volu
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause calc mute vold volu ;; calc mute vold volu
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
   caps a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
@@ -39,27 +39,33 @@
   m1 (around lmet (around lctl 1))
   m2 (around lmet (around lctl 2))
   m3 (around lmet (around lctl 3))
-
-  next (cmd-button "playerctl next")
+  m4 (around lmet (around lctl 4))
+  obs (around lctl (around lalt (around lsft f12)))
+  ;; looks like this just dies if there's a restart. this is because kmonad doesn't get killed when exiting i3...
+  m33 (cmd-button "sh -c \"if [ $(xdotool getactivewindow getwindowclassname) = discord ]; then i3-msg '[class=^strawberry$] focus'; else i3-msg '[class=^discord$] focus'; fi\"")
+  nxt (cmd-button "playerctl next")
   pp (cmd-button "playerctl play-pause")
-  prev (cmd-button "playerctl previous")
-  test (cmd-button "notify-send hi")
+  prv (cmd-button "playerctl previous")
+  tst (cmd-button "notify-send hi")
+  pev KeyPreviousSong
+  plp KeyPlayPause
+  net KeyNextSong
 )
 
 (deflayer zero
-  _    _    _    _    _    _    _    _    _    _    _    _    _          _    f14  f15   _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @prev @pp @next
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
+  esc  _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _                    _          _    _    _    _
   _    _    _              _              _    _    _                    _    _    _     @0ctl     _
 )
 
 (deflayer zero-focus
-  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _     _    _    @test _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    kp/  kp*  kp-
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _     _    _    @tst _
+  _    @pev @plp @net _    _    _    _    _    _    _    _    _    _     _    _    _     _    kp/  kp*  kp-
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    @tst _    _
+  caps _    _    _    _    _    _    _    _    _    _    _    _                          @m33 @m4  _
   _    _    _    _    _    _    _    _    _    _    _    _                    _          @m3  @m1  @m2  _
   _    _    _              _              _    _    _                    _    _    _     _         _
 )

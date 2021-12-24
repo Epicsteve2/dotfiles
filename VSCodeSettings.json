@@ -35,4 +35,8 @@
     "workbench.startupEditor": "newUntitledFile",
     "editor.minimap.enabled": false,
     "path-autocomplete.triggerOutsideStrings": true,
+    "html.suggest.html5": true,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    },
 }

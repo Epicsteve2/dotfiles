@@ -3,7 +3,7 @@
  * Maintainer: joekamprad <joekamprad@endeavouros.com>
  *******************************************************/
 configuration {
-    font:                           "Sourcecode Pro Regular 10";
+    font:                           "Meslo LGS Nerd Font 14";
     show-icons:                     false;
 	icon-theme: 					"Arc-X-D";
     display-drun: 					"KeyHint";
@@ -21,6 +21,9 @@ window {
     background-color: @background;
     border:           0;
     padding:          30;
+    width:            75%;
+    height:           50%;
+
 }
 listview {
     lines:                          10;
