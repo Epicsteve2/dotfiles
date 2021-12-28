@@ -48,6 +48,7 @@ bindsym $mod+Ctrl+1 [class="^discord$"] focus
 bindsym $mod+Ctrl+2 [class="^strawberry$"] focus
 bindsym $mod+Ctrl+3 workspace $ws5
 bindsym $mod+Ctrl+4 workspace $ws6
+bindsym $mod+Ctrl+5 workspace $ws7
 
 #####################
 # workspace layout: #
@@ -375,16 +376,16 @@ exec --no-startup-id kmonad ~/.config/kmonad/ducky3108.kbd 2>&1 | ts > /tmp/kmon
 exec --no-startup-id i3-msg; exec alacritty --title gping --class alacritty-autostart-gping --command gping 8.8.8.8 1.1.1.1 192.168.1.1
 exec --no-startup-id i3-msg; exec alacritty --title btm   --class alacritty-autostart-btm   --command btm
 # prolly a better way, but i'm too lazy
-for_window [instance="alacritty-autostart-gping"] layout tabbed
-for_window [instance="alacritty-autostart-btm"] layout tabbed
-assign [instance="alacritty-autostart-gping"] $ws5
-assign [instance="alacritty-autostart-btm"] $ws5
+for_window [instance="^alacritty-autostart-gping$"] layout tabbed
+for_window [instance="^alacritty-autostart-btm$"] layout tabbed
+assign [instance="^alacritty-autostart-gping$"] $ws5
+assign [instance="^alacritty-autostart-btm$"] $ws5
 
 # exec --no-startup-id qbittorrent
 
-for_window [title="CopyQ"] floating enable
-for_window [class="nitrogen"] floating enable
-for_window [title="Visual Studio Code"] focus
+for_window [class="^copyq$"] floating enable
+for_window [class="^nitrogen$"] floating enable
+for_window [title="^Visual Studio Code$"] focus
 for_window [class="^Brave-browser$"] focus
 for_window [class="^Steam$"] focus
 
@@ -392,19 +393,21 @@ for_window [class="^Steam$"] focus
 # assign [class="alacritty"] $ws2
 # assign [class="(?i)firefox"] $ws1
 assign [class="^Brave-browser$"] $ws1
-assign [title="Visual Studio Code"] $ws2
-assign [class="Thunar"] $ws3
-assign [class="Steam"] $ws7
+assign [class=(?i)firefox] $ws1
 
-assign [class="Thunderbird"] $ws4
-assign [class="discord"] $ws4
-assign [class="strawberry"] $ws4
-assign [class="qBittorrent"] $ws4
+assign [title="^Visual Studio Code$"] $ws2
+assign [class="^Thunar$"] $ws3
 assign [class="^Steam$"] $ws7
-for_window [class="Thunderbird"] layout tabbed
-for_window [class="discord"] layout tabbed
-for_window [class="strawberry"] layout tabbed
-for_window [class="qBittorrent"] layout tabbed
+
+assign [class="^Thunderbird$"] $ws4
+assign [class="^discord$"] $ws4
+assign [class="^strawberry$"] $ws4
+assign [class="^qBittorrent$"] $ws4
+assign [class="^Steam$"] $ws7
+for_window [class="^Thunderbird$"] layout tabbed
+for_window [class="^discord$"] layout tabbed
+for_window [class="^strawberry$"] layout tabbed
+for_window [class="^qBittorrent$"] layout tabbed
 
 
 # https://github.com/ValveSoftware/steam-for-linux/issues/1040
@@ -418,6 +421,9 @@ for_window [class="^Steam$" title=".* CD key"] floating enable
 for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
 for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
 for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
+for_window [class="^Steam$" title="^Steam - System Information$"] floating enable
+
+
 for_window [class="^Nitrogen$"] floating enable
 for_window [class="^flameshot$"] floating enable
 for_window [class="^key-mapper-gtk$"] floating enable
@@ -428,7 +434,7 @@ for_window [title="^Steam Keyboard$"] floating enable
 
 # automatic set focus new window if it opens on another workspace then the current:
 # for_window [class=Xfce4-terminal] focus
-# for_window [class=(?i)firefox] focus
+for_window [class=(?i)firefox] focus
 # for_window [class="^Brave-browser$"] focus
 # for_window [title="Visual Studio Code"] focus
 for_window [class="Thunar"] focus
@@ -506,6 +512,7 @@ exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 for_window [class="Yad" instance="yad"] floating enable
 for_window [class="Galculator" instance="galculator"] floating enable
 for_window [class="Blueberry.py" instance="blueberry.py"] floating enable
+for_window [class="antimicrox"] floating enable
 
 # set floating (nontiling) for special apps
 for_window [class="Xsane" instance="xsane"] floating enable

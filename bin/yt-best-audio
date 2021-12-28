@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+yt-dlp --extract-audio \
+    --embed-metadata \
+    --embed-thumbnail \
+    --audio-format mp3 \
+    --output ~"/Music/%(title)s.%(ext)s" \
+    "$1" \
+    # --audio-quality 0 \    # these 2 the same?????
+    # --audio-quality best \ # these 2 the same?????
+    # --verbose \
+    # --format bestaudio \ # yeah i guess this is redundant???????
+    # --output ~"/Music/.%(ext)s"
+    # --list-formats
+    # --no-embed-chapters \
+    # --no-embed-info-json \
+
+                #   --audio-quality QUALITY          Specify ffmpeg audio quality, insert a
+                #                                value between 0 (best) and 10 (worst) for
+                #                                VBR or a specific bitrate like 128K
+                #                                (default 5)
+
+
+# https://youtu.be/i24qWHkWvQM
+# https://youtu.be/3yTY_WuM7S8
+# https://youtu.be/V2ng1yYT4BU
+# https://youtu.be/LpkWFnRPd-M
+# https://youtu.be/ZPgGq1OFhPU
+# https://youtu.be/53rJX52p3G8
+# https://youtu.be/EO--_4Vapuc
+# https://youtu.be/f2TTBqZ2tOw
+# https://youtu.be/S9sd_HvFB9k
+# https://youtu.be/7dP-XLcAZwI
+# https://youtu.be/ez1nh99-VV0
+# https://youtu.be/q5ChNp0FseI
+# https://youtu.be/llR-tLRRpPs
+# https://youtu.be/Y1K-ZD2bB8M
+# https://youtu.be/91FpIl7o3TY
+# https://youtu.be/onvoVAb4N3c
