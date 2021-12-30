@@ -346,6 +346,8 @@ setopt autocd
 # when deleting word, stop at slash
 WORDCHARS='*?_-[]~\!#$%^(){}<>|`@#$%^*()+:?'
 
+[[ -d ${HOME}/bin ]] && export PATH="${PATH}:${HOME}/bin"
+
 # home and end
 bindkey  "^[[H"   beginning-of-line
 bindkey  "^[[F"   end-of-line
