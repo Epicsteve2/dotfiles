@@ -1,0 +1,97 @@
+super alt control shift a
+    xdotool mousemove 1016 1057 click 1 mousemove restore
+
+XF86Calculator
+# galculator 
+    rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip" -config ~/.config/rofi/rofidmenu.rasi
+
+XF86AudioPlay
+    playerctl play-pause
+
+
+XF86AudioNext
+    playerctl next
+
+
+XF86AudioPrev
+    playerctl previous
+
+# Command for the status line
+#   ie: i3blocks, i3status
+# set $statuscmd i3blocks
+
+# Signal used to update the status line
+#   i3blocks uses SIGRTMIN+10 by default
+#   i3status uses SIGUSR1 by default
+# set $statussig SIGRTMIN+10
+
+XF86AudioRaiseVolume
+    i3-volume -e 750 -n -t i3blocks -u SIGRTMIN+10 up 5
+
+XF86AudioLowerVolume
+    i3-volume -e 750 -n -t i3blocks -u SIGRTMIN+10 down 5
+
+XF86AudioMute
+    i3-volume -e 750 -n -t i3blocks -u SIGRTMIN+10 mute
+
+super XF86AudioRaiseVolume
+    i3-volume -e 750 -n -t i3blocks -u SIGRTMIN+10 up 1
+
+super XF86AudioLowerVolume
+    i3-volume -e 750 -n -t i3blocks -u SIGRTMIN+10 down 1
+
+Caps_Lock
+    ~/.config/i3/scripts/dunst-caps-lock.sh
+
+Num_Lock
+    ~/.config/i3/scripts/dunst-num-lock.sh
+
+super shift+e
+    ~/.config/i3/scripts/powermenu
+
+super Return
+    alacritty
+
+Print
+    flameshot gui -p ~/Pictures/screenshots
+
+shift+Print
+    flameshot screen -p ~/Pictures/screenshots
+
+ctrl+shift+Print
+    flameshot full -p ~/Pictures/screenshots
+
+super v
+    copyq toggle
+
+
+super +d
+    rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi
+
+
+super +c
+    rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip" -config ~/.config/rofi/rofidmenu.rasi
+
+super +c
+    rofi -show calc -modi calc -no-show-match -no-sort -hint-welcome "Ctrl+Return to paste" -calc-command 'xdotool type --clearmodifiers "{result}"' -config ~/.config/rofi/rofidmenu.rasi
+
+# -hint-welcome -hint-result
+
+
+super +ctrl+e
+    rofi -modi "emoji:rofimoji" -show emoji -config ~/.config/rofi/rofikeyhint.rasi
+
+super +shift+v
+    rofi -modi "emoji:rofimoji --action copy" -show emoji -config ~/.config/rofi/rofikeyhint.rasi
+
+super +shift+v
+    rofimoji --selector-args "-config ~/.config/rofi/rofikeyhint.rasi"  --prompt "alt+c copy | alt+<num> insert recent | alt+u unicode"
+
+
+#bindsym F9 exec rofi -modi drun -show drun \
+#		-config ~/.config/rofi/rofidmenu.rasi
+
+# rofi bindings for window menu (super +t /F10 optional disabled)
+
+super +shift+d
+    rofi -show window -config ~/.config/rofi/rofidmenu.rasi

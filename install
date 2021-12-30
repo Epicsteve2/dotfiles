@@ -33,6 +33,7 @@ FILE_LIST=(
     ["i3"]="${HOME}/.config/i3"
     ["dunst"]="${HOME}/.config/dunst"
     ["kmonad"]="${HOME}/.config/kmonad"
+    ["sxhkdrc"]="${HOME}/.config/sxhkd/sxhkdrc"
 )
 
 addFile() {
