@@ -1,4 +1,4 @@
-
+# 0440423
 # exec --no-startup-id ~/set_once.sh
 # This file is a modified version based on default i3-config-wizard config
 # source is available here:
@@ -33,12 +33,12 @@ set $mod Mod4
 # my config
 #####################
 # bindsym $mod+Shift+v exec --no-startup-id "copyq toggle"
-bindsym $mod+v exec --no-startup-id "copyq toggle"
 # bindsym $mod+v exec --no-startup-id "copyq toggle"
+# # bindsym $mod+v exec --no-startup-id "copyq toggle"
 
-bindsym Print exec --no-startup-id "flameshot gui -p ~/Pictures/screenshots"
-bindsym Shift+Print exec --no-startup-id "flameshot screen -p ~/Pictures/screenshots"
-bindsym Ctrl+Shift+Print exec --no-startup-id "flameshot full -p ~/Pictures/screenshots"
+# bindsym Print exec --no-startup-id "flameshot gui -p ~/Pictures/screenshots"
+# bindsym Shift+Print exec --no-startup-id "flameshot screen -p ~/Pictures/screenshots"
+# bindsym Ctrl+Shift+Print exec --no-startup-id "flameshot full -p ~/Pictures/screenshots"
 
 bindsym Mod4+n split h
 bindsym Mod4+b split v
@@ -73,11 +73,13 @@ workspace_layout default
 new_window pixel 2
 
 # thin borders
-# hide_edge_borders both
+hide_edge_borders smart
+
+workspace_auto_back_and_forth yes
 
 # Set inner/outer gaps
-gaps inner 6
-gaps outer 3
+# gaps inner 6
+# gaps outer 3
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -186,25 +188,26 @@ bindcode $mod+Shift+90 	 move container to workspace  $ws10
 ######################################
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+# bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+q kill
 
 # exit-menu
-bindsym $mod+Shift+e exec ~/.config/i3/scripts/powermenu
+# bindsym $mod+Shift+e exec ~/.config/i3/scripts/powermenu
 
 # Lock the system
 # lock with a picture:
 #bindsym $mod+l exec i3lock -i  ~/.config/i3/i3-lock-screen.png -p default|win -t
 # lock by blurring the screen:
-bindsym $mod+l exec ~/.config/i3/scripts/blur-lock
+# bindsym $mod+l exec ~/.config/i3/scripts/blur-lock
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to update i3)
-bindsym $mod+Shift+r restart
+# bindsym $mod+Shift+r restart
+# bindsym $mod+Shift+r exec ~/.config/i3/scripts/reload
 
 # keybinding in fancy rofi (automated):
 bindsym $mod+F1 exec ~/.config/i3/scripts/keyhint-2
@@ -290,13 +293,13 @@ set $statussig SIGRTMIN+10
 #set $sinkname alsa_output.pci-0000_00_1b.0.analog-stereo
 
 # Using pulseaudio-utils (append "-s $sinkname" without quotes to override default sink)
-bindsym XF86AudioRaiseVolume exec --no-startup-id i3-volume -e 750 -n -t $statuscmd -u $statussig up 5
-bindsym XF86AudioLowerVolume exec --no-startup-id i3-volume -e 750 -n -t $statuscmd -u $statussig down 5
-bindsym XF86AudioMute        exec --no-startup-id i3-volume -e 750 -n -t $statuscmd -u $statussig mute
-bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id i3-volume -e 750 -n -t $statuscmd -u $statussig up 1
-bindsym $mod+XF86AudioLowerVolume exec --no-startup-id i3-volume -e 750 -n -t $statuscmd -u $statussig down 1
-bindsym Caps_Lock exec --no-startup-id ~/.config/i3/scripts/dunst-caps-lock.sh
-bindsym Num_Lock exec --no-startup-id ~/.config/i3/scripts/dunst-num-lock.sh
+# bindsym XF86AudioRaiseVolume exec --no-startup-id i3-volume -e 750 -n -t $statuscmd -u $statussig up 5
+# bindsym XF86AudioLowerVolume exec --no-startup-id i3-volume -e 750 -n -t $statuscmd -u $statussig down 5
+# bindsym XF86AudioMute        exec --no-startup-id i3-volume -e 750 -n -t $statuscmd -u $statussig mute
+# bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id i3-volume -e 750 -n -t $statuscmd -u $statussig up 1
+# bindsym $mod+XF86AudioLowerVolume exec --no-startup-id i3-volume -e 750 -n -t $statuscmd -u $statussig down 1
+# bindsym Caps_Lock exec --no-startup-id ~/.config/i3/scripts/dunst-caps-lock.sh
+# bindsym Num_Lock exec --no-startup-id ~/.config/i3/scripts/dunst-num-lock.sh
 
 
 # Pulse Audio controls
@@ -318,10 +321,10 @@ bindsym Num_Lock exec --no-startup-id ~/.config/i3/scripts/dunst-num-lock.sh
 # bindsym XF86AudioMute exec pamixer -t && notify-send "mute: $(pamixer --get-mute)"
 
 # bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPlay exec playerctl play-pause
-# bindsym XF86AudioPause exec playerctl pause # doesn't exist
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+# bindsym XF86AudioPlay exec playerctl play-pause
+# # bindsym XF86AudioPause exec playerctl pause # doesn't exist
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
 
 # Redirect sound to headphones
 bindsym $mod+p exec /usr/local/bin/switch-audio-port
@@ -365,16 +368,7 @@ workspace $ws0 output DP-0
 # Focus urgnet windows
 focus_on_window_activation focus
 
-exec --no-startup-id flameshot
-exec --no-startup-id copyq
-exec --no-startup-id imwheel --buttons 45
-exec --no-startup-id numlockx on
-exec --no-startup-id discord
-exec --no-startup-id thunderbird
-exec --no-startup-id strawberry
-exec --no-startup-id kmonad ~/.config/kmonad/ducky3108.kbd 2>&1 | ts > /tmp/kmonad.log
-exec --no-startup-id i3-msg; exec alacritty --title gping --class alacritty-autostart-gping --command gping 8.8.8.8 1.1.1.1 192.168.1.1
-exec --no-startup-id i3-msg; exec alacritty --title btm   --class alacritty-autostart-btm   --command btm
+
 # prolly a better way, but i'm too lazy
 for_window [instance="^alacritty-autostart-gping$"] layout tabbed
 for_window [instance="^alacritty-autostart-btm$"] layout tabbed
@@ -397,6 +391,7 @@ assign [class=(?i)firefox] $ws1
 
 assign [title="^Visual Studio Code$"] $ws2
 assign [class="^Thunar$"] $ws3
+
 assign [class="^Steam$"] $ws7
 
 assign [class="^Thunderbird$"] $ws4
@@ -422,7 +417,8 @@ for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
 for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
 for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
 for_window [class="^Steam$" title="^Steam - System Information$"] floating enable
-
+for_window [class="^steam_app_1680000$"] floating enable
+assign [class="^steam_app_1680000$"] $ws7
 
 for_window [class="^Nitrogen$"] floating enable
 for_window [class="^flameshot$"] floating enable
@@ -446,6 +442,23 @@ for_window [class="strawberry"] focus
 #############################################
 # autostart applications/services on login: #
 #############################################
+
+# command | while IFS= read -r line; do printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$line"; done > /tmp/flameshot.log
+
+exec --no-startup-id flameshot 2>&1 | ts >> /tmp/flameshot.log
+exec --no-startup-id copyq 2>&1 | ts >> /tmp/copyq.log
+exec --no-startup-id imwheel --buttons 45 2>&1 | ts >> /tmp/imwheel.log
+exec --no-startup-id numlockx on 2>&1 | ts >> /tmp/numlockx.log
+exec --no-startup-id sxhkd 2>&1 | while IFS= read -r line; do printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$line"; done >> /tmp/sxhkd.log
+exec --no-startup-id discord
+exec --no-startup-id thunderbird
+exec --no-startup-id strawberry
+exec --no-startup-id kmonad ~/.config/kmonad/ducky3108.kbd 2>&1 | ts >> /tmp/kmonad.log
+exec --no-startup-id alacritty --title gping --class alacritty-autostart-gping --command gping 8.8.8.8 1.1.1.1 192.168.1.1
+# exec --no-startup-id i3-msg; exec alacritty --title gping --class alacritty-autostart-gping --command gping 8.8.8.8 1.1.1.1 192.168.1.1
+exec --no-startup-id alacritty --title btm   --class alacritty-autostart-btm   --command btm
+exec --no-startup-id ~/.config/polybar/launch.sh
+# exec --no-startup-id i3-msg; exec alacritty --title btm   --class alacritty-autostart-btm   --command btm
 
 #get auth work with polkit-gnome
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -554,33 +567,33 @@ client.urgent		    $urgentred	$urgentred	$white		$purple		$yellowbrown
 
 # Start i3bar to display a workspace bar
 # (plus the system information i3status finds out, if available)
-bar {
-		font pango:MesloLGS Nerd Font 12, FontAwesome 12
-		status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	    	position top
-#	    	i3bar_command i3bar --transparency
-# it could be that you have no primary display set: set one (xrandr --output <output> --primary)
-# reference: https://i3wm.org/docs/userguide.html#_tray_output
-		    tray_output primary
-		    tray_padding 0
+# bar {
+# 		font pango:MesloLGS Nerd Font 12, FontAwesome 12
+# 		status_command i3blocks -c ~/.config/i3/i3blocks.conf
+# 	    	position top
+# #	    	i3bar_command i3bar --transparency
+# # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
+# # reference: https://i3wm.org/docs/userguide.html#_tray_output
+# 		    tray_output primary
+# 		    tray_padding 0
 
-# When strip_workspace_numbers is set to yes,
-# any workspace that has a name of the form
-# “[n][:][NAME]” will display only the name.
-strip_workspace_numbers yes
-##strip_workspace_name no
+# # When strip_workspace_numbers is set to yes,
+# # any workspace that has a name of the form
+# # “[n][:][NAME]” will display only the name.
+# strip_workspace_numbers yes
+# ##strip_workspace_name no
 
-		    colors {
-		    separator          $purple
-		    background         $darkgrey
-		    statusline         $white
-#                          		border 		        bg		txt		indicator
-		focused_workspace	$mediumgrey	   	$grey		$darkgrey	$purple
-		active_workspace	$lightblue      	$mediumgrey	$darkgrey	$purple
-		inactive_workspace	$darkgrey   		$darkgrey	$grey		$purple
-		urgent_workspace	$urgentred	    	$urgentred	$white		$purple
-	}
-}
+# 		    colors {
+# 		    separator          $purple
+# 		    background         $darkgrey
+# 		    statusline         $white
+# #                          		border 		        bg		txt		indicator
+# 		focused_workspace	$mediumgrey	   	$grey		$darkgrey	$purple
+# 		active_workspace	$lightblue      	$mediumgrey	$darkgrey	$purple
+# 		inactive_workspace	$darkgrey   		$darkgrey	$grey		$purple
+# 		urgent_workspace	$urgentred	    	$urgentred	$white		$purple
+# 	}
+# }
 
 # you can add different bars for multidisplay setups on each display:
 # set output HDMI-0 to the display you want the bar, --transparency can be set.
@@ -619,25 +632,23 @@ strip_workspace_numbers yes
 
 ## rofi bindings fancy application menu ($mod+d /F9 optional disabled)
 
-bindsym $mod+d exec rofi -modi drun -show drun \
-		-config ~/.config/rofi/rofidmenu.rasi
+# bindsym $mod+d exec rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi
 
-# bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip" -config ~/.config/rofi/rofidmenu.rasi
-bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -hint-welcome "Ctrl+Return to paste" -calc-command 'xdotool type --clearmodifiers "{result}"' -config ~/.config/rofi/rofidmenu.rasi
-# -hint-welcome -hint-result
+# # bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip" -config ~/.config/rofi/rofidmenu.rasi
+# bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort -hint-welcome "Ctrl+Return to paste" -calc-command 'xdotool type --clearmodifiers "{result}"' -config ~/.config/rofi/rofidmenu.rasi
+# # -hint-welcome -hint-result
 
 
-# bindsym $mod+Ctrl+e exec rofi -modi "emoji:rofimoji" -show emoji -config ~/.config/rofi/rofikeyhint.rasi
-# bindsym $mod+Shift+v exec rofi -modi "emoji:rofimoji --action copy" -show emoji -config ~/.config/rofi/rofikeyhint.rasi
-bindsym $mod+Shift+v exec rofimoji --selector-args "-config ~/.config/rofi/rofikeyhint.rasi "  --prompt "alt+c copy | alt+<num> insert recent | alt+u unicode"
+# # bindsym $mod+Ctrl+e exec rofi -modi "emoji:rofimoji" -show emoji -config ~/.config/rofi/rofikeyhint.rasi
+# # bindsym $mod+Shift+v exec rofi -modi "emoji:rofimoji --action copy" -show emoji -config ~/.config/rofi/rofikeyhint.rasi
+# bindsym $mod+Shift+v exec rofimoji --selector-args "-config ~/.config/rofi/rofikeyhint.rasi"  --prompt "alt+c copy | alt+<num> insert recent | alt+u unicode"
 
-#bindsym F9 exec rofi -modi drun -show drun \
-#		-config ~/.config/rofi/rofidmenu.rasi
+# #bindsym F9 exec rofi -modi drun -show drun \
+# #		-config ~/.config/rofi/rofidmenu.rasi
 
-## rofi bindings for window menu ($mod+t /F10 optional disabled)
+# ## rofi bindings for window menu ($mod+t /F10 optional disabled)
 
-bindsym $mod+Shift+d exec rofi -show window \
-		-config ~/.config/rofi/rofidmenu.rasi
+# bindsym $mod+Shift+d exec rofi -show window -config ~/.config/rofi/rofidmenu.rasi
 
 #bindsym F10 exec rofi -show window \
 #		-config ~/.config/rofi/rofidmenu.rasi

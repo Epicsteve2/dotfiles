@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+menu='i3
+kmonad
+restart picom
+kill picom
+sxkbd
+imwheel
+polybar'
+
+selection="$(printf '%s\n' "$menu" | rofi -theme ~/.config/rofi/powermenu.rasi \
+    -dmenu -i -monitor 1)"
+
+case $selection in
+    "i3") i3-msg restart;;
+    "kmonad") pkill kmonad; kmonad ~/.config/kmonad/ducky3108.kbd &;;
+    "restart picom") pkill picom; picom --experimental-backends --daemon;;
+    "kill picom") pkill picom;;
+    "sxkbd") pkill sxhkd; sxhkd &;;
+    "imwheel") imwheel --buttons 45 2>&1 | ts >> /tmp/imwheel.log;;
+    "polybar") ~/.config/polybar/launch.sh;;
+esac

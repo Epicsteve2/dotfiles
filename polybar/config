@@ -47,7 +47,7 @@ font-0 = "Meslo LGS Nerd Font:size=12;3"
 separator-foreground = #75715E ;${colors.disabled}
 modules-left = i3
 modules-center = date
-modules-right = pulseaudio memory cpu temperature network
+modules-right = pulseaudio openweathermap-simple memory cpu temperature network
 
 [module/date]
 type = internal/date
@@ -64,8 +64,8 @@ date-alt = ${module/date.date}
 
 ; Optional time format
 ; time = %H:%M
-time = %I:%M:%S %p
-time-alt = %I:%M %p
+time-alt = %I:%M:%S %p
+time = %I:%M %p
 label =  %date% %time%
 label-foreground = #A1EFE4
 
@@ -139,6 +139,7 @@ label-mode-padding = 1
 
 label-focused = %index%
 label-focused-background = #F27361
+; label-focused-background = #F27361
 ; label-focused-underline= #a65e92
 label-focused-padding = 1
 
@@ -169,7 +170,7 @@ format = <label>
 ;   %percentage-sum% - Cumulative load on all cores
 ;   %percentage-cores% - load percentage for each core
 ;   %percentage-core[1-9]% - load percentage for specific core
-label-foreground = #66D9EF
+label-foreground = #A6E22E
 label =  %percentage:2%%
 
 [module/memory]
@@ -180,7 +181,7 @@ type = internal/memory
 interval = 0.5
 ; format-prefix = "﬙ "
 label = ﬙ %gb_used%
-label-foreground = #A6E22E
+label-foreground = #66D9EF
 
 [module/network]
 type = internal/network
@@ -306,8 +307,15 @@ ramp-2 = 
 ramp-3 = 
 ramp-4 = 
 
-[module/title]
-type = internal/xwindow
+; [module/title]
+; type = internal/xwindow
+
+[module/openweathermap-simple]
+type = custom/script
+exec = ~/.config/polybar/scripts/openweathermap-simple.sh
+interval = 600
+label-font = 3
+label-foregroud = #f5ef42
 
 
 [settings]
