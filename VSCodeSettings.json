@@ -22,7 +22,7 @@
     "security.workspace.trust.startupPrompt": "never",
     "security.workspace.trust.untrustedFiles": "open",
     "terminal.integrated.cursorStyle": "line",
-    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.fontFamily": "'FiraCode Nerd Font', 'MesloLGS Nerd Font', 'Monofur Nerd Font'",
     "terminal.integrated.fontSize": 14,
     "update.mode": "none",
     "window.newWindowDimensions": "maximized",

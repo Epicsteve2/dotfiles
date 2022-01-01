@@ -41,6 +41,10 @@
   m3 (around lmet (around lctl 3))
   m4 (around lmet (around lctl 4))
   m5 (around lmet (around lctl 5))
+  ato (around lmet (around lalt (around lsft 1)))
+  sve (around lmet (around lalt (around lsft 2)))
+  lod (around lmet (around lalt (around lsft 3)))
+  tit (around lmet (around lalt (around lsft 4)))
   obs (around lctl (around lalt (around lsft f12)))
   ;; looks like this just dies if there's a restart. this is because kmonad doesn't get killed when exiting i3...
   m33 (cmd-button "sh -c \"if [ $(xdotool getactivewindow getwindowclassname) = discord ]; then i3-msg '[class=^strawberry$] focus'; else i3-msg '[class=^discord$] focus'; fi\"")
@@ -65,8 +69,8 @@
 (deflayer zero-focus
   _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _     _    _    @tst _
   _    @pev @plp @net _    _    _    _    _    _    _    _    _    _     _    _    _     _    kp/  kp*  kp-
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    @tst _    _
-  caps _    _    _    _    _    _    _    _    _    _    _    _                          @m33 @m4  @m5
+  _    _    _    _    _    @tit _    _    _    _    _    _    _    _     _    _    _     @ato @tst _    _
+  caps @ato @sve _    _    _    _    _    _    @lod _    _    _                          @m33 @m4  @m5
   _    _    _    _    _    _    _    _    _    _    _    _                    _          @m3  @m1  @m2  _
   _    _    _              _              _    _    _                    _    _    _     _         _
 )

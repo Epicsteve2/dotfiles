@@ -1,17 +1,32 @@
-super alt control shift a
+# auto
+super alt shift 1
     xdotool mousemove 1016 1057 click 1 mousemove restore
+# save
+super alt shift 2
+    xdotool mousemove 1709 931 click 1 mousemove restore
+# load
+super alt shift 3
+    xdotool mousemove 1836 934 click 1 mousemove restore
+# title
+super alt shift 4
+    xdotool mousemove 1707 985 click 1 mousemove restore
 
+# https://github.com/baskerville/sxhkd/issues/86
 XF86Calculator
-# galculator 
-    rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip" -config ~/.config/rofi/rofidmenu.rasi
+    rofi -show calc -modi calc -no-show-match -no-sort -hint-welcome "Ctrl+Return to paste" -calc-command 'xdotool type --clearmodifiers "\{result\}"' -config ~/.config/rofi/rofidmenu.rasi
+#     galculator
+
+# # TODO: same
+# super +c
+#     rofi -show calc -modi calc -no-show-match -no-sort -hint-welcome "Ctrl+Return to paste" -calc-command 'xdotool type --clearmodifiers "{result}"' -config ~/.config/rofi/rofidmenu.rasi
+# # -hint-welcome -hint-result
+
 
 XF86AudioPlay
     playerctl play-pause
 
-
 XF86AudioNext
     playerctl next
-
 
 XF86AudioPrev
     playerctl previous
@@ -46,52 +61,45 @@ Caps_Lock
 Num_Lock
     ~/.config/i3/scripts/dunst-num-lock.sh
 
-super shift+e
+super shift e
     ~/.config/i3/scripts/powermenu
 
 super Return
-    alacritty
+    alacritty --working-directory ~
 
 Print
     flameshot gui -p ~/Pictures/screenshots
 
-shift+Print
-    flameshot screen -p ~/Pictures/screenshots
+# shift+Print
+#     flameshot screen -p ~/Pictures/screenshots
 
-ctrl+shift+Print
-    flameshot full -p ~/Pictures/screenshots
+# ctrl+shift+Print
+#     flameshot full -p ~/Pictures/screenshots
+
+super Print
+    ~/.config/i3/scripts/screenshot
 
 super v
     copyq toggle
 
-
-super +d
+super d
     rofi -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi
 
-
-super +c
-    rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo -n '{result}' | xclip" -config ~/.config/rofi/rofidmenu.rasi
-
-super +c
-    rofi -show calc -modi calc -no-show-match -no-sort -hint-welcome "Ctrl+Return to paste" -calc-command 'xdotool type --clearmodifiers "{result}"' -config ~/.config/rofi/rofidmenu.rasi
-
-# -hint-welcome -hint-result
-
-
-super +ctrl+e
+super ctrl e
     rofi -modi "emoji:rofimoji" -show emoji -config ~/.config/rofi/rofikeyhint.rasi
 
-super +shift+v
-    rofi -modi "emoji:rofimoji --action copy" -show emoji -config ~/.config/rofi/rofikeyhint.rasi
-
-super +shift+v
+super shift v
     rofimoji --selector-args "-config ~/.config/rofi/rofikeyhint.rasi"  --prompt "alt+c copy | alt+<num> insert recent | alt+u unicode"
 
-
-#bindsym F9 exec rofi -modi drun -show drun \
-#		-config ~/.config/rofi/rofidmenu.rasi
-
-# rofi bindings for window menu (super +t /F10 optional disabled)
-
-super +shift+d
+super shift d
     rofi -show window -config ~/.config/rofi/rofidmenu.rasi
+
+alt Tab
+    rofi -show window -config ~/.config/rofi/rofidmenu.rasi
+
+super l
+    ~/.config/i3/scripts/blur-lock
+
+super shift r
+   ~/.config/i3/scripts/reload
+

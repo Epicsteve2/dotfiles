@@ -34,6 +34,7 @@ FILE_LIST=(
     ["dunst"]="${HOME}/.config/dunst"
     ["kmonad"]="${HOME}/.config/kmonad"
     ["sxhkdrc"]="${HOME}/.config/sxhkd/sxhkdrc"
+    ["neofetch.conf"]="${HOME}/.config/neofetch/config.conf"
 )
 
 addFile() {
@@ -51,7 +52,7 @@ addFile() {
 }
 
 chooseFromList() {
-    for (( i=1; i<=${#}-1; i++ )) do
+    for ((i = 1; i <= ${#} - 1; i++)); do
         echo "${CYAN}[   ${i}   ]${RESETCOLOR} $(eval echo \$"${i}")"
     done
     echo "${CYAN}[ Enter ]${RESETCOLOR} $(eval echo \"\$\{${#}\}\")"
@@ -72,73 +73,83 @@ while true; do
     echo
     if [[ -z $REPLY ]]; then exit; fi
     case $REPLY in
-        1)  mkdir --parents --verbose .current-files/
-            for file in "${!FILE_LIST[@]}"; do
-                if addFile "$file"; then
-                    destination="${FILE_LIST[$file]}"
-                    mkdir --parents --verbose "$(dirname "$destination")"
-                    cp --archive "$file" .current-files/
-                    [[ -e $destination ]] && mv --verbose "$destination" "$destination".backup
-                    ln --symbolic --verbose "$(pwd)"/.current-files/"$file" "$destination"
-                fi
-            done;;
+    1)
+        mkdir --parents --verbose .current-files/
+        for file in "${!FILE_LIST[@]}"; do
+            if addFile "$file"; then
+                destination="${FILE_LIST[$file]}"
+                mkdir --parents --verbose "$(dirname "$destination")"
+                cp --archive "$file" .current-files/
+                [[ -e $destination ]] && mv --verbose "$destination" "$destination".backup
+                ln --symbolic --verbose "$(pwd)"/.current-files/"$file" "$destination"
+            fi
+        done
+        ;;
 
-        2)  mkdir --parents --verbose ~/.local/share/fonts/
-            cp --archive --verbose fonts/ ~/.local/share/fonts/
-            fc-cache --force --verbose;;
+    2)
+        mkdir --parents --verbose ~/.local/share/fonts/
+        cp --archive --verbose fonts/ ~/.local/share/fonts/
+        fc-cache --force --verbose
+        ;;
 
-        3)  [ ! -d ~/.fzf ] && git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
-            ~/.fzf/install;;
+    3)
+        [ ! -d ~/.fzf ] && git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install
+        ;;
 
-        4)  echo "${CYAN}Downloading exa..${RESETCOLOR}"
-            curl -s https://api.github.com/repos/ogham/exa/releases/latest \
-                | grep "exa-linux-x86_64-v" \
-                | cut --delimiter : -f 2,3 \
-                | tr --delete \" \
-                | wget --input-file - || true
-            echo "${CYAN}Unzipping exa..${RESETCOLOR}"
+    4)
+        echo "${CYAN}Downloading exa..${RESETCOLOR}"
+        curl -s https://api.github.com/repos/ogham/exa/releases/latest |
+            grep "exa-linux-x86_64-v" |
+            cut --delimiter : -f 2,3 |
+            tr --delete \" |
+            wget --input-file - || true
+        echo "${CYAN}Unzipping exa..${RESETCOLOR}"
 
-            unzip -j exa*.zip bin/exa man/exa.1 completions/exa.zsh
-            sudo mv --verbose exa /usr/local/bin/exa
-            sudo mv --verbose exa.1 /usr/share/man/man1 #manpath something
-            sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions
-            rm --verbose exa*.zip;;
+        unzip -j exa*.zip bin/exa man/exa.1 completions/exa.zsh
+        sudo mv --verbose exa /usr/local/bin/exa
+        sudo mv --verbose exa.1 /usr/share/man/man1                   #manpath something
+        sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions
+        rm --verbose exa*.zip
+        ;;
 
-        5)  echo "$(whoami) ALL=(ALL) NOPASSWD: ALL"
-            read -n 1 -s -r -p "${YELLOW}Press any key to continue: ${RESETCOLOR}"
-            sudo visudo
-            ;;
+    5)
+        echo "$(whoami) ALL=(ALL) NOPASSWD: ALL"
+        read -n 1 -s -r -p "${YELLOW}Press any key to continue: ${RESETCOLOR}"
+        sudo visudo
+        ;;
 
-        6)  for file in .current-files/*; do
-                ( [ ! -d "$file" ] &&  cmp --silent "$file" "$(basename "$file")" ) || delta --paging always "$(basename "$file")" "$file" || true
-            done
-            ;;
+    6)
+        for file in .current-files/*; do
+            ([ ! -d "$file" ] && cmp --silent "$file" "$(basename "$file")") || delta --paging always "$(basename "$file")" "$file" || true
+        done
+        ;;
 
-        7)
-            for file in .current-files/*; do
-                if ! diff --recursive --brief "$file" "$(basename "$file")" &> /dev/null; then
-                    delta --paging always "$(basename "$file")" "$file" || true
-                    addFile "$file" && {
-                        if [[ -d $file ]]; then
-                            rsync --verbose --archive --checksum --human-readable "$file"/ "$(basename "$file")"
-                        else
-                            cp --verbose "$file" "$(basename "$file")"
-                        fi
-                    }
-                fi
-            done
-            ;;
+    7)
+        for file in .current-files/*; do
+            if ! diff --recursive --brief "$file" "$(basename "$file")" &>/dev/null; then
+                delta --paging always "$(basename "$file")" "$file" || true
+                addFile "$file" && {
+                    if [[ -d $file ]]; then
+                        rsync --verbose --archive --checksum --human-readable "$file"/ "$(basename "$file")"
+                    else
+                        cp --verbose "$file" "$(basename "$file")"
+                    fi
+                }
+            fi
+        done
+        ;;
 
-        8)  # Check if code command exists
-            command -v code &>/dev/null && \
+    8) # Check if code command exists
+        command -v code &>/dev/null &&
             while IFS="" read -r line || [ -n "$line" ]; do # safe way of reading a file... i think -> https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash
                 echo "${YELLOW}Installing ${CYAN}${line}...${RESETCOLOR}"
                 code --install-extension "$line"
                 echo
-            done < VSCodeExtensions.txt
-            ;;
+            done <VSCodeExtensions.txt
+        ;;
 
-        *)  echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}";;
+    *) echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}" ;;
     esac
     echo
 done
