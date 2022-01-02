@@ -35,6 +35,7 @@ FILE_LIST=(
     ["kmonad"]="${HOME}/.config/kmonad"
     ["sxhkdrc"]="${HOME}/.config/sxhkd/sxhkdrc"
     ["neofetch.conf"]="${HOME}/.config/neofetch/config.conf"
+    ["bin"]="${HOME}/bin"
 )
 
 addFile() {

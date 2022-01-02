@@ -44,11 +44,15 @@ bindsym Mod4+n split h
 bindsym Mod4+b split v
 
 # bindsym Mod4+y exec --no-startup-id notify-send hi
-bindsym $mod+Ctrl+1 [class="^discord$"] focus
-bindsym $mod+Ctrl+2 [class="^strawberry$"] focus
-bindsym $mod+Ctrl+3 workspace $ws5
-bindsym $mod+Ctrl+4 workspace $ws6
-bindsym $mod+Ctrl+5 workspace $ws7
+# bindsym $mod+Ctrl+1 [class="^discord$"] focus
+# bindsym $mod+Ctrl+2 [class="^strawberry$"] focus
+# bindsym $mod+Ctrl+2 workspace $ws5
+# bindsym $mod+Ctrl+3 workspace $ws6
+bindsym $mod+Ctrl+4 workspace $ws4
+bindsym $mod+Ctrl+5 workspace $ws5
+bindsym $mod+Ctrl+6 workspace $ws6
+bindsym $mod+Ctrl+7 workspace $ws7
+bindsym $mod+Ctrl+8 workspace $ws8
 
 #####################
 # workspace layout: #
@@ -512,6 +516,7 @@ exec --no-startup-id nitrogen --restore
 exec --no-startup-id xset s 480 dpms 600 600 600
 
 # Desktop notifications
+# exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 exec --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 # alternative if you installed aside with XFCE4:
 # exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
