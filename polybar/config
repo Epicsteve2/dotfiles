@@ -40,14 +40,15 @@ module-margin-right = 3
 
 ; font-N = <fontconfig pattern>;<vertical offset>
 font-0 = "Meslo LGS Nerd Font:size=12;3"
+font-1 = "Weather Icons:size=12;3"
 ; font-1 = "FontAwesome:size=10;3"
 
 ; separator = " "
 ; module-margin = 1
 separator-foreground = #75715E ;${colors.disabled}
 modules-left = i3
-modules-center = date
-modules-right = pulseaudio openweathermap-simple memory cpu temperature network
+modules-center = date openweathermap-simple
+modules-right = pulseaudio memory cpu temperature network
 
 [module/date]
 type = internal/date
@@ -59,7 +60,7 @@ interval = 1.0
 ; See "https://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
 ; NOTE: if you want to use syntax tags here you need to use %%{...}
 ; date = %Y-%m-%d%
-date = %a, %b %d
+date = %a %b %d
 date-alt = ${module/date.date}
 
 ; Optional time format
@@ -296,6 +297,7 @@ warn-temperature = 60
 label-foreground = #F92672
 label = %temperature-c%
 label-warn = %temperature-c%
+label-warn-foreground = #F92672
 format = <ramp> <label>
 format-warn = <ramp> <label-warn>
 ; format-underline = #f50a4d
@@ -314,8 +316,11 @@ ramp-4 = 
 type = custom/script
 exec = ~/.config/polybar/scripts/openweathermap-simple.sh
 interval = 600
-label-font = 3
-label-foregroud = #f5ef42
+label-font = 2
+format = %{F#f5ef42}<label>%{F-}
+
+; format-background = #F92672
+; format-foregroud = #f5ef42
 
 
 [settings]

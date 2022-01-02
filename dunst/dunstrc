@@ -39,7 +39,7 @@
     scale = 0
 
     # Maximum number of notification (0 means no limit)
-    notification_limit = 5
+    notification_limit = 15
 
     ### Progress bar ###
 
@@ -107,7 +107,7 @@
     # Set to 0 to disable.
     # A client can set the 'transient' hint to bypass this. See the rules
     # section for how to disable this if necessary
-    idle_threshold = 0
+    idle_threshold = 60
 
     ### Text ###
 
@@ -152,7 +152,8 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<b>%s</b>\n%b"
+    format = "<b>%s</b>\n%b\n<span foreground='#AAAAAA' size='smaller'>%a</span>"
+    # doesn't look like i can right align the appname
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
@@ -178,7 +179,7 @@
     stack_duplicates = true
 
     # Hide the count of stacked notifications with the same content
-    hide_duplicate_count = true
+    hide_duplicate_count = false
 
     # Display indicators for URLs (U) and actions (A).
     show_indicators = yes
@@ -204,15 +205,15 @@
 
     # Should a notification popped up from history be sticky or timeout
     # as if it would normally do.
-    sticky_history = false
+    sticky_history = true
 
     # Maximum amount of notifications kept in history
-    history_length = 0
+    history_length = 9999
 
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
+    dmenu = /usr/bin/rofi -dmenu -config ~/.config/rofi/rofikeyhint.rasi -p dunst:
 
     # Browser for opening urls in context menu.
     browser = /usr/bin/xdg-open
@@ -276,9 +277,9 @@
     # * context_all: Open context menu for all notifications.
     # These values can be strung together for each mouse event, and
     # will be executed in sequence.
-    mouse_left_click = close_current
-    mouse_middle_click = do_action, close_current
-    mouse_right_click = close_all
+    mouse_left_click = do_action, close_current
+    mouse_middle_click = context
+    mouse_right_click = close_current
 
 # Experimental features that may or may not work correctly. Do not expect them
 # to have a consistent behaviour across releases.
@@ -296,14 +297,14 @@
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#28143c"
     foreground = "#ffffff"
-    timeout = 5
+    timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     icon = /usr/share/icons/Arc-X-D/status/16/dialog-information.png
 
 [urgency_normal]
     background = "#28143c"
     foreground = "#ffffff"
-    timeout = 5
+    timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     icon = /usr/share/icons/Arc-X-D/status/16/dialog-question.png
 
@@ -391,6 +392,10 @@
 #[espeak]
 #    summary = "*"
 #    script = dunst_espeak.sh
+
+[save-to-history]
+    summary = "*"
+    script = /home/stephen/bin/dunst-save-history
 
 #[script-test]
 #    summary = "*script*"

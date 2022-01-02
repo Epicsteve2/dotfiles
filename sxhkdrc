@@ -75,6 +75,8 @@ Print
 
 # ctrl+shift+Print
 #     flameshot full -p ~/Pictures/screenshots
+super y
+    dunstctl history-pop
 
 super Print
     ~/.config/i3/scripts/screenshot
