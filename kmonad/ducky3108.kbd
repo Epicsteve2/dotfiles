@@ -70,6 +70,7 @@
   skp (cmd-button "xdotool mousemove 1165 1065 click 1 mousemove restore")
   vov (cmd-button "xdotool mousemove 750 1059 click 1 mousemove restore")
   vor (cmd-button "xdotool mousemove 750 1059 click 1 mousemove restore")
+  cls (cmd-button "xdotool mousemove 1439 1064 click 1 mousemove restore")
 
   ;; ts2 (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1016 1057 click 1 mousemove restore; else xdotool key 2; fi")
   ra (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1016 1057 click 1 mousemove restore; else xdotool key a; fi")
@@ -79,6 +80,7 @@
   rf (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1165 1065 click 1 mousemove restore; else xdotool key f; fi")
   rv (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 750 1059 click 1 mousemove restore; else xdotool key v; fi")
   rr (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 750 1059 click 1 mousemove restore; else xdotool key r; fi")
+  rc (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1439 1064 click 1 mousemove restore; else xdotool key c; fi")
 
   obs (around lctl (around lalt (around lsft f12)))
   ;; looks like this just dies if there's a restart. this is because kmonad doesn't get killed when exiting i3...
@@ -109,7 +111,7 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    kp/  kp*  kp-
   _    @ts2 @ts3 _    @vor @tit _    _    _    _    _    _    _    _     _    _    _     @man @rew _    _
   caps @ato @sve _    @skp _    _    _    _    @lod _    _    _                          @m4  @m5  @m6
-  _    _    _    _    @vov _    _    _    _    _    _    _                    _          @m11 @m7  @m8  _
+  _    _    _    @cls @vov _    _    _    _    _    _    _                    _          @m11 @m7  @m8  _
   _    _    _              _              _    _    _                    _    _    _     _         _
 )
 
@@ -127,6 +129,6 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
   _    _    _    _    @rr  @rt  _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
   esc  @ra  @rs  _    @rf  _    _    _    _    @rl  _    _    _                          _    _    _
-  _    _    _    _    @rv  _    _    _    _    _    _    _                    _          _    _    _    _
+  _    _    _    @rc  @rv  _    _    _    _    _    _    _                    _          _    _    _    _
   _    _    _              _              _    _    _                    _    _    _     @0ctl     _
 )
