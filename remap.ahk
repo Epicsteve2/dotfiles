@@ -125,6 +125,7 @@ Numpad0 & a::clickAndReturn(1016, 1057)
 Numpad0 & s::clickAndReturn(1709, 931)
 Numpad0 & t::clickAndReturn(1707, 985)
 Numpad0 & l::clickAndReturn(1836, 934)
+Numpad0 & f::clickAndReturn(1165, 1065)
 Numpad0 & NumpadDiv::NumpadDiv
 Numpad0 & NumpadMult::NumpadMult
 Numpad0 & NumpadSub::NumpadSub
@@ -135,6 +136,9 @@ $a::ifRewrite("a", 1016, 1057)
 $s::ifRewrite("s", 1709, 931)
 $t::ifRewrite("t", 1707, 985)
 $l::ifRewrite("l", 1836, 934)
+$f::ifRewrite("f", 1165, 1065)
+$v::ifRewrite("v", 750, 1059)
+$r::ifRewrite("r", 750, 1059)
 
 CapsLock::Esc 
 
