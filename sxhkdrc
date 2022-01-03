@@ -10,6 +10,15 @@ super alt shift 3
 # title
 super alt shift 4
     xdotool mousemove 1707 985 click 1 mousemove restore
+# skip
+super alt shift 5
+    xdotool mousemove 1165 1065 click 1 mousemove restore
+# voice
+super alt shift 6
+    xdotool mousemove 750 1059 click 1 mousemove restore
+# voice
+super alt shift 7
+    xdotool mousemove 750 1059 click 1 mousemove restore
 
 # https://github.com/baskerville/sxhkd/issues/86
 XF86Calculator
