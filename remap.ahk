@@ -139,6 +139,7 @@ $l::ifRewrite("l", 1836, 934)
 $f::ifRewrite("f", 1165, 1065)
 $v::ifRewrite("v", 750, 1059)
 $r::ifRewrite("r", 750, 1059)
+$c::ifRewrite("c", 1439, 1064)
 
 CapsLock::Esc 
 
