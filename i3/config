@@ -48,11 +48,11 @@ bindsym Mod4+b split v
 # bindsym $mod+Ctrl+2 [class="^strawberry$"] focus
 # bindsym $mod+Ctrl+2 workspace $ws5
 # bindsym $mod+Ctrl+3 workspace $ws6
-bindsym $mod+Ctrl+4 workspace $ws4
-bindsym $mod+Ctrl+5 workspace $ws5
-bindsym $mod+Ctrl+6 workspace $ws6
-bindsym $mod+Ctrl+7 workspace $ws7
-bindsym $mod+Ctrl+8 workspace $ws8
+# bindsym $mod+Ctrl+4 workspace $ws4
+# bindsym $mod+Ctrl+5 workspace $ws5
+# bindsym $mod+Ctrl+6 workspace $ws6
+# bindsym $mod+Ctrl+7 workspace $ws7
+# bindsym $mod+Ctrl+8 workspace $ws8
 
 #####################
 # workspace layout: #
@@ -80,6 +80,8 @@ new_window pixel 2
 hide_edge_borders smart
 
 workspace_auto_back_and_forth yes
+
+popup_during_fullscreen smart
 
 # Set inner/outer gaps
 # gaps inner 6
@@ -422,7 +424,8 @@ for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
 for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
 for_window [class="^Steam$" title="^Steam - System Information$"] floating enable
 for_window [class="^steam_app_1680000$"] floating enable
-assign [class="^steam_app_1680000$"] $ws7
+for_window [class="^steam_app_1680000$"] focus
+assign [class="^steam_app_1680000$"] $ws8
 
 for_window [class="^Nitrogen$"] floating enable
 for_window [class="^flameshot$"] floating enable
@@ -491,7 +494,8 @@ exec --no-startup-id dex --autostart --environment i3
 # exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # start blueberry app for managing bluetooth devices from tray:
-exec --no-startup-id blueberry-tray
+
+# exec --no-startup-id blueberry-tray
 
 # transparency
 # uncomment one of them to be used (picom package is installed per default)
