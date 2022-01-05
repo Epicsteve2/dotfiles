@@ -64,27 +64,32 @@
   ;; vor (around lmet (around lalt (around lsft 7)))
 
   ato (cmd-button "xdotool mousemove 1016 1057 click 1 mousemove restore")
-  sve (cmd-button "xdotool mousemove 1709 931 click 1 mousemove restore")
-  lod (cmd-button "xdotool mousemove 1836 934 click 1 mousemove restore")
-  tit (cmd-button "xdotool mousemove 1707 985 click 1 mousemove restore")
+  sve (cmd-button "xdotool mousemove 1709 931  click 1 mousemove restore")
+  lod (cmd-button "xdotool mousemove 1836 934  click 1 mousemove restore")
+  tit (cmd-button "xdotool mousemove 1707 985  click 1 mousemove restore")
   skp (cmd-button "xdotool mousemove 1165 1065 click 1 mousemove restore")
-  vov (cmd-button "xdotool mousemove 750 1059 click 1 mousemove restore")
-  vor (cmd-button "xdotool mousemove 750 1059 click 1 mousemove restore")
+  vov (cmd-button "xdotool mousemove 750  1059 click 1 mousemove restore")
+  vor (cmd-button "xdotool mousemove 750  1059 click 1 mousemove restore")
   cls (cmd-button "xdotool mousemove 1439 1064 click 1 mousemove restore")
 
   ;; ts2 (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1016 1057 click 1 mousemove restore; else xdotool key 2; fi")
-  ra (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1016 1057 click 1 mousemove restore; else xdotool key a; fi")
-  rs (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1709 931 click 1 mousemove restore; else xdotool key s; fi")
-  rl (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1836 934 click 1 mousemove restore; else xdotool key l; fi")
-  rt (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1707 985 click 1 mousemove restore; else xdotool key t; fi")
-  rf (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1165 1065 click 1 mousemove restore; else xdotool key f; fi")
-  rv (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 750 1059 click 1 mousemove restore; else xdotool key v; fi")
-  rr (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 750 1059 click 1 mousemove restore; else xdotool key r; fi")
-  rc (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1439 1064 click 1 mousemove restore; else xdotool key c; fi")
+  ra  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1016 1057 click 1 mousemove restore; else xdotool key a; fi")
+  rs  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1709 931  click 1 mousemove restore; else xdotool key s; fi")
+  rl  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1836 934  click 1 mousemove restore; else xdotool key l; fi")
+  rt  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1707 985  click 1 mousemove restore; else xdotool key t; fi")
+  rf  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1165 1065 click 1 mousemove restore; else xdotool key f; fi")
+  rv  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 750  1059 click 1 mousemove restore; else xdotool key v; fi")
+  rr  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 750  1059 click 1 mousemove restore; else xdotool key r; fi")
+  rc  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1439 1064 click 1 mousemove restore; else xdotool key c; fi")
+  rm  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1706 1040 click 1 mousemove restore; else xdotool key m; fi")
+  ro  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1842 1037 click 1 mousemove restore; else xdotool key o; fi")
+  rsp (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool key return; else xdotool key space; fi")
 
   obs (around lctl (around lalt (around lsft f12)))
   ;; looks like this just dies if there's a restart. this is because kmonad doesn't get killed when exiting i3...
   m11 (cmd-button "if [ $(xdotool getactivewindow getwindowclassname) = discord ]; then i3-msg '[class=^strawberry$] focus'; else i3-msg '[class=^discord$] focus'; fi")
+  ;; Not working... Tried doing some research, but this is probably really hard lol. just use i3 i guess
+  ;; m11 (cmd-button "if [ $(xdotool getactivewindow getwindowclassname) = discord ]; then wmctrl -a strawberry; else wmctrl -a discord; fi")
 
   tst (cmd-button "notify-send hi")
   pev KeyPreviousSong
@@ -127,8 +132,8 @@
 (deflayer rewrite
   _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
-  _    _    _    _    @rr  @rt  _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  _    _    _    _    @rr  @rt  _    _    _    @ro  _    _    _    _     _    _    _     _    _    _    _
   esc  @ra  @rs  _    @rf  _    _    _    _    @rl  _    _    _                          _    _    _
-  _    _    _    @rc  @rv  _    _    _    _    _    _    _                    _          _    _    _    _
-  _    _    _              _              _    _    _                    _    _    _     @0ctl     _
+  _    _    _    @rc  @rv  _    _    @rm  _    _    _    _                    _          _    _    _    _
+  _    _    _              @rsp           _    _    _                    _    _    _     @0ctl     _
 )
