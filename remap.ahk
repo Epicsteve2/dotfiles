@@ -140,6 +140,18 @@ $f::ifRewrite("f", 1165, 1065)
 $v::ifRewrite("v", 750, 1059)
 $r::ifRewrite("r", 750, 1059)
 $c::ifRewrite("c", 1439, 1064)
+$m::ifRewrite("m", 1706, 1040)
+$o::ifRewrite("o", 1842, 1037)
+$Space::
+    IfWinActive, ahk_exe SiglusEngine_SteamEN.exe
+    {
+        SendInput, {Enter}
+    } 
+    Else
+    {
+        SendInput, {Space}
+    }
+Return
 
 CapsLock::Esc 
 
