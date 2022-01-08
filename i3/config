@@ -284,12 +284,12 @@ bindsym $mod+Shift+n exec ~/.config/i3/scripts/empty_workspace
 
 # Command for the status line
 #   ie: i3blocks, i3status
-set $statuscmd i3blocks
+# set $statuscmd i3blocks
 
 # Signal used to update the status line
 #   i3blocks uses SIGRTMIN+10 by default
 #   i3status uses SIGUSR1 by default
-set $statussig SIGRTMIN+10
+# set $statussig SIGRTMIN+10
 
 # pulseaudio-utils settings
 #
@@ -373,7 +373,7 @@ workspace $ws0 output DP-0
 
 # Focus urgnet windows
 focus_on_window_activation focus
-
+for_window [all] title_window_icon padding 3px
 
 # prolly a better way, but i'm too lazy
 for_window [instance="^alacritty-autostart-gping$"] layout tabbed
@@ -381,13 +381,11 @@ for_window [instance="^alacritty-autostart-btm$"] layout tabbed
 assign [instance="^alacritty-autostart-gping$"] $ws5
 assign [instance="^alacritty-autostart-btm$"] $ws5
 
-# exec --no-startup-id qbittorrent
-
 for_window [class="^copyq$"] floating enable
 for_window [class="^nitrogen$"] floating enable
 for_window [title="^Visual Studio Code$"] focus
 for_window [class="^Brave-browser$"] focus
-for_window [class="^Steam$"] focus
+# for_window [class="^Steam$"] focus
 
 # bind program to workspace and focus to them on startup:
 # assign [class="alacritty"] $ws2
@@ -465,6 +463,9 @@ exec --no-startup-id alacritty --title gping --class alacritty-autostart-gping -
 # exec --no-startup-id i3-msg; exec alacritty --title gping --class alacritty-autostart-gping --command gping 8.8.8.8 1.1.1.1 192.168.1.1
 exec --no-startup-id alacritty --title btm   --class alacritty-autostart-btm   --command btm
 exec --no-startup-id ~/.config/polybar/launch.sh
+exec --no-startup-id qbittorrent
+exec --no-startup-id jdownloader
+
 # exec --no-startup-id i3-msg; exec alacritty --title btm   --class alacritty-autostart-btm   --command btm
 
 #get auth work with polkit-gnome

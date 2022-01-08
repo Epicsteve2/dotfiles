@@ -83,7 +83,8 @@
   rc  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1439 1064 click 1 mousemove restore; else xdotool key c; fi")
   rm  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1706 1040 click 1 mousemove restore; else xdotool key m; fi")
   ro  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1842 1037 click 1 mousemove restore; else xdotool key o; fi")
-  rsp (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool key return; else xdotool key space; fi")
+  ;; rsp (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then notify-send key clicc; xdotool click 1; else notify-send key space; xdotool key space; fi")
+  rsp (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool click 1; else xdotool key space; fi")
 
   obs (around lctl (around lalt (around lsft f12)))
   ;; looks like this just dies if there's a restart. this is because kmonad doesn't get killed when exiting i3...
