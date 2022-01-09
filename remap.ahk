@@ -1,3 +1,4 @@
+layer =: "main"
 
 discordOrStrawberry() {
     IfWinActive, ahk_exe Discord.exe 
@@ -98,13 +99,7 @@ clickAndReturn(x, y) {
     Return
 }
 
-Pause::f15
-Insert::F13
-ScrollLock::F14
 ; RWin::F15
-NumpadDiv::Media_Prev
-NumpadMult::Media_Play_Pause
-NumpadSub::Media_Next
 ; Calculator
 ; Launch_App2::Media_Next
 ; RWin::Media_Play_Pause
@@ -114,13 +109,27 @@ NumpadSub::Media_Next
 ; CapsLock::AppsKey
 
 ; RWin::AppsKey
+; NumpadIns
+Pause::f15
+Insert::F13
+ScrollLock::F14
+NumpadDiv::Media_Prev
+NumpadMult::Media_Play_Pause
+NumpadSub::Media_Next
 
 Numpad0::return
 Numpad0 up::Send {Numpad0}
-; NumpadIns
 Numpad0 & Numpad1::discordOrStrawberry()
 Numpad0 & Numpad2::launchOrSwitchFirefox()
 Numpad0 & Numpad3::launchOrSwitchCode()
+Numpad0 & Numpad7::
+    TrayTip, AutoHotKey layer, main, 2
+    layer := "main"
+Return
+Numpad0 & Numpad8::
+    TrayTip, AutoHotKey layer, rewrite, 2
+    layer := "rewrite"
+Return
 Numpad0 & a::clickAndReturn(1016, 1057)
 Numpad0 & s::clickAndReturn(1709, 931)
 Numpad0 & t::clickAndReturn(1707, 985)
@@ -131,38 +140,43 @@ Numpad0 & NumpadMult::NumpadMult
 Numpad0 & NumpadSub::NumpadSub
 Numpad0 & CapsLock::CapsLock
 
-; https://www.autohotkey.com/boards/viewtopic.php?p=186138#p186138
-$a::ifRewrite("a", 1016, 1057)
-$s::ifRewrite("s", 1709, 931)
-$t::ifRewrite("t", 1707, 985)
-$l::ifRewrite("l", 1836, 934)
-$f::ifRewrite("f", 1165, 1065)
-$v::ifRewrite("v", 750, 1059)
-$r::ifRewrite("r", 750, 1059)
-$c::ifRewrite("c", 1439, 1064)
-$m::ifRewrite("m", 1706, 1040)
-$o::ifRewrite("o", 1842, 1037)
-$Space::
-    IfWinActive, ahk_exe SiglusEngine_SteamEN.exe
-    {
-        SendInput, {Enter}
-    } 
-    Else
-    {
-        SendInput, {Space}
-    }
-Return
+
 
 CapsLock::Esc 
 
 Numpad0 & /::
-    MouseGetPos, x_position, y_position 
-    TrayTip Current cursor position, The cursor is at x=%x_position% y=%y_position%.
+    MouseGetPos, x_position, y_position
+    TrayTip Current cursor position, The cursor is at x=%x_position% y=%y_position%., 2
 return
 
 Numpad0 & .::
     WinGetActiveTitle, currentTitle
-    TrayTip Current window class, The window title is %currentTitle%
+    TrayTip Current window class, The window title is %currentTitle%, 2
     ; WinGetClass, windowClass, ahk_exe SiglusEngine_SteamEN.exe
     ; TrayTip Current window class, The window class is %windowClass%
 return
+
+; https://www.reddit.com/r/AutoHotkey/comments/mgalh9/comment/gssc2af/?utm_source=share&utm_medium=web2x&context=3
+#if (Layer = "rewrite")
+    ; https://www.autohotkey.com/boards/viewtopic.php?p=186138#p186138
+    $a::ifRewrite("a", 1016, 1057)
+    $s::ifRewrite("s", 1709, 931)
+    $t::ifRewrite("t", 1707, 985)
+    $l::ifRewrite("l", 1836, 934)
+    $f::ifRewrite("f", 1165, 1065)
+    $v::ifRewrite("v", 750, 1059)
+    $r::ifRewrite("r", 750, 1059)
+    $c::ifRewrite("c", 1439, 1064)
+    $m::ifRewrite("m", 1706, 1040)
+    $o::ifRewrite("o", 1842, 1037)
+    $Space::
+        IfWinActive, ahk_exe SiglusEngine_SteamEN.exe
+        {
+            SendInput, {Enter}
+        } 
+        Else
+        {
+            SendInput, {Space}
+        }
+    Return
+#if
