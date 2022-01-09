@@ -396,7 +396,7 @@ assign [class=(?i)firefox] $ws1
 assign [title="^Visual Studio Code$"] $ws2
 assign [class="^Thunar$"] $ws3
 
-assign [class="^Steam$"] $ws7
+# assign [class="^Steam$"] $ws7
 
 assign [class="^Thunderbird$"] $ws4
 assign [class="^discord$"] $ws4
@@ -464,7 +464,7 @@ exec --no-startup-id alacritty --title gping --class alacritty-autostart-gping -
 exec --no-startup-id alacritty --title btm   --class alacritty-autostart-btm   --command btm
 exec --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id qbittorrent
-exec --no-startup-id jdownloader
+# exec --no-startup-id jdownloader
 
 # exec --no-startup-id i3-msg; exec alacritty --title btm   --class alacritty-autostart-btm   --command btm
 
