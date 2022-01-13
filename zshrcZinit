@@ -372,6 +372,7 @@ alias open='handlr open'
 alias cp="cp -v"
 alias mv="mv -v"
 alias mkdir="mkdir -pv"
+alias rmdir="rmdir -pv"
 alias rm="rm -v"
 alias grep="grep --color=auto"
 alias diff="diff --color=auto"

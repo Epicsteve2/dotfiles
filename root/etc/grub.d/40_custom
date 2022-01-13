@@ -1,0 +1,39 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+
+menuentry "Shutdown" {
+	echo "System shutting down..."
+	halt
+}
+
+menuentry "Restart" {
+	echo "System rebooting..."
+	reboot
+}
+
+menuentry "Root shell" {
+  echo "Booting into bash..."
+  linux /@/boot/vmlinuz-linux root=UUID=8cd4aa1b-042a-42fc-800a-5d74d3ea0a14 rw init=/bin/bash
+  initrd /@/boot/amd-ucode.img /@/boot/initramfs-linux.img
+}
+
+menuentry 'EndeavourOS, root shell' --class endeavouros --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-linux-advanced-8cd4aa1b-042a-42fc-800a-5d74d3ea0a14' {
+	load_video
+	set gfxpayload=keep
+	insmod gzio
+	insmod part_gpt
+	insmod btrfs
+	set root='hd2,gpt1'
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root --hint-bios=hd2,gpt1 --hint-efi=hd2,gpt1 --hint-baremetal=ahci2,gpt1  8cd4aa1b-042a-42fc-800a-5d74d3ea0a14
+	else
+	  search --no-floppy --fs-uuid --set=root 8cd4aa1b-042a-42fc-800a-5d74d3ea0a14
+	fi
+	echo	'Loading kernel linux ...'
+	linux	/@/boot/vmlinuz-linux root=UUID=8cd4aa1b-042a-42fc-800a-5d74d3ea0a14 rw rootflags=subvol=@  quiet loglevel=3 nowatchdog nvme_load=YES nvidia-drm.modeset=1 systemd.unit=multi-user.target ro
+	echo	'Loading initial ramdisk ...'
+	initrd	/@/boot/amd-ucode.img /@/boot/initramfs-linux.img
+}
