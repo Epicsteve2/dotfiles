@@ -14,13 +14,15 @@ menuentry "Restart" {
 	reboot
 }
 
-menuentry "Root shell" {
-  echo "Booting into bash..."
-  linux /@/boot/vmlinuz-linux root=UUID=8cd4aa1b-042a-42fc-800a-5d74d3ea0a14 rw init=/bin/bash
-  initrd /@/boot/amd-ucode.img /@/boot/initramfs-linux.img
-}
+# https://youtu.be/hrngw-5OyZU?t=346
+# menuentry "Root shell" {
+#   echo "Booting into bash..."
+#   linux /@/boot/vmlinuz-linux root=UUID=8cd4aa1b-042a-42fc-800a-5d74d3ea0a14 rw init=/@/usr/bin/bash
+#   initrd /@/boot/amd-ucode.img /@/boot/initramfs-linux.img
+# }
 
-menuentry 'EndeavourOS, root shell' --class endeavouros --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-linux-advanced-8cd4aa1b-042a-42fc-800a-5d74d3ea0a14' {
+# https://askubuntu.com/questions/1029339/add-grub-menu-item-to-boot-into-terminal/1029350#1029350
+menuentry 'EndeavourOS, user shell' --class endeavouros --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-linux-advanced-8cd4aa1b-042a-42fc-800a-5d74d3ea0a14' {
 	load_video
 	set gfxpayload=keep
 	insmod gzio
