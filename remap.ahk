@@ -169,14 +169,26 @@ return
     $c::ifRewrite("c", 1439, 1064)
     $m::ifRewrite("m", 1706, 1040)
     $o::ifRewrite("o", 1842, 1037)
+    $d::ifRewrite("d", 1297, 1050)
     $Space::
         IfWinActive, ahk_exe SiglusEngine_SteamEN.exe
         {
-            SendInput, {Enter}
+            SendInput, {Enter Down}
         } 
         Else
         {
-            SendInput, {Space}
+            SendInput, {Space Down}
+        }
+    Return
+    $Space up::
+        IfWinActive, ahk_exe SiglusEngine_SteamEN.exe
+        {
+
+            Send, {Enter Up}
+        } 
+        Else
+        {
+            SendInput, {Space Up}
         }
     Return
 #if
