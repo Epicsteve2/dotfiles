@@ -12,7 +12,6 @@ local customKeys = {
   {key="J", mods="CTRL|SHIFT|ALT", action=wezterm.action{AdjustPaneSize={"Down", 1}}},
   {key="K", mods="CTRL|SHIFT|ALT", action=wezterm.action{AdjustPaneSize={"Up", 1}}},
   {key="L", mods="CTRL|SHIFT|ALT", action=wezterm.action{AdjustPaneSize={"Right", 1}}},
-  -- doesn't work rip
   {key="LeftArrow", mods="CTRL|SHIFT|ALT", action=wezterm.action{AdjustPaneSize={"Left", 1}}},
   {key="DownArrow", mods="CTRL|SHIFT|ALT", action=wezterm.action{AdjustPaneSize={"Down", 1}}},
   {key="UpArrow", mods="CTRL|SHIFT|ALT", action=wezterm.action{AdjustPaneSize={"Up", 1}}},
@@ -38,6 +37,17 @@ local customKeys = {
   {key="f", mods="CTRL", action=wezterm.action{Search={CaseInSensitiveString=""}}},
   {key="f", mods="CTRL|SHIFT", action=wezterm.action{Search={CaseSensitiveString=""}}},
   {key="f", mods="CTRL|SHIFT|ALT", action=wezterm.action{Search={Regex=""}}},
+  -- {key="1", mods="ALT", action=wezterm.action{ActivateTab=0}},
+  -- {key="2", mods="ALT", action=wezterm.action{ActivateTab=1}},
+  -- {key="3", mods="ALT", action=wezterm.action{ActivateTab=2}},
+  -- {key="4", mods="ALT", action=wezterm.action{ActivateTab=3}},
+  -- {key="5", mods="ALT", action=wezterm.action{ActivateTab=4}},
+  -- {key="6", mods="ALT", action=wezterm.action{ActivateTab=5}},
+  -- {key="7", mods="ALT", action=wezterm.action{ActivateTab=6}},
+  -- {key="8", mods="ALT", action=wezterm.action{ActivateTab=7}},
+  -- {key="9", mods="ALT", action=wezterm.action{ActivateTab=8}},
+  -- {key="0", mods="ALT", action=wezterm.action{ActivateTab=9}},
+
   -- new versions only
   {key="Backspace", mods="CTRL", action={SendKey={key="w", mods="CTRL"}}},
 }
@@ -49,7 +59,7 @@ end
 return {
   font = wezterm.font_with_fallback({
     "Monofur Nerd Font",
-    "MesloLGS NF",
+    "MesloLGS Nerd Font",
     "FiraCode Nerd Font"
   }),
   font_size = 20,

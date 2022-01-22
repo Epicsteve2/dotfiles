@@ -13,6 +13,7 @@ RESETCOLOR=$(tput sgr0)
 declare -A FILE_LIST
 FILE_LIST=(
     ["zshrcZinit"]="${HOME}/.zshrc"
+    ["zshrcZinitP10k"]="${HOME}/.zshrc"
     ["gitconfig"]="${HOME}/.gitconfig"
     ["mpv"]="${HOME}/.config/mpv"
     ["wezterm.lua"]="${HOME}/.config/wezterm/wezterm.lua"
