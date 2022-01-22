@@ -34,8 +34,6 @@ zinit light 'marlonrichert/zsh-autocomplete'
 zstyle ':autocomplete:*' fzf-completion yes
 zstyle ':autocomplete:*' widget-style menu-select
 
-zinit ice wait"1" lucid; zinit snippet OMZ::plugins/thefuck
-
 # # Completions
 # zinit ice wait"1" lucid atload"zicompinit; zicdreplay" blockf; zinit light zsh-users/zsh-completions
 # zinit ice wait"1" lucid as"completion"; zinit snippet OMZP::docker-compose/_docker-compose
