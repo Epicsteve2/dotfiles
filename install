@@ -21,6 +21,7 @@ FILE_LIST=(
     ["Default (Linux).sublime-keymap.json"]="${HOME}/.config/sublime-text/Packages/User/Default (Linux).sublime-keymap"
     ["terminator.config"]="${HOME}/.config/terminator/config"
     ["starship.toml"]="${HOME}/.config/starship.toml"
+    ["starshipOneLine.toml"]="${HOME}/.config/starship.toml"
     ["alacritty.yml"]="${HOME}/.config/alacritty/alacritty.yml"
     ["bottom.toml"]="${HOME}/.config/bottom/bottom.toml"
     ["htoprc"]="${HOME}/.config/htop/htoprc"
