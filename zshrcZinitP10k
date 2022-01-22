@@ -83,7 +83,7 @@ if false; then
   # RIPGREP
   zinit ice from"gh-r" as"program" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"; zinit light BurntSushi/ripgrep
   # # FD
-  # zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"; zinit light sharkdp/fd
+  zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"; zinit light sharkdp/fd
   # FZF
   zinit ice from"gh-r" as"command"; zinit light junegunn/fzf
   zinit ice lucid wait'0c' multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null"; zinit light junegunn/fzf
