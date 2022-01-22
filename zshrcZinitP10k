@@ -28,7 +28,7 @@ command -v zoxide &>/dev/null && { eval "$(zoxide init zsh)" && zstyle ':autocom
 command -v fzf &>/dev/null && {
     zinit snippet OMZP::fzf
 }
-command -v thefuck &>/dev/null && zinit ice wait"1" lucid; zinit snippet OMZ::plugins/thefuck
+command -v thefuck &>/dev/null && { zinit ice wait"1" lucid; zinit snippet OMZ::plugins/thefuck }
 
 zinit light 'marlonrichert/zsh-autocomplete'
 zstyle ':autocomplete:*' fzf-completion yes
@@ -183,20 +183,27 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 
 
-zstyle ':completion:*:git-checkout:*' sort false
+# zstyle ':completion:*:git-checkout:*' sort false
 # set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# set descriptions format to enable group support
-zstyle ':completion:*:descriptions' format '[%d]'
+
+
+# # set descriptions format to enable group support
+# zstyle ':completion:*:descriptions' format '[%d]'
 # Case insensitive https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# Makes completions have color
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# Makes kill autocomplete look good! ish. #TODO: i should change this
+zstyle ':completion:*:*:*:*:processes' command ps -u stephen -o pid,user,comm -w -w
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
 # preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
-zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'
-zstyle ':fzf-tab:*' continuous-trigger shift-tab
-zstyle ':fzf-tab:*' accept-line enter
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
+# zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'
+# zstyle ':fzf-tab:*' continuous-trigger shift-tab
+# zstyle ':fzf-tab:*' accept-line enter
 # Disabled cuz bug where last element won't be shown cuz of header
 # zstyle ':fzf-tab:*' fzf-flags '--header="tab to continue completing, enter to execute, shift+tab to accept and edit, esc to cancel"'
 
