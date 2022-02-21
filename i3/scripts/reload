@@ -9,7 +9,7 @@ imwheel
 polybar'
 
 selection="$(printf '%s\n' "$menu" | rofi -theme ~/.config/rofi/powermenu.rasi \
-    -dmenu -i -monitor 1)"
+    -dmenu -i -monitor "DP-0")"
 
 case $selection in
     "i3") i3-msg restart;;

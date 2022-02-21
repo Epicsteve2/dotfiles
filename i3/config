@@ -403,6 +403,7 @@ assign [class="^discord$"] $ws4
 assign [class="^strawberry$"] $ws4
 assign [class="^qBittorrent$"] $ws4
 assign [class="^Steam$"] $ws7
+# assign [class="virt-manager"] $ws9
 for_window [class="^Thunderbird$"] layout tabbed
 for_window [class="^discord$"] layout tabbed
 for_window [class="^strawberry$"] layout tabbed

@@ -21,13 +21,12 @@ cursor:
     shape: Beam
     blinking: Off
 
-background_opacity: 0.86
-
 window:
   dynamic_title: true
   padding:
     x: 5
     y: 5
+  opacity: 0.86
 
 key_bindings:
   - { key: V,        mods: Control,       action: Paste            }
