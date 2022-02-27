@@ -153,7 +153,7 @@ dnf-search() {
     --preview='p={}; p="${p%% *}"; dnf -q info "${p%.*}"' \
     < <(dnf -qC repoquery --qf "$(tput setaf 2)%{name}$(tput sgr0) - %{summary}" \*) |
     awk '{ package=$1; sub(/\.\S+/, "", package); print package }' |
-    xargs --no-run-if-empty sudo dnf install
+    xargs --open-tty --no-run-if-empty sudo dnf install
 }
 
 # just install fpf in AUR lol
