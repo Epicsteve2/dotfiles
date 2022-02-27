@@ -95,6 +95,7 @@ while true; do
                     -- cp --verbose "{}" ${HOME}/copy-test/;;
         q)  exit;;
         *)  cd "$CURRENT_ANIME"
+            if command -v thunar &>/dev/null; then thunar .; fi
             mpv --script="$LUA_SCRIPT"\
 		        --pause \
 		        --screen=1 \
