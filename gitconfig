@@ -28,3 +28,7 @@
 
 [interactive]
     diffFilter = delta --color-only --line-numbers
+
+[pull]
+	rebase = true
+
