@@ -144,6 +144,18 @@ aptu() {
   sudo apt upgrade
 }
 
+dnf-search() {
+  command fzf -e +s --multi --cycle --ansi \
+    --bind='Ctrl-X:toggle-preview' \
+    --no-hscroll --inline-info \
+    --header='tab to select multiple packages, Ctrl-X for more info on a package' \
+    --query="$*" \
+    --preview='p={}; p="${p%% *}"; dnf -q info "${p%.*}"' \
+    < <(dnf -qC repoquery --qf "$(tput setaf 2)%{name}$(tput sgr0) - %{summary}" \*) |
+    awk '{ package=$1; sub(/\.\S+/, "", package); print package }' |
+    xargs --no-run-if-empty sudo dnf install
+}
+
 # just install fpf in AUR lol
 # pacman-search() {
 #   pacman -Ss '' \
