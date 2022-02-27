@@ -31,7 +31,7 @@ setAnime() {
     # find "${ANIME_LOCATION}" -maxdepth 1 -type d | sort | column | less --chop-long-lines
     cd "${ANIME_LOCATION}"
 
-    ANIME_LIST=$(ls --directory */ | sort | sed 's/\/$//') #| column | less --chop-long-lines
+    ANIME_LIST=$(\ls --directory */ | sort | sed 's/\/$//') #| column | less --chop-long-lines
     COUNTER=1
     while read -r; do
         echo "${CYAN}[   ${COUNTER}   ]${RESETCOLOR} ${REPLY}"
@@ -53,8 +53,8 @@ setAnime() {
     ANIME=$(sed <<<$ANIME_LIST --quiet "${REPLY}p")
     echo "Anime chosen: $GREEN$ANIME$RESETCOLOR"
 
-    NUM_EPISODES=$(ls --indicator-style=slash "$ANIME" | grep --invert-match "/" | wc --lines)
-    ls --indicator-style=slash -1 "$ANIME"
+    NUM_EPISODES=$(\ls --indicator-style=slash "$ANIME" | grep --invert-match "/" | wc --lines)
+    \ls --indicator-style=slash -1 "$ANIME"
     echo "Number of episodes found: $GREEN$NUM_EPISODES$RESETCOLOR"
 
     if (( NUM_EPISODES == 0 )); then
@@ -72,8 +72,8 @@ setAnime() {
     sed --in-place "2s|.*|CURRENT_ANIME='${ESCAPED_CURRENT_ANIME}'|" "${THIS_SCRIPT}"
 
     if ! [ -f "${ANIME_LOCATION}/${ANIME}/playlist.txt" ]; then # checks if playlist exists
-		ls --indicator-style=slash "${CURRENT_ANIME}" | grep --extended-regexp --invert-match '\.txt|\.jpg|/' > "${CURRENT_ANIME}/playlist.txt"
-		echo -e "Created ${PINK}playlist.txt${NC} at ${CURRENT_ANIME}\n"
+		\ls --indicator-style=slash "${CURRENT_ANIME}" | grep --extended-regexp --invert-match '\.txt|\.jpg|/' > "${CURRENT_ANIME}/playlist.txt"
+		echo -e "Created ${MAGENTA}playlist.txt${RESETCOLOR} at ${CURRENT_ANIME}\n"
 	fi
 }
 
