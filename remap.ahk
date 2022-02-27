@@ -1,7 +1,7 @@
 current_layer := "BTD6"
 tower_click := false
 tower_upgrade := false
-btd6_map := "X Factor"
+btd6_map := "High Finance"
 ; dumb syntax -> https://www.autohotkey.com/boards/viewtopic.php?t=66878
 layer_list := ["Main"
     ,"Sugar * Style"
@@ -18,7 +18,8 @@ map_list := ["Chutes"
     ,"Flooded Valley"
     ,"X Factor"
     ,"Underground"
-    ,"High Finance"]
+    ,"High Finance"
+    ,"Adora's Temple"]
 
 btd6_key_bindings := {"dart": "q"
     , "hero": "u"
@@ -488,6 +489,19 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         else
             SendInput, {r}      
     Return
+    $v::
+        if WinActive("ahk_exe SugarStyle.exe")
+            clickAndReturn(1211, 1061)
+        else
+            SendInput, {v}      
+    Return
+    $Esc::
+        if WinActive("ahk_exe SugarStyle.exe")
+            Click, Right
+        else
+            SendInput, {Esc}
+    Return
+
 #if
 #if (current_layer = "BTD6")
     NumpadUp::MouseMove, 0, -1 , 0, R
@@ -812,6 +826,7 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & t::PlaceTowerAndUpgrade("hero", 570, 561, 20,0,0)
         NumpadIns & y::PlaceTowerAndUpgrade("ninja", 1103, 531, 4,0,2)
         NumpadIns & u::PlaceTowerAndUpgrade("alch", 1168, 526, 4,0,1)
+
         NumpadIns & i::PlaceTowerAndUpgrade("village", 374, 481, 4,0,2) ; !
         NumpadIns & o::PlaceTowerAndUpgrade("village", 348, 582, 0,2,2) ; or ninja
         NumpadIns & p::PlaceTowerAndUpgrade("bomb", 528, 506, 0,2,4)
@@ -824,7 +839,9 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & j::PlaceTowerAndUpgrade("sniper", 214, 576, 0,3,2)
         NumpadIns & k::PlaceTowerAndUpgrade("sniper", 233, 630, 0,3,2)
         NumpadIns & l::PlaceTowerAndUpgrade("alch", 176, 658, 4,0,1)
-        NumpadIns & z::PlaceTowerAndUpgrade("ninja", 260, 391, 0,4,0)
+
+        ; NumpadIns & z::PlaceTowerAndUpgrade("ninja", 260, 391, 0,4,0)
+        NumpadIns & z::PlaceTowerAndUpgrade("ninja", 286, 504, 0,4,0)
         NumpadIns & x::PlaceTowerAndUpgrade("glue", 324, 378, 2,5,0)
         NumpadIns & c::PlaceTowerAndUpgrade("ice", 362, 727, 4,1,0)
         NumpadIns & v::PlaceTowerAndUpgrade("glue", 1281, 192, 0,2,3)
@@ -832,33 +849,36 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & n::PlaceTowerAndUpgrade("boomer", 1160, 197, 2,0,4)
         NumpadIns & m::PlaceTowerAndUpgrade("tack", 454, 718, 2,0,4)
         NumpadDel & q::PlaceTowerAndUpgrade("tack", 314, 785, 2,0,4) 
+        NumpadDel & w::PlaceTowerAndUpgrade("heli", 218, 410, 2,0,4) 
+
+        ; 218, 410
     #if
     #if (btd6_map = "High Finance")
-        NumpadIns & q::PlaceTower("", 0,0)
-        NumpadIns & w::PlaceTower("", 0,0)
-        NumpadIns & e::PlaceTower("", 0,0)
-        NumpadIns & r::PlaceTower("", 0,0)
-        NumpadIns & t::PlaceTower("", 0,0)
-        NumpadIns & y::PlaceTower("", 0,0)
-        NumpadIns & u::PlaceTower("", 0,0)
-        NumpadIns & i::PlaceTower("", 0,0)
-        NumpadIns & o::PlaceTower("", 0,0)
-        NumpadIns & p::PlaceTower("", 0,0)
-        NumpadIns & a::PlaceTower("", 0,0)
-        NumpadIns & s::PlaceTower("", 0,0)
-        NumpadIns & d::PlaceTower("", 0,0)
-        NumpadIns & f::PlaceTower("", 0,0)
-        NumpadIns & g::PlaceTower("", 0,0)
-        NumpadIns & h::PlaceTower("", 0,0)
-        NumpadIns & j::PlaceTower("", 0,0)
-        NumpadIns & k::PlaceTower("", 0,0)
-        NumpadIns & l::PlaceTower("", 0,0)
-        NumpadIns & z::PlaceTower("", 0,0)
-        NumpadIns & x::PlaceTower("", 0,0)
-        NumpadIns & c::PlaceTower("", 0,0)
-        NumpadIns & v::PlaceTower("", 0,0)
-        NumpadIns & b::PlaceTower("", 0,0)
-        NumpadIns & n::PlaceTower("", 0,0)
-        NumpadIns & m::PlaceTower("", 0,0)
+        NumpadIns & q::PlaceTower("sub", 864, 479)
+        NumpadIns & w::PlaceTower("dart", 970, 665)
+        NumpadIns & e::PlaceTower("dart", 970, 475)
+        NumpadIns & r::PlaceTower("hero", 702, 704)
+        NumpadIns & t::PlaceTower("bucc", 745, 644)
+        NumpadIns & y::PlaceTower("spike", 960, 406)
+        NumpadIns & u::PlaceTower("village", 719, 423)
+        NumpadIns & i::PlaceTower("alch", 885, 415)
+        NumpadIns & o::PlaceTower("dart", 645, 557)
+        NumpadIns & p::PlaceTower("dart", 735, 488)
+        NumpadIns & a::PlaceTower("alch", 518, 353)
+        NumpadIns & s::PlaceTower("glue", 814, 218)
+        NumpadIns & d::PlaceTower("ninja", 809, 405)
+    #if
+    #if (btd6_map = "Adora's Temple")
+        NumpadIns & q::PlaceTower("dart", 873, 869)
+        NumpadIns & w::PlaceTower("sub", 1096, 183)
+        NumpadIns & e::PlaceTower("hero", 769, 336)
+        NumpadIns & r::PlaceTower("ninja", 897, 447)
+        NumpadIns & t::PlaceTower("village", 774, 560)
+        NumpadIns & y::PlaceTower("alch", 1033, 554)
+        NumpadIns & u::PlaceTower("druid", 769, 451)
+        NumpadIns & i::PlaceTower("alch", 560, 487)
+        NumpadIns & o::PlaceTower("glue", 58, 25)
+        NumpadIns & p::PlaceTower("tack", 618, 713)
+        NumpadIns & a::PlaceTower("tack", 664, 753)
     #if
 #if
