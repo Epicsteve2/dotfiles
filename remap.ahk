@@ -1,7 +1,8 @@
 current_layer := "BTD6"
 tower_click := false
 tower_upgrade := false
-btd6_map := "High Finance"
+btd6_map := "X Factor"
+btd6_map := "Dark Castle"
 ; dumb syntax -> https://www.autohotkey.com/boards/viewtopic.php?t=66878
 layer_list := ["Main"
     ,"Sugar * Style"
@@ -19,7 +20,9 @@ map_list := ["Chutes"
     ,"X Factor"
     ,"Underground"
     ,"High Finance"
-    ,"Adora's Temple"]
+    ,"Adora's Temple"
+    ,"Pat's Pond"
+    ,"Dark Castle"]
 
 btd6_key_bindings := {"dart": "q"
     , "hero": "u"
@@ -205,6 +208,8 @@ launchOrSwitchMusic() {
     ;     WinActivate, ahk_exe strawberry.exe, , "Strawberry",
     ; else
         Run "C:\Program Files\Strawberry Music Player\strawberry.exe"
+    if (WinExist("ahk_exe strawberry.exe"))
+        WinActivate, ahk_exe strawberry.exe, , "Strawberry",
 }
 launchOrSwitchCode() {
     if (WinExist("ahk_exe Code.exe"))
@@ -825,7 +830,7 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & r::PlaceTowerAndUpgrade("sniper", 232, 687, 4,2,0)
         NumpadIns & t::PlaceTowerAndUpgrade("hero", 570, 561, 20,0,0)
         NumpadIns & y::PlaceTowerAndUpgrade("ninja", 1103, 531, 4,0,2)
-        NumpadIns & u::PlaceTowerAndUpgrade("alch", 1168, 526, 4,0,1)
+        NumpadIns & u::PlaceTowerAndUpgrade("alch", 1168, 526, 4,2,0)
 
         NumpadIns & i::PlaceTowerAndUpgrade("village", 374, 481, 4,0,2) ; !
         NumpadIns & o::PlaceTowerAndUpgrade("village", 348, 582, 0,2,2) ; or ninja
@@ -836,12 +841,12 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & f::PlaceTowerAndUpgrade("bomb", 436, 618, 0,2,4)
         NumpadIns & g::PlaceTowerAndUpgrade("alch", 485, 662, 4,0,1) ; dont need, lol
         NumpadIns & h::PlaceTowerAndUpgrade("alch", 154, 604, 4,0,1)
-        NumpadIns & j::PlaceTowerAndUpgrade("sniper", 214, 576, 0,3,2)
-        NumpadIns & k::PlaceTowerAndUpgrade("sniper", 233, 630, 0,3,2)
+        NumpadIns & j::PlaceTowerAndUpgrade("sniper", 219, 576, 0,3,2)
+        NumpadIns & k::PlaceTowerAndUpgrade("sniper", 238, 630, 0,3,2)
         NumpadIns & l::PlaceTowerAndUpgrade("alch", 176, 658, 4,0,1)
 
-        ; NumpadIns & z::PlaceTowerAndUpgrade("ninja", 260, 391, 0,4,0)
-        NumpadIns & z::PlaceTowerAndUpgrade("ninja", 286, 504, 0,4,0)
+        NumpadIns & z::PlaceTowerAndUpgrade("ninja", 260, 391, 0,4,0) ; original spot
+        ; NumpadIns & z::PlaceTowerAndUpgrade("ninja", 286, 504, 0,4,0) ; space for heli
         NumpadIns & x::PlaceTowerAndUpgrade("glue", 324, 378, 2,5,0)
         NumpadIns & c::PlaceTowerAndUpgrade("ice", 362, 727, 4,1,0)
         NumpadIns & v::PlaceTowerAndUpgrade("glue", 1281, 192, 0,2,3)
@@ -880,5 +885,58 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & o::PlaceTower("glue", 58, 25)
         NumpadIns & p::PlaceTower("tack", 618, 713)
         NumpadIns & a::PlaceTower("tack", 664, 753)
+    #if
+    #if (btd6_map = "Pat's Pond") ; nvm i don't wanna do this map
+        NumpadIns & q::PlaceTower("sub", 1370, 442)
+        NumpadIns & w::PlaceTower("dart", 1470, 605)
+        NumpadIns & e::PlaceTower("sub", 345, 674)
+        NumpadIns & r::PlaceTower("hero", 69, 482)
+        NumpadIns & t::PlaceTower("", 0,0)
+        NumpadIns & y::PlaceTower("", 0,0)
+        NumpadIns & u::PlaceTower("", 0,0)
+        NumpadIns & i::PlaceTower("", 0,0)
+        NumpadIns & o::PlaceTower("", 0,0)
+        NumpadIns & p::PlaceTower("", 0,0)
+        NumpadIns & a::PlaceTower("", 0,0)
+        NumpadIns & s::PlaceTower("", 0,0)
+        NumpadIns & d::PlaceTower("", 0,0)
+        NumpadIns & f::PlaceTower("", 0,0)
+        NumpadIns & g::PlaceTower("", 0,0)
+        NumpadIns & h::PlaceTower("", 0,0)
+        NumpadIns & j::PlaceTower("", 0,0)
+        NumpadIns & k::PlaceTower("", 0,0)
+        NumpadIns & l::PlaceTower("", 0,0)
+        NumpadIns & z::PlaceTower("", 0,0)
+        NumpadIns & x::PlaceTower("", 0,0)
+        NumpadIns & c::PlaceTower("", 0,0)
+        NumpadIns & v::PlaceTower("", 0,0)
+        NumpadIns & b::PlaceTower("", 0,0)
+    #if
+    #if (btd6_map = "Dark Castle") ; nvm i don't wanna do this map
+        NumpadIns & q::PlaceTower("sub", 1090, 709)
+        NumpadIns & p::PlaceTower("dart", 812, 657)
+        NumpadIns & a::PlaceTower("dart", 747, 656)
+        NumpadIns & i::PlaceTower("dart", 713, 704)
+        NumpadIns & t::PlaceTower("hero", 878, 679)
+        NumpadIns & j::PlaceTower("dart", 781, 763)
+
+        NumpadIns & w::PlaceTower("dart", 1026, 447)
+        NumpadIns & e::PlaceTower("dart", 961, 452)
+        NumpadIns & r::PlaceTower("hero", 69, 482)
+
+        NumpadIns & y::PlaceTower("bomb", 1025, 675)
+        NumpadIns & u::PlaceTower("alch", 979, 721)
+        NumpadIns & o::PlaceTower("bomb", 951, 661)
+        NumpadIns & s::PlaceTower("dart", 713, 704)
+        NumpadIns & d::PlaceTower("dart", 778, 706)
+        NumpadIns & f::PlaceTower("dart", 836, 732)
+        NumpadIns & g::PlaceTower("dart", 901, 737)
+        NumpadIns & h::PlaceTower("dart", 716, 761)
+        NumpadIns & k::PlaceTower("village", 831, 830)
+        NumpadIns & z::PlaceTower("ice", 1029, 757)
+        NumpadIns & x::PlaceTower("dart", 741, 813)
+        NumpadIns & c::PlaceTower("dart", 1012, 452)
+        NumpadIns & v::PlaceTower("", 0,0)
+        NumpadIns & b::PlaceTower("", 0,0)
     #if
 #if
