@@ -145,18 +145,19 @@ while true; do
         ;;
 
     8) # Check if code command exists
-        command -v code &>/dev/null &&
-            while IFS="" read -r line || [ -n "$line" ]; do # safe way of reading a file... i think -> https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash
-                echo "${YELLOW}Installing ${CYAN}${line}...${RESETCOLOR}"
-                code --install-extension "$line"
-                echo
-            done <VSCodeExtensions.txt
+        if ! command -v code &>/dev/null; then
+            echo >&2 "${RED}Can't find ${CYAN}code ${RED}...${RESETCOLOR}"
+        fi
+        while IFS="" read -r line || [ -n "$line" ]; do # safe way of reading a file... i think -> https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash
+            echo "${YELLOW}Installing ${CYAN}${line}...${RESETCOLOR}"
+            code --install-extension "$line"
+            echo
+        done <VSCodeExtensions.txt
         ;;
 
     9)
         if ! command -v vim &>/dev/null && ! command -v nvim &>/dev/null; then
             echo >&2 "${RED}Can't find ${CYAN}vim ${RED}or ${CYAN}nvim${RED}...${RESETCOLOR}"
-            exit 1
         fi
         spacevim_install_script=$(curl -sLf "https://spacevim.org/install.sh")
         if command -v bat &>/dev/null; then
