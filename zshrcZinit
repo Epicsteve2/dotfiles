@@ -360,7 +360,7 @@ bindkey  "^[[F"   end-of-line
 bindkey "^[[3~" delete-char
 
 if command -v bat &>/dev/null; then
-  export MANPAGER="sh -c 'col -bx | bat --language man --plain'"
+  export MANPAGER='bat --language man --plain'
   export BAT_PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
   alias cat="bat --plain --plain"
   alias fzfp="fzf --preview 'bat --color=always --plain --plain --line-range=:500 {}'"
