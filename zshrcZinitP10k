@@ -28,7 +28,7 @@ command -v thefuck &>/dev/null && { zinit ice wait"1" lucid; zinit snippet OMZ::
 
 zinit light 'marlonrichert/zsh-autocomplete'
 zstyle ':autocomplete:*' fzf-completion yes
-zstyle ':autocomplete:*' widget-style menu-select
+# zstyle ':autocomplete:*' widget-style menu-select
 
 # # Completions
 # zinit ice wait"1" lucid atload"zicompinit; zicdreplay" blockf; zinit light zsh-users/zsh-completions
@@ -402,7 +402,11 @@ globalias() {
 zle -N globalias
 bindkey " " globalias
 
-# so aliases work with sudo
+if [[ -f /etc/zsh_command_not_found ]]; then
+  source /etc/zsh_command_not_found
+elif [[ -f /usr/etc/zsh_command_not_found ]]; then
+  source /usr/etc/zsh_command_not_found
+fi
 
 mkcd () {
   mkdir $1 && cd "$_"
