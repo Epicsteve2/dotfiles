@@ -168,14 +168,14 @@ while true; do
         if ! command -v vim &>/dev/null && ! command -v nvim &>/dev/null; then
             echo >&2 "${RED}Can't find ${CYAN}vim ${RED}or ${CYAN}nvim${RED}...${RESETCOLOR}"
         fi
-        spacevim_install_script=$(curl -sLf "https://spacevim.org/install.sh")
+        SPACEVIM_INSTALL_SCRIPT=$(curl -sLf "https://spacevim.org/install.sh")
         if command -v bat &>/dev/null; then
-            <<<$spacevim_install_script bat
+            <<<"$SPACEVIM_INSTALL_SCRIPT" bat
         else
-            <<<$spacevim_install_script cat
+            <<<"$SPACEVIM_INSTALL_SCRIPT" cat
         fi
         read -n 1 -s -r -p "${YELLOW}Press any key to continue...${RESETCOLOR}"
-        <<<$spacevim_install_script bash
+        <<<"$SPACEVIM_INSTALL_SCRIPT" bash
         ;;
     *) echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}" ;;
     esac

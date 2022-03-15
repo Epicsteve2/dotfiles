@@ -373,6 +373,8 @@ alias diff="diff --color=auto"
 # so aliases work with sudo
 alias sudo='sudo -v; sudo '
 alias s='sudo'
+alias bman='bat --language man --plain'
+alias bm='bat --language man --plain'
 
 lfcd () {
     tmp="$(mktemp)"
