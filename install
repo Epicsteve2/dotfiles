@@ -124,12 +124,20 @@ while true; do
         ;;
 
     6)
+        if ! command -v delta &>/dev/null; then
+            echo >&2 "${RED}Can't find ${CYAN}delta ${RED}...${RESETCOLOR}"
+            break
+        fi
         for file in .current-files/*; do
             ([ ! -d "$file" ] && cmp --silent "$file" "$(basename "$file")") || delta --paging always "$(basename "$file")" "$file" || true
         done
         ;;
 
     7)
+        if ! command -v delta &>/dev/null; then
+            echo >&2 "${RED}Can't find ${CYAN}delta ${RED}...${RESETCOLOR}"
+            break
+        fi
         for file in .current-files/*; do
             if ! diff --recursive --brief "$file" "$(basename "$file")" &>/dev/null; then
                 delta --paging always "$(basename "$file")" "$file" || true
