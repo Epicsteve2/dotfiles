@@ -323,6 +323,7 @@ bindkey  "^[[F"   end-of-line
 bindkey "^[[3~" delete-char
 
 if command -v bat &>/dev/null; then
+  # export MANROFFOPT='-c'
   export MANPAGER="sh -c 'col -bx | bat --language man --plain'"
   export BAT_PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
   alias cat="bat --plain --plain"

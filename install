@@ -177,6 +177,13 @@ while true; do
         read -n 1 -s -r -p "${YELLOW}Press any key to continue...${RESETCOLOR}"
         <<<"$SPACEVIM_INSTALL_SCRIPT" bash
         ;;
+    10)
+        if ! command -v vim &>/dev/null && ! command -v nvim &>/dev/null; then
+            echo >&2 "${RED}Can't find ${CYAN}vim ${RED}or ${CYAN}nvim${RED}...${RESETCOLOR}"
+        fi
+        git clone https://github.com/kabinspace/AstroVim ~/.config/nvim
+        exec nvim +PackerSync
+        ;;
     *) echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}" ;;
     esac
     echo
