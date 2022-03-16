@@ -56,7 +56,7 @@ addFile() {
 
 chooseFromList() {
     for ((i = 1; i <= ${#} - 1; i++)); do
-        echo "${CYAN}[   ${i}   ]${RESETCOLOR} $(eval echo \$"${i}")"
+        echo "${CYAN}[   ${i}   ]${RESETCOLOR} $(eval echo \$\{${i}\})"
     done
     echo "${CYAN}[ Enter ]${RESETCOLOR} $(eval echo \"\$\{${#}\}\")"
     read -p "${YELLOW}Enter a choice: ${RESETCOLOR}" -r
@@ -73,6 +73,7 @@ while true; do
         "Move current files to git" \
         "Install VSCode Extensions" \
         "Install SpaceVim" \
+        "Install AstroVim" \
         "Exit"
     echo
     if [[ -z $REPLY ]]; then exit; fi
@@ -170,7 +171,7 @@ while true; do
         fi
         SPACEVIM_INSTALL_SCRIPT=$(curl -sLf "https://spacevim.org/install.sh")
         if command -v bat &>/dev/null; then
-            <<<"$SPACEVIM_INSTALL_SCRIPT" bat
+            <<<"$SPACEVIM_INSTALL_SCRIPT" bat --number --language bash
         else
             <<<"$SPACEVIM_INSTALL_SCRIPT" cat
         fi
