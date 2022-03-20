@@ -98,10 +98,33 @@
   net KeyNextSong
 
   rew (around (cmd-button "notify-send --expire-time 1000 KMonad rewrite") (layer-switch rewrite))
+  kik (around (cmd-button "notify-send --expire-time 1000 KMonad KinKoi") (layer-switch kinkoi))
   man (around (cmd-button "notify-send --expire-time 1000 KMonad main") (layer-switch main))
   ts2 (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1680000' ]; then xdotool mousemove 1016 1057 click 1 mousemove restore; else xdotool key 2; fi")
   ts3 (cmd-button "xdotool key w")
+
+  ka  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1331, 1054 click 1 mousemove restore; else xdotool key a; fi")
+  ks  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1081, 1057 click 1 mousemove restore; else xdotool key s; fi")
+  kl  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1150, 1052 click 1 mousemove restore; else xdotool key l; fi")
+  kf  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1273, 1059 click 1 mousemove restore; else xdotool key f; fi")
+  kv  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1620, 1054 click 1 mousemove restore; else xdotool key v; fi")
+  kr  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1692, 1054 click 1 mousemove restore; else xdotool key r; fi")
+  kc  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1780, 1056 click 1 mousemove restore; else xdotool key c; fi")
+  kb  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1656, 1057 click 1 mousemove restore; else xdotool key b; fi")
+  ko  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1503, 1056 click 1 mousemove restore; else xdotool key o; fi")
+  ksp (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool click 1; else xdotool key space; fi")
+
+  kt  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1503, 1056 click 1; sleep 0.2; xdotool mousemove 1632, 1031 click 1; else xdotool key t; fi")
+  km  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool mousemove 1503, 1056 click 1; sleep 0.2; xdotool mousemove 1675, 139 click 1; sleep 0.2; xdotool mousemove 229, 322 click 1; else xdotool key m; fi")
+
+  ku  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool click 4; else xdotool key Up; fi")
+  kd  (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool click 5; else xdotool key Down; fi")
+  kpu (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool click 4; else xdotool key Page_Up; fi")
+  kpd (cmd-button "if [ \"$(xdotool getactivewindow getwindowclassname)\" = 'steam_app_1277940' ]; then xdotool click 5; else xdotool key Page_Down; fi")
 )
+
+;; for GUI, i can use 'zenity' ory 'yad'... or just `dmenu` or `rofi` lol
+
 
 (deflayer main
   _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
@@ -115,7 +138,7 @@
 (deflayer zero
   _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _     _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    kp/  kp*  kp-
-  _    @ts2 @ts3 _    @vor @tit _    _    _    _    _    _    _    _     _    _    _     @man @rew _    _
+  _    @ts2 @ts3 _    @vor @tit _    _    _    _    _    _    _    _     _    _    _     @man @rew @kik _
   caps @ato @sve _    @skp _    _    _    _    @lod _    _    _                          @m4  @m5  @m6
   _    _    _    @cls @vov _    _    _    _    _    _    _                    _          @m11 @m7  @m8  _
   _    _    _              _              _    _    _                    _    _    _     _         _
@@ -137,4 +160,13 @@
   esc  @ra  @rs  _    @rf  _    _    _    _    @rl  _    _    _                          _    _    _
   _    _    _    @rc  @rv  _    _    @rm  _    _    _    _                    _          _    _    _    _
   _    _    _              @rsp           _    _    _                    _    _    _     @0ctl     _
+)
+
+(deflayer kinkoi
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    @kpu  _    @pev @plp @net
+  _    _    _    _    @kr  @kt  _    _    _    @ko  _    _    _    _     _    _    @kpd  _    _    _    _
+  esc  @ka  @ks  _    @kf  _    _    _    _    @kl  _    _    _                          _    _    _
+  _    _    _    @kc  @kv  @kb  _    @km  _    _    _    _                    @ku        _    _    _    _
+  _    _    _              @ksp           _    _    _                    _    @kd  _     @0ctl     _
 )
