@@ -3,12 +3,16 @@ tower_click := false
 tower_upgrade := false
 btd6_map := "X Factor"
 btd6_map := "Dark Castle"
+; btd6_map := "Rake"
 ; dumb syntax -> https://www.autohotkey.com/boards/viewtopic.php?t=66878
 layer_list := ["Main"
     ,"Sugar * Style"
     ,"BTD6"
     ,"Dead Omegalul Aegis"
-    ,"Rewrite"]
+    ,"Rewrite"
+    ,"Kinkoi"
+    ,"Hatsukoi"
+    ,"Hoshi Ori"]
 
 map_list := ["Chutes"
     ,"Bazaar"
@@ -319,9 +323,9 @@ NumpadIns & NumpadHome::
     Sleep, 750
     Gui, Destroy
 Return
-; Sugar * Style
+; Kinkoi
 Numpad0 & Numpad8::
-    current_layer := "Sugar * Style"
+    current_layer := "Kinkoi"
     Gui, New, ToolWindow, 
 
     Gui, Font, S15, MesloLGS NF
@@ -336,7 +340,7 @@ Numpad0 & Numpad8::
     Gui, Destroy
 Return
 NumpadIns & NumpadUp::
-    current_layer := "Sugar * Style"
+    current_layer := "Kinkoi"
     Gui, New, ToolWindow, 
 
     Gui, Font, S15, MesloLGS NF
@@ -507,6 +511,151 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
             SendInput, {Esc}
     Return
 
+#if
+#if (current_layer = "Kinkoi")
+    IfKinkoiKey(new_key, original_key) {
+        if WinActive("ahk_exe Kinkoi.exe")
+            SendInput, {%new_key%}
+        else
+            SendInput, {%original_key%}
+    }
+    IfKinkoiClick(key, x, y) {
+        if WinActive("ahk_exe Kinkoi.exe")
+            clickAndReturn(x, y)
+        else
+            SendInput, {%key%}
+    }
+    $a::IfKinkoiClick("a", 1331, 1054)
+    $s::IfKinkoiClick("s", 1081, 1057)
+    $l::IfKinkoiClick("l", 1150, 1052)
+    $f::IfKinkoiClick("f", 1273, 1059)
+    $v::IfKinkoiClick("v", 1620, 1054)
+    $r::IfKinkoiClick("r", 1692, 1054)
+    $c::IfKinkoiClick("c", 1780, 1056)
+    $b::IfKinkoiClick("b", 1656, 1057)
+    $m::
+        if WinActive("ahk_exe Kinkoi.exe") {
+            SetDefaultMouseSpeed, 4 ; Defaul is 2
+            Send {Click 1503, 1056}
+            Send {Click 1675, 139}
+            Send {Click 229, 322}
+        } else {
+            SendInput, {m}
+        }
+    Return
+    $o::IfKinkoiClick("o", 1503, 1056)
+    $t::
+        if WinActive("ahk_exe Kinkoi.exe") {
+            SetDefaultMouseSpeed, 4 ; Defaul is 2
+            Send {Click 1503, 1056}
+            Send {Click 1632, 1031}
+            CoordMode, Mouse, Screen
+            MouseMove, A_ScreenWidth / 2, A_ScreenHeight / 2
+        } else {
+            SendInput, {t}
+        }
+    Return
+    $Space::IfKinkoiKey("Enter", "Space")
+    $Up::IfKinkoiKey("WheelUp", "Up")
+    $Down::IfKinkoiKey("WheelDown", "Down")
+    $PgUp::IfKinkoiKey("WheelUp", "PgUp")
+    $PgDn::IfKinkoiKey("WheelDown", "PgDn")
+#if
+#if (current_layer = "Hatsukoi")
+    IfHatsukoiKey(new_key, original_key) {
+        if WinActive("Hatsukoi 1/1")
+            SendInput, {%new_key%}
+        else
+            SendInput, {%original_key%}
+    }
+    IfHatsukoiClick(key, x, y) {
+        if WinActive("Hatsukoi 1/1")
+            clickAndReturn(x, y)
+        else
+            SendInput, {%key%}
+    }
+    $s::IfHatsukoiClick("s", 713, 1048)
+    $l::IfHatsukoiClick("l", 803, 1046)
+    $f::IfHatsukoiClick("f", 906, 1051)
+    $a::IfHatsukoiClick("a", 989, 1050)
+    $v::IfHatsukoiClick("v", 1577, 1011)
+    $r::IfHatsukoiClick("r", 1577, 1011)
+    $c::IfHatsukoiClick("c", 1523, 1049)
+    $m::
+        if WinActive("Hatsukoi 1/1") {
+            SetDefaultMouseSpeed, 4 ; Defaul is 2
+            Send {Click 1320, 1053}
+            Send {Click 809, 168}
+            Send {Click 877, 353}
+        } else {
+            SendInput, {m}
+        }
+    Return
+    $o::IfHatsukoiClick("o", 1320, 1053)
+    $t::
+        if WinActive("Hatsukoi 1/1") {
+            SetDefaultMouseSpeed, 4 ; Defaul is 2
+            Send {Click 1320, 1053}
+            Send {Click 1600, 979}
+            CoordMode, Mouse, Screen
+            MouseMove, A_ScreenWidth / 2, A_ScreenHeight / 2
+        } else {
+            SendInput, {t}
+        }
+    Return
+    $Space::IfHatsukoiKey("Enter", "Space")
+    $Up::IfHatsukoiKey("WheelUp", "Up")
+    $Down::IfHatsukoiKey("WheelDown", "Down")
+    $PgUp::IfHatsukoiKey("WheelUp", "PgUp")
+    $PgDn::IfHatsukoiKey("WheelDown", "PgDn")
+#if
+#if (current_layer = "Hoshi Ori")
+    IfHoshiOriKey(new_key, original_key) {
+        if WinActive("Hoshi Ori Yume Mirai")
+            SendInput, {%new_key%}
+        else
+            SendInput, {%original_key%}
+    }
+    IfHoshiOriClick(key, x, y) {
+        if WinActive("Hoshi Ori Yume Mirai")
+            clickAndReturn(x, y)
+        else
+            SendInput, {%key%}
+    }
+    $s::IfHoshiOriClick("s", 714, 1054)
+    $l::IfHoshiOriClick("l", 820, 1049)
+    $f::IfHoshiOriClick("f", 912, 1049)
+    $a::IfHoshiOriClick("a", 1001, 1046)
+    $v::IfHoshiOriClick("v", 1523, 1002)
+    $r::IfHoshiOriClick("r", 1523, 1002)
+    $c::IfHoshiOriClick("c", 1476, 1051)
+    $m::
+        if WinActive("Hoshi Ori Yume Mirai") {
+            SetDefaultMouseSpeed, 8 ; Defaul is 2
+            Send {Click 1307, 1049}
+            Send {Click 775, 116}
+            Send {Click 794, 280}
+        } else {
+            SendInput, {m}
+        }
+    Return
+    $o::IfHoshiOriClick("o", 1307, 1049)
+    $t::
+        if WinActive("Hoshi Ori Yume Mirai") {
+            SetDefaultMouseSpeed, 8 ; Defaul is 2
+            Send {Click 1307, 1049}
+            Send {Click 1484, 913}
+            CoordMode, Mouse, Screen
+            MouseMove, A_ScreenWidth / 2, A_ScreenHeight / 2
+        } else {
+            SendInput, {t}
+        }
+    Return
+    $Space::IfHoshiOriKey("Enter", "Space")
+    $Up::IfHoshiOriKey("WheelUp", "Up")
+    $Down::IfHoshiOriKey("WheelDown", "Down")
+    $PgUp::IfHoshiOriKey("WheelUp", "PgUp")
+    $PgDn::IfHoshiOriKey("WheelDown", "PgDn")
 #if
 #if (current_layer = "BTD6")
     NumpadUp::MouseMove, 0, -1 , 0, R
@@ -912,31 +1061,40 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & v::PlaceTower("", 0,0)
         NumpadIns & b::PlaceTower("", 0,0)
     #if
-    #if (btd6_map = "Dark Castle") ; nvm i don't wanna do this map
-        NumpadIns & q::PlaceTower("sub", 1090, 709)
-        NumpadIns & p::PlaceTower("dart", 812, 657)
-        NumpadIns & a::PlaceTower("dart", 747, 656)
-        NumpadIns & i::PlaceTower("dart", 713, 704)
+    #if (btd6_map = "Dark Castle")
+        NumpadIns & q::PlaceTower("sub",  1090, 709)
+        NumpadIns & w::PlaceTower("dart", 812, 657)
+        NumpadIns & e::PlaceTower("dart", 747, 656)
+        NumpadIns & r::PlaceTower("dart", 713, 704)
         NumpadIns & t::PlaceTower("hero", 878, 679)
-        NumpadIns & j::PlaceTower("dart", 781, 763)
-
-        NumpadIns & w::PlaceTower("dart", 1026, 447)
-        NumpadIns & e::PlaceTower("dart", 961, 452)
-        NumpadIns & r::PlaceTower("hero", 69, 482)
-
-        NumpadIns & y::PlaceTower("bomb", 1025, 675)
+        NumpadIns & y::PlaceTower("dart", 781, 763)
         NumpadIns & u::PlaceTower("alch", 979, 721)
+        NumpadIns & i::PlaceTower("village", 947, 806)
         NumpadIns & o::PlaceTower("bomb", 951, 661)
-        NumpadIns & s::PlaceTower("dart", 713, 704)
-        NumpadIns & d::PlaceTower("dart", 778, 706)
-        NumpadIns & f::PlaceTower("dart", 836, 732)
-        NumpadIns & g::PlaceTower("dart", 901, 737)
-        NumpadIns & h::PlaceTower("dart", 716, 761)
-        NumpadIns & k::PlaceTower("village", 831, 830)
-        NumpadIns & z::PlaceTower("ice", 1029, 757)
-        NumpadIns & x::PlaceTower("dart", 741, 813)
-        NumpadIns & c::PlaceTower("dart", 1012, 452)
-        NumpadIns & v::PlaceTower("", 0,0)
-        NumpadIns & b::PlaceTower("", 0,0)
+        NumpadIns & p::PlaceTower("village", 831, 830)
+        NumpadIns & a::PlaceTower("bomb", 1025, 675)
+        NumpadIns & s::PlaceTower("dart", 778, 706)
+        NumpadIns & d::PlaceTower("dart", 836, 732)
+        NumpadIns & f::PlaceTower("dart", 716, 761)
+        NumpadIns & g::PlaceTower("dart", 741, 813)
+        NumpadIns & h::PlaceTower("dart", 901, 737)
+        NumpadIns & j::PlaceTower("dart", 1029, 757)
+        NumpadIns & k::PlaceTower("glue", 1029, 943)
+
+        NumpadIns & z::PlaceTower("spike", 1575, 559)
+        NumpadIns & x::PlaceTower("alch", 1612, 617)
+    #if
+    #if (btd6_map = "Rake")
+        NumpadIns & q::PlaceTower("sub", 963, 426)
+        NumpadIns & w::PlaceTower("dart", 1080, 364)
+        NumpadIns & e::PlaceTower("hero", 1068, 457)
+        NumpadIns & r::PlaceTower("sub", 868, 405)
+        NumpadIns & t::PlaceTower("village", 899, 627)
+        NumpadIns & y::PlaceTower("spike", 974, 841)
+        NumpadIns & u::PlaceTower("alch", 899, 851)
+        NumpadIns & i::PlaceTower("dartling", 753, 571)
+        NumpadIns & o::PlaceTower("alch", 650, 567)
+        NumpadIns & p::PlaceTower("glue", 1085, 568)
+        NumpadIns & a::PlaceTower("ice", 1079, 648)
     #if
 #if
