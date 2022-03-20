@@ -56,7 +56,7 @@ addFile() {
 
 chooseFromList() {
     for ((i = 1; i <= ${#} - 1; i++)); do
-        echo "${CYAN}[   ${i}   ]${RESETCOLOR} $(eval echo \$"${i}")"
+        echo "${CYAN}[   ${i}   ]${RESETCOLOR} $(eval echo \$\{${i}\})"
     done
     echo "${CYAN}[ Enter ]${RESETCOLOR} $(eval echo \"\$\{${#}\}\")"
     read -p "${YELLOW}Enter a choice: ${RESETCOLOR}" -r
@@ -73,6 +73,7 @@ while true; do
         "Move current files to git" \
         "Install VSCode Extensions" \
         "Install SpaceVim" \
+        "Install AstroVim" \
         "Exit"
     echo
     if [[ -z $REPLY ]]; then exit; fi
@@ -124,12 +125,20 @@ while true; do
         ;;
 
     6)
+        if ! command -v delta &>/dev/null; then
+            echo >&2 "${RED}Can't find ${CYAN}delta ${RED}...${RESETCOLOR}"
+            break
+        fi
         for file in .current-files/*; do
             ([ ! -d "$file" ] && cmp --silent "$file" "$(basename "$file")") || delta --paging always "$(basename "$file")" "$file" || true
         done
         ;;
 
     7)
+        if ! command -v delta &>/dev/null; then
+            echo >&2 "${RED}Can't find ${CYAN}delta ${RED}...${RESETCOLOR}"
+            break
+        fi
         for file in .current-files/*; do
             if ! diff --recursive --brief "$file" "$(basename "$file")" &>/dev/null; then
                 delta --paging always "$(basename "$file")" "$file" || true
@@ -145,27 +154,36 @@ while true; do
         ;;
 
     8) # Check if code command exists
-        command -v code &>/dev/null &&
-            while IFS="" read -r line || [ -n "$line" ]; do # safe way of reading a file... i think -> https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash
-                echo "${YELLOW}Installing ${CYAN}${line}...${RESETCOLOR}"
-                code --install-extension "$line"
-                echo
-            done <VSCodeExtensions.txt
+        if ! command -v code &>/dev/null; then
+            echo >&2 "${RED}Can't find ${CYAN}code ${RED}...${RESETCOLOR}"
+            break
+        fi
+        while IFS="" read -r line || [ -n "$line" ]; do # safe way of reading a file... i think -> https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash
+            echo "${YELLOW}Installing ${CYAN}${line}...${RESETCOLOR}"
+            code --install-extension "$line"
+            echo
+        done <VSCodeExtensions.txt
         ;;
 
     9)
         if ! command -v vim &>/dev/null && ! command -v nvim &>/dev/null; then
             echo >&2 "${RED}Can't find ${CYAN}vim ${RED}or ${CYAN}nvim${RED}...${RESETCOLOR}"
-            exit 1
         fi
-        spacevim_install_script=$(curl -sLf "https://spacevim.org/install.sh")
+        SPACEVIM_INSTALL_SCRIPT=$(curl -sLf "https://spacevim.org/install.sh")
         if command -v bat &>/dev/null; then
-            <<<$spacevim_install_script bat
+            <<<"$SPACEVIM_INSTALL_SCRIPT" bat --number --language bash
         else
-            <<<$spacevim_install_script cat
+            <<<"$SPACEVIM_INSTALL_SCRIPT" cat
         fi
         read -n 1 -s -r -p "${YELLOW}Press any key to continue...${RESETCOLOR}"
-        <<<$spacevim_install_script bash
+        <<<"$SPACEVIM_INSTALL_SCRIPT" bash
+        ;;
+    10)
+        if ! command -v vim &>/dev/null && ! command -v nvim &>/dev/null; then
+            echo >&2 "${RED}Can't find ${CYAN}vim ${RED}or ${CYAN}nvim${RED}...${RESETCOLOR}"
+        fi
+        git clone https://github.com/kabinspace/AstroVim ~/.config/nvim
+        exec nvim +PackerSync
         ;;
     *) echo >&2 "${RED}Error: Not a valid input${RESETCOLOR}" ;;
     esac

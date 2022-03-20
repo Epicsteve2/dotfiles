@@ -28,7 +28,7 @@ command -v thefuck &>/dev/null && { zinit ice wait"1" lucid; zinit snippet OMZ::
 
 zinit light 'marlonrichert/zsh-autocomplete'
 zstyle ':autocomplete:*' fzf-completion yes
-zstyle ':autocomplete:*' widget-style menu-select
+# zstyle ':autocomplete:*' widget-style menu-select
 
 # # Completions
 # zinit ice wait"1" lucid atload"zicompinit; zicdreplay" blockf; zinit light zsh-users/zsh-completions
@@ -323,6 +323,7 @@ bindkey  "^[[F"   end-of-line
 bindkey "^[[3~" delete-char
 
 if command -v bat &>/dev/null; then
+  # export MANROFFOPT='-c'
   export MANPAGER="sh -c 'col -bx | bat --language man --plain'"
   export BAT_PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
   alias cat="bat --plain --plain"
@@ -373,6 +374,8 @@ alias diff="diff --color=auto"
 # so aliases work with sudo
 alias sudo='sudo -v; sudo '
 alias s='sudo'
+alias bman='bat --language man --plain'
+alias bm='bat --language man --plain'
 
 lfcd () {
     tmp="$(mktemp)"
@@ -402,7 +405,11 @@ globalias() {
 zle -N globalias
 bindkey " " globalias
 
-# so aliases work with sudo
+if [[ -f /etc/zsh_command_not_found ]]; then
+  source /etc/zsh_command_not_found
+elif [[ -f /usr/etc/zsh_command_not_found ]]; then
+  source /usr/etc/zsh_command_not_found
+fi
 
 mkcd () {
   mkdir $1 && cd "$_"

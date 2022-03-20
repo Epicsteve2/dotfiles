@@ -360,11 +360,13 @@ bindkey  "^[[F"   end-of-line
 bindkey "^[[3~" delete-char
 
 if command -v bat &>/dev/null; then
+  # export MANROFFOPT='-c'
   export MANPAGER="sh -c 'col -bx | bat --language man --plain'"
   export BAT_PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
   alias cat="bat --plain --plain"
   alias fzfp="fzf --preview 'bat --color=always --plain --plain --line-range=:500 {}'"
 fi
+
 command -v nano &>/dev/null && export EDITOR=nano
 command -v vim &>/dev/null && export EDITOR=vim
 command -v micro &>/dev/null && export EDITOR=micro
@@ -407,6 +409,9 @@ alias diff="diff --color=auto"
 # so aliases work with sudo
 alias sudo='sudo -v; sudo '
 alias s='sudo'
+alias bman='bat --language man --plain'
+alias bm='bat --language man --plain'
+
 lfcd () {
     tmp="$(mktemp)"
     lf -last-dir-path="$tmp" "$@"
@@ -435,7 +440,11 @@ globalias() {
 zle -N globalias
 bindkey " " globalias
 
-
+if [[ -f /etc/zsh_command_not_found ]]; then
+  source /etc/zsh_command_not_found
+elif [[ -f /usr/etc/zsh_command_not_found ]]; then
+  source /usr/etc/zsh_command_not_found
+fi
 
 mkcd () {
   mkdir $1 && cd "$_"
