@@ -2,8 +2,11 @@ current_layer := "BTD6"
 tower_click := false
 tower_upgrade := false
 btd6_map := "X Factor"
-btd6_map := "Dark Castle"
+btd6_map := "Encrypted"
 ; btd6_map := "Rake"
+
+; sendinput breaks osu editor, some VN's and yea
+
 ; dumb syntax -> https://www.autohotkey.com/boards/viewtopic.php?t=66878
 layer_list := ["Main"
     ,"Sugar * Style"
@@ -12,7 +15,8 @@ layer_list := ["Main"
     ,"Rewrite"
     ,"Kinkoi"
     ,"Hatsukoi"
-    ,"Hoshi Ori"]
+    ,"Hoshi Ori"
+    ,"Cafe Stella"]
 
 map_list := ["Chutes"
     ,"Bazaar"
@@ -26,7 +30,8 @@ map_list := ["Chutes"
     ,"High Finance"
     ,"Adora's Temple"
     ,"Pat's Pond"
-    ,"Dark Castle"]
+    ,"Dark Castle"
+    ,"Encrypted"]
 
 btd6_key_bindings := {"dart": "q"
     , "hero": "u"
@@ -289,6 +294,37 @@ Numpad0 & NumpadMult::NumpadMult
 Numpad0 & NumpadSub::NumpadSub
 Numpad0 & CapsLock::CapsLock
 
+; Youtube speed setting
+Numpad0 & s::
+    SetDefaultMouseSpeed, 4 ; Defaul is 2
+    Send {Click 1789, 1051}
+    MouseMove, 1714, 829
+    ; MouseMove, 1585, 835
+Return
+
+auto_click := false
+#MaxThreadsPerHotKey, 2 ; this only affects this keybinding, nice!
+Numpad0 & a::	
+    global auto_click
+    auto_click := !auto_click
+    if auto_click
+        GuiTopLeft("Auto click is on")
+    else
+        GuiTopLeft("Auto click is off")
+    while (auto_click) {
+        Click, Left
+        sleep, 34
+    }
+return
+
+
+if (auto_click) {
+
+    Send {Click}
+    sleep 300
+}
+
+
 CapsLock::Esc 
 
 ; ; Layers
@@ -535,10 +571,12 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
     $b::IfKinkoiClick("b", 1656, 1057)
     $m::
         if WinActive("ahk_exe Kinkoi.exe") {
-            SetDefaultMouseSpeed, 4 ; Defaul is 2
+            SetDefaultMouseSpeed, 0 ; Defaul is 2
             Send {Click 1503, 1056}
+            SetDefaultMouseSpeed, 6 ; Defaul is 2
             Send {Click 1675, 139}
             Send {Click 229, 322}
+            Send {Click, Right}
         } else {
             SendInput, {m}
         }
@@ -546,11 +584,14 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
     $o::IfKinkoiClick("o", 1503, 1056)
     $t::
         if WinActive("ahk_exe Kinkoi.exe") {
-            SetDefaultMouseSpeed, 4 ; Defaul is 2
+            SetDefaultMouseSpeed, 0 ; Defaul is 2
             Send {Click 1503, 1056}
-            Send {Click 1632, 1031}
-            CoordMode, Mouse, Screen
-            MouseMove, A_ScreenWidth / 2, A_ScreenHeight / 2
+            SetDefaultMouseSpeed, 4 ; Defaul is 2
+            sleep 0.1
+            Send {Click, 1632, 1031}
+            ; ; Moves mouse to center of screen. I don't like it tho lol
+            ; CoordMode, Mouse, Screen
+            ; MouseMove, A_ScreenWidth / 2, A_ScreenHeight / 2
         } else {
             SendInput, {t}
         }
@@ -656,6 +697,31 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
     $Down::IfHoshiOriKey("WheelDown", "Down")
     $PgUp::IfHoshiOriKey("WheelUp", "PgUp")
     $PgDn::IfHoshiOriKey("WheelDown", "PgDn")
+#if
+#if (current_layer = "Cafe Stella")
+    IfCafeStellaKey(new_key, original_key) {
+        if WinActive("ahk_exe CafeStella.exe")
+            SendInput, {%new_key%}
+        else
+            SendInput, {%original_key%}
+    }
+    $m::
+        if WinActive("ahk_exe CafeStella.exe") {
+            MouseGetPos, x_original, y_original 
+            SendInput, {m}
+            SetDefaultMouseSpeed, 0 ; Default is 2
+            Sleep, 10
+            Send {Click 604, 567}
+            SendInput, {m}
+            CoordMode, Mouse, Screen
+            MouseMove, x_original, y_original
+        } else {
+            SendInput, {m}
+        }
+    Return
+    $t::IfCafeStellaKey("y", "t")
+    $c::IfCafeStellaKey("0", "c")
+    $j::IfCafeStellaKey("", "j")
 #if
 #if (current_layer = "BTD6")
     NumpadUp::MouseMove, 0, -1 , 0, R
@@ -776,6 +842,25 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
             GuiTopLeft("Tower upgrade is on")
         else
             GuiTopLeft("Tower upgrade is off")
+    Return
+
+    ; auto cash drop
+    cash_drop := false
+    #MaxThreadsPerHotKey, 2 ; this only affects this keybinding, nice!
+    NumpadIns & F3::
+    global cash_drop
+    cash_drop := !cash_drop
+    if cash_drop
+        GuiTopLeft("Cash drop spam is on")
+    else
+        GuiTopLeft("Cash drop spam is off")
+    while (cash_drop) {
+        Send {Click, 1724, 408, Down}
+        CoordMode, Mouse, Screen
+        MouseMove, 1600, 410
+        Send {Click, Up}
+        sleep, 34
+    }
     Return
 
     ; Maps
@@ -1096,5 +1181,39 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & o::PlaceTower("alch", 650, 567)
         NumpadIns & p::PlaceTower("glue", 1085, 568)
         NumpadIns & a::PlaceTower("ice", 1079, 648)
+    #if
+    #if (btd6_map = "Encrypted")
+        NumpadIns & q::PlaceTower("dart", 820, 378) ; strong
+        NumpadIns & w::PlaceTower("dart", 272, 880)
+        NumpadIns & e::PlaceTower("dart", 1398, 880)
+        NumpadIns & r::PlaceTower("hero", 498, 389)
+        NumpadIns & t::PlaceTower("wizard", 721, 285)
+        NumpadIns & y::PlaceTower("village", 824, 409)
+        NumpadIns & u::PlaceTower("engineer", 951, 285)
+        NumpadIns & i::PlaceTower("dart", 768, 472)
+        NumpadIns & o::PlaceTower("ice", 745, 525) ; both spots work, idk which is better
+        ; NumpadIns & w::PlaceTower("dart", 869, 415)
+        ; NumpadIns & e::PlaceTower("dart", 801, 432)
+        NumpadIns & z::PlaceTower("", 0,0)
+        ; NumpadIns & a::PlaceTower("ice", 726, 515) ; both spots work, idk which is better
+
+        ; round 95, buy super brittle and sac it
+        ; or sun aatar bottom path. it's cheaper
+        ; nvm get monkey city lol -> chinook
+        ; 97 just ball of light
+        ; same iwth 96, and maybe 95
+
+        ; can do triple village -> sun avatar and chinook. -> 95 sac 400 wizard
+        ; or just do abs zero... idk
+
+        ; sac an energizer when you can afford one
+        ; then village alch ->  
+
+        NumpadIns & g::PlaceTower("alch", 769, 330)
+        NumpadIns & h::PlaceTower("super", 559, 48)
+        NumpadIns & j::PlaceTower("super", 444, 74)
+        NumpadIns & k::PlaceTower("village", 447, 208)
+        NumpadIns & l::PlaceTower("alch", 260, 363)
+
     #if
 #if
