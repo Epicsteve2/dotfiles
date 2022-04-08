@@ -2,7 +2,7 @@ current_layer := "BTD6"
 tower_click := false
 tower_upgrade := false
 btd6_map := "X Factor"
-btd6_map := "Encrypted"
+btd6_map := "Bloonarius Prime"
 ; btd6_map := "Rake"
 
 ; sendinput breaks osu editor, some VN's and yea
@@ -318,13 +318,6 @@ Numpad0 & a::
 return
 
 
-if (auto_click) {
-
-    Send {Click}
-    sleep 300
-}
-
-
 CapsLock::Esc 
 
 ; ; Layers
@@ -573,7 +566,7 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         if WinActive("ahk_exe Kinkoi.exe") {
             SetDefaultMouseSpeed, 0 ; Defaul is 2
             Send {Click 1503, 1056}
-            SetDefaultMouseSpeed, 6 ; Defaul is 2
+            SetDefaultMouseSpeed, 8 ; Defaul is 2
             Send {Click 1675, 139}
             Send {Click 229, 322}
             Send {Click, Right}
@@ -849,18 +842,18 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
     #MaxThreadsPerHotKey, 2 ; this only affects this keybinding, nice!
     NumpadIns & F3::
     global cash_drop
-    cash_drop := !cash_drop
-    if cash_drop
-        GuiTopLeft("Cash drop spam is on")
-    else
-        GuiTopLeft("Cash drop spam is off")
-    while (cash_drop) {
-        Send {Click, 1724, 408, Down}
-        CoordMode, Mouse, Screen
-        MouseMove, 1600, 410
-        Send {Click, Up}
-        sleep, 34
-    }
+        cash_drop := !cash_drop
+        if cash_drop
+            GuiTopLeft("Cash drop spam is on")
+        else
+            GuiTopLeft("Cash drop spam is off")
+        while (cash_drop) {
+            Send {Click, 1724, 408, Down}
+            CoordMode, Mouse, Screen
+            MouseMove, 1600, 410
+            Send {Click, Up}
+            sleep, 34
+        }
     Return
 
     ; Maps
@@ -1146,7 +1139,7 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & v::PlaceTower("", 0,0)
         NumpadIns & b::PlaceTower("", 0,0)
     #if
-    #if (btd6_map = "Dark Castle")
+    #if (btd6_map = "Dark Castle") ; dead after version 31. pat is bigger now
         NumpadIns & q::PlaceTower("sub",  1090, 709)
         NumpadIns & w::PlaceTower("dart", 812, 657)
         NumpadIns & e::PlaceTower("dart", 747, 656)
@@ -1191,29 +1184,25 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & y::PlaceTower("village", 824, 409)
         NumpadIns & u::PlaceTower("engineer", 951, 285)
         NumpadIns & i::PlaceTower("dart", 768, 472)
-        NumpadIns & o::PlaceTower("ice", 745, 525) ; both spots work, idk which is better
-        ; NumpadIns & w::PlaceTower("dart", 869, 415)
-        ; NumpadIns & e::PlaceTower("dart", 801, 432)
-        NumpadIns & z::PlaceTower("", 0,0)
-        ; NumpadIns & a::PlaceTower("ice", 726, 515) ; both spots work, idk which is better
-
-        ; round 95, buy super brittle and sac it
-        ; or sun aatar bottom path. it's cheaper
-        ; nvm get monkey city lol -> chinook
-        ; 97 just ball of light
-        ; same iwth 96, and maybe 95
-
-        ; can do triple village -> sun avatar and chinook. -> 95 sac 400 wizard
-        ; or just do abs zero... idk
-
-        ; sac an energizer when you can afford one
-        ; then village alch ->  
-
-        NumpadIns & g::PlaceTower("alch", 769, 330)
-        NumpadIns & h::PlaceTower("super", 559, 48)
-        NumpadIns & j::PlaceTower("super", 444, 74)
         NumpadIns & k::PlaceTower("village", 447, 208)
         NumpadIns & l::PlaceTower("alch", 260, 363)
-
+        NumpadIns & o::PlaceTower("ice", 745, 525) 
+    #if
+    #if (btd6_map = "Bloonarius Prime")
+        NumpadIns & q::PlaceTower("dart", 230, 268)
+        NumpadIns & w::PlaceTower("engineer", 958, 833)
+        NumpadIns & e::PlaceTower("sniper", 861, 25)
+        NumpadIns & r::PlaceTower("hero", 872, 800)
+        NumpadIns & t::PlaceTower("sub", 722, 764)
+        NumpadIns & y::PlaceTower("village", 857, 884)
+        NumpadIns & u::PlaceTower("bomb", 973, 899)
+        NumpadIns & i::PlaceTower("alch", 953, 1002)
+        NumpadIns & o::PlaceTower("village", 857, 987)
+        NumpadIns & p::PlaceTower("bomb", 963, 833)
+        NumpadIns & a::PlaceTower("alch", 682, 912)
+        NumpadIns & s::PlaceTower("village", 1064, 982)
+        NumpadIns & d::PlaceTower("super", 970, 919) 
+        NumpadIns & f::PlaceTower("engineer", 953, 1002)
+        NumpadIns & g::PlaceTower("sniper", 1005, 1043)
     #if
 #if
