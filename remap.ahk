@@ -3,6 +3,7 @@ tower_click := false
 tower_upgrade := false
 btd6_map := "X Factor"
 btd6_map := "Bloonarius Prime"
+btd6_map := "Infernal"
 ; btd6_map := "Rake"
 
 ; sendinput breaks osu editor, some VN's and yea
@@ -31,7 +32,9 @@ map_list := ["Chutes"
     ,"Adora's Temple"
     ,"Pat's Pond"
     ,"Dark Castle"
-    ,"Encrypted"]
+    ,"Encrypted"
+    ,"Bloonarius Prime"
+    ,"Infernal"]
 
 btd6_key_bindings := {"dart": "q"
     , "hero": "u"
@@ -743,7 +746,33 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         If GetKeyState("LControl", "P")
             MouseMove, 15, 0 , 0, R
         Else
-            MouseMove, 5, 0 , 0, R        
+            MouseMove, 5, 0 , 0, R       
+    Return
+    
+    ; distance of a farm
+    LControl & NumpadUp::
+        If GetKeyState("Lalt", "P")
+            MouseMove, 0, -15 , 0, R
+        Else
+            MouseMove, 0, -141 , 0, R        
+    Return
+    LControl & NumpadDown::
+        If GetKeyState("Lalt", "P")
+            MouseMove, 0, 15 , 0, R
+        Else
+            MouseMove, 0, 141 , 0, R        
+    Return
+    LControl & NumpadLeft::
+        If GetKeyState("Lalt", "P")
+            MouseMove, -15, 0 , 0, R
+        Else
+            MouseMove, -162, 0 , 0, R
+    Return
+    LControl & NumpadRight::
+        If GetKeyState("Lalt", "P")
+            MouseMove, 15, 0 , 0, R
+        Else
+            MouseMove, 162, 0 , 0, R       
     Return
 
     NumpadClear:: Send {Click}
@@ -1204,5 +1233,19 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & d::PlaceTower("super", 970, 919) 
         NumpadIns & f::PlaceTower("engineer", 953, 1002)
         NumpadIns & g::PlaceTower("sniper", 1005, 1043)
+        NumpadIns & h::PlaceTower("bomb", 953, 1002)
+    #if
+    #if (btd6_map = "Infernal")
+        NumpadIns & q::PlaceTower("boomer", 836, 696)
+        NumpadIns & w::PlaceTower("sniper", 1181, 798)
+        NumpadIns & r::PlaceTower("sniper", 1243, 815)
+        NumpadIns & e::PlaceTower("hero", 494, 270)
+        NumpadIns & t::PlaceTower("dartling", 825, 383)
+        NumpadIns & y::PlaceTower("alch", 881, 328)
+        NumpadIns & i::PlaceTower("village", 1585, 674)
+        NumpadIns & u::PlaceTower("spike", 1528, 545)
+        NumpadIns & o::PlaceTower("alch", 1579, 594)
+        NumpadIns & a::PlaceTower("glue", 839, 794)
+        NumpadIns & p::PlaceTower("ice", 450, 222)
     #if
 #if
