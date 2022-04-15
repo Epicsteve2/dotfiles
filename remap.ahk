@@ -2,8 +2,8 @@ current_layer := "BTD6"
 tower_click := false
 tower_upgrade := false
 btd6_map := "X Factor"
-btd6_map := "Bloonarius Prime"
-btd6_map := "Infernal"
+; btd6_map := "Bloonarius Prime"
+; btd6_map := "Infernal"
 ; btd6_map := "Rake"
 
 ; sendinput breaks osu editor, some VN's and yea
@@ -17,7 +17,8 @@ layer_list := ["Main"
     ,"Kinkoi"
     ,"Hatsukoi"
     ,"Hoshi Ori"
-    ,"Cafe Stella"]
+    ,"Cafe Stella"
+    ,"Cyanotype Daydream"]
 
 map_list := ["Chutes"
     ,"Bazaar"
@@ -355,9 +356,9 @@ NumpadIns & NumpadHome::
     Sleep, 750
     Gui, Destroy
 Return
-; Kinkoi
+; Cyanotype Daydream
 Numpad0 & Numpad8::
-    current_layer := "Kinkoi"
+    current_layer := "Cyanotype Daydream"
     Gui, New, ToolWindow, 
 
     Gui, Font, S15, MesloLGS NF
@@ -372,7 +373,7 @@ Numpad0 & Numpad8::
     Gui, Destroy
 Return
 NumpadIns & NumpadUp::
-    current_layer := "Kinkoi"
+    current_layer := "Cyanotype Daydream"
     Gui, New, ToolWindow, 
 
     Gui, Font, S15, MesloLGS NF
@@ -718,6 +719,56 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
     $t::IfCafeStellaKey("y", "t")
     $c::IfCafeStellaKey("0", "c")
     $j::IfCafeStellaKey("", "j")
+#if
+#if (current_layer = "Cyanotype Daydream") ; FRICK this isn't gonna work out...
+    IfCyanotypeDaydreamKey(new_key, original_key) {
+        if WinActive("Cyanotype Daydream")
+            SendInput, {%new_key%}
+        else
+            SendInput, {%original_key%}
+    }
+    IfCyanotypeDaydreamClick(key, x, y) {
+        if WinActive("Cyanotype Daydream")
+            clickAndReturn(x, y)
+        else
+            SendInput, {%key%}
+    }
+    $m:: ; doesn't work that well cuz it's not a toggle
+        if WinActive("Cyanotype Daydream") {
+            SetDefaultMouseSpeed, 0 ; Default is 2
+            Send {Click 1887, 1061}
+            Sleep, 1600
+            Send {Click 1706, 68}
+            Sleep, 500
+            Send {Click 76, 275}
+        } else {
+            SendInput, {m}
+        }
+    Return
+    $a::IfCyanotypeDaydreamClick("a", 1455, 1065)
+    $s::IfCyanotypeDaydreamClick("s", 1585, 1058)
+    $l::IfCyanotypeDaydreamClick("l", 1624, 1059)
+    $c::IfCyanotypeDaydreamClick("c", 1904, 884)
+    $o::IfCyanotypeDaydreamClick("o", 1887, 1061)
+    $f::IfCyanotypeDaydreamClick("f", 1498, 1065)
+
+    $t::
+        if WinActive("Cyanotype Daydream") {
+            SetDefaultMouseSpeed, 0 ; Default is 2
+            Send, {Click 0, 0}
+            Sleep, 20
+            Send, {Click 58, 35}
+            Sleep, 20
+            Send, {Enter}
+        } else {
+            SendInput, {t}
+        }
+    Return
+
+    $v::IfCyanotypeDaydreamClick("v", 485, 868)
+    $r::IfCyanotypeDaydreamClick("r", 485, 868)
+    $y::IfCyanotypeDaydreamClick("y", 1841, 1066)
+    $Space::IfCyanotypeDaydreamKey("Enter", "Space")
 #if
 #if (current_layer = "BTD6")
     NumpadUp::MouseMove, 0, -1 , 0, R
@@ -1112,6 +1163,26 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadDel & q::PlaceTowerAndUpgrade("tack", 314, 785, 2,0,4) 
         NumpadDel & w::PlaceTowerAndUpgrade("heli", 218, 410, 2,0,4) 
 
+        NumpadDel & i::PlaceTowerAndUpgrade("dart", 537, 507, 0,0,0)
+        NumpadDel & o::PlaceTowerAndUpgrade("dart", 516, 600, 0,0,0)
+        NumpadDel & p::PlaceTowerAndUpgrade("dart", 488, 463, 0,0,0)
+        NumpadDel & a::PlaceTowerAndUpgrade("dart", 491, 548, 0,0,0)
+        NumpadDel & s::PlaceTowerAndUpgrade("dart", 487, 651, 0,0,0)
+        NumpadDel & d::PlaceTowerAndUpgrade("dart", 451, 593, 0,0,0)
+        NumpadDel & f::PlaceTowerAndUpgrade("dart", 421, 643, 0,0,0)
+        NumpadDel & g::PlaceTowerAndUpgrade("dart", 446, 507, 0,0,0)
+        NumpadDel & h::PlaceTowerAndUpgrade("dart", 424, 454, 0,0,0)
+        NumpadDel & j::PlaceTowerAndUpgrade("dart", 399, 546, 0,0,0)
+        NumpadDel & k::PlaceTowerAndUpgrade("village", 329, 598, 0,0,0)
+        NumpadDel & l::PlaceTowerAndUpgrade("village", 328, 495, 0,0,0)
+        NumpadDel & z::PlaceTowerAndUpgrade("spike", 459, 712, 0,0,0)
+        NumpadDel & x::PlaceTowerAndUpgrade("bomb", 235, 469, 0,0,0)
+        NumpadDel & c::PlaceTowerAndUpgrade("bomb", 232, 607, 0,0,0)
+        NumpadDel & v::PlaceTowerAndUpgrade("alch", 142, 669, 0,0,0)
+        NumpadDel & b::PlaceTowerAndUpgrade("", 0,0, 0,0,0)
+        NumpadDel & n::PlaceTowerAndUpgrade("", 0,0, 0,0,0)
+        NumpadDel & m::PlaceTowerAndUpgrade("", 0,0, 0,0,0)
+        ; 67 camo
         ; 218, 410
     #if
     #if (btd6_map = "High Finance")
@@ -1238,8 +1309,8 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
     #if (btd6_map = "Infernal")
         NumpadIns & q::PlaceTower("boomer", 836, 696)
         NumpadIns & w::PlaceTower("sniper", 1181, 798)
-        NumpadIns & r::PlaceTower("sniper", 1243, 815)
         NumpadIns & e::PlaceTower("hero", 494, 270)
+        NumpadIns & r::PlaceTower("sniper", 1243, 815)
         NumpadIns & t::PlaceTower("dartling", 825, 383)
         NumpadIns & y::PlaceTower("alch", 881, 328)
         NumpadIns & i::PlaceTower("village", 1585, 674)
