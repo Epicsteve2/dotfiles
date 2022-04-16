@@ -1,10 +1,8 @@
 current_layer := "BTD6"
 tower_click := false
 tower_upgrade := false
-btd6_map := "X Factor"
-; btd6_map := "Bloonarius Prime"
-; btd6_map := "Infernal"
-; btd6_map := "Rake"
+; btd6_map := "X Factor"
+btd6_map := "Firing Range"
 
 ; sendinput breaks osu editor, some VN's and yea
 
@@ -320,7 +318,6 @@ Numpad0 & a::
         sleep, 34
     }
 return
-
 
 CapsLock::Esc 
 
@@ -768,6 +765,42 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
     $v::IfCyanotypeDaydreamClick("v", 485, 868)
     $r::IfCyanotypeDaydreamClick("r", 485, 868)
     $y::IfCyanotypeDaydreamClick("y", 1841, 1066)
+
+    ; + is shift
+    +M:: ; doesn't work that well cuz it's not a toggle
+        if WinActive("Cyanotype Daydream") {
+            SetDefaultMouseSpeed, 0 ; Default is 2
+            Send {Click 1849, 1063}
+            Sleep, 1600
+            Send {Click 1706, 68}
+            Sleep, 500
+            Send {Click 76, 275}
+        } else {
+            SendInput, {M}
+        }
+    Return
+    +A::IfCyanotypeDaydreamClick("A", 1731, 1023)
+    +S::IfCyanotypeDaydreamClick("S", 1698, 1060)
+    +L::IfCyanotypeDaydreamClick("L", 1737, 1063)
+    +C::IfCyanotypeDaydreamClick("C", 1891, 1064)
+    +O::IfCyanotypeDaydreamClick("O", 1849, 1063)
+    +F::IfCyanotypeDaydreamClick("F", 1761, 1030)
+    ; +V::IfCyanotypeDaydreamClick("V", 485, 868)
+    ; +R::IfCyanotypeDaydreamClick("R", 485, 868)
+    +Y::IfCyanotypeDaydreamClick("Y", 1893, 979)
+    +T::
+        if WinActive("Cyanotype Daydream") {
+            SetDefaultMouseSpeed, 0 ; Default is 2
+            Send, {Click 0, 0}
+            Sleep, 20
+            Send, {Click 58, 35}
+            Sleep, 20
+            Send, {Enter}
+        } else {
+            SendInput, {T}
+        }
+    Return
+    
     $Space::IfCyanotypeDaydreamKey("Enter", "Space")
 #if
 #if (current_layer = "BTD6")
@@ -1303,8 +1336,9 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & s::PlaceTower("village", 1064, 982)
         NumpadIns & d::PlaceTower("super", 970, 919) 
         NumpadIns & f::PlaceTower("engineer", 953, 1002)
-        NumpadIns & g::PlaceTower("sniper", 1005, 1043)
-        NumpadIns & h::PlaceTower("bomb", 953, 1002)
+        NumpadIns & g::PlaceTower("ice", 1005, 1043)
+        NumpadIns & h::PlaceTower("bomb", 937, 836)
+        ; 94 use abilities early, make sure 
     #if
     #if (btd6_map = "Infernal")
         NumpadIns & q::PlaceTower("boomer", 836, 696)
@@ -1318,5 +1352,30 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & o::PlaceTower("alch", 1579, 594)
         NumpadIns & a::PlaceTower("glue", 839, 794)
         NumpadIns & p::PlaceTower("ice", 450, 222)
+    #if
+    #if (btd6_map = "Firing Range")
+        NumpadIns & q::PlaceTower("sub", 1309, 454)
+        NumpadIns & w::PlaceTower("hero", 684, 574)
+        NumpadIns & e::PlaceTower("druid", 757, 435)
+        NumpadIns & r::PlaceTower("druid", 833, 435)
+        NumpadIns & t::PlaceTower("village", 839, 638)
+        NumpadIns & y::PlaceTower("village", 661, 657)
+        NumpadIns & u::PlaceTower("druid", 867, 494)
+        NumpadIns & i::PlaceTower("druid", 791, 494)
+        NumpadIns & o::PlaceTower("druid", 756, 554)
+        NumpadIns & p::PlaceTower("druid", 832, 553)
+        NumpadIns & a::PlaceTower("druid", 904, 575)
+        NumpadIns & s::PlaceTower("druid", 608, 574)
+        NumpadIns & d::PlaceTower("druid", 532, 574)
+        NumpadIns & f::PlaceTower("druid", 459, 592) 
+        NumpadIns & g::PlaceTower("alch", 751, 615)
+        NumpadIns & h::PlaceTower("druid", 937, 634)
+        NumpadIns & j::PlaceTower("druid", 568, 632)
+        NumpadIns & k::PlaceTower("druid", 495, 650)
+        NumpadIns & c::PlaceTower("druid", 980, 575)
+        NumpadIns & v::PlaceTower("druid", 1013, 634)
+
+        NumpadIns & b::PlaceTower("druid", 713, 859)
+        NumpadIns & n::PlaceTower("ice", 783, 868)
     #if
 #if
