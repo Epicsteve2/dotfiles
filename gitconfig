@@ -1,14 +1,19 @@
 [user]
-	name = epicsteve2
+	name = Stephen Guo
 	email = epicsteveoj@gmail.com
 [credential]
 	helper = store
 [core]
     pager = delta --line-numbers
-	editor = code --wait
+	editor = nvim
+  # editor = code --wait
+  whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+
 [diff]
     colorMoved = default
     diffFilter = delta --color-only --line-numbers
+    # Detect copies as well as renames
+  renames = copies
 [difftool "vscode"]
 	cmd = "code --wait --diff $LOCAL $REMOTE"
 [pager]
@@ -32,3 +37,10 @@
 [pull]
 	rebase = true
 
+[help]
+  # Automatically correct and execute mistyped commands
+  autocorrect = 1
+[author]
+	name = Stephen Guo
+[rebase]
+	autoStash = true

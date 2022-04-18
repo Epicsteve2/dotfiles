@@ -104,7 +104,7 @@ command -v fzf &>/dev/null && {
     local selected num
     setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
     selected=( $(fc -rl 1 | perl -ne 'print if !$seen{(/^\s*[0-9]+\**\s+(.*)/, $1)}++' |
-      FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --header='tab to edit, enter to execute' --bind=ctrl-r:toggle-sort,ctrl-z:ignore --expect=tab $extra_ctrl_r --query=${(qqq)LBUFFER} +m" fzf) )
+      FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --header='tab to edit, enter to execute' --bind=ctrl-r:toggle-sort,ctrl-z:ignore --expect=tab $extra_ctrl_r --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
     local ret=$?
     if [ -n "$selected" ]; then
       local select=0
@@ -370,7 +370,7 @@ fi
 command -v nano &>/dev/null && export EDITOR=nano
 command -v vim &>/dev/null && export EDITOR=vim
 command -v micro &>/dev/null && export EDITOR=micro
-command -v nvim &>/dev/null && { export EDITOR=nvim; alias vim="nvim"; alias vi="nvim" }
+command -v nvim &>/dev/null && export EDITOR=nvim
 export VISUAL=${EDITOR}
 
 export PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
@@ -396,6 +396,10 @@ alias ....="../../.."
 alias .....="../../../.."
 alias ......="../../../../.."
 alias .......="../../../../../.."
+alias vim="nvim"
+alias vi="nvim"
+alias v="nvim"
+alias n='nvim'
 alias youtube-dl="yt-dlp"
 alias yt-dl="yt-dlp"
 alias open='handlr open'
@@ -409,8 +413,10 @@ alias diff="diff --color=auto"
 # so aliases work with sudo
 alias sudo='sudo -v; sudo '
 alias s='sudo'
-alias bman='bat --language man --plain'
+alias d='docker'
+alias dc='docker-compose'
 alias bm='bat --language man --plain'
+alias t='task'
 
 lfcd () {
     tmp="$(mktemp)"
@@ -430,7 +436,7 @@ lfcd () {
 # Expand only the g and k aliases
 # source https://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
 globalias() {
-  EXPAND_ALIASES=(g k vi vim s)
+  EXPAND_ALIASES=(g k n v vi vim d dc s t)
    if [[ ${EXPAND_ALIASES[(ie)$LBUFFER]} -le ${#EXPAND_ALIASES} ]]; then
      zle _expand_alias
      zle expand-word
