@@ -1,8 +1,34 @@
 current_layer := "BTD6"
 tower_click := false
 tower_upgrade := false
-; btd6_map := "X Factor"
-btd6_map := "Firing Range"
+btd6_map := "X Factor"
+; btd6_map := "Firing Range"
+
+cyanotype_daydream_layer := "Rin"
+cyanotype_daydream_key_bindings := {"Rin": { "a": [1455, 1065]
+        , "s": [1585, 1058]
+        , "l": [1624, 1059]
+        , "c": [1904, 884]
+        , "f": [1498, 1065]
+        , "y": [1841, 1066]
+        , "o": [1887, 1061]
+        , "m": [1887, 1061]} 
+    , "Thinking": { "a": [1731, 1023]
+        , "s": [1698, 1060]
+        , "l": [1737, 1063]
+        , "c": [1891, 1064]
+        , "f": [1761, 1030]
+        , "y": [1893, 979]
+        , "o": [1849, 1063]
+        , "m": [1849, 1063]} 
+    , "No dream": { "a": [1824, 908]
+        , "s": [1758, 1011]
+        , "l": [1788, 1002]
+        , "c": [1737, 1062]
+        , "f": [1825, 939]
+        , "y": [1879, 892]
+        , "o": [1827, 1046]
+        , "m": [1827, 1046]}}
 
 ; sendinput breaks osu editor, some VN's and yea
 
@@ -296,6 +322,11 @@ Numpad0 & NumpadMult::NumpadMult
 Numpad0 & NumpadSub::NumpadSub
 Numpad0 & CapsLock::CapsLock
 
+NumpadDel & NumpadDiv::NumpadDiv
+NumpadDel & NumpadMult::NumpadMult
+NumpadDel & NumpadSub::NumpadSub
+NumpadDel & CapsLock::CapsLock
+
 ; Youtube speed setting
 Numpad0 & s::
     SetDefaultMouseSpeed, 4 ; Defaul is 2
@@ -437,12 +468,7 @@ NumpadIns & /::
 Return
 ; Copy cursor position to clipboard
 NumpadIns & NumpadClear::
-    ; MouseGetPos, x_position, y_position0
-    ; TrayTip Copied to clipboard, %x_position%`, %y_position%, 2
-
-    ; clipboard := x_position ", " y_position
     MouseGetPos, x_position, y_position
-    ; TrayTip Copied to clipboard, %x_position%`, %y_position%, 02
     clipboard := x_position ", " y_position
     GuiTopLeft("Copied to clipboard:`n" . x_position . ", " . y_position)
 Return
@@ -717,6 +743,19 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
     $c::IfCafeStellaKey("0", "c")
     $j::IfCafeStellaKey("", "j")
 #if
+
+#MaxThreadsPerHotkey, 2
+NumpadDot & d::
+    var_x := 1117
+    var_y := 42
+    var_z := 1
+    MsgBox, , % cyanotype_daydream_key_bindings[cyanotype_daydream_layer]["s"][1], % cyanotype_daydream_key_bindings[cyanotype_daydream_layer]["s"][2]
+    MsgBox, , % 5 5
+    ; Click % var_x var_y
+    Click, % var_y . " " . var_z
+
+Return
+
 #if (current_layer = "Cyanotype Daydream") ; FRICK this isn't gonna work out...
     IfCyanotypeDaydreamKey(new_key, original_key) {
         if WinActive("Cyanotype Daydream")
@@ -730,25 +769,49 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         else
             SendInput, {%key%}
     }
-    $m:: ; doesn't work that well cuz it's not a toggle
-        if WinActive("Cyanotype Daydream") {
-            SetDefaultMouseSpeed, 0 ; Default is 2
-            Send {Click 1887, 1061}
+    1::
+        cyanotype_daydream_layer := "Rin"
+        GuiTopLeft("Rin")
+    Return
+    2::
+        cyanotype_daydream_layer := "Thinking"
+        GuiTopLeft("Thinking")
+    Return
+    3::
+        cyanotype_daydream_layer := "No dream"
+        GuiTopLeft("No dream")
+    Return
+
+    CyanotypeDaydreamMapKey(key) {
+        global cyanotype_daydream_key_bindings
+        global cyanotype_daydream_layer
+        if WinActive("Cyanotype Daydream") and cyanotype_daydream_key_bindings[cyanotype_daydream_layer].HasKey(key) and (key = "m") {
+            SetDefaultMouseSpeed, 0
+            ; this syntax is so bad, wtf
+            Click % cyanotype_daydream_key_bindings[cyanotype_daydream_layer]["m"][1] . " " . cyanotype_daydream_key_bindings[cyanotype_daydream_layer]["m"][2]
             Sleep, 1600
             Send {Click 1706, 68}
             Sleep, 500
             Send {Click 76, 275}
-        } else {
-            SendInput, {m}
+            Return
         }
-    Return
-    $a::IfCyanotypeDaydreamClick("a", 1455, 1065)
-    $s::IfCyanotypeDaydreamClick("s", 1585, 1058)
-    $l::IfCyanotypeDaydreamClick("l", 1624, 1059)
-    $c::IfCyanotypeDaydreamClick("c", 1904, 884)
-    $o::IfCyanotypeDaydreamClick("o", 1887, 1061)
-    $f::IfCyanotypeDaydreamClick("f", 1498, 1065)
+        if WinActive("Cyanotype Daydream") and cyanotype_daydream_key_bindings[cyanotype_daydream_layer].HasKey(key) {
+            clickAndReturn(cyanotype_daydream_key_bindings[cyanotype_daydream_layer][key][1]
+                         , cyanotype_daydream_key_bindings[cyanotype_daydream_layer][key][2])
+        } else {
+            SendInput, {%key%}
+        }
+    }
 
+    $a::CyanotypeDaydreamMapKey("a")
+    $s::CyanotypeDaydreamMapKey("s")
+    $l::CyanotypeDaydreamMapKey("l")
+    $c::CyanotypeDaydreamMapKey("c")
+    $o::CyanotypeDaydreamMapKey("o")
+    $f::CyanotypeDaydreamMapKey("f")
+    $y::CyanotypeDaydreamMapKey("y")
+    $m::CyanotypeDaydreamMapKey("m")
+    $Space::IfCyanotypeDaydreamKey("Enter", "Space")
     $t::
         if WinActive("Cyanotype Daydream") {
             SetDefaultMouseSpeed, 0 ; Default is 2
@@ -761,47 +824,6 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
             SendInput, {t}
         }
     Return
-
-    $v::IfCyanotypeDaydreamClick("v", 485, 868)
-    $r::IfCyanotypeDaydreamClick("r", 485, 868)
-    $y::IfCyanotypeDaydreamClick("y", 1841, 1066)
-
-    ; + is shift
-    +M:: ; doesn't work that well cuz it's not a toggle
-        if WinActive("Cyanotype Daydream") {
-            SetDefaultMouseSpeed, 0 ; Default is 2
-            Send {Click 1849, 1063}
-            Sleep, 1600
-            Send {Click 1706, 68}
-            Sleep, 500
-            Send {Click 76, 275}
-        } else {
-            SendInput, {M}
-        }
-    Return
-    +A::IfCyanotypeDaydreamClick("A", 1731, 1023)
-    +S::IfCyanotypeDaydreamClick("S", 1698, 1060)
-    +L::IfCyanotypeDaydreamClick("L", 1737, 1063)
-    +C::IfCyanotypeDaydreamClick("C", 1891, 1064)
-    +O::IfCyanotypeDaydreamClick("O", 1849, 1063)
-    +F::IfCyanotypeDaydreamClick("F", 1761, 1030)
-    ; +V::IfCyanotypeDaydreamClick("V", 485, 868)
-    ; +R::IfCyanotypeDaydreamClick("R", 485, 868)
-    +Y::IfCyanotypeDaydreamClick("Y", 1893, 979)
-    +T::
-        if WinActive("Cyanotype Daydream") {
-            SetDefaultMouseSpeed, 0 ; Default is 2
-            Send, {Click 0, 0}
-            Sleep, 20
-            Send, {Click 58, 35}
-            Sleep, 20
-            Send, {Enter}
-        } else {
-            SendInput, {T}
-        }
-    Return
-    
-    $Space::IfCyanotypeDaydreamKey("Enter", "Space")
 #if
 #if (current_layer = "BTD6")
     NumpadUp::MouseMove, 0, -1 , 0, R
@@ -860,25 +882,6 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
     Return
 
     NumpadClear:: Send {Click}
-
-    ; Numpad0 & /::
-    ;     MouseGetPos, x_position, y_position
-    ;     GuiTopLeft("Copied to clipboard:`n" . x_position . ", " . y_position)
-    ;     ; TrayTip Copied to clipboard, %x_position%`, %y_position%, 02
-    ;     clipboard := x_position ", " y_position
-    ; Return
-
-
-    ; Numpad0 & Numpad5::
-    ;     ; MouseGetPos, x_position, y_position0
-    ;     ; TrayTip Copied to clipboard, %x_position%`, %y_position%, 2
-
-    ;     ; clipboard := x_position ", " y_position
-    ;     MouseGetPos, x_position, y_position
-    ;     ; TrayTip Copied to clipboard, %x_position%`, %y_position%, 02
-    ;     clipboard := x_position ", " y_position
-    ;     GuiTopLeft("Copied to clipboard:`n" . x_position . ", " . y_position)
-    ; Return
 
     PlaceTower(tower, x_position, y_position) {
         global btd6_key_bindings
@@ -1164,6 +1167,43 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         
     #if
     #if (btd6_map = "X Factor")
+        NumpadIns & q::PlaceTower("dart", 1358, 267)
+        NumpadIns & w::PlaceTower("dart", 353, 203)
+        NumpadIns & e::PlaceTower("sniper", 728, 137)
+        NumpadIns & r::PlaceTower("sniper", 923, 137)
+        NumpadIns & t::PlaceTower("hero", 570, 561)
+        NumpadIns & y::PlaceTower("ninja", 1103, 531)
+        NumpadIns & u::PlaceTower("alch", 1168, 526) ; only 320
+        NumpadIns & i::PlaceTower("village", 329, 598) ; no camo
+        NumpadIns & o::PlaceTower("village", 328, 495) 
+        NumpadIns & p::PlaceTower("bomb", 235, 469)
+        NumpadIns & a::PlaceTower("bomb", 232, 607)
+        NumpadIns & s::PlaceTower("alch", 142, 669)
+        NumpadIns & d::PlaceTower("dart", 537, 507)
+        NumpadIns & f::PlaceTower("dart", 516, 600)
+        NumpadIns & g::PlaceTower("dart", 488, 463)
+        NumpadIns & h::PlaceTower("dart", 491, 548)
+        NumpadIns & j::PlaceTower("dart", 487, 651)
+        NumpadIns & k::PlaceTower("dart", 451, 593)
+        NumpadIns & l::PlaceTower("dart", 421, 643)
+        NumpadIns & z::PlaceTower("dart", 446, 507)
+        NumpadIns & x::PlaceTower("dart", 424, 454)
+        NumpadIns & c::PlaceTower("dart", 399, 546)
+        NumpadIns & v::PlaceTower("spike", 459, 712)
+        NumpadIns & b::PlaceTower("glue", 369, 423)
+        ; NumpadIns & n::PlaceTower("", 0,0)
+        ; NumpadIns & m::PlaceTower("", 0,0)
+
+        ; 67 camo
+        ; 218, 410
+        ; 40 mael
+        ; 41 camo cannons
+        ; 98 4 super mael in left corners
+        ; also buy 2 genies
+        ; buy geraldo on 75
+        ; 82 buy fire + pickle on ninja
+    #if
+    #if (btd6_map = "X Factor OLD!")
         NumpadIns & q::PlaceTowerAndUpgrade("dart", 1358, 267, 0,0,0) ;
         NumpadIns & w::PlaceTowerAndUpgrade("dart", 353, 203, 0,0,0)
         NumpadIns & e::PlaceTowerAndUpgrade("sniper", 158, 547, 0,5,2)
@@ -1186,7 +1226,6 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & l::PlaceTowerAndUpgrade("alch", 176, 658, 4,0,1)
 
         NumpadIns & z::PlaceTowerAndUpgrade("ninja", 260, 391, 0,4,0) ; original spot
-        ; NumpadIns & z::PlaceTowerAndUpgrade("ninja", 286, 504, 0,4,0) ; space for heli
         NumpadIns & x::PlaceTowerAndUpgrade("glue", 324, 378, 2,5,0)
         NumpadIns & c::PlaceTowerAndUpgrade("ice", 362, 727, 4,1,0)
         NumpadIns & v::PlaceTowerAndUpgrade("glue", 1281, 192, 0,2,3)
@@ -1358,24 +1397,23 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         NumpadIns & w::PlaceTower("hero", 684, 574)
         NumpadIns & e::PlaceTower("druid", 757, 435)
         NumpadIns & r::PlaceTower("druid", 833, 435)
-        NumpadIns & t::PlaceTower("village", 839, 638)
-        NumpadIns & y::PlaceTower("village", 661, 657)
+        NumpadIns & t::PlaceTower("village", 661, 657)
+        NumpadIns & y::PlaceTower("village", 839, 638)
         NumpadIns & u::PlaceTower("druid", 867, 494)
         NumpadIns & i::PlaceTower("druid", 791, 494)
-        NumpadIns & o::PlaceTower("druid", 756, 554)
-        NumpadIns & p::PlaceTower("druid", 832, 553)
-        NumpadIns & a::PlaceTower("druid", 904, 575)
-        NumpadIns & s::PlaceTower("druid", 608, 574)
-        NumpadIns & d::PlaceTower("druid", 532, 574)
-        NumpadIns & f::PlaceTower("druid", 459, 592) 
-        NumpadIns & g::PlaceTower("alch", 751, 615)
-        NumpadIns & h::PlaceTower("druid", 937, 634)
-        NumpadIns & j::PlaceTower("druid", 568, 632)
-        NumpadIns & k::PlaceTower("druid", 495, 650)
-        NumpadIns & c::PlaceTower("druid", 980, 575)
-        NumpadIns & v::PlaceTower("druid", 1013, 634)
-
-        NumpadIns & b::PlaceTower("druid", 713, 859)
-        NumpadIns & n::PlaceTower("ice", 783, 868)
+        NumpadIns & o::PlaceTower("druid", 756, 554) ; maybe only upgrade first 5-6 to tornado before saveup
+        NumpadIns & p::PlaceTower("druid", 713, 859) ; vine
+        NumpadIns & a::PlaceTower("alch", 751, 615)
+        NumpadIns & s::PlaceTower("druid", 832, 553)
+        NumpadIns & d::PlaceTower("druid", 904, 575) 
+        NumpadIns & f::PlaceTower("druid", 608, 574)
+        NumpadIns & g::PlaceTower("druid", 532, 574)
+        NumpadIns & h::PlaceTower("druid", 459, 592) 
+        NumpadIns & j::PlaceTower("druid", 937, 634)
+        NumpadIns & k::PlaceTower("druid", 568, 632)
+        NumpadIns & l::PlaceTower("druid", 495, 650)
+        NumpadIns & z::PlaceTower("druid", 980, 575)
+        NumpadIns & x::PlaceTower("druid", 1013, 634)
+        NumpadIns & c::PlaceTower("ice", 783, 868)
     #if
 #if
