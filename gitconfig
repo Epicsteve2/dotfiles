@@ -44,3 +44,6 @@
 	name = Stephen Guo
 [rebase]
 	autoStash = true
+	
+[init]
+        defaultBranch = main
