@@ -77,7 +77,7 @@ super Return
     alacritty --working-directory ~
 
 Print
-    flameshot gui -p ~/Pictures/screenshots
+    flameshot gui # -p ~/Pictures/screenshots
 
 # shift+Print
 #     flameshot screen -p ~/Pictures/screenshots
