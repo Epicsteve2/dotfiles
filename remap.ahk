@@ -2,7 +2,8 @@ current_layer := "BTD6"
 tower_click := false
 tower_upgrade := false
 btd6_map := "X Factor"
-; btd6_map := "Firing Range"
+
+koichoco_pid := "11312"
 
 cyanotype_daydream_layer := "Rin"
 cyanotype_daydream_key_bindings := {"Rin": { "a": [1455, 1065]
@@ -13,7 +14,7 @@ cyanotype_daydream_key_bindings := {"Rin": { "a": [1455, 1065]
         , "y": [1841, 1066]
         , "o": [1887, 1061]
         , "m": [1887, 1061]} 
-    , "Thinking": { "a": [1731, 1023]
+    , "Thinking and Porn": { "a": [1731, 1023]
         , "s": [1698, 1060]
         , "l": [1737, 1063]
         , "c": [1891, 1064]
@@ -28,7 +29,29 @@ cyanotype_daydream_key_bindings := {"Rin": { "a": [1455, 1065]
         , "f": [1825, 939]
         , "y": [1879, 892]
         , "o": [1827, 1046]
-        , "m": [1827, 1046]}}
+        , "m": [1827, 1046]
+        , "r": [473, 875]
+        , "v": [473, 875]}
+    , "Europe": {"a": [1193, 891]
+        , "s": [1372, 889]
+        , "l": [1482, 889]
+        , "c": [1876, 892]
+        , "f": [1234, 892]
+        , "y": [1871, 1042]
+        , "o": [1804, 891] 
+        , "m": [1804, 891]
+        , "r": [779, 869]
+        , "v": [779, 869]}
+    , "Car": {"a": [1255, 1060]
+        , "s": [1398, 1065]
+        , "l": [1493, 1060]
+        , "c": [1900, 1060]
+        , "f": [1288, 1060]
+        , "y": [1849, 1063]
+        , "o": [1693, 1060] 
+        , "m": [1693, 1060]
+        , "r": [583, 876]
+        , "v": [583, 876]}}
 
 ; sendinput breaks osu editor, some VN's and yea
 
@@ -42,7 +65,8 @@ layer_list := ["Main"
     ,"Hatsukoi"
     ,"Hoshi Ori"
     ,"Cafe Stella"
-    ,"Cyanotype Daydream"]
+    ,"Cyanotype Daydream"
+    ,"Koichoco"]
 
 map_list := ["Chutes"
     ,"Bazaar"
@@ -59,7 +83,8 @@ map_list := ["Chutes"
     ,"Dark Castle"
     ,"Encrypted"
     ,"Bloonarius Prime"
-    ,"Infernal"]
+    ,"Infernal"
+    ,"Haunted"]
 
 btd6_key_bindings := {"dart": "q"
     , "hero": "u"
@@ -566,7 +591,6 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
         else
             SendInput, {Esc}
     Return
-
 #if
 #if (current_layer = "Kinkoi")
     IfKinkoiKey(new_key, original_key) {
@@ -743,19 +767,6 @@ NumpadIns & .::run, "C:\Program Files\AutoHotkey\WindowSpy.ahk"
     $c::IfCafeStellaKey("0", "c")
     $j::IfCafeStellaKey("", "j")
 #if
-
-#MaxThreadsPerHotkey, 2
-NumpadDot & d::
-    var_x := 1117
-    var_y := 42
-    var_z := 1
-    MsgBox, , % cyanotype_daydream_key_bindings[cyanotype_daydream_layer]["s"][1], % cyanotype_daydream_key_bindings[cyanotype_daydream_layer]["s"][2]
-    MsgBox, , % 5 5
-    ; Click % var_x var_y
-    Click, % var_y . " " . var_z
-
-Return
-
 #if (current_layer = "Cyanotype Daydream") ; FRICK this isn't gonna work out...
     IfCyanotypeDaydreamKey(new_key, original_key) {
         if WinActive("Cyanotype Daydream")
@@ -770,18 +781,45 @@ Return
             SendInput, {%key%}
     }
     1::
-        cyanotype_daydream_layer := "Rin"
-        GuiTopLeft("Rin")
+        if WinActive("Cyanotype Daydream") {
+            cyanotype_daydream_layer := "Rin"
+            GuiTopLeft("Rin")
+        } else {
+            SendInput, {1}
+        }
     Return
     2::
-        cyanotype_daydream_layer := "Thinking"
-        GuiTopLeft("Thinking")
+        if WinActive("Cyanotype Daydream") {
+            cyanotype_daydream_layer := "Thinking and Porn"
+            GuiTopLeft("Thinking and Porn")
+        } else {
+            SendInput, {2}
+        }
     Return
     3::
-        cyanotype_daydream_layer := "No dream"
-        GuiTopLeft("No dream")
+        if WinActive("Cyanotype Daydream") {
+            cyanotype_daydream_layer := "No dream"
+            GuiTopLeft("No dream")
+        } else {
+            SendInput, {3}
+        }
     Return
-
+    4::
+        if WinActive("Cyanotype Daydream") {
+            cyanotype_daydream_layer := "Europe"
+            GuiTopLeft("Europe")
+        } else {
+            SendInput, {4}
+        }
+    Return
+    5::
+        if WinActive("Cyanotype Daydream") {
+            cyanotype_daydream_layer := "Car"
+            GuiTopLeft("Car")
+        } else {
+            SendInput, {5}
+        }
+    Return
     CyanotypeDaydreamMapKey(key) {
         global cyanotype_daydream_key_bindings
         global cyanotype_daydream_layer
@@ -807,24 +845,66 @@ Return
     $s::CyanotypeDaydreamMapKey("s")
     $l::CyanotypeDaydreamMapKey("l")
     $c::CyanotypeDaydreamMapKey("c")
-    $o::CyanotypeDaydreamMapKey("o")
     $f::CyanotypeDaydreamMapKey("f")
     $y::CyanotypeDaydreamMapKey("y")
+    $o::CyanotypeDaydreamMapKey("o")
     $m::CyanotypeDaydreamMapKey("m")
+    $r::CyanotypeDaydreamMapKey("r")
+    $v::CyanotypeDaydreamMapKey("v")
     $Space::IfCyanotypeDaydreamKey("Enter", "Space")
     $t::
         if WinActive("Cyanotype Daydream") {
             SetDefaultMouseSpeed, 0 ; Default is 2
             Send, {Click 0, 0}
-            Sleep, 20
+            Sleep, 35
             Send, {Click 58, 35}
-            Sleep, 20
+            Sleep, 35
             Send, {Enter}
         } else {
             SendInput, {t}
         }
     Return
 #if
+#if (current_layer = "Koichoco")
+    ; Supposed to be the following...
+    ; ahk_exe 恋と選挙とチョコレート.exe
+    ; 恋と選挙とチョコレート
+    ; doesn't work tho
+    ; I used a variable but eh:
+    ; "ahk_pid " . koichoco_pid
+    IfKoichocoKey(new_key, original_key) {
+        global koichoco_pid
+        if WinActive("ahk_class BGI - Main window")
+            SendInput, {%new_key%}
+        else
+            SendInput, {%original_key%}
+    }
+    IfKoichocoClick(key, x, y) {
+        global koichoco_pid
+        if WinActive("ahk_class BGI - Main window")
+            clickAndReturn(x, y)
+        else
+            SendInput, {%key%}
+    }
+    $a::IfKoichocoClick("a", 1698, 796)
+    $s::IfKoichocoClick("s", 1804, 803)
+    $l::IfKoichocoClick("l", 1798, 859)
+    $c::IfKoichocoClick("c", 1697, 1058)
+    $f::IfKoichocoClick("f", 1699, 853)
+    $o::IfKoichocoClick("o", 1696, 998)
+    $t::
+        if WinActive("ahk_class BGI - Main window") {
+            SetDefaultMouseSpeed, 0 ; Defaul is 2
+            Send {Click 1696, 998}
+            sleep 500
+            Click Left
+        } else {
+            SendInput, {t}
+        }
+    Return
+    $Space::IfKoichocoKey("Enter", "Space")
+#if
+
 #if (current_layer = "BTD6")
     NumpadUp::MouseMove, 0, -1 , 0, R
     NumpadDown::MouseMove, 0, 1 , 0, R
@@ -972,6 +1052,11 @@ Return
         }
     Return
 
+    ; ; Update 31.0: Disable alt tab
+    ; #if WinActive("ahk_class UnityWndClass") and WinActive("ahk_exe BloonsTD6.exe")
+    ;     LAlt::Return
+    ; #if
+    
     ; Maps
     global btd6_map
     #if (btd6_map = "Chutes") 
@@ -1415,5 +1500,29 @@ Return
         NumpadIns & z::PlaceTower("druid", 980, 575)
         NumpadIns & x::PlaceTower("druid", 1013, 634)
         NumpadIns & c::PlaceTower("ice", 783, 868)
+    #if
+    #if (btd6_map = "Haunted")
+        NumpadIns & q::PlaceTower("sub", 778, 856)
+        NumpadIns & w::PlaceTower("", 0,0)
+        NumpadIns & e::PlaceTower("", 0,0)
+        NumpadIns & r::PlaceTower("", 0,0)
+        NumpadIns & t::PlaceTower("", 0,0)
+        NumpadIns & y::PlaceTower("", 0,0)
+        NumpadIns & u::PlaceTower("", 0,0)
+        NumpadIns & i::PlaceTower("", 0,0)
+        NumpadIns & o::PlaceTower("", 0,0)
+        NumpadIns & p::PlaceTower("", 0,0)
+        NumpadIns & a::PlaceTower("", 0,0)
+        NumpadIns & s::PlaceTower("", 0,0)
+        NumpadIns & d::PlaceTower("", 0,0) 
+        NumpadIns & f::PlaceTower("", 0,0)
+        NumpadIns & g::PlaceTower("", 0,0)
+        NumpadIns & h::PlaceTower("", 0,0) 
+        NumpadIns & j::PlaceTower("", 0,0)
+        NumpadIns & k::PlaceTower("", 0,0)
+        NumpadIns & l::PlaceTower("", 0,0)
+        NumpadIns & z::PlaceTower("", 0,0)
+        NumpadIns & x::PlaceTower("", 0,0)
+        NumpadIns & c::PlaceTower("", 0,0)
     #if
 #if
