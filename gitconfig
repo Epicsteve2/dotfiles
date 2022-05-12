@@ -2,11 +2,11 @@
 	name = Stephen Guo
 	email = epicsteveoj@gmail.com
 [credential]
-	helper = store
+	helper = /usr/lib/git-core/git-credential-libsecret
 [core]
     pager = delta --line-numbers
-	editor = nvim
-  # editor = code --wait
+	# editor = nvim
+  editor = code --wait
   whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 
 [diff]
@@ -44,6 +44,6 @@
 	name = Stephen Guo
 [rebase]
 	autoStash = true
-	
+
 [init]
         defaultBranch = main
