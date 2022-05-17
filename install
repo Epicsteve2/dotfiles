@@ -12,8 +12,7 @@ RESETCOLOR=$(tput sgr0)
 
 declare -A FILE_LIST
 FILE_LIST=(
-    ["zshrcZinit"]="${HOME}/.zshrc"
-    ["zshrcZinitP10k"]="${HOME}/.zshrc"
+    ["zshrc"]="${HOME}/.zshrc"
     ["gitconfig"]="${HOME}/.gitconfig"
     ["mpv"]="${HOME}/.config/mpv"
     ["wezterm.lua"]="${HOME}/.config/wezterm/wezterm.lua"
@@ -21,21 +20,13 @@ FILE_LIST=(
     ["Default (Linux).sublime-keymap.json"]="${HOME}/.config/sublime-text/Packages/User/Default (Linux).sublime-keymap"
     ["terminator.config"]="${HOME}/.config/terminator/config"
     ["starship.toml"]="${HOME}/.config/starship.toml"
-    ["starshipOneLine.toml"]="${HOME}/.config/starship.toml"
     ["alacritty.yml"]="${HOME}/.config/alacritty/alacritty.yml"
     ["bottom.toml"]="${HOME}/.config/bottom/bottom.toml"
     ["htoprc"]="${HOME}/.config/htop/htoprc"
     ["microSettings.json"]="${HOME}/.config/micro/settings.json"
-    ["p10kClean.zsh"]="${HOME}/.p10k.zsh"
-    ["p10kFancy.zsh"]="${HOME}/.p10k.zsh"
+    ["p10k.zsh"]="${HOME}/.p10k.zsh"
     ["VSCodeSettings.json"]="${HOME}/.config/Code/User/settings.json"
-    ["picom.conf"]="${HOME}/.config/picom.conf"
-    ["rofi"]="${HOME}/.config/rofi"
-    ["polybar"]="${HOME}/.config/polybar"
-    ["i3"]="${HOME}/.config/i3"
-    ["dunst"]="${HOME}/.config/dunst"
     ["kmonad"]="${HOME}/.config/kmonad"
-    ["sxhkdrc"]="${HOME}/.config/sxhkd/sxhkdrc"
     ["neofetch.conf"]="${HOME}/.config/neofetch/config.conf"
     ["bin"]="${HOME}/bin"
 )
