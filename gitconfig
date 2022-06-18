@@ -1,13 +1,14 @@
 [user]
 	name = Stephen Guo
 	email = epicsteveoj@gmail.com
-[credential]
-	helper = /usr/lib/git-core/git-credential-libsecret
+# [credential]
+	# helper = /usr/lib/git-core/git-credential-libsecret
 [core]
     pager = delta --line-numbers
 	# editor = nvim
   editor = code --wait
   whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+	askpass = /usr/bin/ksshaskpass
 
 [diff]
     colorMoved = default

@@ -1,0 +1,20 @@
+#!/usr/bin/env sh 
+
+notify-send 'Restarting KWin and plasmashell...'
+
+sed 's|OpenGLIsUnsafe=true||g' ~/.config/kwinrc
+
+kquitapp5 plasmashell && kstart5 plasmashell & > /dev/null 2>&1
+#plasmashell --replace & > /dev/null 2>&1 
+
+sleep 6
+
+export DISPLAY=:0
+kwin_x11 --replace & > /dev/null 2>&1
+
+sleep 2
+
+krunner --replace --daemon & > /dev/null 2>&1
+
+sed 's|OpenGLIsUnsafe=true||g' ~/.config/kwinrc
+

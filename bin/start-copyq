@@ -1,0 +1,4 @@
+#!/bin/sh
+
+copyq --start-server
+

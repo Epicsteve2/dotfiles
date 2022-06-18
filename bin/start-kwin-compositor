@@ -1,0 +1,3 @@
+#!/bin/sh
+qdbus org.kde.KWin /Compositor resume
+

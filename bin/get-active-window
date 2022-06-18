@@ -1,0 +1,7 @@
+#!/bin/bash
+
+CURRENT_WINDOW_CLASS=$(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g")
+
+kdialog --title kmonad-info --passivepopup "Copied to clipboard:\n$CURRENT_WINDOW_CLASS" 2
+
+tr <<<"$CURRENT_WINDOW_CLASS" -d '\n' | xclip -sel clip

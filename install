@@ -29,6 +29,7 @@ FILE_LIST=(
     ["kmonad"]="${HOME}/.config/kmonad"
     ["neofetch.conf"]="${HOME}/.config/neofetch/config.conf"
     ["bin"]="${HOME}/bin"
+    ["imwheelrc"]="${HOME}/.imwheelrc"
 )
 
 addFile() {

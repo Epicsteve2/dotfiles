@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+set -eu -o pipefail
+
+RED=$(tput setaf 1)
+# GREEN=$(tput setaf 2)
+# YELLOW=$(tput setaf 3)
+# BLUE=$(tput setaf 4)
+# MAGENTA=$(tput setaf 5)
+# CYAN=$(tput setaf 6)
+RESETCOLOR=$(tput sgr0)
+
+if [[ -z "$1" ]]; then
+    echo >&2 "${RED}No argument supplied${RESETCOLOR}"
+    exit 1
+fi
+
+case "$1" in
+    'firefox')
+        if ! xdotool search --class '^firefox$' >/dev/null 2>&1; then
+            notify-send 'Launching Firefox...'
+            firefox >/dev/null 2>&1 & disown
+            exit
+        elif [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'firefox' ]]; then
+            qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'
+        else
+            wmctrl -xa 'firefox'
+        fi
+        ;;
+    'discord')
+        if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'discord' ]]; then
+            if ! xdotool search --class '^strawberry$' >/dev/null 2>&1; then
+                notify-send 'Launching Strawberry...'
+                strawberry >/dev/null 2>&1 & disown
+                exit
+            else
+                wmctrl -xa 'strawberry'
+            fi
+            # if ! xdotool search --class '^Thunderbird$' >/dev/null 2>&1; then
+            #     notify-send 'Launching Thunderbird...'
+            #     thunderbird >/dev/null 2>&1 & disown
+            #     exit
+            # fi
+            # wmctrl -xa 'Thunderbird'
+        elif ! xdotool search --class '^discord$' >/dev/null 2>&1; then
+            notify-send 'Launching Discord...'
+            discord >/dev/null 2>&1 & disown
+            exit
+        else
+            wmctrl -xa 'discord'
+        fi
+        ;;
+    'code')
+        if ! xdotool search --class '^code$' >/dev/null 2>&1; then
+            notify-send 'Launching VSCode...'
+            code
+            exit
+        elif [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'Code' ]]; then
+            qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'
+        else
+            wmctrl -xa 'Code'
+        fi
+        ;;
+    'konsole')
+        if ! xdotool search --class '^konsole$' >/dev/null 2>&1; then
+            notify-send 'Launching Konsole...'
+            konsole
+            exit
+        elif [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'konsole' ]]; then
+            qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'
+        else
+            wmctrl -xa 'konsole'
+        fi
+
+        ;;
+    'thunderbird')
+        # if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'Thunderbird' ]]; then
+        if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'slack' ]]; then
+            if ! xdotool search --class '^Thunderbird$' >/dev/null 2>&1; then
+                notify-send 'Launching Thunderbird...'
+                thunderbird >/dev/null 2>&1 & disown
+                exit
+            else
+                wmctrl -xa 'Thunderbird'
+            fi
+        else
+            if ! xdotool search --class '^slack$' >/dev/null 2>&1; then
+                notify-send 'Launching Slack...'
+                slack >/dev/null 2>&1 & disown
+                exit
+            else
+                wmctrl -xa 'slack'
+            fi
+        fi
+        ;;
+    *)
+        echo >&2 "${RED}Not a valid name...${RESETCOLOR}"
+        exit 1
+        ;;
+esac

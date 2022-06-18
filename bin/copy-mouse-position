@@ -1,0 +1,7 @@
+#!/bin/bash
+
+eval "$(xdotool getmouselocation --shell)"
+
+kdialog --title kmonad-info --passivepopup "Copied to clipboard:\n$X, $Y" 2
+
+tr <<<"$X, $Y" -d '\n' | xclip -sel clip
