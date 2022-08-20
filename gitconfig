@@ -15,7 +15,12 @@
     diffFilter = delta --color-only --line-numbers
     # Detect copies as well as renames
   renames = copies
-[difftool "vscode"]
+  tool = vscode
+[merge]
+    tool = vscode
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+[difftool]
 	cmd = "code --wait --diff $LOCAL $REMOTE"
 [pager]
   diff = delta # --side-by-side

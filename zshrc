@@ -418,6 +418,7 @@ alias dc='docker-compose'
 alias bm='bat --language man --plain'
 alias t='task'
 alias update-grub='grub-mkconfig -o /boot/grub/grub.cfg'
+alias copy="tee /dev/tty | tr -d '\n' | xclip -sel clip"
 
 lfcd () {
     tmp="$(mktemp)"
@@ -437,7 +438,7 @@ lfcd () {
 # Expand only the g and k aliases
 # source https://blog.patshead.com/2012/11/automatically-expaning-zsh-global-aliases---simplified.html
 globalias() {
-  EXPAND_ALIASES=(g k n v vi vim d dc s t update-grub)
+  EXPAND_ALIASES=(g k h n v vi vim d dc s t update-grub)
    if [[ ${EXPAND_ALIASES[(ie)$LBUFFER]} -le ${#EXPAND_ALIASES} ]]; then
      zle _expand_alias
      zle expand-word
@@ -458,4 +459,5 @@ mkcd () {
 }
 
 [[ -d ${HOME}/bin ]] && export PATH="${PATH}:${HOME}/bin"
+[[ -d ${HOME}/.local/bin ]] && export PATH="${PATH}:${HOME}/.local/bin"
 [[ -f /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh

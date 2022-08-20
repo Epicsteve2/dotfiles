@@ -1,0 +1,9 @@
+#!/bin/bash
+
+qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Suspend Compositing'
+
+# if [[ $(qdbus org.kde.KWin /Compositor active) = 'false' ]]; then
+#   qdbus org.kde.KWin /Compositor resume
+# else
+#   qdbus org.kde.KWin /Compositor suspend
+# fi

@@ -112,6 +112,7 @@ while true; do
 
     5)
         echo "$(whoami) ALL=(ALL) NOPASSWD: ALL"
+        echo "Defaults !tty_tickets"
         read -n 1 -s -r -p "${YELLOW}Press any key to continue: ${RESETCOLOR}"
         sudo visudo
         ;;

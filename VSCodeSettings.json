@@ -65,4 +65,5 @@
   "terminal.integrated.enableMultiLinePasteWarning": false,
   "window.zoomLevel": 1,
   "markdown.experimental.validate.enabled": true,
+  "editor.experimental.stickyScroll.enabled": true,
 }
