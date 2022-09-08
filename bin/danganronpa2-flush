@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -eu -o pipefail
+
+DANGANRONPA_WINDOW="$(xdotool search -class Danganronpa2)"
+TIME=90000
+
+for i in {1..6}; do
+    echo "Entering $i"
+    echo "Holding key down for $((TIME / 1000)) seconds"
+    xdotool keydown --window="$DANGANRONPA_WINDOW" --delay=$TIME Right keyup --window="$DANGANRONPA_WINDOW" Right
+    echo "Flushing"
+    xdotool keydown --window="$DANGANRONPA_WINDOW" --delay=250 F1 keyup --window="$DANGANRONPA_WINDOW" F1
+    sleep 1
+    xdotool keydown --window="$DANGANRONPA_WINDOW" --delay=250 Up keyup --window="$DANGANRONPA_WINDOW" Up
+    sleep 0.25
+    xdotool keydown --window="$DANGANRONPA_WINDOW" --delay=250 Up keyup --window="$DANGANRONPA_WINDOW" Up
+    sleep 0.25
+    xdotool keydown --window="$DANGANRONPA_WINDOW" --delay=250 Return keyup --window="$DANGANRONPA_WINDOW" Return
+    sleep 2
+    xdotool keydown --window="$DANGANRONPA_WINDOW" --delay=250 space keyup --window="$DANGANRONPA_WINDOW" space
+    sleep 0.25
+    xdotool keydown --window="$DANGANRONPA_WINDOW" --delay=250 Escape keyup --window="$DANGANRONPA_WINDOW" Escape
+    sleep 1
+    xdotool keydown --window="$DANGANRONPA_WINDOW" --delay=250 Escape keyup --window="$DANGANRONPA_WINDOW" Escape
+done

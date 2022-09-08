@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Sleeping for 5 seconds..."
+sleep 5
+echo "Holding key down for 1.5 minutes"
+xdotool keydown --delay=90000 Right keyup Right

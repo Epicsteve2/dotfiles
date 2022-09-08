@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+    echo >&2 "No argument supplied"
+    exit 1
+fi
+
+case "$1" in
+'c')
+    if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'steam_app_2093420' ]]; then
+        xdotool click 3
+    else
+        xdotool key c
+    fi
+    ;;
+
+'v')
+    if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'steam_app_2093420' ]]; then
+        xdotool mousemove 1180, 1061 click 1 mousemove restore
+    else
+        xdotool key v
+    fi
+    ;;
+
+'r')
+    if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'steam_app_2093420' ]]; then
+        xdotool mousemove 1180, 1061 click 1 mousemove restore
+    else
+        xdotool key r
+    fi
+    ;;
+
+'space')
+    if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'steam_app_2093420' ]]; then
+        xdotool key Return
+    else
+        xdotool key space
+    fi
+    ;;
+
+*)
+    echo >&2 "Not a valid key..."
+    exit 1
+    ;;
+esac
