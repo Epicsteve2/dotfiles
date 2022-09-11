@@ -53,7 +53,7 @@
   ;; m1 (around lmet 1)
   m2 (around lmet 2)
   m3 (around lmet 3)
-  ;; m4 (around lmet 4)
+  m4 (around lmet 4)
   m5 (around lmet 5)
   m6 (around lmet 6)
 
@@ -61,9 +61,10 @@
   m1 (cmd-button "if [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'discord' ]]; then if ! xdotool search --class '^strawberry$' >/dev/null 2>&1; then notify-send 'Launching Strawberry...'; strawberry >/dev/null 2>&1; else wmctrl -xa 'strawberry'; fi; elif ! xdotool search --class '^discord$' >/dev/null 2>&1; then notify-send 'Launching Discord...'; discord >/dev/null 2>&1; else wmctrl -xa 'discord'; fi")
   ;; m2 (cmd-button "if ! xdotool search --class '^firefox$' >/dev/null 2>&1; then notify-send 'Launching Firefox...'; firefox >/dev/null 2>&1; elif [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'firefox' ]]; then qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'; else wmctrl -xa 'firefox'; fi")
   ;; m3 (cmd-button "if ! xdotool search --class '^code$' >/dev/null 2>&1; then notify-send 'Launching VSCode...'; code; elif [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'Code' ]]; then qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'; else wmctrl -xa 'Code'; fi")
-  m4 (cmd-button "if [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'Slack' ]]; then if ! xdotool search --class '^Thunderbird$' >/dev/null 2>&1; then notify-send 'Launching Thunderbird...'; thunderbird >/dev/null 2>&1; else wmctrl -xa 'Thunderbird'; fi; elif ! xdotool search --class '^Slack$' >/dev/null 2>&1; then notify-send 'Launching Slack...'; slack >/dev/null 2>&1; else wmctrl -xa 'Slack'; fi")
+  ;; m4 (cmd-button "if [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'Slack' ]]; then if ! xdotool search --class '^Thunderbird$' >/dev/null 2>&1; then notify-send 'Launching Thunderbird...'; thunderbird >/dev/null 2>&1; else wmctrl -xa 'Thunderbird'; fi; elif ! xdotool search --class '^Slack$' >/dev/null 2>&1; then notify-send 'Launching Slack...'; slack >/dev/null 2>&1; else wmctrl -xa 'Slack'; fi")
   ;; m5 (cmd-button "if ! xdotool search --class '^konsole$' >/dev/null 2>&1; then notify-send 'Launching Konsole...'; konsole; elif [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'konsole' ]]; then qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'; else wmctrl -xa 'konsole'; fi")
   ;; m1 (cmd-button "launch-or-switch ")
+  m9 (cmd-button "wmctrl -xa 'ever17pc_us.exe'")
 
   ;; m1 (cmd-button "if [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'discord' ]]; then if ! xdotool search --class '^strawberry$' >/dev/null 2>&1; then notify-send 'Launching Strawberry...'; strawberry >/dev/null 2>&1; else wmctrl -xa 'strawberry'; fi; elif ! xdotool search --class '^discord$' >/dev/null 2>&1; then notify-send 'Launching Discord...'; discord >/dev/null 2>&1; else wmctrl -xa 'discord'; fi")
   ;; m2 (cmd-button "if ! xdotool search --class '^firefox$' >/dev/null 2>&1; then notify-send 'Launching Firefox...'; firefox >/dev/null 2>&1; elif [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'firefox' ]]; then qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'; else wmctrl -xa 'firefox'; fi")
@@ -72,6 +73,9 @@
   ;; m5 (cmd-button "if ! xdotool search --class '^konsole$' >/dev/null 2>&1; then notify-send 'Launching Konsole...'; konsole; elif [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'konsole' ]]; then qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'; else wmctrl -xa 'konsole'; fi")
 
   sp (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Summer Pockets' 2") (layer-switch summer-pockets))
+  kk (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Kinkoi Golden Time' 2") (layer-switch kinkoi-golden-time))
+  ml (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Making Lovers' 2") (layer-switch making-lovers))
+  e17 (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Ever17' 2") (layer-switch ever17))
   man (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Main' 2") (layer-switch main))
   cpc (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/copy-mouse-position")
   cpw (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/get-active-window")
@@ -88,6 +92,29 @@
   spo (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/summer-pockets-keybinds o")
   spsp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/summer-pockets-keybinds space")
 
+  kka (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/kinkoi-golden-time-keybinds a")
+  kks (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/kinkoi-golden-time-keybinds s")
+  kkf (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/kinkoi-golden-time-keybinds f")
+  kkl (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/kinkoi-golden-time-keybinds l")
+  kkc (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/kinkoi-golden-time-keybinds c")
+  kkv (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/kinkoi-golden-time-keybinds v")
+  kkm (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/kinkoi-golden-time-keybinds m")
+  kkr (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/kinkoi-golden-time-keybinds r")
+  kkt (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/kinkoi-golden-time-keybinds t")
+  kko (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/kinkoi-golden-time-keybinds o")
+
+  mlc (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/making-lovers-keybinds c")
+  mlv (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/making-lovers-keybinds v")
+  mlr (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/making-lovers-keybinds r")
+  mlsp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/making-lovers-keybinds space")
+
+  e1a (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds a")
+  e1s (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds s")
+  e1f (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds f")
+  e1l (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds l")
+  e1c (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds c")
+  e1o (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds o")
+
   ;; TODO? restart kmonad... this might be hard af tho
 )
 
@@ -103,19 +130,19 @@
 (deflayer zero
   _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _     _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    kp/  kp*  kp-
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     @man @sp    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     @man @e17 @m9  _
   caps _    @yts _    _    _    _    _    _    _    _    _    _                          @m4  @m5  @m6
   _    _    _    _    _    _    _    _    _    @cpc @cpw _                    _          @m1  @m2  @m3  _
-  _    _    _              _              _    _    _                    _    _    _     _         _
+  _    _    _              _              _    _    _                    _    _    _     _         @0dot
 )
 
 (deflayer dot
   _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _     _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  _    @ml  @kk  @sp  _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _                    _          _    _    _    _
-  _    _    _              _              _    _    _                    _    _    _     _         _
+  _    _    _              _              _    _    _                    _    _    _     _         @0dot
 )
 
 (deflayer summer-pockets
@@ -124,5 +151,32 @@
   _    _    _    _    @spr @spt _    _    _    @spo _    _    _    _     _    _    _     _    _    _    _
   esc  @spa @sps _    @spf _    _    _    _    @spl _    _    _                          _    _    _
   _    _    _    @spc @spv _    _    @spm _    _    _    _                    _          _    _    _    _
-  _    _    _              @spsp          _    _    _                    _    _    _     @0ctl     _
+  _    _    _              @spsp          _    _    _                    _    _    _     @0ctl     @0dot
+)
+
+(deflayer kinkoi-golden-time
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
+  _    _    _    _    @kkr @kkt _    _    _    @kko _    _    _    _     _    _    _     _    _    _    _
+  esc  @kka @kks _    @kkf _    _    _    _    @kkl _    _    _                          _    _    _
+  _    _    _    @kkc @kkv _    _    @kkm _    _    _    _                    _          _    _    _    _
+  _    _    _              _              _    _    _                    _    _    _     @0ctl     @0dot
+)
+
+(deflayer making-lovers
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
+  _    _    _    _    @mlr _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
+  esc  _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
+  _    _    _    @mlc @mlv _    _    _    _    _    _    _                    _          _    _    _    _
+  _    _    _              @mlsp          _    _    _                    _    _    _     @0ctl     @0dot
+)
+
+(deflayer ever17
+  _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
+  _    _    _    _    _    _    _    _    _    @e1o _    _    _    _     _    _    _     _    _    _    _
+  esc  @e1a @e1s _    @e1f _    _    _    _    @e1l _    _    _                          _    _    _
+  _    _    _    @e1c _    _    _    _    _    _    _    _                    _          _    _    _    _
+  _    _    _              _              _    _    _                    _    _    _     @0ctl     @0dot
 )
