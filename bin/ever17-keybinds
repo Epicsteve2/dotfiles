@@ -10,23 +10,24 @@ case "$1" in
     if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'ever17pc_us.exe' ]]; then
         # xdotool key F1
         xdotool mousedown 3
-        sleep 0.025
+        sleep 0.060
         xdotool mouseup 3
-        sleep 0.025
+        sleep 0.060
         xdotool \
-            key --delay=25 Up \
-            key --delay=25 Up \
-            key --delay=25 Up \
-            key --delay=25 Up \
-            key --delay=25 Up \
-            key --delay=25 Up \
-            key --delay=25 Up \
-            key --delay=25 Up \
-            key --delay=25 Up \
-            key --delay=250 Right \
-            key --delay=25 Down \
-            key --delay=25 Down \
-            key --delay=25 Return
+            key --delay=60 Up \
+            key --delay=60 Up \
+            key --delay=60 Up \
+            key --delay=60 Up \
+            key --delay=60 Up \
+            key --delay=60 Up \
+            key --delay=60 Up \
+            key --delay=60 Up \
+            key --delay=60 Up \
+            key --delay=600 Right \
+            key --delay=60 Up \
+            key --delay=60 Up \
+            key --delay=60 Up \
+            key --delay=60 Return
 
     else
         xdotool key a
@@ -34,21 +35,21 @@ case "$1" in
     ;;
 's')
     if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'ever17pc_us.exe' ]]; then
-        xdotool key F6
+        xdotool keydown --delay=25 F6 keyup F6
     else
         xdotool key s
     fi
     ;;
 'f')
     if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'ever17pc_us.exe' ]]; then
-        xdotool key F3
+        xdotool keydown --delay=25 F3 keyup F3
     else
         xdotool key f
     fi
     ;;
 'l')
     if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'ever17pc_us.exe' ]]; then
-        xdotool key F7
+        xdotool keydown --delay=25 F7 keyup F7
     else
         xdotool key l
     fi
@@ -56,7 +57,7 @@ case "$1" in
 
 'c')
     if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'ever17pc_us.exe' ]]; then
-        xdotool key F2
+        xdotool keydown --delay=25 F2 keyup F2
     else
         xdotool key c
     fi
@@ -64,9 +65,17 @@ case "$1" in
 
 'o')
     if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'ever17pc_us.exe' ]]; then
-        xdotool key F8
+        xdotool keydown --delay=25 F8 keyup F8
     else
         xdotool key o
+    fi
+    ;;
+
+'space')
+    if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'ever17pc_us.exe' ]]; then
+        xdotool keydown --delay=25 Return keyup Return
+    else
+        xdotool key space
     fi
     ;;
 

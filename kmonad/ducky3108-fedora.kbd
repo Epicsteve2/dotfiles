@@ -114,6 +114,7 @@
   e1l (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds l")
   e1c (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds c")
   e1o (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds o")
+  e1sp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds space")
 
   ;; TODO? restart kmonad... this might be hard af tho
 )
@@ -178,5 +179,5 @@
   _    _    _    _    _    _    _    _    _    @e1o _    _    _    _     _    _    _     _    _    _    _
   esc  @e1a @e1s _    @e1f _    _    _    _    @e1l _    _    _                          _    _    _
   _    _    _    @e1c _    _    _    _    _    _    _    _                    _          _    _    _    _
-  _    _    _              _              _    _    _                    _    _    _     @0ctl     @0dot
+  _    _    _              @e1sp          _    _    _                    _    _    _     @0ctl     @0dot
 )
