@@ -11,7 +11,7 @@
 	askpass = /usr/bin/ksshaskpass
 
 [diff]
-    colorMoved = default
+    # colorMoved = default
     diffFilter = delta --color-only --line-numbers
     # Detect copies as well as renames
   renames = copies

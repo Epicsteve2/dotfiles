@@ -3,8 +3,6 @@
   "editor.cursorSmoothCaretAnimation": true,
   "editor.fontFamily": "'FiraCode Nerd Font', 'MesloLGS NF', 'Monofur Nerd Font'",
   "editor.fontLigatures": true,
-  "editor.formatOnSave": true,
-  "editor.formatOnType": true,
   "editor.minimap.renderCharacters": false,
   "editor.renderWhitespace": "boundary",
   "editor.scrollBeyondLastLine": false,
@@ -63,7 +61,42 @@
   },
   "haskell.manageHLS": "PATH",
   "terminal.integrated.enableMultiLinePasteWarning": false,
-  "window.zoomLevel": 1,
   "markdown.experimental.validate.enabled": true,
-  "editor.experimental.stickyScroll.enabled": true,
+  "svelte.enable-ts-plugin": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.stickyScroll.enabled": true,
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "python.formatting.provider": "black",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  // "git.mergeEditor": true,
+  "background.enabled": true,
+  "background.loop": false,
+  "background.useDefault": false,
+  "background.useFront": false,
+  "background.style": {
+    "content": "''",
+    "pointer-events": "none",
+    "position": "absolute",
+    "z-index": "99999",
+    "width": "100%",
+    "height": "100%",
+    "background-size": "cover",
+    "background-repeat": "no-repeat",
+    "opacity": 0.2
+  },
+  "background.customImages": [
+    "/home/stephen/Pictures/Wallpapers/wp8281628-suisei-hoshimachi-wallpapers.jpg",
+  ]
 }
