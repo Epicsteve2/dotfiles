@@ -8,7 +8,7 @@ local config = {
   },
 
   lsp = {
-    skip_setup = { "rust_analyzer" }, -- will be set up by rust-tools & the typescript plugin
+    skip_setup = { "rust_analyzer", "tsserver" }, -- will be set up by rust-tools & the typescript plugin
     ["server-settings"] = {
       rust_analyzer = {
         settings = {
@@ -26,6 +26,7 @@ local config = {
 
   plugins = {
     init = {
+      { "sheerun/vim-polyglot" },
       { "farmergreg/vim-lastplace" },
       {
         "kylechui/nvim-surround",
@@ -52,10 +53,39 @@ local config = {
           }
         end,
       },
+      {
+        "jose-elias-alvarez/typescript.nvim",
+        after = "mason-lspconfig.nvim",
+        config = function()
+          require("typescript").setup {
+            server = astronvim.lsp.server_settings "tsserver",
+          }
+        end,
+      },
+      {
+        "Saecki/crates.nvim",
+        after = "nvim-cmp",
+        config = function()
+          require("crates").setup()
+          astronvim.add_cmp_source { name = "crates", priority = 1100 }
+
+          -- Crates mappings:
+          local map = vim.api.nvim_set_keymap
+          map("n", "<leader>Ct", ":lua require('crates').toggle()<cr>", { desc = "Toggle extra crates.io information" })
+          map("n", "<leader>Cr", ":lua require('crates').reload()<cr>", { desc = "Reload information from crates.io" })
+          map("n", "<leader>CU", ":lua require('crates').upgrade_crate()<cr>", { desc = "Upgrade a crate" })
+          map("v", "<leader>CU", ":lua require('crates').upgrade_crates()<cr>", { desc = "Upgrade selected crates" })
+          map("n", "<leader>CA", ":lua require('crates').upgrade_all_crates()<cr>", { desc = "Upgrade all crates" })
+        end,
+      },
+      {
+        "ggandor/leap.nvim",
+        config = function() require("leap").set_default_keymaps() end,
+      },
     },
 
     ["mason-lspconfig"] = {
-      ensure_installed = { "rust_analyzer" }, -- install rust_analyzer
+      ensure_installed = { "rust_analyzer", "tsserver" }, -- install rust_analyzer
     },
     -- {
     --   "pocco81/auto-save.nvim",
@@ -66,6 +96,34 @@ local config = {
     --   end,
     -- },
     -- { "sainnhe/sonokai" },
+    ["null-ls"] = function(config)
+      local null_ls = require "null-ls"
+      local vale = null_ls.builtins.diagnostics.vale
+      vale["filetypes"] = { "markdown", "tex", "asciidoc", "html" }
+      -- Check supported formatters and linters
+      config.sources = {
+        null_ls.builtins.code_actions.shellcheck,
+        -- Set a linter
+        -- null_ls.builtins.diagnostics.actionlint, -- for github actions
+        null_ls.builtins.diagnostics.eslint,
+        -- null_ls.builtins.diagnostics.fish, -- doubt i'll need this
+        -- null_ls.builtins.diagnostics.gitlint, -- for git commit messages
+        -- null_ls.builtins.diagnostics.luacheck, -- idk i have lua language server
+        -- null_ls.builtins.diagnostics.markdownlint,
+        null_ls.builtins.diagnostics.mypy,
+        null_ls.builtins.diagnostics.shellcheck,
+        -- vale, -- not too sure what this is
+        -- null_ls.builtins.diagnostics.vulture, -- for python dead code
+        null_ls.builtins.diagnostics.yamllint,
+        -- Set a formatter
+        null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.jq,
+        -- null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.shellharden,
+        -- null_ls.builtins.formatting.stylua, -- lua formatter, in rust
+      }
+      return config
+    end,
   },
 
   cmp.setup {
