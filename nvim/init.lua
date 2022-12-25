@@ -50,6 +50,12 @@ local config = {
         config = function()
           require("rust-tools").setup {
             server = astronvim.lsp.server_settings "rust_analyzer", -- get the server settings and built in capabilities/on_attach
+            tools = {
+              inlay_hints = {
+                parameter_hints_prefix = "  ",
+                other_hints_prefix = "  ",
+              },
+            },
           }
         end,
       },
@@ -82,6 +88,26 @@ local config = {
         "ggandor/leap.nvim",
         config = function() require("leap").set_default_keymaps() end,
       },
+      -- this works. but it's wonky.
+      {
+        "nvim-treesitter/nvim-treesitter-context",
+        after = "nvim-treesitter",
+        config = function()
+          require("treesitter-context").setup {}
+        end
+      },
+
+      -- -- This chagnes the Ctrl + H keybinding...
+      -- { "wellle/context.vim" },
+      -- https://github.com/AstroNvim/AstroNvim/issues/1392
+      ["Shatur/neovim-session-manager"] = {
+        event = "VimEnter",
+        config = function()
+          require('session_manager').setup {
+            autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir,
+          }
+        end
+      },
     },
 
     ["mason-lspconfig"] = {
@@ -96,34 +122,56 @@ local config = {
     --   end,
     -- },
     -- { "sainnhe/sonokai" },
-    ["null-ls"] = function(config)
-      local null_ls = require "null-ls"
-      local vale = null_ls.builtins.diagnostics.vale
-      vale["filetypes"] = { "markdown", "tex", "asciidoc", "html" }
-      -- Check supported formatters and linters
-      config.sources = {
-        null_ls.builtins.code_actions.shellcheck,
-        -- Set a linter
-        -- null_ls.builtins.diagnostics.actionlint, -- for github actions
-        null_ls.builtins.diagnostics.eslint,
-        -- null_ls.builtins.diagnostics.fish, -- doubt i'll need this
-        -- null_ls.builtins.diagnostics.gitlint, -- for git commit messages
-        -- null_ls.builtins.diagnostics.luacheck, -- idk i have lua language server
-        -- null_ls.builtins.diagnostics.markdownlint,
-        null_ls.builtins.diagnostics.mypy,
-        null_ls.builtins.diagnostics.shellcheck,
-        -- vale, -- not too sure what this is
-        -- null_ls.builtins.diagnostics.vulture, -- for python dead code
-        null_ls.builtins.diagnostics.yamllint,
-        -- Set a formatter
-        null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.jq,
-        -- null_ls.builtins.formatting.prettier,
-        null_ls.builtins.formatting.shellharden,
-        -- null_ls.builtins.formatting.stylua, -- lua formatter, in rust
-      }
-      return config
-    end,
+    -- -- ok so these are for manuyally installed LSPs and stuff
+    -- ["null-ls"] = function(config)
+    --   local null_ls = require "null-ls"
+    --   local vale = null_ls.builtins.diagnostics.vale
+    --   vale["filetypes"] = { "markdown", "tex", "asciidoc", "html" }
+    --   -- Check supported formatters and linters
+    --   config.sources = {
+    --     null_ls.builtins.code_actions.shellcheck, -- can also just install using Mason
+    --     -- Set a linter
+    --     -- null_ls.builtins.diagnostics.actionlint, -- for github actions
+    --     -- null_ls.builtins.diagnostics.eslint,
+    --     -- null_ls.builtins.diagnostics.fish, -- doubt i'll need this
+    --     -- null_ls.builtins.diagnostics.gitlint, -- for git commit messages
+    --     -- null_ls.builtins.diagnostics.luacheck, -- idk i have lua language server
+    --     -- null_ls.builtins.diagnostics.markdownlint,
+    --     null_ls.builtins.diagnostics.mypy,
+    --     null_ls.builtins.diagnostics.shellcheck, -- can also just install using Mason
+    --     -- vale, -- not too sure what this is
+    --     -- null_ls.builtins.diagnostics.vulture, -- for python dead code
+    --     null_ls.builtins.diagnostics.yamllint,
+    --     -- Set a formatter
+    --     null_ls.builtins.formatting.black,
+    --     null_ls.builtins.formatting.jq,
+    --     null_ls.builtins.formatting.prettier,
+    --     null_ls.builtins.formatting.shellharden,
+    --     -- null_ls.builtins.formatting.stylua, -- lua formatter, in rust
+    --   }
+    --   return config
+    -- end,
+    -- -- idk i'll just use mason
+    -- texlab
+    -- jdtls
+    -- json-lsp
+    -- html-lsp
+    -- prettier
+    -- css-lsp
+    -- hadolint
+    -- dockerfile-language-server
+    -- yamlfmt
+    -- yamllint
+    -- yaml-language-server
+    -- shfmt
+    -- shellcheck
+    -- bash-language-server
+    -- black
+    -- lua-language-server
+    -- mypy
+    -- rust-analyzer
+    -- svelte-language-server
+    -- typescript-language-server
   },
 
   cmp.setup {
@@ -142,6 +190,10 @@ local config = {
       ["<C-h>"] = { "<C-W>" },
       ["<C-BS>"] = { "<C-W>" },
       ["<M-BS"] = { "<C-W>" },
+    },
+    v = {
+      -- when in visual mode, pasting will not overwrite the paste register
+      ["<leader>p"] = { "\"_dP" },
     }
   },
 
@@ -173,6 +225,31 @@ local config = {
       NeoTreeNormalNC = { bg = "NONE", ctermbg = "NONE" },
     },
   },
+
+  -- taken from https://astronvim.github.io/Recipes/alpha#open-alpha-automatically-when-no-more-buffers
+  polish = function()
+    -- https://github.com/AstroNvim/AstroNvim/issues/1392
+    vim.api.nvim_del_augroup_by_name "alpha_settings"
+
+    local function alpha_on_bye(cmd)
+      local bufs = vim.fn.getbufinfo { buflisted = true }
+      vim.cmd(cmd)
+      if require("core.utils").is_available "alpha-nvim" and not bufs[2] then
+        require("alpha").start(true)
+      end
+    end
+
+    vim.keymap.del("n", "<leader>c")
+    if require("core.utils").is_available "bufdelete.nvim" then
+      vim.keymap.set("n", "<leader>c", function()
+        alpha_on_bye "Bdelete!"
+      end, { desc = "Close buffer" })
+    else
+      vim.keymap.set("n", "<leader>c", function()
+        alpha_on_bye "bdelete!"
+      end, { desc = "Close buffer" })
+    end
+  end,
 }
 
 return config
