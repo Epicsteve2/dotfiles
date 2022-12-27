@@ -77,6 +77,7 @@
   ml (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Making Lovers' 2") (layer-switch making-lovers))
   e17 (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Ever17' 2") (layer-switch ever17))
   man (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Main' 2") (layer-switch main))
+  ake (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Aokana EXTRA2' 2") (layer-switch aokana-extra2))
   cpc (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/copy-mouse-position")
   cpw (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/get-active-window")
 
@@ -116,68 +117,89 @@
   e1o (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds o")
   e1sp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/ever17-keybinds space")
 
+  ;; aokana-extra2
+  akeA (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh a")
+  akeS (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh s")
+  akeF (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh f")
+  akeL (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh l")
+  akeC (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh c")
+  akeO (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh o")
+  akeV (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh v")
+  akeR (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh r")
+  akeT (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh t")
+  akeSp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh space")
+
   ;; TODO? restart kmonad... this might be hard af tho
 )
 
 (deflayer main
-  _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
-  esc  _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _                    _          _    _    _    _
-  _    _    _              _              _    _    _                    _    _    _     @0ctl     @0dot
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  esc   _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
+  _     _     _                 _                 _     _     _                       _     _     _     @0ctl       @0dot
 )
 
 (deflayer zero
-  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _     _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    kp/  kp*  kp-
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     @man @e17 @m9  _
-  caps _    @yts _    _    _    _    _    _    _    _    _    _                          @m4  @m5  @m6
-  _    _    _    _    _    _    _    _    _    @cpc @cpw _                    _          @m1  @m2  @m3  _
-  _    _    _              _              _    _    _                    _    _    _     _         @0dot
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     kp/   kp*   kp-
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @man  @ake  @m9   _
+  caps  _     @yts  _     _     _     _     _     _     _     _     _     _                             @m4   @m5   @m6
+  _     _     _     _     _     _     _     _     _     @cpc  @cpw  _                       _           @m1   @m2   @m3   _
+  _     _     _                 _                 _     _     _                       _     _     _     _           @0dot
 )
 
 (deflayer dot
-  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _     _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
-  _    @ml  @kk  @sp  _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _                    _          _    _    _    _
-  _    _    _              _              _    _    _                    _    _    _     _         @0dot
-)
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     @ml   @kk   @sp   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
+  _     _     _                 _                 _     _     _                       _     _     _     _           @0dot
+                    )
 
 (deflayer summer-pockets
-  _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
-  _    _    _    _    @spr @spt _    _    _    @spo _    _    _    _     _    _    _     _    _    _    _
-  esc  @spa @sps _    @spf _    _    _    _    @spl _    _    _                          _    _    _
-  _    _    _    @spc @spv _    _    @spm _    _    _    _                    _          _    _    _    _
-  _    _    _              @spsp          _    _    _                    _    _    _     @0ctl     @0dot
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
+  _     _     _     _     @spr  @spt  _     _     _     @spo  _     _     _     _     _     _     _     _     _     _     _
+  esc   @spa  @sps  _     @spf  _     _     _     _     @spl  _     _     _                             _     _     _
+  _     _     _     @spc  @spv  _     _     @spm  _     _     _     _                       _           _     _     _     _
+  _     _     _                 @spsp             _     _     _                       _     _     _     @0ctl       @0dot
 )
 
 (deflayer kinkoi-golden-time
-  _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
-  _    _    _    _    @kkr @kkt _    _    _    @kko _    _    _    _     _    _    _     _    _    _    _
-  esc  @kka @kks _    @kkf _    _    _    _    @kkl _    _    _                          _    _    _
-  _    _    _    @kkc @kkv _    _    @kkm _    _    _    _                    _          _    _    _    _
-  _    _    _              _              _    _    _                    _    _    _     @0ctl     @0dot
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
+  _     _     _     _     @kkr  @kkt  _     _     _     @kko  _     _     _     _     _     _     _     _     _     _     _
+  esc   @kka  @kks  _     @kkf  _     _     _     _     @kkl  _     _     _                             _     _     _
+  _     _     _     @kkc  @kkv  _     _     @kkm  _     _     _     _                       _           _     _     _     _
+  _     _     _                 _                 _     _     _                       _     _     _     @0ctl       @0dot
 )
 
 (deflayer making-lovers
-  _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
-  _    _    _    _    @mlr _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
-  esc  _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
-  _    _    _    @mlc @mlv _    _    _    _    _    _    _                    _          _    _    _    _
-  _    _    _              @mlsp          _    _    _                    _    _    _     @0ctl     @0dot
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
+  _     _     _     _     @mlr  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  esc   _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _
+  _     _     _     @mlc  @mlv  _     _     _     _     _     _     _                       _           _     _     _     _
+  _     _     _                 @mlsp             _     _     _                       _     _     _     @0ctl       @0dot
 )
 
 (deflayer ever17
-  _    _    _    _    _    _    _    _    _    _    _    _    _          _    @obs f15   _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _     f13  _    _     _    @pev @plp @net
-  _    _    _    _    _    _    _    _    _    @e1o _    _    _    _     _    _    _     _    _    _    _
-  esc  @e1a @e1s _    @e1f _    _    _    _    @e1l _    _    _                          _    _    _
-  _    _    _    @e1c _    _    _    _    _    _    _    _                    _          _    _    _    _
-  _    _    _              @e1sp          _    _    _                    _    _    _     @0ctl     @0dot
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
+  _     _     _     _     _     _     _     _     _     @e1o  _     _     _     _     _     _     _     _     _     _     _
+  esc   @e1a  @e1s  _     @e1f  _     _     _     _     @e1l  _     _     _                             _     _     _
+  _     _     _     @e1c  _     _     _     _     _     _     _     _                       _           _     _     _     _
+  _     _     _                 @e1sp             _     _     _                       _     _     _     @0ctl       @0dot
+)
+
+(deflayer aokana-extra2
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net 
+  _     _     _     _     @akeR @akeT _     _     _     @akeO _     _     _     _     _     _     _     _     _     _     _
+  esc   @akeA @akeS _     @akeF _     _     _     _     @akeL _     _     _                             _     _     _
+  _     _     _     @akeC @akeV _     _     _     _     _     _     _                       _           _     _     _     _
+  _     _     _                 @akeSp            _     _     _                       _     _     _     @0ctl       @0dot
 )
