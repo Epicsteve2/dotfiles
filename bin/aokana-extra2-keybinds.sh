@@ -7,11 +7,12 @@ if [[ -z "$1" ]]; then
 	exit 1
 fi
 
-AOKANA_EXTRA2_WINDOW=$(xdotool search --name 'Aokana EXTRA2')
-if [[ -z $AOKANA_EXTRA2_WINDOW ]]; then
-	echo "Could not find Aokana EXTRA2"
-	exit 1
-fi
+# # Don't need this I guess. Was gonna put this in the arguments of xdotool but i guess that's not needed
+# AOKANA_EXTRA2_WINDOW=$(xdotool search --name 'Aokana EXTRA2')
+# if [[ -z $AOKANA_EXTRA2_WINDOW ]]; then
+# 	echo "Could not find Aokana EXTRA2"
+# 	exit 1
+# fi
 
 if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'steam_app_2206340' ]]; then
 	IS_AOKANA_EXTRA2_ACTIVE=true

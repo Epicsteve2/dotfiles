@@ -132,6 +132,10 @@
   ;; TODO? restart kmonad... this might be hard af tho
 )
 
+;; I used a vim macro to add 1 space to everything
+;; first, a macro that moves 5 spaces, add a space
+;; then ANOTHER macro that does that 20 times, the move to next line
+;; run THAT macro 6 times lol
 (deflayer main
   _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
