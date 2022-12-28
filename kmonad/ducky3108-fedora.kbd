@@ -3,7 +3,7 @@
 ;; kmonad /home/stephen/.config/kmonad/ducky3108.kbd; sleep 2
 ;; sleep 2; xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g"
 ;; xdotool getactivewindow getwindowclassname
-
+;; sleep 4; copy-mouse-position
 
 (defcfg
   ;; For Linux
@@ -22,22 +22,22 @@
   allow-cmd true
 )
 
-;; (deflayer name
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _     _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _     _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _                          _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _                    _          _    _    _    _
-;;   _    _    _              _              _    _    _                    _    _    _     _         _
-;; )
+(deflayer name
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
+  _     _     _                 _                 _     _     _                       _     _     _     _           _
+)
                                                                                          ;; these don't work...
 (defsrc
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        ssrq slck pause calc mute vold volu ;; calc mute vold volu
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn  kp7  kp8  kp9  kp+
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret                        kp4  kp5  kp6
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up         kp1  kp2  kp3  kprt
-  lctl lmet lalt           spc            ralt rmet rctl                 left down rght  kp0       kp.
+  esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12         ssrq  slck  pause calc  mute  vold  volu ;; calc mute vold volu
+  grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc  ins   home  pgup  nlck  kp/   kp*   kp-
+  tab   q     w     e     r     t     y     u     i     o     p     [     ]     \     del   end   pgdn  kp7   kp8   kp9   kp+
+  caps  a     s     d     f     g     h     j     k     l     ;     '     ret                           kp4   kp5   kp 6
+  lsft  z     x     c     v     b     n     m     ,     .     /     rsft                    up          kp1   kp2   kp3   kprt
+  lctl  lmet  lalt              spc               ralt  rmet  rctl                    left  down  rght  kp0         kp .
 )
 
 (defalias
@@ -64,7 +64,8 @@
   ;; m4 (cmd-button "if [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'Slack' ]]; then if ! xdotool search --class '^Thunderbird$' >/dev/null 2>&1; then notify-send 'Launching Thunderbird...'; thunderbird >/dev/null 2>&1; else wmctrl -xa 'Thunderbird'; fi; elif ! xdotool search --class '^Slack$' >/dev/null 2>&1; then notify-send 'Launching Slack...'; slack >/dev/null 2>&1; else wmctrl -xa 'Slack'; fi")
   ;; m5 (cmd-button "if ! xdotool search --class '^konsole$' >/dev/null 2>&1; then notify-send 'Launching Konsole...'; konsole; elif [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'konsole' ]]; then qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'; else wmctrl -xa 'konsole'; fi")
   ;; m1 (cmd-button "launch-or-switch ")
-  m9 (cmd-button "wmctrl -xa 'ever17pc_us.exe'")
+  ;; m9 (cmd-button "wmctrl -xa 'ever17pc_us.exe'")
+  m9 (cmd-button "wmctrl -xa 'steam_app_2206340'")
 
   ;; m1 (cmd-button "if [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'discord' ]]; then if ! xdotool search --class '^strawberry$' >/dev/null 2>&1; then notify-send 'Launching Strawberry...'; strawberry >/dev/null 2>&1; else wmctrl -xa 'strawberry'; fi; elif ! xdotool search --class '^discord$' >/dev/null 2>&1; then notify-send 'Launching Discord...'; discord >/dev/null 2>&1; else wmctrl -xa 'discord'; fi")
   ;; m2 (cmd-button "if ! xdotool search --class '^firefox$' >/dev/null 2>&1; then notify-send 'Launching Firefox...'; firefox >/dev/null 2>&1; elif [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'firefox' ]]; then qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'; else wmctrl -xa 'firefox'; fi")

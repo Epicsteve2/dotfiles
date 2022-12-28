@@ -4,7 +4,14 @@ local config = {
   options = {
     opt = {
       cmdheight = 1,
+      -- idk how i got this, but it works lol
+      -- https://github.com/jh-tan/config-file/blob/dd68c5efa7107e6c3ea38de25d19622325aa8690/neovim/lua/user/options.lua
+      -- but this saves tab order
+      sessionoptions = vim.opt.sessionoptions + "globals",
     },
+    -- g = {
+    --   autoformat_enabled = false, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
+    -- },
   },
 
   lsp = {
@@ -21,11 +28,21 @@ local config = {
           },
         },
       },
-    }
+    },
+    formatting = {
+      format_on_save = {
+        enabled = true, -- enable format on save
+        ignore_filetypes = { -- disable format on save for specified filetypes
+          "markdown",
+          -- "python",
+        },
+      },
+    },
   },
 
   plugins = {
     init = {
+      { "kmonad/kmonad-vim" },
       { "sheerun/vim-polyglot" },
       { "farmergreg/vim-lastplace" },
       {
