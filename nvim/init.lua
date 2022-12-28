@@ -42,6 +42,12 @@ local config = {
 
   plugins = {
     init = {
+      -- can do things with lines now, such as yil = Yank in line
+      { "kana/vim-textobj-user" },
+      {
+        "kana/vim-textobj-line",
+        after = "vim-textobj-user",
+      },
       { "kmonad/kmonad-vim" },
       { "sheerun/vim-polyglot" },
       { "farmergreg/vim-lastplace" },
@@ -121,6 +127,7 @@ local config = {
         event = "VimEnter",
         config = function()
           require('session_manager').setup {
+
             autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir,
           }
         end
@@ -130,6 +137,7 @@ local config = {
     ["mason-lspconfig"] = {
       ensure_installed = { "rust_analyzer", "tsserver" }, -- install rust_analyzer
     },
+
     -- {
     --   "pocco81/auto-save.nvim",
     --   config = function()
@@ -210,7 +218,7 @@ local config = {
     },
     v = {
       -- when in visual mode, pasting will not overwrite the paste register
-      ["<leader>p"] = { "\"_dP" },
+      ["<leader>p"] = { "\"_dP", desc = "Paste and keep pasted text" },
     }
   },
 
@@ -247,6 +255,31 @@ local config = {
   polish = function()
     -- https://github.com/AstroNvim/AstroNvim/issues/1392
     vim.api.nvim_del_augroup_by_name "alpha_settings"
+
+    -- go to tab
+    vim.keymap.set({ 'n' }, '<leader>1', "<Cmd>BufferLineGoToBuffer 1<CR>", { silent = true, noremap = true })
+    vim.keymap.set({ 'n' }, '<leader>2', "<Cmd>BufferLineGoToBuffer 2<CR>", { silent = true, noremap = true })
+    vim.keymap.set({ 'n' }, '<leader>3', "<Cmd>BufferLineGoToBuffer 3<CR>", { silent = true, noremap = true })
+    vim.keymap.set({ 'n' }, '<leader>4', "<Cmd>BufferLineGoToBuffer 4<CR>", { silent = true, noremap = true })
+    vim.keymap.set({ 'n' }, '<leader>5', "<Cmd>BufferLineGoToBuffer 5<CR>", { silent = true, noremap = true })
+    vim.keymap.set({ 'n' }, '<leader>6', "<Cmd>BufferLineGoToBuffer 6<CR>", { silent = true, noremap = true })
+    vim.keymap.set({ 'n' }, '<leader>7', "<Cmd>BufferLineGoToBuffer 7<CR>", { silent = true, noremap = true })
+    vim.keymap.set({ 'n' }, '<leader>8', "<Cmd>BufferLineGoToBuffer 8<CR>", { silent = true, noremap = true })
+    vim.keymap.set({ 'n' }, '<leader>9', "<Cmd>BufferLineGoToBuffer 9<CR>", { silent = true, noremap = true })
+
+    require("which-key").register({
+      ["<leader>"] = {
+        ["1"] = "which_key_ignore",
+        ["2"] = "which_key_ignore",
+        ["3"] = "which_key_ignore",
+        ["4"] = "which_key_ignore",
+        ["5"] = "which_key_ignore",
+        ["6"] = "which_key_ignore",
+        ["7"] = "which_key_ignore",
+        ["8"] = "which_key_ignore",
+        ["9"] = "which_key_ignore",
+      }
+    })
 
     local function alpha_on_bye(cmd)
       local bufs = vim.fn.getbufinfo { buflisted = true }
