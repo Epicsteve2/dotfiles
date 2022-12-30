@@ -65,7 +65,10 @@
   ;; m5 (cmd-button "if ! xdotool search --class '^konsole$' >/dev/null 2>&1; then notify-send 'Launching Konsole...'; konsole; elif [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'konsole' ]]; then qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'; else wmctrl -xa 'konsole'; fi")
   ;; m1 (cmd-button "launch-or-switch ")
   ;; m9 (cmd-button "wmctrl -xa 'ever17pc_us.exe'")
-  m9 (cmd-button "wmctrl -xa 'steam_app_2206340'")
+  ;; ;; aokana-extra2
+  ;; m9 (cmd-button "wmctrl -xa 'steam_app_2206340'")
+  ;; ;; wonderful-everyday
+  m9 (cmd-button "wmctrl -xa 'steam_app_658620'")
 
   ;; m1 (cmd-button "if [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'discord' ]]; then if ! xdotool search --class '^strawberry$' >/dev/null 2>&1; then notify-send 'Launching Strawberry...'; strawberry >/dev/null 2>&1; else wmctrl -xa 'strawberry'; fi; elif ! xdotool search --class '^discord$' >/dev/null 2>&1; then notify-send 'Launching Discord...'; discord >/dev/null 2>&1; else wmctrl -xa 'discord'; fi")
   ;; m2 (cmd-button "if ! xdotool search --class '^firefox$' >/dev/null 2>&1; then notify-send 'Launching Firefox...'; firefox >/dev/null 2>&1; elif [[ $(xprop -id \"$(xdotool getactivewindow)\" WM_CLASS | awk '{print $4}' | sed \"s/\\\"//g\") = 'firefox' ]]; then qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'ExposeClass'; else wmctrl -xa 'firefox'; fi")
@@ -79,6 +82,7 @@
   e17 (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Ever17' 2") (layer-switch ever17))
   man (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Main' 2") (layer-switch main))
   ake (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Aokana EXTRA2' 2") (layer-switch aokana-extra2))
+  w-e (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Wonderful Everyday' 3") (layer-switch wonderful-everyday))
   cpc (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/copy-mouse-position")
   cpw (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/get-active-window")
 
@@ -130,6 +134,9 @@
   akeT (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh t")
   akeSp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/aokana-extra2-keybinds.sh space")
 
+  ;; wonderful-everyday
+  w-eA (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/wonderful-everyday-keybindings.sh a")
+  w-eO (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/wonderful-everyday-keybindings.sh o")
   ;; TODO? restart kmonad... this might be hard af tho
 )
 
@@ -149,7 +156,7 @@
 (deflayer zero
   _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _     _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     kp/   kp*   kp-
-  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @man  @ake  @m9   _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @man  @w-e  @m9   _
   caps  _     @yts  _     _     _     _     _     _     _     _     _     _                             @m4   @m5   @m6
   _     _     _     _     _     _     _     _     _     @cpc  @cpw  _                       _           @m1   @m2   @m3   _
   _     _     _                 _                 _     _     _                       _     _     _     _           @0dot
@@ -207,4 +214,13 @@
   esc   @akeA @akeS _     @akeF _     _     _     _     @akeL _     _     _                             _     _     _
   _     _     _     @akeC @akeV _     _     _     _     _     _     _                       _           _     _     _     _
   _     _     _                 @akeSp            _     _     _                       _     _     _     @0ctl       @0dot
+)
+
+(deflayer wonderful-everyday
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
+  _     _     _     _     _     _     _     _     _     @w-eO _     _     _     _     _     _     _     _     _     _     _
+  esc   @w-eA _     _     _     _     _     _     _     _     _     _     _                             _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
+  _     _     _                 _                 _     _     _                       _     _     _     @0ctl       @0dot
 )
