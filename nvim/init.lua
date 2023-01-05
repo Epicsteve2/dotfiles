@@ -266,6 +266,15 @@ local config = {
     vim.keymap.set({ 'n' }, '<leader>7', "<Cmd>BufferLineGoToBuffer 7<CR>", { silent = true, noremap = true })
     vim.keymap.set({ 'n' }, '<leader>8', "<Cmd>BufferLineGoToBuffer 8<CR>", { silent = true, noremap = true })
     vim.keymap.set({ 'n' }, '<leader>9', "<Cmd>BufferLineGoToBuffer 9<CR>", { silent = true, noremap = true })
+    vim.keymap.set({ 'n' }, '<leader>$', "<Cmd>BufferLineGoToBuffer -1<CR>", { silent = true, noremap = true })
+    vim.keymap.set({ 'n' }, '<leader>0', "<Cmd>BufferLineGoToBuffer -1<CR>", { silent = true, noremap = true })
+
+    -- backup files! https://gist.github.com/nepsilon/003dd7cfefc20ce1e894db9c94749755
+    vim.cmd("set backup")
+    vim.cmd("set backupdir=~/.config/nvim/backups/")
+    vim.cmd("set writebackup")
+    vim.cmd("set backupcopy=yes")
+    vim.cmd("au BufWritePre * let &bex = '@' . strftime(\"%F.%H:%M\")")
 
     require("which-key").register({
       ["<leader>"] = {
