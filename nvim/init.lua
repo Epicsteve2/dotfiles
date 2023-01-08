@@ -1,5 +1,3 @@
-local cmp = require "cmp"
-
 local config = {
   options = {
     opt = {
@@ -137,6 +135,18 @@ local config = {
     ["mason-lspconfig"] = {
       ensure_installed = { "rust_analyzer", "tsserver" }, -- install rust_analyzer
     },
+    ["cmp"] = function(config)
+      local cmp = require 'cmp'
+      cmp.setup {
+        completion = {
+          completeopt = 'menu,menuone,noinsert'
+        }
+      }
+      cmp.setup.filetype({ 'markdown' }, {
+        enabled = false,
+      })
+      return config
+    end,
 
     -- {
     --   "pocco81/auto-save.nvim",
@@ -198,16 +208,6 @@ local config = {
     -- svelte-language-server
     -- typescript-language-server
   },
-
-  cmp.setup {
-    completion = {
-      -- auto select first completion
-      completeopt = 'menu,menuone,noinsert'
-    },
-  },
-  cmp.setup.filetype({ 'markdown' }, {
-    enabled = false,
-  }),
 
   mappings = {
     n = {
@@ -287,6 +287,8 @@ local config = {
         ["7"] = "which_key_ignore",
         ["8"] = "which_key_ignore",
         ["9"] = "which_key_ignore",
+        ["0"] = "which_key_ignore",
+        ["$"] = "which_key_ignore",
       }
     })
 
