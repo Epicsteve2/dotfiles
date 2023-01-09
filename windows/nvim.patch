@@ -1,12 +1,6 @@
---- nvim/init.lua	2023-01-05 17:35:47.196979300 -0500
-+++ /mnt/c/Users/Stephen/AppData/Local/nvim/lua/user/init.lua	2023-01-08 11:17:40.363903500 -0500
-@@ -1,4 +1,4 @@
--local cmp = require "cmp"
-+-- local cmp = require "cmp"
- 
- local config = {
-   options = {
-@@ -55,18 +55,18 @@
+--- /mnt/c/Users/Stephen/CodeMonkey/dotfiles/nvim/init.lua	2023-01-09 15:28:29.485886500 -0500
++++ /mnt/c/Users/Stephen/AppData/Local/nvim/lua/user/init.lua	2023-01-09 15:26:08.818347300 -0500
+@@ -53,18 +53,18 @@
          "kylechui/nvim-surround",
          config = function() require("nvim-surround").setup {} end,
        },
@@ -37,8 +31,33 @@
        {
          "simrat39/rust-tools.nvim",
          after = "mason-lspconfig.nvim", -- make sure to load after mason-lspconfig
-@@ -127,16 +127,36 @@
-
+@@ -125,27 +125,48 @@
+         event = "VimEnter",
+         config = function()
+           require('session_manager').setup {
+-
+             autoload_mode = require('session_manager.config').AutoloadMode.CurrentDir,
+           }
+         end
+       },
++      -- it just doesn't work...
++      -- {
++      --   "LhKipp/nvim-nu",
++      --   -- event = "VimEnter",
++      --   -- do = ":TSInstall nu",
++      --   config = function()
++      --     require'nvim-nu'.setup{}
++      --   end
++      -- },
++      -- { "akinsho/toggleterm.nvim",
++      --   config = function()
++      --           require("toggleterm").setup{
++      --                   shell = "nu"
++      --           }
++      --   end
++      -- }
+     },
+ 
 -    ["mason-lspconfig"] = {
 -      ensure_installed = { "rust_analyzer", "tsserver" }, -- install rust_analyzer
 -    },
@@ -50,22 +69,26 @@
 +      config.shell = "nu"
 +      return config
 +    end,
+     ["cmp"] = function(config)
+       local cmp = require 'cmp'
++
+       cmp.setup {
+         completion = {
++          -- auto select first completion
+           completeopt = 'menu,menuone,noinsert'
+         }
+       }
+       cmp.setup.filetype({ 'markdown' }, {
+         enabled = false,
+       })
+-      return config
+     end,
  
      -- {
-     --   "pocco81/auto-save.nvim",
-@@ -199,15 +219,15 @@
+@@ -209,6 +230,16 @@
      -- typescript-language-server
    },
  
--  cmp.setup {
--    completion = {
--      -- auto select first completion
--      completeopt = 'menu,menuone,noinsert'
--    },
--  },
--  cmp.setup.filetype({ 'markdown' }, {
--    enabled = false,
--  }),
 +  -- cmp.setup {
 +  --   completion = {
 +  --     -- auto select first completion
@@ -75,10 +98,11 @@
 +  -- cmp.setup.filetype({ 'markdown' }, {
 +  --   enabled = false,
 +  -- }),
- 
++
    mappings = {
      n = {
-@@ -234,22 +254,22 @@
+       -- Make ctrl+backspace work
+@@ -234,25 +265,30 @@
    --     sonokai_style = "shusia"
    --   }
    -- },
@@ -117,3 +141,11 @@
  
    -- taken from https://astronvim.github.io/Recipes/alpha#open-alpha-automatically-when-no-more-buffers
    polish = function()
++    -- windows, set language to english cuz I use japanese locale lol
++    vim.cmd("set langmenu=en_US")
++    vim.cmd("let $LANG = 'en_US'")
++    vim.cmd("source $VIMRUNTIME/delmenu.vim")
++    vim.cmd("source $VIMRUNTIME/menu.vim")
+     -- https://github.com/AstroNvim/AstroNvim/issues/1392
+     vim.api.nvim_del_augroup_by_name "alpha_settings"
+ 
