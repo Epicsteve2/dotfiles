@@ -4,22 +4,20 @@
 # [credential]
 	# helper = /usr/lib/git-core/git-credential-libsecret
 [core]
-    pager = delta --line-numbers
+  pager = delta --line-numbers
 	# editor = nvim
   editor = code --wait
   whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 	askpass = /usr/bin/ksshaskpass
-
 [diff]
-    # colorMoved = default
-    diffFilter = delta --color-only --line-numbers
-    # Detect copies as well as renames
+  # colorMoved = default
+  diffFilter = delta --color-only --line-numbers
+  # Detect copies as well as renames
   renames = copies
-  tool = vscode
 [merge]
-    tool = vscode
-[mergetool "vscode"]
-    cmd = code --wait $MERGED
+  tool = code
+[mergetool "code"]
+  cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [difftool]
 	cmd = "code --wait --diff $LOCAL $REMOTE"
 [pager]
@@ -28,21 +26,18 @@
   reflog = delta
   show = delta
 [delta]
-    # plus-style = "syntax #012800"
-    # minus-style = "syntax #340001"
-    syntax-theme = Monokai Extended
-    navigate = true
-    line-numbers = true
-    hunk-header-style = omit
-    # line-numbers-left-format = "{nm:>4}┊"
-    # line-numbers-right-format = "{np:>4}"
-
+  # plus-style = "syntax #012800"
+  # minus-style = "syntax #340001"
+  syntax-theme = Monokai Extended
+  navigate = true
+  line-numbers = true
+  hunk-header-style = omit
+  # line-numbers-left-format = "{nm:>4}┊"
+  # line-numbers-right-format = "{np:>4}"
 [interactive]
-    diffFilter = delta --color-only --line-numbers
-
+  diffFilter = delta --color-only --line-numbers
 [pull]
 	rebase = true
-
 [help]
   # Automatically correct and execute mistyped commands
   autocorrect = 1
@@ -50,6 +45,5 @@
 	name = Stephen Guo
 [rebase]
 	autoStash = true
-
 [init]
-        defaultBranch = main
+  defaultBranch = main
