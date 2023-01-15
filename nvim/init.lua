@@ -117,6 +117,14 @@ local config = {
           require("treesitter-context").setup {}
         end
       },
+      -- {
+      --   "lervag/vimtex",
+      --   event = "VimEnter",
+      -- },
+
+      ["lervag/vimtex"] = {
+        event = "VimEnter",
+      },
 
       -- -- This chagnes the Ctrl + H keybinding...
       -- { "wellle/context.vim" },
