@@ -418,9 +418,12 @@ alias s='sudo'
 alias d='docker'
 alias dc='docker-compose'
 alias bm='bat --language man --plain'
-alias t='task'
+# alias t='task'
+alias t="trash"
 alias update-grub='grub-mkconfig -o /boot/grub/grub.cfg'
 alias copy="tee /dev/tty | tr -d '\n' | xclip -sel clip"
+alias :q="exit"
+# source <(trash completions zsh)
 
 lfcd () {
     tmp="$(mktemp)"
