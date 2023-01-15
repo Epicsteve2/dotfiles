@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+# set -ex -o pipefail
 ## Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
@@ -39,9 +40,10 @@ command -v thefuck &>/dev/null && { zinit ice wait"1" lucid; zinit snippet OMZ::
 # zinit ice wait"1" lucid as"completion"; zinit snippet OMZP::pip/_pip
 # zinit ice wait"1" lucid as"completion"; zinit snippet https://github.com/chmln/handlr/raw/master/completions/_handlr
 # zinit ice wait"1" lucid as"completion"; zinit snippet https://github.com/alacritty/alacritty/releases/download/v0.9.0/_alacritty
+zinit ice wait"1" lucid atload"zstyle ':notify:*' expire-time 25000"; zinit light marzocchi/zsh-notify
 
 zinit ice wait"1" lucid; zinit light wfxr/forgit
-FORGIT_HELP=$(<<<'
+export FORGIT_HELP=$(<<<'
 Command 	Option
 Enter 	Confirm
 Tab 	Toggle mark and move up
@@ -55,7 +57,7 @@ Ctrl - K / P 	Selection move up
 Ctrl - J / N 	Selection move down
 Alt - K / P 	Preview move up
 Alt - J / N 	Preview move down' | column -ts "$(printf '\t')") # instead of printf, can do $'\t'
-FORGIT_FZF_DEFAULT_OPTS="--reverse --header '${FORGIT_HELP}' --height '100%'"
+export FORGIT_FZF_DEFAULT_OPTS="--reverse --header '${FORGIT_HELP}' --height '100%'"
 #https://git-scm.com/docs/git-log#Documentation/git-log.txt-emnem
 # %C = color
 # %h = short commit hash
@@ -63,8 +65,8 @@ FORGIT_FZF_DEFAULT_OPTS="--reverse --header '${FORGIT_HELP}' --height '100%'"
 # %d ref name (HEAD, origin)
 # %s subject / commit message
 # cr commit date, relative
-FORGIT_LOG_FORMAT='%C(auto)%h %C(green)%an%C(auto)%d %C(reset)%s %C(magenta)%C(bold)%cr%Creset'
-FORGIT_LOG_GRAPH_ENABLE=false
+export FORGIT_LOG_FORMAT='%C(auto)%h %C(green)%an%C(auto)%d %C(reset)%s %C(magenta)%C(bold)%cr%Creset'
+export FORGIT_LOG_GRAPH_ENABLE=false
 
 # Download a crap ton of programs
 if false; then
