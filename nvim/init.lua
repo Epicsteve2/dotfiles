@@ -53,18 +53,18 @@ local config = {
         "kylechui/nvim-surround",
         config = function() require("nvim-surround").setup {} end,
       },
-      {
-        "declancm/cinnamon.nvim",
-        config = function()
-          require('cinnamon').setup {
-            extra_keymaps = true,
-            extended_keymaps = true,
-            override_keymaps = true,
-            always_scroll = true,
-            scroll_limit = 250,
-          }
-        end,
-      },
+      -- {
+      --   "declancm/cinnamon.nvim",
+      --   config = function()
+      --     require('cinnamon').setup {
+      --       extra_keymaps = true,
+      --       extended_keymaps = true,
+      --       override_keymaps = true,
+      --       always_scroll = true,
+      --       scroll_limit = 250,
+      --     }
+      --   end,
+      -- },
       {
         "simrat39/rust-tools.nvim",
         after = "mason-lspconfig.nvim", -- make sure to load after mason-lspconfig
@@ -261,6 +261,16 @@ local config = {
 
   -- taken from https://astronvim.github.io/Recipes/alpha#open-alpha-automatically-when-no-more-buffers
   polish = function()
+    -- vim.cmd("let g:vimtex_quickfix_enabled=0")
+    vim.cmd("let g:vimtex_quickfix_mode=0")
+    vim.cmd("let g:vimtex_quickfix_open_on_warning=0")
+    vim.cmd("set conceallevel=2")
+
+    -- vim.cmd("let g:vimtex_quickfix_autoclose_after_keystrokes=1")
+    -- vim.cmd("let g:loaded_remote_plugins=1")
+    -- vim.cmd("")
+    -- vim.cmd("")
+
     -- https://github.com/AstroNvim/AstroNvim/issues/1392
     vim.api.nvim_del_augroup_by_name "alpha_settings"
 
