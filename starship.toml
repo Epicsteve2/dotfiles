@@ -1,4 +1,5 @@
 format = """
+$os\
 $username\
 $hostname\
 $directory\
@@ -10,7 +11,9 @@ $git_status\
 $character\
 """
 
-command_timeout = 850
+
+scan_timeout = 0
+command_timeout = 1000
 add_newline = false
 
 # If we want to use right prompt instead of fill
@@ -63,11 +66,12 @@ format =  	"[$symbol$percentage]($style)"
 threshold = 100
 
 [status]
-# pipestatus_format 	= "\\[$pipestatus\\] => [$symbol$common_meaning$signal_name$maybe_int]($style)"
 format = '[$symbol $common_meaning$signal_name$maybe_int]($style) '
 map_symbol = true
 pipestatus = false
+# pipestatus = true
 disabled = false
+# sigint_symbol = "" # TODO
 
 [directory]
 read_only = " "
@@ -92,47 +96,129 @@ deleted = "✘$count"
 
 [aws]
 symbol = "  "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
 [conda]
 symbol = " "
+
 [dart]
 symbol = " "
+
 [docker_context]
 symbol = " "
+
 [elixir]
 symbol = " "
+
 [elm]
 symbol = " "
+
 [git_branch]
 symbol = " "
+
 [golang]
 symbol = " "
+
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = "⌘ "
+
 [hg_branch]
 symbol = " "
+
 [java]
 symbol = " "
+
 [julia]
 symbol = " "
+
+[lua]
+symbol = " "
+
 [memory_usage]
 symbol = " "
+
+[meson]
+symbol = "喝 "
+
 [nim]
 symbol = " "
+
 [nix_shell]
-symbol = " "
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+# [os]
+# disabled = false
+# format = " ($style)"
+
+[os.symbols]
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "﯑ "
+Gentoo = " "
+HardenedBSD = "ﲊ "
+Illumos = " "
+Linux = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = " "
+openSUSE = " "
+OracleLinux = " "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+Redox = " "
+Solus = "ﴱ "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Windows = " "
+
 [package]
 symbol = " "
-[perl]
-symbol = " "
-[php]
-symbol = " "
+
 [python]
-symbol = " "
+symbol = " "
+
+[rlang]
+symbol = "ﳒ "
+
 [ruby]
-symbol = " "
+symbol = " "
+
 [rust]
 symbol = " "
+
 [scala]
 symbol = " "
-[shlvl]
-symbol = " "
-[swift]
-symbol = "ﯣ "
+
+[spack]
+symbol = "🅢 "
