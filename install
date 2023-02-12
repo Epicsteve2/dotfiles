@@ -21,9 +21,6 @@ FILE_LIST=(
     ["terminator.config"]="${HOME}/.config/terminator/config"
     ["starship.toml"]="${HOME}/.config/starship.toml"
     ["alacritty.yml"]="${HOME}/.config/alacritty/alacritty.yml"
-    ["bottom.toml"]="${HOME}/.config/bottom/bottom.toml"
-    ["htoprc"]="${HOME}/.config/htop/htoprc"
-    ["microSettings.json"]="${HOME}/.config/micro/settings.json"
     ["p10k.zsh"]="${HOME}/.p10k.zsh"
     ["VSCodeSettings.json"]="${HOME}/.config/Code/User/settings.json"
     ["kmonad"]="${HOME}/.config/kmonad"
@@ -58,13 +55,10 @@ while true; do
     chooseFromList \
         "Symlink dotfiles" \
         "Install fonts" \
-        "Install fzf" \
-        "Install exa" \
         "No sudo password" \
         "Display dotfile diffs" \
         "Move current files to git" \
         "Install VSCode Extensions" \
-        "Install SpaceVim" \
         "Install AstroVim" \
         "Exit"
     echo
