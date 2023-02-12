@@ -1,48 +1,42 @@
 [user]
 	name = Stephen Guo
 	email = epicsteveoj@gmail.com
+[author]
+	name = Stephen Guo
+[merge]
+  conflictstyle = diff3
 # [credential]
 	# helper = /usr/lib/git-core/git-credential-libsecret
 [core]
-  pager = delta --line-numbers
-	# editor = nvim
-  editor = code --wait
+  pager = delta # --line-numbers
+	editor = nvim
+  # editor = code --wait
   whitespace = space-before-tab,-indent-with-non-tab,trailing-space
-	askpass = /usr/bin/ksshaskpass
+	# askpass = /usr/bin/ksshaskpass
 [diff]
   # colorMoved = default
-  diffFilter = delta --color-only --line-numbers
+  diffFilter = delta --color-only
   # Detect copies as well as renames
   renames = copies
 [merge]
-  tool = code
+  # tool = code
+  tool = nvimdiff
+  conflictstyle = diff3
 [mergetool "code"]
   cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [difftool]
-	cmd = "code --wait --diff $LOCAL $REMOTE"
-[pager]
-  diff = delta # --side-by-side
-  log = delta
-  reflog = delta
-  show = delta
+  # cmd = "code --wait --diff $LOCAL $REMOTE"
+  tool = nvimdiff
 [delta]
-  # plus-style = "syntax #012800"
-  # minus-style = "syntax #340001"
   syntax-theme = Monokai Extended
   navigate = true
   line-numbers = true
-  hunk-header-style = omit
-  # line-numbers-left-format = "{nm:>4}┊"
-  # line-numbers-right-format = "{np:>4}"
 [interactive]
-  diffFilter = delta --color-only --line-numbers
+  diffFilter = delta --color-only
 [pull]
 	rebase = true
 [help]
-  # Automatically correct and execute mistyped commands
   autocorrect = 1
-[author]
-	name = Stephen Guo
 [rebase]
 	autoStash = true
 [init]
