@@ -5,8 +5,9 @@
 	name = Stephen Guo
 [merge]
   conflictstyle = diff3
-# [credential]
-	# helper = /usr/lib/git-core/git-credential-libsecret
+[credential]
+  # helper = /usr/lib/git-core/git-credential-libsecret
+	helper = store
 [core]
   pager = delta # --line-numbers
 	editor = nvim
