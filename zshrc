@@ -183,12 +183,12 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 setopt autocd
 
 fzf-up-arrow-widget() {
-    local extra_ctrl_r="--layout=default --preview 'bat --color=always --plain --plain --language zsh <<<{}' --preview-window down:3:wrap"
+    local extra_ctrl_r="--layout=default --preview='bat --color=always --plain --plain --language zsh <<<{}' --preview-window=down:3:wrap"
 
     local selected num
     setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
     selected=( $(fc -rl 1 | perl -ne 'print if !$seen{(/^\s*[0-9]+\**\s+(.*)/, $1)}++' |
-      FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --header='tab to edit, enter to execute' --bind=ctrl-r:toggle-sort,ctrl-z:ignore --expect=tab $extra_ctrl_r --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+      FZF_DEFAULT_OPTS="$extra_ctrl_r --height=40% -n2..,.. --tiebreak=index --header='tab to edit, enter to execute' --bind=ctrl-r:toggle-sort,ctrl-z:ignore --expect=tab --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
     local ret=$?
     if [ -n "$selected" ]; then
       local select=0
