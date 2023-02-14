@@ -9,21 +9,104 @@ vim.keymap.set("n", "<M-BS>", "<C-W>")
 -- ctrl + backspace
 vim.keymap.set("i", "<C-H>", "<C-W>")
 -- when in visual mode, pasting will not overwrite the paste register
-vim.keymap.set("v", "<leader>p", '"_dP')
+vim.keymap.set("v", "<leader>p", '"_dP', { desc = "which_key_ignore" })
 
-vim.keymap.set({ "n" }, "<leader>1", "<Cmd>BufferLineGoToBuffer 1<CR>", { silent = true, noremap = true })
-vim.keymap.set({ "n" }, "<leader>2", "<Cmd>BufferLineGoToBuffer 2<CR>", { silent = true, noremap = true })
-vim.keymap.set({ "n" }, "<leader>3", "<Cmd>BufferLineGoToBuffer 3<CR>", { silent = true, noremap = true })
-vim.keymap.set({ "n" }, "<leader>4", "<Cmd>BufferLineGoToBuffer 4<CR>", { silent = true, noremap = true })
-vim.keymap.set({ "n" }, "<leader>5", "<Cmd>BufferLineGoToBuffer 5<CR>", { silent = true, noremap = true })
-vim.keymap.set({ "n" }, "<leader>6", "<Cmd>BufferLineGoToBuffer 6<CR>", { silent = true, noremap = true })
-vim.keymap.set({ "n" }, "<leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { silent = true, noremap = true })
-vim.keymap.set({ "n" }, "<leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { silent = true, noremap = true })
-vim.keymap.set({ "n" }, "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { silent = true, noremap = true })
-vim.keymap.set({ "n" }, "<leader>$", "<Cmd>BufferLineGoToBuffer -1<CR>", { silent = true, noremap = true })
-vim.keymap.set({ "n" }, "<leader>0", "<Cmd>BufferLineGoToBuffer -1<CR>", { silent = true, noremap = true })
+vim.keymap.set(
+  { "n" },
+  "<leader>1",
+  "<Cmd>BufferLineGoToBuffer 1<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
+vim.keymap.set(
+  { "n" },
+  "<leader>2",
+  "<Cmd>BufferLineGoToBuffer 2<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
+vim.keymap.set(
+  { "n" },
+  "<leader>3",
+  "<Cmd>BufferLineGoToBuffer 3<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
+vim.keymap.set(
+  { "n" },
+  "<leader>4",
+  "<Cmd>BufferLineGoToBuffer 4<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
+vim.keymap.set(
+  { "n" },
+  "<leader>5",
+  "<Cmd>BufferLineGoToBuffer 5<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
+vim.keymap.set(
+  { "n" },
+  "<leader>6",
+  "<Cmd>BufferLineGoToBuffer 6<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
+vim.keymap.set(
+  { "n" },
+  "<leader>7",
+  "<Cmd>BufferLineGoToBuffer 7<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
+vim.keymap.set(
+  { "n" },
+  "<leader>8",
+  "<Cmd>BufferLineGoToBuffer 8<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
+vim.keymap.set(
+  { "n" },
+  "<leader>9",
+  "<Cmd>BufferLineGoToBuffer 9<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
+vim.keymap.set(
+  { "n" },
+  "<leader>$",
+  "<Cmd>BufferLineGoToBuffer -1<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
+vim.keymap.set(
+  { "n" },
+  "<leader>0",
+  "<Cmd>BufferLineGoToBuffer -1<CR>",
+  { desc = "which_key_ignore", silent = true, noremap = true }
+)
 -- maps ctrl + forward slash
-vim.keymap.set({ "i" }, "<C-_>", "<Plug>(comment_toggle_linewise)")
-vim.keymap.set({ "n" }, "<C-_>", "<Plug>(comment_toggle_linewise)")
+vim.keymap.set({ "n" }, "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comment linewise" })
+vim.keymap.set({ "x" }, "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment linewise" })
+vim.keymap.set({ "n" }, "<leader>f/", require("lazyvim.util").telescope("live_grep"), { desc = "Find in Files (Grep)" })
+-- I think this is gonna be wonky, oh well
+vim.keymap.set({ "n" }, "<leader><tab>c", function()
+  require("bufdelete").bufdelete(0)
+end, { desc = "Close Tab" })
+vim.keymap.set({ "n" }, "<leader><tab>>", "<CMD>BufferLineMoveNext<CR>", { desc = "Move tab right" })
+vim.keymap.set({ "n" }, "<leader><tab><", "<CMD>BufferLineMovePrev<CR>", { desc = "Move tab right" })
+-- not working rn...
+-- vim.keymap.set({ "x" }, "g9", function()
+--   require("notify")("test")
+-- end, { desc = "Surround" })
+vim.keymap.set({ "x" }, "g9", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { desc = "Surround" })
+vim.keymap.set({ "n" }, "gS", "<Plug>(leap-from-window)", { desc = "Leap from window" })
+vim.keymap.set({ "n" }, "<leader>S", function()
+  require("persistence").save()
+end, { desc = "Save session" })
 
--- *<Plug>(comment_toggle_blockwise)*
+-- vim.keymap.del({ "n" }, "<leader>_")
+vim.keymap.del({ "x" }, "s")
+vim.keymap.set(
+  { "x" },
+  "s",
+  "<Plug>(nvim-surround-visual)",
+  { desc = "Add a surrounding pair around a visual selection", noremap = false }
+)
+
+vim.keymap.del({ "x" }, "gs")
+vim.keymap.set({ "x" }, "gs", "<Plug>(leap-forward-to)", { desc = "Leap" })
+-- this doesn't work, but i'll look back into this
+-- vim.api.nvim_set_keymap('x', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
