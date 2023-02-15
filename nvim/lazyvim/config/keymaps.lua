@@ -77,11 +77,9 @@ vim.keymap.set(
   "<Cmd>BufferLineGoToBuffer -1<CR>",
   { desc = "which_key_ignore", silent = true, noremap = true }
 )
--- maps ctrl + forward slash
 vim.keymap.set({ "n" }, "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comment linewise" })
 vim.keymap.set({ "x" }, "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment linewise" })
 vim.keymap.set({ "n" }, "<leader>f/", require("lazyvim.util").telescope("live_grep"), { desc = "Find in Files (Grep)" })
--- I think this is gonna be wonky, oh well
 vim.keymap.set({ "n" }, "<leader><tab>c", function()
   require("bufdelete").bufdelete(0)
 end, { desc = "Close Tab" })
@@ -91,13 +89,11 @@ vim.keymap.set({ "n" }, "<leader><tab><", "<CMD>BufferLineMovePrev<CR>", { desc 
 -- vim.keymap.set({ "x" }, "g9", function()
 --   require("notify")("test")
 -- end, { desc = "Surround" })
-vim.keymap.set({ "x" }, "g9", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { desc = "Surround" })
 vim.keymap.set({ "n" }, "gS", "<Plug>(leap-from-window)", { desc = "Leap from window" })
 vim.keymap.set({ "n" }, "<leader>S", function()
   require("persistence").save()
 end, { desc = "Save session" })
 
--- vim.keymap.del({ "n" }, "<leader>_")
 vim.keymap.del({ "x" }, "s")
 -- vim.keymap.set(
 --   { "x" },
@@ -107,7 +103,10 @@ vim.keymap.del({ "x" }, "s")
 -- )
 
 vim.keymap.del({ "x" }, "gs")
-vim.keymap.set({ "x" }, "gs", "<Plug>(leap-forward-to)", { desc = "Leap" })
+vim.keymap.del({ "x" }, "gsa")
+vim.keymap.set({ "x" }, "gs", "<Plug>(leap-forward-to)", { desc = "Leap", noremap = true, silent = true })
 
 vim.api.nvim_del_keymap("x", "gs")
+-- vim.api.nvim_del_keymap("x", "gsa")
 vim.api.nvim_set_keymap("x", "s", [[:<C-u>lua require('mini.surround').add('visual')<CR>]], { noremap = true })
+vim.api.nvim_set_keymap("x", "gs", "<Plug>(leap-forward-to)", { desc = "Leap", noremap = false, silent = true })

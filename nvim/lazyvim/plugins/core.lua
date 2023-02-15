@@ -1,15 +1,14 @@
 -- TODO
--- ~Fix surround~
 -- keybind for saving sessions (maybe not a thing)
 -- or at least tab order
 --
 return {
-  -- Doesn't seem to work with the keybindings...
-  { "kana/vim-textobj-user" },
-  {
-    "kana/vim-textobj-line",
-    dependencies = { "vim-textobj-user" },
-  },
+  -- -- Doesn't seem to work with the keybindings...
+  -- { "kana/vim-textobj-user" },
+  -- {
+  --   "kana/vim-textobj-line",
+  --   dependencies = { "vim-textobj-user" },
+  -- },
   {
     "folke/tokyonight.nvim",
     opts = {
@@ -18,12 +17,6 @@ return {
         sidebars = "transparent",
         floats = "transparent",
       },
-      -- on_highlights = function(highlights, colors)
-      --   highlights.NotifyBackground = {
-      --     bg = colors.none,
-      --     fg = colors.none,
-      --   }
-      -- end,
     },
   },
   { "famiu/bufdelete.nvim" },
@@ -67,7 +60,6 @@ return {
   },
   {
     "echasnovski/mini.surround",
-    -- enabled = false,
     opts = {
       mappings = {
         add = "gsa",
@@ -80,15 +72,6 @@ return {
       },
     },
   },
-  -- {
-  --   "ggandor/leap.nvim",
-  --   keys = {
-  --     { "s", false },
-  --   },
-  -- },
-  -- {
-  --   "kylechui/nvim-surround",
-  -- },
   {
     "goolord/alpha-nvim",
     event = "VimEnter",
@@ -111,12 +94,6 @@ return {
       }
     end,
   },
-  -- {
-  --   "nvim-telescope/telescope.nvim",
-  --   config = function()
-  --     vim.keymap.del({ "n" }, "<leader>/")
-  --   end,
-  -- },
   -- {
   --   "folke/which-key.nvim",
   --   opts = {
