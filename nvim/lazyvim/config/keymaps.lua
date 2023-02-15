@@ -94,7 +94,7 @@ vim.keymap.set({ "n" }, "<leader>S", function()
   require("persistence").save()
 end, { desc = "Save session" })
 
-vim.keymap.del({ "x" }, "s")
+-- vim.keymap.del({ "x" }, "s")
 -- vim.keymap.set(
 --   { "x" },
 --   "s",
@@ -102,7 +102,7 @@ vim.keymap.del({ "x" }, "s")
 --   { desc = "Add a surrounding pair around a visual selection", noremap = false }
 -- )
 
-vim.keymap.del({ "x" }, "gs")
+-- vim.keymap.del({ "x" }, "gs")
 vim.keymap.del({ "x" }, "gsa")
 vim.keymap.set({ "x" }, "gs", "<Plug>(leap-forward-to)", { desc = "Leap", noremap = true, silent = true })
 
