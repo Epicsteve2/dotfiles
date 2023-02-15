@@ -99,14 +99,15 @@ end, { desc = "Save session" })
 
 -- vim.keymap.del({ "n" }, "<leader>_")
 vim.keymap.del({ "x" }, "s")
-vim.keymap.set(
-  { "x" },
-  "s",
-  "<Plug>(nvim-surround-visual)",
-  { desc = "Add a surrounding pair around a visual selection", noremap = false }
-)
+-- vim.keymap.set(
+--   { "x" },
+--   "s",
+--   "<Plug>(nvim-surround-visual)",
+--   { desc = "Add a surrounding pair around a visual selection", noremap = false }
+-- )
 
 vim.keymap.del({ "x" }, "gs")
 vim.keymap.set({ "x" }, "gs", "<Plug>(leap-forward-to)", { desc = "Leap" })
--- this doesn't work, but i'll look back into this
--- vim.api.nvim_set_keymap('x', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+
+vim.api.nvim_del_keymap("x", "gs")
+vim.api.nvim_set_keymap("x", "s", [[:<C-u>lua require('mini.surround').add('visual')<CR>]], { noremap = true })

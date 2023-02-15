@@ -67,18 +67,18 @@ return {
   },
   {
     "echasnovski/mini.surround",
-    enabled = false,
-    -- opts = {
-    --   mappings = {
-    --     add = "gsa",
-    --     delete = "gsd",
-    --     find = "gsf",
-    --     find_left = "gsF",
-    --     highlight = "gsh",
-    --     replace = "gsr",
-    --     update_n_lines = "gsn",
-    --   },
-    -- },
+    -- enabled = false,
+    opts = {
+      mappings = {
+        add = "gsa",
+        delete = "gsd",
+        find = "gsf",
+        find_left = "gsF",
+        highlight = "gsh",
+        replace = "gsr",
+        update_n_lines = "gsn",
+      },
+    },
   },
   -- {
   --   "ggandor/leap.nvim",
@@ -86,9 +86,9 @@ return {
   --     { "s", false },
   --   },
   -- },
-  {
-    "kylechui/nvim-surround",
-  },
+  -- {
+  --   "kylechui/nvim-surround",
+  -- },
   {
     "goolord/alpha-nvim",
     event = "VimEnter",
