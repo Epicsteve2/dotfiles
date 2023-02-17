@@ -110,3 +110,23 @@ vim.api.nvim_del_keymap("x", "gs")
 -- vim.api.nvim_del_keymap("x", "gsa")
 vim.api.nvim_set_keymap("x", "s", [[:<C-u>lua require('mini.surround').add('visual')<CR>]], { noremap = true })
 vim.api.nvim_set_keymap("x", "gs", "<Plug>(leap-forward-to)", { desc = "Leap", noremap = false, silent = true })
+
+if vim.fn.executable("gitui") == 1 then
+  -- gitui instead of lazygit
+  vim.keymap.set("n", "<leader>gg", function()
+    require("lazyvim.util").float_term({ "gitui" })
+  end, { desc = "gitui (cwd)" })
+  vim.keymap.set("n", "<leader>gG", function()
+    require("lazyvim.util").float_term({ "gitui" }, { cwd = require("lazyvim.util").get_root() })
+  end, { desc = "gitui (root dir)" })
+end
+
+if vim.fn.executable("btop") == 1 then
+  -- btop
+  vim.keymap.set("n", "<leader>xb", function()
+    require("lazyvim.util").float_term({ "btop" })
+  end, { desc = "btop" })
+end
+
+vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist<cr>", { desc = "Open Location List (Trouble)" })
+vim.keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", { desc = "Open Quickfix List (Trouble)" })

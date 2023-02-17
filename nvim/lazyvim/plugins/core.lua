@@ -1,7 +1,8 @@
+-- Nv commit is 175b8f1e55b476bd692fd871e948b73668fe2426
+-- https://github.com/appelgriebsch/Nv/commit/175b8f1e55b476bd692fd871e948b73668fe2426
 -- TODO
 -- keybind for saving sessions (maybe not a thing)
 -- or at least tab order
---
 return {
   -- -- Doesn't seem to work with the keybindings...
   -- { "kana/vim-textobj-user" },
@@ -17,6 +18,14 @@ return {
         sidebars = "transparent",
         floats = "transparent",
       },
+      on_highlights = function(hl, colors)
+        hl.CursorLineNr = {
+          fg = "#FFba00",
+        }
+        hl.LineNr = {
+          fg = "#5081c0",
+        }
+      end,
     },
   },
   { "famiu/bufdelete.nvim" },
@@ -37,11 +46,6 @@ return {
   -- },
   {
     "numToStr/Comment.nvim",
-    opts = {
-      opleader = {
-        line = "<leader>_",
-      },
-    },
   },
 
   { "farmergreg/vim-lastplace" },
@@ -75,23 +79,42 @@ return {
   {
     "goolord/alpha-nvim",
     event = "VimEnter",
-    opts = function()
+    opts = function(_, opts)
       local dashboard = require("alpha.themes.dashboard")
       dashboard.section.buttons.val = {
+        dashboard.button("p", " " .. " Open project", "<cmd>Telescope project display_type=full<cr>"),
         dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
         dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
+        dashboard.button("z", " " .. " Find file different", "<cmd>cd $HOME/code-monkey | Telescope find_files<cr>"),
         dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
         dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
-        dashboard.button("c", " " .. " Config", ":e $MYVIMRC <CR>"),
+        dashboard.button("c", " " .. " Config", ":e $MYVIMRC | :cd %:p:h | Telescope file_browser<cr>"),
         dashboard.button("s", "勒" .. " Restore Last Session", [[:lua require("persistence").load() <cr>]]),
         dashboard.button(
           "S",
-          "" .. " Restore CWD Session",
+          "l" .. " Restore CWD Session",
           [[<cmd>lua require("persistence").load({ last = true })<cr>]]
         ),
         dashboard.button("l", "鈴" .. " Lazy", ":Lazy<CR>"),
+        dashboard.button("m", " " .. " Mason", "<cmd>Mason<cr>"),
         dashboard.button("q", " " .. " Quit", ":qa<CR>"),
       }
+      opts.config.opts.setup = function()
+        vim.api.nvim_create_autocmd("User", {
+          pattern = "AlphaReady",
+          desc = "disable tabline for alpha",
+          callback = function()
+            vim.opt.showtabline = 0
+          end,
+        })
+        vim.api.nvim_create_autocmd("BufUnload", {
+          buffer = 0,
+          desc = "enable tabline after alpha",
+          callback = function()
+            vim.opt.showtabline = 2
+          end,
+        })
+      end
     end,
   },
   -- {
