@@ -3,6 +3,9 @@
 -- TODO
 -- keybind for saving sessions (maybe not a thing)
 -- or at least tab order
+-- leap in visual is broken
+-- leap gS is broken initially
+-- checkhearth shows things
 return {
   -- -- Doesn't seem to work with the keybindings...
   -- { "kana/vim-textobj-user" },
@@ -75,6 +78,9 @@ return {
         update_n_lines = "gsn",
       },
     },
+    -- keys = {
+    --   { "gsa", false },
+    -- },
   },
   {
     "goolord/alpha-nvim",
@@ -119,6 +125,15 @@ return {
   },
   {
     "lervag/vimtex",
+  },
+  {
+    "ggandor/leap.nvim",
+    event = "VimEnter",
+    config = function()
+      -- require("leap")
+      require("leap").add_default_mappings()
+      -- vim.keymap.del({ "n" }, "gs")
+    end,
   },
   -- {
   --   "folke/which-key.nvim",

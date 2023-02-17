@@ -89,10 +89,10 @@ vim.keymap.set({ "n" }, "<leader><tab><", "<CMD>BufferLineMovePrev<CR>", { desc 
 -- vim.keymap.set({ "x" }, "g9", function()
 --   require("notify")("test")
 -- end, { desc = "Surround" })
-vim.keymap.set({ "n" }, "gS", "<Plug>(leap-from-window)", { desc = "Leap from window" })
-vim.keymap.set({ "n" }, "<leader>S", function()
-  require("persistence").save()
-end, { desc = "Save session" })
+
+-- vim.keymap.set({ "n" }, "<leader>S", function()
+--   require("persistence").save()
+-- end, { desc = "Save session" })
 
 -- vim.keymap.del({ "x" }, "s")
 -- vim.keymap.set(
@@ -102,15 +102,16 @@ end, { desc = "Save session" })
 --   { desc = "Add a surrounding pair around a visual selection", noremap = false }
 -- )
 
--- vim.keymap.del({ "x" }, "gs")
-vim.keymap.del({ "x" }, "gsa")
-vim.keymap.del({ "n" }, "<leader><leader>")
-vim.keymap.set({ "x" }, "gs", "<Plug>(leap-forward-to)", { desc = "Leap", noremap = true, silent = true })
+-- vim.keymap.del({ "n" }, "<leader><leader>")
 
-vim.api.nvim_del_keymap("x", "gs")
--- vim.api.nvim_del_keymap("x", "gsa")
-vim.api.nvim_set_keymap("x", "s", [[:<C-u>lua require('mini.surround').add('visual')<CR>]], { noremap = true })
-vim.api.nvim_set_keymap("x", "gs", "<Plug>(leap-forward-to)", { desc = "Leap", noremap = false, silent = true })
+vim.keymap.set({ "n" }, "gS", "<Plug>(leap-from-window)", { desc = "Leap from window", noremap = false })
+vim.keymap.del({ "n" }, "<leader><leader>", { noremap = false })
+-- vim.keymap.del({ "n", "x" }, "gs")
+-- -- vim.keymap.del({ "x" }, "gs", { noremap = false })
+-- vim.keymap.del({ "x" }, "gsa", { noremap = false })
+-- --
+vim.keymap.set({ "x" }, "s", [[:<C-u>lua require('mini.surround').add('visual')<CR>]], { noremap = false })
+vim.keymap.set({ "x" }, "gs", "<Plug>(leap-forward-to)", { desc = "Leap", noremap = false, silent = true })
 
 if vim.fn.executable("gitui") == 1 then
   -- gitui instead of lazygit
