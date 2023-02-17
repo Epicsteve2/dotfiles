@@ -1,6 +1,11 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
+vim.cmd("let g:vimtex_quickfix_mode=0")
+vim.cmd("let g:vimtex_quickfix_open_on_warning=0")
+vim.cmd("let g:vimtex_mappings_prefix='<leader>\\'")
+-- vim.cmd("set conceallevel=2")
+
 vim.cmd("set backup")
 vim.cmd("set backupdir=~/.config/nvim/backups/")
 vim.cmd("set writebackup")

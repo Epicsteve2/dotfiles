@@ -80,9 +80,9 @@ vim.keymap.set(
 vim.keymap.set({ "n" }, "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comment linewise" })
 vim.keymap.set({ "x" }, "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment linewise" })
 vim.keymap.set({ "n" }, "<leader>f/", require("lazyvim.util").telescope("live_grep"), { desc = "Find in Files (Grep)" })
-vim.keymap.set({ "n" }, "<leader><tab>c", function()
-  require("bufdelete").bufdelete(0)
-end, { desc = "Close Tab" })
+-- vim.keymap.set({ "n" }, "<leader><tab>c", function()
+--   require("bufdelete").bufdelete(0)
+-- end, { desc = "Close Tab" })
 vim.keymap.set({ "n" }, "<leader><tab>>", "<CMD>BufferLineMoveNext<CR>", { desc = "Move tab right" })
 vim.keymap.set({ "n" }, "<leader><tab><", "<CMD>BufferLineMovePrev<CR>", { desc = "Move tab right" })
 -- not working rn...
@@ -104,6 +104,7 @@ end, { desc = "Save session" })
 
 -- vim.keymap.del({ "x" }, "gs")
 vim.keymap.del({ "x" }, "gsa")
+vim.keymap.del({ "n" }, "<leader><leader>")
 vim.keymap.set({ "x" }, "gs", "<Plug>(leap-forward-to)", { desc = "Leap", noremap = true, silent = true })
 
 vim.api.nvim_del_keymap("x", "gs")

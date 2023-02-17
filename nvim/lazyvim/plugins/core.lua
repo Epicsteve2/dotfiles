@@ -28,7 +28,7 @@ return {
       end,
     },
   },
-  { "famiu/bufdelete.nvim" },
+  -- { "famiu/bufdelete.nvim" },
   -- {
   --   "ellisonleao/gruvbox.nvim",
   --   opts = {
@@ -49,19 +49,19 @@ return {
   },
 
   { "farmergreg/vim-lastplace" },
-  {
-    "telescope.nvim",
-    dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      config = function()
-        require("telescope").load_extension("fzf")
-      end,
-    },
-    config = function()
-      vim.keymap.del({ "n" }, "<leader>/")
-    end,
-  },
+  -- {
+  --   "telescope.nvim",
+  --   dependencies = {
+  --     "nvim-telescope/telescope-fzf-native.nvim",
+  --     build = "make",
+  --     config = function()
+  --       require("telescope").load_extension("fzf")
+  --     end,
+  --   },
+  --   config = function()
+  --     vim.keymap.del({ "n" }, "<leader>/")
+  --   end,
+  -- },
   {
     "echasnovski/mini.surround",
     opts = {
@@ -116,6 +116,9 @@ return {
         })
       end
     end,
+  },
+  {
+    "lervag/vimtex",
   },
   -- {
   --   "folke/which-key.nvim",
