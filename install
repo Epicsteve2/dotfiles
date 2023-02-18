@@ -84,34 +84,13 @@ while true; do
         ;;
 
     3)
-        [ ! -d ~/.fzf ] && git clone --depth=1 https://github.com/junegunn/fzf.git ~/.fzf
-        ~/.fzf/install
-        ;;
-
-    4)
-        echo "${CYAN}Downloading exa..${RESETCOLOR}"
-        curl -s https://api.github.com/repos/ogham/exa/releases/latest |
-            grep "exa-linux-x86_64-v" |
-            cut --delimiter : -f 2,3 |
-            tr --delete \" |
-            wget --input-file - || true
-        echo "${CYAN}Unzipping exa..${RESETCOLOR}"
-
-        unzip -j exa*.zip bin/exa man/exa.1 completions/exa.zsh
-        sudo mv --verbose exa /usr/local/bin/exa
-        sudo mv --verbose exa.1 /usr/share/man/man1                   #manpath something
-        sudo mv --verbose exa.zsh /usr/local/share/zsh/site-functions # maybe just /usr/share/zsh/site-functions
-        rm --verbose exa*.zip
-        ;;
-
-    5)
         echo "$(whoami) ALL=(ALL) NOPASSWD: ALL"
         echo "Defaults !tty_tickets"
         read -n 1 -s -r -p "${YELLOW}Press any key to continue: ${RESETCOLOR}"
         sudo visudo
         ;;
 
-    6)
+    4)
         if ! command -v delta &>/dev/null; then
             echo >&2 "${RED}Can't find ${CYAN}delta ${RED}...${RESETCOLOR}"
             break
@@ -121,7 +100,7 @@ while true; do
         done
         ;;
 
-    7)
+    5)
         if ! command -v delta &>/dev/null; then
             echo >&2 "${RED}Can't find ${CYAN}delta ${RED}...${RESETCOLOR}"
             break
@@ -140,7 +119,7 @@ while true; do
         done
         ;;
 
-    8) # Check if code command exists
+    6) # Check if code command exists
         if ! command -v code &>/dev/null; then
             echo >&2 "${RED}Can't find ${CYAN}code ${RED}...${RESETCOLOR}"
             break
@@ -152,20 +131,7 @@ while true; do
         done <VSCodeExtensions.txt
         ;;
 
-    9)
-        if ! command -v vim &>/dev/null && ! command -v nvim &>/dev/null; then
-            echo >&2 "${RED}Can't find ${CYAN}vim ${RED}or ${CYAN}nvim${RED}...${RESETCOLOR}"
-        fi
-        SPACEVIM_INSTALL_SCRIPT=$(curl -sLf "https://spacevim.org/install.sh")
-        if command -v bat &>/dev/null; then
-            <<<"$SPACEVIM_INSTALL_SCRIPT" bat --number --language bash
-        else
-            <<<"$SPACEVIM_INSTALL_SCRIPT" cat
-        fi
-        read -n 1 -s -r -p "${YELLOW}Press any key to continue...${RESETCOLOR}"
-        <<<"$SPACEVIM_INSTALL_SCRIPT" bash
-        ;;
-    10)
+    7)
         if ! command -v vim &>/dev/null && ! command -v nvim &>/dev/null; then
             echo >&2 "${RED}Can't find ${CYAN}vim ${RED}or ${CYAN}nvim${RED}...${RESETCOLOR}"
         fi

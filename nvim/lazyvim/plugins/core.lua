@@ -1,11 +1,8 @@
 -- Nv commit is 175b8f1e55b476bd692fd871e948b73668fe2426
 -- https://github.com/appelgriebsch/Nv/commit/175b8f1e55b476bd692fd871e948b73668fe2426
 -- TODO
--- keybind for saving sessions (maybe not a thing)
--- or at least tab order
--- leap in visual is broken
--- leap gS is broken initially
--- checkhearth shows things
+-- tabbing for tab complete doesn't work initially. have to wait, or something. idk
+-- long fies (vns.md) is REALLY laggy
 return {
   -- -- Doesn't seem to work with the keybindings...
   -- { "kana/vim-textobj-user" },
@@ -30,6 +27,11 @@ return {
         }
       end,
     },
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = "nvim-treesitter",
   },
   -- { "famiu/bufdelete.nvim" },
   -- {
@@ -132,7 +134,8 @@ return {
     config = function()
       -- require("leap")
       require("leap").add_default_mappings()
-      -- vim.keymap.del({ "n" }, "gs")
+      vim.keymap.del({ "x" }, "x")
+      vim.keymap.del({ "x" }, "X")
     end,
   },
   {

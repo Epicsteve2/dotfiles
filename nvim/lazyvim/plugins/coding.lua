@@ -24,6 +24,10 @@ return {
         -- Set `select` to `false` to only confirm explicitly selected items.
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
       })
+      -- maybe not needed
+      cmp.setup.filetype("markdown", {
+        enabled = false,
+      })
     end,
   },
 
@@ -78,6 +82,10 @@ return {
         "sql",
         "vim",
         "yaml",
+      },
+      highlight = {
+        -- this is LAGGY AF
+        disable = { "markdown" },
       },
     },
   },

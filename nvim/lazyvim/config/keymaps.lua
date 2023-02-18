@@ -87,6 +87,16 @@ vim.keymap.set({ "n" }, "<leader><tab>>", "<CMD>BufferLineMoveNext<CR>", { desc 
 vim.keymap.set({ "n" }, "<leader><tab><", "<CMD>BufferLineMovePrev<CR>", { desc = "Move tab right" })
 vim.keymap.set({ "n" }, ">b", "<CMD>BufferLineMoveNext<CR>", { desc = "Move tab right" })
 vim.keymap.set({ "n" }, "<b", "<CMD>BufferLineMovePrev<CR>", { desc = "Move tab left" })
+
+-- vim.keymap.set({ "i" }, "<Tab>", function()
+--   local cmp = require("cmp")
+--   cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+-- end)
+-- vim.keymap.set({ "i" }, "<S-Tab>", function()
+--   local cmp = require("cmp")
+--   cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+-- end)
+
 -- not working rn...
 -- vim.keymap.set({ "x" }, "g9", function()
 --   require("notify")("test")
