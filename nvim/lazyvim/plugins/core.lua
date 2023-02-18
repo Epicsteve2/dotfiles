@@ -95,10 +95,10 @@ return {
         dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
         dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
         dashboard.button("c", " " .. " Config", ":e $MYVIMRC | :cd %:p:h | Telescope file_browser<cr>"),
-        dashboard.button("s", "勒" .. " Restore Last Session", [[:lua require("persistence").load() <cr>]]),
+        dashboard.button("s", "勒" .. " Restore CWD Session", [[:lua require("persistence").load() <cr>]]),
         dashboard.button(
           "S",
-          "l" .. " Restore CWD Session",
+          "l" .. " Restore Last Session",
           [[<cmd>lua require("persistence").load({ last = true })<cr>]]
         ),
         dashboard.button("l", "鈴" .. " Lazy", ":Lazy<CR>"),
@@ -134,6 +134,12 @@ return {
       require("leap").add_default_mappings()
       -- vim.keymap.del({ "n" }, "gs")
     end,
+  },
+  {
+    "folke/persistence.nvim",
+    opts = {
+      options = { "buffers", "curdir", "tabpages", "winsize", "globals" },
+    },
   },
   -- {
   --   "folke/which-key.nvim",

@@ -7,6 +7,7 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
+-- vim.g.sessionopts = vim.g.sessionopts + "globals"
 
 -- disable some fanzy UI stuff when run in Neovide
 if vim.g.neovide then

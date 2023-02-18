@@ -13,7 +13,11 @@ vim.cmd("set backupcopy=yes")
 vim.cmd("au BufWritePre * let &bex = '@' . strftime(\"%F.%H:%M\")")
 -- https://github.com/rcarriga/nvim-notify/issues/159
 vim.api.nvim_set_hl(0, "NotifyBackground", { fg = "#ffffff", bg = "#333333" })
-vim.cmd("set sessionoptions+=globals")
+-- vim.cmd("set sessionoptions+=globals")
+
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   command = "set sessionoptions+=globals",
+-- })
 
 -- Fixes Autocomment
 vim.api.nvim_create_autocmd("BufEnter", {

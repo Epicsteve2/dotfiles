@@ -132,6 +132,8 @@ return {
         "<CMD>Telescope resume<CR>",
         desc = "Resume last search",
       },
+      { "<leader><space>", false },
+      { "<leader>/", false },
     },
     config = function(_, opts)
       local telescope = require("telescope")
@@ -140,7 +142,7 @@ return {
       telescope.load_extension("fzf")
       telescope.load_extension("project")
       telescope.load_extension("undo")
-      vim.keymap.del({ "n" }, "<leader>/")
+      -- vim.keymap.del({ "n" }, "<leader>/")
     end,
   },
 

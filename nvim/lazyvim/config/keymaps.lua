@@ -85,6 +85,8 @@ vim.keymap.set({ "n" }, "<leader>f/", require("lazyvim.util").telescope("live_gr
 -- end, { desc = "Close Tab" })
 vim.keymap.set({ "n" }, "<leader><tab>>", "<CMD>BufferLineMoveNext<CR>", { desc = "Move tab right" })
 vim.keymap.set({ "n" }, "<leader><tab><", "<CMD>BufferLineMovePrev<CR>", { desc = "Move tab right" })
+vim.keymap.set({ "n" }, ">b", "<CMD>BufferLineMoveNext<CR>", { desc = "Move tab right" })
+vim.keymap.set({ "n" }, "<b", "<CMD>BufferLineMovePrev<CR>", { desc = "Move tab left" })
 -- not working rn...
 -- vim.keymap.set({ "x" }, "g9", function()
 --   require("notify")("test")
@@ -105,7 +107,7 @@ vim.keymap.set({ "n" }, "<leader><tab><", "<CMD>BufferLineMovePrev<CR>", { desc 
 -- vim.keymap.del({ "n" }, "<leader><leader>")
 
 vim.keymap.set({ "n" }, "gS", "<Plug>(leap-from-window)", { desc = "Leap from window", noremap = false })
-vim.keymap.del({ "n" }, "<leader><leader>", { noremap = true })
+-- vim.keymap.del({ "n" }, "<leader><leader>", { noremap = true })
 -- vim.keymap.del({ "n", "x" }, "gs")
 -- -- vim.keymap.del({ "x" }, "gs", { noremap = false })
 -- vim.keymap.del({ "x" }, "gsa", { noremap = false })
