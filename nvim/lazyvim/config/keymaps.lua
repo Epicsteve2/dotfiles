@@ -105,7 +105,7 @@ vim.keymap.set({ "n" }, "<leader><tab><", "<CMD>BufferLineMovePrev<CR>", { desc 
 -- vim.keymap.del({ "n" }, "<leader><leader>")
 
 vim.keymap.set({ "n" }, "gS", "<Plug>(leap-from-window)", { desc = "Leap from window", noremap = false })
-vim.keymap.del({ "n" }, "<leader><leader>", { noremap = false })
+vim.keymap.del({ "n" }, "<leader><leader>", { noremap = true })
 -- vim.keymap.del({ "n", "x" }, "gs")
 -- -- vim.keymap.del({ "x" }, "gs", { noremap = false })
 -- vim.keymap.del({ "x" }, "gsa", { noremap = false })

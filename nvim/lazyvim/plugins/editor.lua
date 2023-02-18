@@ -158,6 +158,8 @@ return {
   -- git blame
   {
     "f-person/git-blame.nvim",
+    enabled = true,
+    -- enabled = false,
     event = "BufReadPre",
   },
 
