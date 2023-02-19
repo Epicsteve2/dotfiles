@@ -2,7 +2,7 @@
 -- https://github.com/appelgriebsch/Nv/commit/175b8f1e55b476bd692fd871e948b73668fe2426
 -- TODO
 -- tabbing for tab complete doesn't work initially. have to wait, or something. idk
--- long fies (vns.md) is REALLY laggy
+-- fix cursor color on white space before first character
 return {
   -- -- Doesn't seem to work with the keybindings...
   -- { "kana/vim-textobj-user" },
@@ -32,6 +32,14 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = "nvim-treesitter",
+  },
+  -- f and F can't repeat with ; or ,. ,so switching away from flit
+  { "ggandor/flit.nvim", enabled = false },
+  {
+    "kevinhwang91/nvim-fFHighlight",
+    opts = {
+      number_hint_threshold = 999999999999,
+    },
   },
   -- { "famiu/bufdelete.nvim" },
   -- {
