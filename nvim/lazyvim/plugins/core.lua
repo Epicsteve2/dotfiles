@@ -35,11 +35,18 @@ return {
   },
   -- f and F can't repeat with ; or ,. ,so switching away from flit
   { "ggandor/flit.nvim", enabled = false },
+  -- {
+  --   "kevinhwang91/nvim-fFHighlight",
+  --   opts = {
+  --     number_hint_threshold = 999999999999,
+  --   },
+  -- },
   {
-    "kevinhwang91/nvim-fFHighlight",
-    opts = {
-      number_hint_threshold = 999999999999,
-    },
+    "rhysd/clever-f.vim",
+    -- keys = {
+    --   { ";", "<Plug>(clever-f-repeat-forward)" },
+    --   { ",", "<Plug>(clever-f-repeat-back)" },
+    -- },
   },
   -- { "famiu/bufdelete.nvim" },
   -- {

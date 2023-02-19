@@ -88,6 +88,19 @@ vim.keymap.set({ "n" }, "<leader><tab><", "<CMD>BufferLineMovePrev<CR>", { desc 
 vim.keymap.set({ "n" }, ">b", "<CMD>BufferLineMoveNext<CR>", { desc = "Move tab right" })
 vim.keymap.set({ "n" }, "<b", "<CMD>BufferLineMovePrev<CR>", { desc = "Move tab left" })
 
+-- vim.keymap.set({
+--   { "n", "x" },
+--   ";",
+--   "<Plug>(clever-f-repeat-forward)",
+--   { desc = "which_key_ignore", silent = true, noremap = true },
+-- })
+-- vim.keymap.set({
+--   { "n", "x" },
+--   ",",
+--   "<Plug>(clever-f-repeat-back)",
+--   { desc = "which_key_ignore", silent = true, noremap = true },
+-- })
+
 -- vim.keymap.set({ "i" }, "<Tab>", function()
 --   local cmp = require("cmp")
 --   cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })
