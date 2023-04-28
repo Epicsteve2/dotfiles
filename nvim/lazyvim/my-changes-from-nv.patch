@@ -1,0 +1,365 @@
+diff '--color=auto' --new-file --text --recursive '--unified=6' /home/stephen/code-monkey/Nv/lua/config/autocmds.lua /home/stephen/.config/nvim/lua/config/autocmds.lua
+--- /home/stephen/code-monkey/Nv/lua/config/autocmds.lua	2023-02-16 20:22:47.390610931 -0500
++++ /home/stephen/.config/nvim/lua/config/autocmds.lua	2023-04-27 21:52:35.178686413 -0400
+@@ -31,6 +31,30 @@
+     "dap-terminal",
+   },
+   callback = function(event)
+     vim.keymap.set("n", "q", "<cmd>bdelete!<cr>", { buffer = event.buf, silent = true })
+   end,
+ })
++
++vim.cmd("let g:vimtex_quickfix_mode=0")
++vim.cmd("let g:vimtex_quickfix_open_on_warning=0")
++vim.cmd("let g:vimtex_mappings_prefix='<leader>\\'")
++-- vim.cmd("set conceallevel=2")
++
++vim.cmd("set backup")
++vim.cmd("set backupdir=~/.config/nvim/backups/")
++vim.cmd("set writebackup")
++vim.cmd("set backupcopy=yes")
++vim.cmd("au BufWritePre * let &bex = '@' . strftime(\"%F.%H:%M\")")
++-- https://github.com/rcarriga/nvim-notify/issues/159
++vim.api.nvim_set_hl(0, "NotifyBackground", { fg = "#ffffff", bg = "#333333" })
++
++-- TODO: maybe put this in keymaps.lua lol
++-- Apparently this doesn't work in macros, so this is the fix
++-- https://github.com/rhysd/clever-f.vim/issues/22#issuecomment-1043158334
++vim.cmd("let g:clever_f_not_overwrites_standard_mappings = 1")
++vim.cmd('map <expr> f reg_recording() .. reg_executing() == "" ? "<Plug>(clever-f-reset)<Plug>(clever-f-f)" : "f"')
++vim.cmd('map <expr> F reg_recording() .. reg_executing() == "" ? "<Plug>(clever-f-reset)<Plug>(clever-f-F)" : "F"')
++vim.cmd('map <expr> t reg_recording() .. reg_executing() == "" ? "<Plug>(clever-f-reset)<Plug>(clever-f-t)" : "t"')
++vim.cmd('map <expr> T reg_recording() .. reg_executing() == "" ? "<Plug>(clever-f-reset)<Plug>(clever-f-T)" : "T"')
++vim.cmd('map <expr> ; reg_recording() .. reg_executing() == "" ? "<Plug>(clever-f-repeat-forward)" : ";"')
++vim.cmd('map <expr> , reg_recording() .. reg_executing() == "" ? "<Plug>(clever-f-repeat-back)" : ","')
+diff '--color=auto' --new-file --text --recursive '--unified=6' /home/stephen/code-monkey/Nv/lua/config/keymaps.lua /home/stephen/.config/nvim/lua/config/keymaps.lua
+--- /home/stephen/code-monkey/Nv/lua/config/keymaps.lua	2023-04-27 21:12:14.158409828 -0400
++++ /home/stephen/.config/nvim/lua/config/keymaps.lua	2023-04-27 21:52:40.778758766 -0400
++-- make ctrl + backspace work
++vim.keymap.set("n", "<C-h>", "<C-W>")
++vim.keymap.set("n", "<C-BS>", "<C-W>")
++vim.keymap.set("n", "<M-BS>", "<C-W>")
++
++-- ctrl + backspace
++vim.keymap.set("i", "<C-H>", "<C-W>")
++-- when in visual mode, pasting will not overwrite the paste register
++vim.keymap.set("v", "<leader>p", '"_dP', { desc = "which_key_ignore" })
++
++vim.keymap.set(
++  { "n" },
++  "<leader>1",
++  "<Cmd>BufferLineGoToBuffer 1<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++vim.keymap.set(
++  { "n" },
++  "<leader>2",
++  "<Cmd>BufferLineGoToBuffer 2<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++vim.keymap.set(
++  { "n" },
++  "<leader>3",
++  "<Cmd>BufferLineGoToBuffer 3<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++vim.keymap.set(
++  { "n" },
++  "<leader>4",
++  "<Cmd>BufferLineGoToBuffer 4<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++vim.keymap.set(
++  { "n" },
++  "<leader>5",
++  "<Cmd>BufferLineGoToBuffer 5<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++vim.keymap.set(
++  { "n" },
++  "<leader>6",
++  "<Cmd>BufferLineGoToBuffer 6<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++vim.keymap.set(
++  { "n" },
++  "<leader>7",
++  "<Cmd>BufferLineGoToBuffer 7<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++vim.keymap.set(
++  { "n" },
++  "<leader>8",
++  "<Cmd>BufferLineGoToBuffer 8<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++vim.keymap.set(
++  { "n" },
++  "<leader>9",
++  "<Cmd>BufferLineGoToBuffer 9<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++vim.keymap.set(
++  { "n" },
++  "<leader>$",
++  "<Cmd>BufferLineGoToBuffer -1<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++vim.keymap.set(
++  { "n" },
++  "<leader>0",
++  "<Cmd>BufferLineGoToBuffer -1<CR>",
++  { desc = "which_key_ignore", silent = true, noremap = true }
++)
++
++vim.keymap.set({ "n" }, "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comment linewise" })
++vim.keymap.set({ "x" }, "<leader>/", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment linewise" })
++vim.keymap.set({ "n" }, "<leader>f/", require("lazyvim.util").telescope("live_grep"), { desc = "Find in Files (Grep)" })
++
++vim.keymap.set({ "n" }, "<leader><tab>>", "<CMD>BufferLineMoveNext<CR>", { desc = "Move tab right" })
++vim.keymap.set({ "n" }, "<leader><tab><", "<CMD>BufferLineMovePrev<CR>", { desc = "Move tab right" })
++vim.keymap.set({ "n" }, ">b", "<CMD>BufferLineMoveNext<CR>", { desc = "Move tab right" })
++vim.keymap.set({ "n" }, "<b", "<CMD>BufferLineMovePrev<CR>", { desc = "Move tab left" })
++
++vim.keymap.set({ "n" }, "gS", "<Plug>(leap-from-window)", { desc = "Leap from window", noremap = false })
++
++vim.keymap.set({ "x" }, "s", [[:<C-u>lua require('mini.surround').add('visual')<CR>]], { noremap = false })
++vim.keymap.set({ "x" }, "gs", "<Plug>(leap-forward-to)", { desc = "Leap", noremap = false, silent = true })
+diff '--color=auto' --new-file --text --recursive '--unified=6' /home/stephen/code-monkey/Nv/lua/config/lazy.lua /home/stephen/.config/nvim/lua/config/lazy.lua
+--- /home/stephen/code-monkey/Nv/lua/config/lazy.lua	2023-04-27 21:12:14.158409828 -0400
++++ /home/stephen/.config/nvim/lua/config/lazy.lua	2023-04-27 21:52:55.735952011 -0400
+@@ -13,12 +13,14 @@
+     -- lazyvim UI extension modules
+     { import = "lazyvim.plugins.extras.ui.mini-animate" },
+     -- lazyvim editor extension modules
+     { import = "lazyvim.plugins.extras.util.project" },
+     -- lazyvim dap core extension modules
+     { import = "lazyvim.plugins.extras.dap.core" },
++    { import = "lazyvim.plugins.extras.lang.typescript" },
++    { import = "lazyvim.plugins.extras.lang.json" },
+     -- lazyvim coding extension modules
+     -- { import = "lazyvim.plugins.extras.coding.copilot" },
+     -- import/override with your plugins
+     { import = "plugins" },
+   },
+   defaults = {
+diff '--color=auto' --new-file --text --recursive '--unified=6' /home/stephen/code-monkey/Nv/lua/plugins/coding.lua /home/stephen/.config/nvim/lua/plugins/coding.lua
+--- /home/stephen/code-monkey/Nv/lua/plugins/coding.lua	2023-04-27 21:12:14.158409828 -0400
++++ /home/stephen/.config/nvim/lua/plugins/coding.lua	2023-04-27 21:54:29.522163708 -0400
+@@ -9,29 +9,39 @@
+       table.insert(cmp.mapping.preset, {
+         ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+       })
+       table.insert(cmp.mapping.preset, {
+         ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+       })
++      -- takes a while to load...
++      table.insert(cmp.mapping.preset, {
++        ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
++      })
++      table.insert(cmp.mapping.preset, {
++        ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
++      })
++      cmp.setup.filetype("markdown", {
++        enabled = false,
++      })
+     end,
+   },
+ 
+   -- scopes
+   {
+     "tiagovla/scope.nvim",
+@@ -43,29 +53,32 @@
+         "dockerfile",
+         "dot",
+         "git_rebase",
+         "gitattributes",
+         "gitcommit",
+         "gitignore",
+-        "graphql",
+-        "hcl",
++        -- "graphql",
++        -- "hcl",
+         "http",
+         "jq",
+         "lua",
+         "luadoc",
+         "luap",
+         "make",
+         "markdown",
+         "markdown_inline",
+-        "mermaid",
++        -- "mermaid",
+         "python",
+         "query",
+         "regex",
+         "sql",
+         "vim",
+         "vimdoc",
+-        "yaml"
++        "yaml",
++      }
++      opts.highlight = {
++        -- this is LAGGY AF
++        disable = { "markdown" },
+       }
+-    end
++    end,
+   },
+-
+ }
+diff '--color=auto' --new-file --text --recursive '--unified=6' /home/stephen/code-monkey/Nv/lua/plugins/colorscheme.lua /home/stephen/.config/nvim/lua/plugins/colorscheme.lua
+--- /home/stephen/code-monkey/Nv/lua/plugins/colorscheme.lua	2023-04-27 21:12:14.158409828 -0400
++++ /home/stephen/.config/nvim/lua/plugins/colorscheme.lua	1969-12-31 19:00:00.000000000 -0500
+@@ -1,53 +0,0 @@
+-return {
+-
+-  -- disable tokyonight
+-  { "folke/tokyonight.nvim", enabled = false },
+-
+-  -- disable catppuccin
+-  { "catppuccin/nvim", name = "catppuccin", enabled = false },
+-
+-  { "olimorris/onedarkpro.nvim" },
+-
+-  -- Configure LazyVim to load color scheme
+-  {
+-    "LazyVim/LazyVim",
+-    opts = {
+-      colorscheme = function()
+-        local onedarkpro = require("onedarkpro")
+-        local color = require("onedarkpro.helpers")
+-        local colorscheme
+-        if string.match(os.getenv("THEME"), "[L|l]ight") then
+-          colorscheme = "onelight"
+-          vim.o.background = "light"
+-        else
+-          colorscheme = "onedark_vivid"
+-          vim.o.background = "dark"
+-        end
+-        local colors = color.get_colors(colorscheme)
+-        local opts = {
+-          theme = colorscheme,
+-          styles = {
+-            strings = "NONE", -- Style that is applied to strings
+-            comments = "NONE", -- Style that is applied to comments
+-            keywords = "NONE", -- Style that is applied to keywords
+-            functions = "NONE", -- Style that is applied to functions
+-            variables = "NONE", -- Style that is applied to variables
+-          },
+-          options = {
+-            terminal_colors = true, -- Use the theme's colors for Neovim's :terminal?
+-            cursorline = false, -- Use cursorline highlighting?
+-          },
+-          highlights = {
+-            AlphaHeader = { fg = colors.yellow },
+-            AlphaButtons = { fg = colors.fg },
+-            AlphaShortcut = { fg = colors.red },
+-            AlphaFooter = { fg = colors.highlight },
+-          }
+-        }
+-        onedarkpro.setup(opts)
+-        vim.cmd("colorscheme " .. colorscheme)
+-      end
+-    },
+-  },
+-
+-}
+diff '--color=auto' --new-file --text --recursive '--unified=6' /home/stephen/code-monkey/Nv/lua/plugins/extras/lang/rust.lua /home/stephen/.config/nvim/lua/plugins/extras/lang/rust.lua
+--- /home/stephen/code-monkey/Nv/lua/plugins/extras/lang/rust.lua	2023-04-27 21:12:14.159409841 -0400
++++ /home/stephen/.config/nvim/lua/plugins/extras/lang/rust.lua	2023-04-27 21:54:05.987859647 -0400
+@@ -63,14 +63,16 @@
+             tools = {
+               hover_actions = {
+                 auto_focus = false,
+                 border = "none",
+               },
+               inlay_hints = {
+-                auto = false,
++                auto = true,
+                 show_parameter_hints = true,
++                parameter_hints_prefix = "  ",
++                other_hints_prefix = "  ",
+               },
+             },
+             server = {
+               settings = {
+                 ["rust-analyzer"] = {
+                   cargo = {
+diff '--color=auto' --new-file --text --recursive '--unified=6' /home/stephen/code-monkey/Nv/lua/plugins/lang.lua /home/stephen/.config/nvim/lua/plugins/lang.lua
+--- /home/stephen/code-monkey/Nv/lua/plugins/lang.lua	2023-04-27 21:12:14.160409854 -0400
++++ /home/stephen/.config/nvim/lua/plugins/lang.lua	2023-04-27 21:54:37.745269950 -0400
+diff '--color=auto' --new-file --text --recursive '--unified=6' /home/stephen/code-monkey/Nv/lua/plugins/personal.lua /home/stephen/.config/nvim/lua/plugins/personal.lua
+--- /home/stephen/code-monkey/Nv/lua/plugins/personal.lua	1969-12-31 19:00:00.000000000 -0500
++++ /home/stephen/.config/nvim/lua/plugins/personal.lua	2023-04-27 21:54:40.360303736 -0400
+@@ -0,0 +1,114 @@
++-- Nv commit is 11832e3056908ffed1fd07a61291efdbec80c76c
++-- TODO
++-- tabbing for tab complete doesn't work initially. have to wait, or something. idk
++-- fix cursor color on white space before first character
++-- coding in latex, when i do a + <esc>, it would be really wonky sometimes. idk why
++return {
++  {
++    "folke/tokyonight.nvim",
++    opts = {
++      transparent = true,
++      styles = {
++        sidebars = "transparent",
++        floats = "transparent",
++      },
++      on_highlights = function(hl, colors)
++        hl.CursorLineNr = {
++          fg = "#FFba00",
++        }
++        hl.LineNr = {
++          fg = "#5081c0",
++        }
++      end,
++    },
++  },
++
++  {
++    "nvim-treesitter/nvim-treesitter-context",
++    dependencies = "nvim-treesitter",
++  },
++  { "ggandor/flit.nvim", enabled = false },
++  {
++    "rhysd/clever-f.vim",
++  },
++  {
++    "numToStr/Comment.nvim",
++  },
++
++  {
++    "echasnovski/mini.surround",
++    opts = {
++      mappings = {
++        add = "gsa",
++        delete = "gsd",
++        find = "gsf",
++        find_left = "gsF",
++        highlight = "gsh",
++        replace = "gsr",
++        update_n_lines = "gsn",
++      },
++    },
++  },
++  {
++    "lervag/vimtex",
++  },
++  {
++    "ggandor/leap.nvim",
++    event = "VimEnter",
++    config = function()
++      require("leap").add_default_mappings()
++      vim.keymap.del({ "x" }, "x")
++      vim.keymap.del({ "x" }, "X")
++    end,
++  },
++  {
++    "folke/persistence.nvim",
++    opts = {
++      options = { "buffers", "curdir", "tabpages", "winsize", "globals" },
++    },
++  },
++}
