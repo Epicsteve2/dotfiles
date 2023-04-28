@@ -115,6 +115,9 @@ return {
       telescope.load_extension("fzf")
       telescope.load_extension("undo")
     end,
+    keys = {
+      { "<leader><space>", false },
+    },
   },
 
   -- git blame

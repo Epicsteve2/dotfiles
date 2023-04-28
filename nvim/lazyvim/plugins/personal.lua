@@ -18,7 +18,7 @@ return {
         sidebars = "transparent",
         floats = "transparent",
       },
-      on_highlights = function(hl, colors)
+      on_highlights = function(hl, _)
         hl.CursorLineNr = {
           fg = "#FFba00",
         }
@@ -28,7 +28,6 @@ return {
       end,
     },
   },
-
   {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = "nvim-treesitter",
@@ -40,20 +39,6 @@ return {
   {
     "numToStr/Comment.nvim",
   },
-
-  -- {
-  --   "telescope.nvim",
-  --   dependencies = {
-  --     "nvim-telescope/telescope-fzf-native.nvim",
-  --     build = "make",
-  --     config = function()
-  --       require("telescope").load_extension("fzf")
-  --     end,
-  --   },
-  --   config = function()
-  --     vim.keymap.del({ "n" }, "<leader>/")
-  --   end,
-  -- },
   {
     "echasnovski/mini.surround",
     opts = {
@@ -67,9 +52,6 @@ return {
         update_n_lines = "gsn",
       },
     },
-    -- keys = {
-    --   { "gsa", false },
-    -- },
   },
   {
     "lervag/vimtex",
@@ -78,7 +60,6 @@ return {
     "ggandor/leap.nvim",
     event = "VimEnter",
     config = function()
-      -- require("leap")
       require("leap").add_default_mappings()
       vim.keymap.del({ "x" }, "x")
       vim.keymap.del({ "x" }, "X")
@@ -90,25 +71,4 @@ return {
       options = { "buffers", "curdir", "tabpages", "winsize", "globals" },
     },
   },
-  -- {
-  --   "folke/which-key.nvim",
-  --   opts = {
-  --     require("which-key").register({
-  --       ["<leader>"] = {
-  --         ["1"] = "which_key_ignore",
-  --         ["2"] = "which_key_ignore",
-  --         ["3"] = "which_key_ignore",
-  --         ["4"] = "which_key_ignore",
-  --         ["5"] = "which_key_ignore",
-  --         ["6"] = "which_key_ignore",
-  --         ["7"] = "which_key_ignore",
-  --         ["8"] = "which_key_ignore",
-  --         ["9"] = "which_key_ignore",
-  --         ["0"] = "which_key_ignore",
-  --         ["$"] = "which_key_ignore",
-  --         ["p"] = "which_key_ignore",
-  --       },
-  --     }),
-  --   },
-  -- },
 }
