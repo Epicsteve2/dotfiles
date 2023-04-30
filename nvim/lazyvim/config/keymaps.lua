@@ -107,3 +107,5 @@ vim.keymap.set({ "n" }, "gS", "<Plug>(leap-from-window)", { desc = "Leap from wi
 
 vim.keymap.set({ "x" }, "s", [[:<C-u>lua require('mini.surround').add('visual')<CR>]], { noremap = false })
 vim.keymap.set({ "x" }, "gs", "<Plug>(leap-forward-to)", { desc = "Leap", noremap = false, silent = true })
+
+vim.keymap.set({ "n" }, "<F7>", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
