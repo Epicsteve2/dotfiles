@@ -9,36 +9,18 @@ if [[ -z "$1" ]]; then
 	exit 1
 fi
 
-if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'steam_app_345620' ]]; then
-	IS_THE_LABYRINTH_OF_GRISAIA_ACTIVE=true
+if [[ $(xprop -id "$(xdotool getactivewindow)" WM_CLASS | awk '{print $4}' | sed "s/\"//g") = 'steam_app_345630' ]]; then
+	IS_THE_EDEN_OF_GRISAIA_ACTIVE=true
 else
-	IS_THE_LABYRINTH_OF_GRISAIA_ACTIVE=false
+	IS_THE_EDEN_OF_GRISAIA_ACTIVE=false
 fi
 
 case "$1" in
-'a')
-	if [[ $IS_THE_LABYRINTH_OF_GRISAIA_ACTIVE == true ]]; then
-		xdotool key a
-		sleep 0.06
-		xdotool key a
-		sleep 0.06
-		xdotool key a
-		sleep 0.06
-		xdotool key a
-		sleep 0.06
-		xdotool key a
-		sleep 0.06
-		xdotool key a
-	else
-		xdotool key a
-	fi
-	;;
-
 's')
-	if [[ $IS_THE_LABYRINTH_OF_GRISAIA_ACTIVE == true ]]; then
+	if [[ $IS_THE_EDEN_OF_GRISAIA_ACTIVE == true ]]; then
 		xdotool key Escape
 		xdotool mousemove $((X_OFFSET + 612)), 143
-		sleep 0.85
+		sleep 0.25
 		xdotool key Up
 		sleep 0.125
 		xdotool key Up
@@ -59,10 +41,10 @@ case "$1" in
 	;;
 
 'l')
-	if [[ $IS_THE_LABYRINTH_OF_GRISAIA_ACTIVE == true ]]; then
+	if [[ $IS_THE_EDEN_OF_GRISAIA_ACTIVE == true ]]; then
 		xdotool key Escape
 		xdotool mousemove $((X_OFFSET + 612)), 143
-		sleep 0.85
+		sleep 0.25
 		xdotool key Up
 		sleep 0.125
 		xdotool key Up
@@ -81,7 +63,7 @@ case "$1" in
 	;;
 
 'space')
-	if [[ $IS_THE_LABYRINTH_OF_GRISAIA_ACTIVE == true ]]; then
+	if [[ $IS_THE_EDEN_OF_GRISAIA_ACTIVE == true ]]; then
 		xdotool key Return
 	else
 		xdotool key space

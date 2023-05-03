@@ -48,7 +48,8 @@
   net KeyNextSong
   obs (around lmet f12)
   ;; tst (cmd-button "notify-send hi")
-  yts (cmd-button "xdotool mousemove 1791 1050; sleep 0.5; xdotool click 1; xdotool mousemove 1793 837")
+  ;; yts (cmd-button "xdotool mousemove 1791 1050; sleep 0.5; xdotool click 1; xdotool mousemove 1793 837")
+  yts (cmd-button "xdotool mousemove 3711 1050; sleep 0.5; xdotool click 1; xdotool mousemove 3713 837")
 
   ;; m1 (around lmet 1)
   m2 (around lmet 2)
@@ -85,6 +86,7 @@
   w-e (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Wonderful Everyday' 3") (layer-switch wonderful-everyday))
   fGs (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'The Fruit of Grisaia' 3") (layer-switch the-fruit-of-grisaia))
   lGs (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'The Labyrinth of Grisaia' 3") (layer-switch the-labyrinth-of-grisaia))
+  eGs (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'The Eden of Grisaia' 3") (layer-switch the-eden-of-grisaia))
   cpc (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/copy-mouse-position")
   cpw (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/get-active-window")
 
@@ -146,11 +148,16 @@
   fGsL  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-fruit-of-grisaia-keybinds.sh l")
   fGsSp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-fruit-of-grisaia-keybinds.sh space")
 
-  ;; the-fruit-of-grisaia
+  ;; the-labyrinth-of-grisaia
   lGsA  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-labyrinth-of-grisaia-keybinds.sh a")
   lGsS  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-labyrinth-of-grisaia-keybinds.sh s")
   lGsL  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-labyrinth-of-grisaia-keybinds.sh l")
   lGsSp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-labyrinth-of-grisaia-keybinds.sh space")
+
+  ;; the-eden-of-grisaia
+  eGsS  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-eden-of-grisaia-keybinds.sh s")
+  eGsL  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-eden-of-grisaia-keybinds.sh l")
+  eGsSp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-eden-of-grisaia-keybinds.sh space")
   ;; TODO? restart kmonad... this might be hard af tho
 )
 
@@ -164,13 +171,13 @@
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
   esc   _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
-  _     _     _                 _                 _     _     _                       _     _     _     @0ctl       @0dot
+  _     _     _                 _                 _     _     _                       _     _     _     @0ctl       _
 )
 
 (deflayer zero
   _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _     _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     kp/   kp*   kp-
-  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @man  @lGs  @m9   _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @man  @eGs  @m9   _
   caps  _     @yts  _     _     _     _     _     _     _     _     _     _                             @m4   @m5   @m6
   _     _     _     _     _     _     _     _     _     @cpc  @cpw  _                       _           @m1   @m2   @m3   _
   _     _     _                 _                 _     _     _                       _     _     _     _           @0dot
@@ -223,7 +230,7 @@
 
 (deflayer aokana-extra2
   _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
-  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net 
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
   _     _     _     _     @akeR @akeT _     _     _     @akeO _     _     _     _     _     _     _     _     _     _     _
   esc   @akeA @akeS _     @akeF _     _     _     _     @akeL _     _     _                             _     _     _
   _     _     _     @akeC @akeV _     _     _     _     _     _     _                       _           _     _     _     _
@@ -255,4 +262,13 @@
   esc   @lGsA @lGsS _     _     _     _     _     _     @lGsL _     _     _                             _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
   _     _     _                 @lGsSp            _     _     _                       _     _     _     @0ctl       @0dot
+)
+
+(deflayer the-eden-of-grisaia
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  esc   _     @eGsS _     _     _     _     _     _     @eGsL _     _     _                             _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
+  _     _     _                 @eGsSp            _     _     _                       _     _     _     @0ctl       @0dot
 )

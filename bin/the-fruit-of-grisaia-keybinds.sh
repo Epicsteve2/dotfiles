@@ -1,5 +1,7 @@
 #!/bin/bash
 
+X_OFFSET=1920
+
 set -eu -o pipefail
 
 if [[ -z "$1" ]]; then
@@ -35,7 +37,7 @@ case "$1" in
 's')
 	if [[ $IS_THE_FRUIT_OF_GRISAIA_ACTIVE == true ]]; then
 		xdotool key Escape
-		xdotool mousemove 612, 143
+    xdotool mousemove (612), 143
 		sleep 0.4
 		xdotool key Right
 		sleep 0.1

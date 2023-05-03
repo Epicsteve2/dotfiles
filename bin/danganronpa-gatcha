@@ -3,9 +3,9 @@
 echo "Sleeping for 5 seconds..."
 sleep 5
 for i in {1..100}; do
-  echo "Entering $i"
-  xdotool keydown --delay=250 Down keyup Down
-  sleep 1
-  xdotool keydown --delay=250 Return keyup Return 
-  sleep 7.5 # This is with no extra
+	echo "Entering $i"
+	xdotool keydown --delay=250 Down keyup Down
+	sleep 1
+	xdotool keydown --delay=250 Return keyup Return
+	sleep 7.5 # This is with no extra
 done
