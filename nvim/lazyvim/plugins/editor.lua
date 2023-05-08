@@ -116,7 +116,7 @@ return {
       telescope.load_extension("undo")
     end,
     keys = {
-      { "<leader><space>", false },
+      { "<leader>/", false },
     },
   },
 
@@ -124,6 +124,7 @@ return {
   {
     "f-person/git-blame.nvim",
     event = "BufReadPre",
+    enabled = false,
   },
 
   -- git conflict

@@ -11,6 +11,9 @@ return {
   --   dependencies = { "vim-textobj-user" },
   -- },
   {
+    "kmonad/kmonad-vim",
+  },
+  {
     "folke/tokyonight.nvim",
     opts = {
       transparent = true,
@@ -71,7 +74,7 @@ return {
       options = { "buffers", "curdir", "tabpages", "winsize", "globals" },
     },
   },
-  -- copied from AstrNvim
+  -- copied from AstroNvim
   {
     "akinsho/toggleterm.nvim",
     cmd = { "ToggleTerm", "TermExec" },

@@ -87,6 +87,7 @@
   fGs (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'The Fruit of Grisaia' 3") (layer-switch the-fruit-of-grisaia))
   lGs (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'The Labyrinth of Grisaia' 3") (layer-switch the-labyrinth-of-grisaia))
   eGs (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'The Eden of Grisaia' 3") (layer-switch the-eden-of-grisaia))
+  LDM (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'London Detective Mysteria' 3") (layer-switch london-detective-mysteria))
   cpc (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/copy-mouse-position")
   cpw (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/get-active-window")
 
@@ -158,6 +159,15 @@
   eGsS  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-eden-of-grisaia-keybinds.sh s")
   eGsL  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-eden-of-grisaia-keybinds.sh l")
   eGsSp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/the-eden-of-grisaia-keybinds.sh space")
+
+  ;; london-detective-mysteria
+  LDMf  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/london-detective-mysteria-keybinds.sh f")
+  LDMc  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/london-detective-mysteria-keybinds.sh c")
+  LDMb  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/london-detective-mysteria-keybinds.sh b")
+  LDMn  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/london-detective-mysteria-keybinds.sh n")
+  LDMo  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/london-detective-mysteria-keybinds.sh o")
+  LDMsp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/london-detective-mysteria-keybinds.sh space")
+
   ;; TODO? restart kmonad... this might be hard af tho
 )
 
@@ -177,7 +187,7 @@
 (deflayer zero
   _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _     _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     kp/   kp*   kp-
-  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @man  @eGs  @m9   _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @man  @LDM  @m9   _
   caps  _     @yts  _     _     _     _     _     _     _     _     _     _                             @m4   @m5   @m6
   _     _     _     _     _     _     _     _     _     @cpc  @cpw  _                       _           @m1   @m2   @m3   _
   _     _     _                 _                 _     _     _                       _     _     _     _           @0dot
@@ -271,4 +281,13 @@
   esc   _     @eGsS _     _     _     _     _     _     @eGsL _     _     _                             _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
   _     _     _                 @eGsSp            _     _     _                       _     _     _     @0ctl       @0dot
+)
+
+(deflayer london-detective-mysteria
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
+  _     _     _     _     _     _     _     _     _     @LDMo _     _     _     _     _     _     _     _     _     _     _
+  esc   _     _     _     @LDMf _     _     _     _     _     _     _     _                             _     _     _
+  _     _     _     @LDMc _     @LDMb @LDMn _     _     _     _     _                       _           _     _     _     _
+  _     _     _                 @LDMsp            _     _     _                       _     _     _     @0ctl       @0dot
 )
