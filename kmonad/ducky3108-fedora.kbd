@@ -88,6 +88,7 @@
   lGs (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'The Labyrinth of Grisaia' 3") (layer-switch the-labyrinth-of-grisaia))
   eGs (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'The Eden of Grisaia' 3") (layer-switch the-eden-of-grisaia))
   LDM (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'London Detective Mysteria' 3") (layer-switch london-detective-mysteria))
+  mjk (around (cmd-button "kdialog --title kmonad-layer --passivepopup 'Majikoi' 3") (layer-switch majikoi))
   cpc (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/copy-mouse-position")
   cpw (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/get-active-window")
 
@@ -168,6 +169,11 @@
   LDMo  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/london-detective-mysteria-keybinds.sh o")
   LDMsp (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/london-detective-mysteria-keybinds.sh space")
 
+  MJKr  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/majikoi-keybinds.sh r")
+  MJKb  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/majikoi-keybinds.sh b")
+  MJKn  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/majikoi-keybinds.sh n")
+  MJKt  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/majikoi-keybinds.sh t")
+
   ;; TODO? restart kmonad... this might be hard af tho
 )
 
@@ -187,7 +193,7 @@
 (deflayer zero
   _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _     _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     kp/   kp*   kp-
-  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @man  @LDM  @m9   _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @man  @mjk  @m9   _
   caps  _     @yts  _     _     _     _     _     _     _     _     _     _                             @m4   @m5   @m6
   _     _     _     _     _     _     _     _     _     @cpc  @cpw  _                       _           @m1   @m2   @m3   _
   _     _     _                 _                 _     _     _                       _     _     _     _           @0dot
@@ -290,4 +296,13 @@
   esc   _     _     _     @LDMf _     _     _     _     _     _     _     _                             _     _     _
   _     _     _     @LDMc _     @LDMb @LDMn _     _     _     _     _                       _           _     _     _     _
   _     _     _                 @LDMsp            _     _     _                       _     _     _     @0ctl       @0dot
+)
+
+(deflayer majikoi
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
+  _     _     _     _     @MJKr @MJKt _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  esc   _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _
+  _     _     _     _     _     @MJKb @MJKn _     _     _     _     _                       _           _     _     _     _
+  _     _     _                 _                 _     _     _                       _     _     _     @0ctl       @0dot
 )
