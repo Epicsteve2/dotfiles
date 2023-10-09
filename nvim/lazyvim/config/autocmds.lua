@@ -47,6 +47,12 @@ vim.cmd("set backupcopy=yes")
 vim.cmd("au BufWritePre * let &bex = '@' . strftime(\"%F.%H:%M\")")
 -- https://github.com/rcarriga/nvim-notify/issues/159
 vim.api.nvim_set_hl(0, "NotifyBackground", { fg = "#ffffff", bg = "#333333" })
+vim.cmd([[
+  augroup RestoreCursorShapeOnExit
+      autocmd!
+      autocmd VimLeave * set guicursor=a:ver10
+  augroup END
+]])
 
 -- TODO: maybe put this in keymaps.lua lol
 -- Apparently this doesn't work in macros, so this is the fix
