@@ -1,7 +1,15 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
 format = """
-$os\
-$username\
+$battery\
 $hostname\
+$container\
+$username\
+$time\
+$status\
+$cmd_duration\
+$line_break\
 $directory\
 $git_branch\
 $git_commit\
@@ -11,18 +19,37 @@ $git_status\
 $character\
 """
 
-
 scan_timeout = 0
 command_timeout = 1000
 add_newline = false
 
+
+# Original left and right prompt in 1 line
+# format = """
+# $battery\
+# $container\
+# $time\
+# $status\
+# $cmd_duration\
+# $username\
+# $hostname\
+# $directory\
+# $git_branch\
+# $git_commit\
+# $git_state\
+# $git_metrics\
+# $git_status\
+# $character\
+# """
+
 # If we want to use right prompt instead of fill
-right_format = """
-$status\
-$cmd_duration\
-$time\
-$battery\
-"""
+# right_format = """
+# $cmd_duration\
+# $status
+# $time\
+# $battery\
+# """
+# $sudo\
 
 # # 2 line prompt
 # format = """
@@ -46,6 +73,11 @@ $battery\
 # """
 # add_newline = true
 
+[os]
+disabled = true
+
+[container]
+format = '[\[$name\]]($style) '
 
 [fill]
 symbol = " "
@@ -54,8 +86,10 @@ symbol = " "
 format = "$symbol"
 success_symbol = "[➜](bold green) "
 error_symbol = "[✗](bold red) "
+vimcmd_symbol = '[❮](bold yellow) '
 
 [time]
+format = '[$time]($style) '
 disabled = false
 use_12hr = true
 
@@ -66,15 +100,18 @@ format =  	"[$symbol$percentage]($style)"
 threshold = 100
 
 [status]
+# format = '[$symbol $common_meaning$signal_name$maybe_int $status]($style) '
 format = '[$symbol $common_meaning$signal_name$maybe_int]($style) '
-map_symbol = true
-pipestatus = false
+symbol = ''
+# map_symbol = true
 # pipestatus = true
 disabled = false
-# sigint_symbol = "" # TODO
+
+[sudo]
+disabled = false
 
 [directory]
-read_only = " "
+read_only = " 󰌾"
 truncation_length = 8
 truncation_symbol = "…/"
 
@@ -118,6 +155,9 @@ symbol = " "
 [elm]
 symbol = " "
 
+[fossil_branch]
+symbol = " "
+
 [git_branch]
 symbol = " "
 
@@ -131,10 +171,13 @@ symbol = " "
 symbol = " "
 
 [haxe]
-symbol = "⌘ "
+symbol = " "
 
 [hg_branch]
 symbol = " "
+
+[hostname]
+ssh_symbol = " "
 
 [java]
 symbol = " "
@@ -146,13 +189,13 @@ symbol = " "
 symbol = " "
 
 [memory_usage]
-symbol = " "
+symbol = "󰍛 "
 
 [meson]
-symbol = "喝 "
+symbol = "󰔷 "
 
 [nim]
-symbol = " "
+symbol = "󰆥 "
 
 [nix_shell]
 symbol = " "
@@ -160,15 +203,13 @@ symbol = " "
 [nodejs]
 symbol = " "
 
-# [os]
-# disabled = false
-# format = " ($style)"
-
 [os.symbols]
+Alpaquita = " "
 Alpine = " "
 Amazon = " "
 Android = " "
 Arch = " "
+Artix = " "
 CentOS = " "
 Debian = " "
 DragonFly = " "
@@ -176,11 +217,12 @@ Emscripten = " "
 EndeavourOS = " "
 Fedora = " "
 FreeBSD = " "
-Garuda = "﯑ "
+Garuda = "󰛓 "
 Gentoo = " "
-HardenedBSD = "ﲊ "
-Illumos = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
 Linux = " "
+Mabox = " "
 Macos = " "
 Manjaro = " "
 Mariner = " "
@@ -188,28 +230,31 @@ MidnightBSD = " "
 Mint = " "
 NetBSD = " "
 NixOS = " "
-OpenBSD = " "
+OpenBSD = "󰈺 "
 openSUSE = " "
-OracleLinux = " "
-Pop = " "
+OracleLinux = "󰌷 "
+Pop = " "
 Raspbian = " "
 Redhat = " "
 RedHatEnterprise = " "
-Redox = " "
-Solus = "ﴱ "
+Redox = "󰀘 "
+Solus = "󰠳 "
 SUSE = " "
 Ubuntu = " "
 Unknown = " "
-Windows = " "
+Windows = "󰍲 "
 
 [package]
-symbol = " "
+symbol = "󰏗 "
+
+[pijul_channel]
+symbol = " "
 
 [python]
 symbol = " "
 
 [rlang]
-symbol = "ﳒ "
+symbol = "󰟔 "
 
 [ruby]
 symbol = " "
@@ -219,6 +264,3 @@ symbol = " "
 
 [scala]
 symbol = " "
-
-[spack]
-symbol = "🅢 "
