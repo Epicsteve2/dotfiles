@@ -36,9 +36,9 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.cmd("let g:vimtex_quickfix_mode=0")
-vim.cmd("let g:vimtex_quickfix_open_on_warning=0")
+vim.cmd("let g:vimtex_view_general_viewer = 'okular'")
 vim.cmd("let g:vimtex_mappings_prefix='<leader>\\'")
--- vim.cmd("set conceallevel=2")
+vim.cmd("set conceallevel=0")
 
 vim.cmd("set backup")
 vim.cmd("set backupdir=~/.config/nvim/backups/")
