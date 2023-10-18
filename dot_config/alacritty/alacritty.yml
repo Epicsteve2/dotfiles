@@ -41,8 +41,10 @@ shell:
     - -c
     - '[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}'
 
+# # Normally you'd add this, but whatever
 # env:
 #   TERM: alacritty
+  # TERM: xterm-256color
   # shell:
   #   program: tmux
   # Configuration for Alacritty, the GPU enhanced terminal emulator.
