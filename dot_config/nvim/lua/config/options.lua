@@ -16,7 +16,8 @@ vim.opt.writebackup = true
 vim.opt.backupcopy = "yes"
 -- autocommand in the autocmds file
 
-vim.opt.formatoptions = "jqlnt" -- removed 'cro'
+-- vim.opt.formatoptions = "jqlnt" -- removed 'cro'
+vim.opt.formatoptions:remove({ "c", "r", "o" })
 
 -- TODO, maybe
 -- vim.cmd("au BufWritePre * let &bex = '@' . strftime(\"%F.%H:%M\")")
