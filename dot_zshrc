@@ -16,7 +16,7 @@ znap source unixorn/fzf-zsh-plugin
 # issue with small heights, you can only see 2 options or smth
 znap source Aloxaf/fzf-tab
 znap source Freed-Wu/fzf-tab-source
-znap source marzocchi/zsh-notify
+# znap source marzocchi/zsh-notify
 # znap source zsh-users/zaw
 # TODO: Fzf tmux too
 

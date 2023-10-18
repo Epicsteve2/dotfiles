@@ -31,6 +31,7 @@ window:
   history: 99999
 
 font:
+  size: 15.0
   normal:
     family: FiraCode Nerd Font
     blinking: Off
@@ -41,9 +42,8 @@ shell:
     - -c
     - '[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}'
 
-# # Normally you'd add this, but whatever
-# env:
-#   TERM: alacritty
+env:
+  TERM: alacritty
   # TERM: xterm-256color
   # shell:
   #   program: tmux
