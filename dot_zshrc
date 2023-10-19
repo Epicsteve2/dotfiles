@@ -140,14 +140,9 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 # when deleting word, stop at slash
 WORDCHARS='*?_-[]~\!#$%^(){}<>|`@#$%^*()+:?'
 
-# # home and end on opensuse
-# bindkey '^[[20~' beginning-of-line
-# bindkey '^[[21~' end-of-line
-# bindkey  "^[[H"   beginning-of-line
-# bindkey  "^[[F"   end-of-line
-# On fedora desktop
-bindkey  "^[[1~"   beginning-of-line
-bindkey  "^[[4~"   end-of-line
+# home and end
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
 # delete key
 bindkey "^[[3~" delete-char
 
