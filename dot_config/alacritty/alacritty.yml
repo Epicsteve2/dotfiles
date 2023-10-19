@@ -34,7 +34,8 @@ font:
   size: 15.0
   normal:
     family: FiraCode Nerd Font
-    blinking: Off
+    # idk what this does lol
+    # blinking: Off
 
 shell:
   program: zsh

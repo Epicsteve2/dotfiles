@@ -93,8 +93,8 @@ format = '[$time]($style) '
 disabled = false
 use_12hr = true
 
-[battery]
-format =  	"[$symbol$percentage]($style)"
+# [battery]
+# format = "[$symbol$percentage]($style) "
 
 [[battery.display]]
 threshold = 100
