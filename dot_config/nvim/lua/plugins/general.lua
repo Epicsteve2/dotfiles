@@ -68,6 +68,30 @@ return {
 					end
 				end, { "i", "s" }),
 			})
+
+			-- this and the nvimtreesitter line is for vns.md. maybe there's a fix? idk
+			-- nvm this isn't causing any lag
+			-- cmp.setup.filetype("markdown", {
+			-- 	enabled = false,
+			-- })
 		end,
+	},
+
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = {
+			highlight = {
+				-- this is LAGGY AF
+				-- disable = { "markdown" },
+
+				-- source, kinda https://www.reddit.com/r/neovim/comments/yxjrkr/comment/iwsxikt/?utm_source=reddit&utm_medium=web2x&context=3
+				disable = function()
+					return vim.fn.expand("%:p") == "/home/stephen/code-monkey/dotfiles-private/vns.md"
+					-- local buf_name = vim.api.nvim_buf_get_name(bufnr)
+					-- local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
+					-- return file_size > 256 * 1024
+				end,
+			},
+		},
 	},
 }
