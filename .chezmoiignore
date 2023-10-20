@@ -1,5 +1,4 @@
 bin
-fonts
 kmonad
 mpv
 nvim-old
@@ -9,15 +8,10 @@ windows
 LICENSE
 README.md 
 VSCode*
-alacritty.yml
 config.nu
 gitconfig
 helix.toml
 imwheelrc
-init.sh
 install
 p10k.zsh
 starship.toml 
-tmux.conf 
-zshrc
-private_dot_local

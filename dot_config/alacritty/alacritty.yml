@@ -31,7 +31,7 @@ window:
   history: 99999
 
 font:
-  size: 15.0
+  size: 13.0
   normal:
     family: FiraCode Nerd Font
     # idk what this does lol
