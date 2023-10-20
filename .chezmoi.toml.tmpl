@@ -3,13 +3,10 @@ sourceDir = "{{ env "HOME" }}/code-monkey/dotfiles"
     command = "nvim"
     args = [
         "-d",
-        "{{ "{{" }} .Destination {{ "}}" }}",
-        "{{ "{{" }} .Source {{ "}}" }}",
-        "{{ "{{" }} .Target {{ "}}" }}"
+        "{{ "{{ .Destination }}" }}",
+        "{{ "{{ .Source }}" }}",
+        "{{ "{{ .Target }}" }}"
     ]
-  # args = ["--true-color", "always", "--dark", "--line-numbers", "--side-by-side", "{{`{{ .Destination }}`}}", "{{`{{ .Target }}`}}"]
-
-
 
 [diff]
     pager = "delta"
