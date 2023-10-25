@@ -1,4 +1,6 @@
 return {
+
+	{ "kmonad/kmonad-vim" },
 	{ "alexghergh/nvim-tmux-navigation" },
 	{
 		"folke/tokyonight.nvim",

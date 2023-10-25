@@ -27,6 +27,17 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
+-- wrap and check for spell in text
+-- source https://github.com/LazyVim/LazyVim/blob/e7130c8250c403140ce504bde9e973d5a301ab4c/lua/lazyvim/config/autocmds.lua#L74
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	group = vim.api.nvim_create_augroup("wrap_diary", { clear = true }),
+	pattern = { "*/home/stephen/MEGA/MEGAsync/Diary/**" },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+	end,
+})
+
 -- -- autocommand to disable TSBuf on a file. doesn't really work tho
 -- vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
 -- 	-- group = vim.api.nvim_create_augroup("timestamp_backupext", { clear = true }),
