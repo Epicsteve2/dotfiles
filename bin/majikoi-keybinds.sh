@@ -34,6 +34,15 @@ case "$1" in
 	fi
 	;;
 
+'f')
+	if [[ $IS_MAJIKOI_ACTIVE == true ]]; then
+		# previous 3013, 1053
+		xdotool mousemove $((X_OFFSET + 1093)), 1053 sleep 0.1 mousedown 1 sleep 0.1 mouseup 1 mousemove restore
+	else
+		xdotool key f
+	fi
+	;;
+
 'n')
 	if [[ $IS_MAJIKOI_ACTIVE == true ]]; then
 		# previous 3074, 1057
