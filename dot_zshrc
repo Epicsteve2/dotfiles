@@ -189,6 +189,7 @@ alias ....="../../.."
 alias .....="../../../.."
 alias ......="../../../../.."
 alias .......="../../../../../.."
+alias which='echo "Using type!"; type'
 
 # alias open='handlr open'
 # alias cp="cp -v"

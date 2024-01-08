@@ -24,5 +24,5 @@ vim.opt.formatoptions:remove({ "c", "r", "o" })
 -- vim.cmd("au BufWritePre * let &bex = '@' . strftime(\"%F.%H:%M\")")
 -- vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions-=cro")
 -- vim.cmd("set formatoptions-=cro")
-vim.g.minipairs_disable = true
+-- vim.g.minipairs_disable = true
 -- vim.opt.format
