@@ -50,6 +50,7 @@
   ;; tst (cmd-button "notify-send hi")
   ;; yts (cmd-button "xdotool mousemove 1791 1050; sleep 0.5; xdotool click 1; xdotool mousemove 1793 837")
   yts (cmd-button "xdotool mousemove 3711 1050; sleep 0.5; xdotool click 1; xdotool mousemove 3713 837")
+  clic (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/autoclick.sh")
 
   ;; m1 (around lmet 1)
   m2 (around lmet 2)
@@ -171,6 +172,7 @@
 
   MJKr  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/majikoi-keybinds.sh r")
   MJKb  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/majikoi-keybinds.sh b")
+  MJKf  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/majikoi-keybinds.sh f")
   MJKn  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/majikoi-keybinds.sh n")
   MJKt  (cmd-button "/home/stephen/code-monkey/dotfiles/.current-files/bin/majikoi-keybinds.sh t")
 
@@ -194,7 +196,7 @@
   _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _     _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     kp/   kp*   kp-
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @man  @mjk  @m9   _
-  caps  _     @yts  _     _     _     _     _     _     _     _     _     _                             @m4   @m5   @m6
+  caps  @clic @yts  _     _     _     _     _     _     _     _     _     _                             @m4   @m5   @m6
   _     _     _     _     _     _     _     _     _     @cpc  @cpw  _                       _           @m1   @m2   @m3   _
   _     _     _                 _                 _     _     _                       _     _     _     _           @0dot
 )
@@ -302,7 +304,7 @@
   _     _     _     _     _     _     _     _     _     _     _     _     _           _     @obs  f15   _     _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     f13   _     _     _     @pev  @plp  @net
   _     _     _     _     @MJKr @MJKt _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
-  esc   _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _
+  esc   _     _     _     @MJKf _     _     _     _     _     _     _     _                             _     _     _
   _     _     _     _     _     @MJKb @MJKn _     _     _     _     _                       _           _     _     _     _
   _     _     _                 _                 _     _     _                       _     _     _     @0ctl       @0dot
 )
