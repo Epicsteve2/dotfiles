@@ -37,6 +37,8 @@ program = "zsh"
 
 [window]
 dynamic_title = true
-history = 99999
 opacity = 0.85
 startup_mode = "Maximized"
+
+[scrolling]
+history = 99999
