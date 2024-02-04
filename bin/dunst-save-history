@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-# appname, summary, body, icon, urgency.
-{
-    printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')"
-    for arg in "$@"; do
-        printf '%s\n' "$arg"
-    done
-    printf "\n"
-} >>~/.config/dunst/dunst-history.log
