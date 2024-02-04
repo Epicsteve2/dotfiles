@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -eux -o pipefail
+
 # add FiraCode
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraCode.tar.xz --directory-prefix=/tmp
 mkdir /tmp/firacode/

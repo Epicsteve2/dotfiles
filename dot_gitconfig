@@ -1,0 +1,56 @@
+[user]
+name = Stephen Guo
+email = epicsteveoj@gmail.com
+[credential]
+## I don't remember what this is
+#helper = /usr/lib/git-core/git-credential-libsecret
+## If lazy and on a VM or something
+# helper = store
+[color]
+ui = auto
+[pull]
+rebase = true
+[help]
+## Automatically correct and execute mistyped commands
+autocorrect = 1
+[author]
+name = Stephen Guo
+[rebase]
+autoStash = true
+[init]
+defaultBranch = main
+
+[core]
+pager = delta --line-numbers
+editor = nvim
+## Only on KDE
+askpass = /usr/bin/ksshaskpass
+# whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+## This is new. idk what some of these does lol
+whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+[diff]
+# colorMoved = default
+diffFilter = delta --color-only --line-numbers
+## Detect copies as well as renames
+renames = copies
+[delta]
+syntax-theme = Monokai Extended
+navigate = true
+line-numbers = true
+# hunk-header-style = omit
+[interactive]
+diffFilter = delta --color-only --line-numbers
+
+[diff]
+tool = nvimdiff
+[difftool]
+prompt = true
+[difftool "code"]
+cmd = code --wait --diff $LOCAL $REMOTE
+
+[merge]
+tool = nvimdiff
+# tool = code
+conflictstyle = diff3
+[mergetool "code"]
+cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
