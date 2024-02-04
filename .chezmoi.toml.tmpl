@@ -1,4 +1,5 @@
 sourceDir = "{{ env "HOME" }}/code-monkey/dotfiles"
+pager = "bat --language=diff --style=plain"
 [merge]
     command = "nvim"
     args = [
@@ -8,5 +9,7 @@ sourceDir = "{{ env "HOME" }}/code-monkey/dotfiles"
         "{{ "{{ .Target }}" }}"
     ]
 
-[diff]
-    pager = "delta"
+## Normally i'd use this, but the pager seems broken still. It says it's fixed, but i'm still getting it. probably something wrong with my pager 
+## Source: https://github.com/twpayne/chezmoi/issues/3346
+# [diff]
+#     pager = "delta"
