@@ -19,3 +19,4 @@ starship.toml
 add-fonts-and-tmux.sh
 chezmoi-stuff.sh
 add-mpv-plugins.bash
+other-setup.sh
