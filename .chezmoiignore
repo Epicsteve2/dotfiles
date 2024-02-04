@@ -16,6 +16,6 @@ install
 p10k.zsh
 starship.toml 
 # run_once_add_fonts_and_tmux.sh
-add_fonts_and_tmux.sh
+add-fonts-and-tmux.sh
 chezmoi-stuff.sh
-add_mpv_plugins.bash
+add-mpv-plugins.bash
