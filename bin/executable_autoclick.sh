@@ -5,6 +5,5 @@
 echo "Starting Script"
 for i in {1..250}; do
 	xdotool mousedown 1 sleep 0.025 mouseup 1 sleep 0.025
-	sleep 0.05
 done
 echo "Finished Script"
