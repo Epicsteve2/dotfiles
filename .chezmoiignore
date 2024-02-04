@@ -1,15 +1,10 @@
 # bin
 kmonad
-mpv
-nvim-old
 root
-scripts
 windows
 LICENSE
 README.md 
 VSCode*
-config.nu
-gitconfig
 helix.toml
 imwheelrc
 install
