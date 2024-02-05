@@ -1,17 +1,12 @@
 # bin
-kmonad
-root
 windows
 LICENSE
 README.md 
 VSCode*
-helix.toml
-imwheelrc
-install
-p10k.zsh
-starship.toml 
 # run_once_add_fonts_and_tmux.sh
-add-fonts-and-tmux.sh
-chezmoi-stuff.sh
-add-mpv-plugins.bash
-other-setup.sh
+# add-fonts-and-tmux.sh
+# chezmoi-stuff.sh
+# add-mpv-plugins.bash
+# other-setup.sh
+*.sh
+*.bash
