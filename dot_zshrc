@@ -16,12 +16,44 @@ znap source unixorn/fzf-zsh-plugin
 # issue with small heights, you can only see 2 options or smth
 znap source Aloxaf/fzf-tab
 znap source Freed-Wu/fzf-tab-source
-# znap source marzocchi/zsh-notify
+znap source marzocchi/zsh-notify
+zstyle ':notify:*' expire-time 15000
+# zstyle ':notify:*' disable-urgent yes
+# znap source MichaelAquilina/zsh-auto-notify
 # znap source zsh-users/zaw
 # TODO: Fzf tmux too
 
 # znap source trystan2k/zsh-tab-title
-# znap source jeffreytse/zsh-vi-mode
+function zvm_config() {
+  ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+}
+znap source jeffreytse/zsh-vi-mode
+function zvm_after_init() {
+  # copy all bindings cuz the plugin overwrites it
+  bindkey "${terminfo[kcuu1]}" fzf-history-widget
+  bindkey "^[[A" fzf-history-widget
+  bindkey '^R' fzf-history-widget
+
+  bindkey " " globalias
+
+  # home and end
+  bindkey  "^[[H"   beginning-of-line
+  bindkey  "^[[F"   end-of-line
+  # delete key
+  bindkey "^[[3~" delete-char
+
+  # idk lol
+  bindkey "^[[1;5C" forward-word
+  bindkey "^[[1;5D" backward-word
+  bindkey "\C-h" backward-kill-word
+  bindkey "\e[3;5~" kill-word
+}
+
+function zvm_after_lazy_keybindings() {
+  bindkey -M vicmd '_' vi-first-non-blank
+  bindkey -M visual '_' vi-first-non-blank
+}
+
 # znap source chriskempson/base16-shell
 # znap eval chriskempson/base16-shell base16_monokai
 # zstyle ':notify:*' expire-time 25000
