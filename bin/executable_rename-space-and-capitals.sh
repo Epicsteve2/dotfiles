@@ -2,10 +2,6 @@
 
 set -eu -o pipefail
 
-#!/bin/bash
-
-set -eu -o pipefail
-
 for file in *; do
 	output="$(sed --expression 's|[^A-Za-z0-9._-]|-|g' <<<"$file" | # idk what this does tbh
 		tr '[:upper:]' '[:lower:]' |
