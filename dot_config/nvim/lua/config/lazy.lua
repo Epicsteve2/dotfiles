@@ -19,6 +19,7 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.coding.yanky" }, -- I'm not too sure what this dows lol
 		-- { import = "lazyvim.plugins.extras.lang.markdown" },
 		{ import = "lazyvim.plugins.extras.lang.rust" },
+		{ import = "lazyvim.plugins.extras.lang.python" },
 		-- { import = "lazyvim.plugins.extras.coding.yanky" },
 		-- import/override with your plugins
 		{ import = "plugins" },
