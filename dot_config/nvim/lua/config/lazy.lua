@@ -20,8 +20,14 @@ require("lazy").setup({
 		-- { import = "lazyvim.plugins.extras.lang.markdown" },
 		{ import = "lazyvim.plugins.extras.lang.rust" },
 		{ import = "lazyvim.plugins.extras.lang.python" },
+		{ import = "lazyvim.plugins.extras.coding.mini-surround" },
+		-- idk what this does anmore. i don't think i need it cuz i think commenting is in vanilla nvim
+		-- { import = "lazyvim.plugins.extras.coding.mini-comment" },
+		{ import = "lazyvim.plugins.extras.ui.treesitter-context" },
+		-- idk waht this does...
 		-- { import = "lazyvim.plugins.extras.coding.yanky" },
 		-- import/override with your plugins
+		{ import = "lazyvim.plugins.extras.lang.svelte" },
 		{ import = "plugins" },
 	},
 	defaults = {
@@ -34,7 +40,7 @@ require("lazy").setup({
 		-- version = "*", -- try installing the latest stable version for plugins that support semver
 	},
 	install = { colorscheme = { "tokyonight", "habamax" } },
-	checker = { enabled = true }, -- automatically check for plugin updates
+	-- checker = { enabled = true }, -- automatically check for plugin updates
 	performance = {
 		cache = {
 			enabled = true,
