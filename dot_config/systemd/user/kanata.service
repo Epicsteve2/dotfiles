@@ -1,0 +1,14 @@
+[Unit]
+Description=Kanata keyboard remapper
+Documentation=https://github.com/jtroo/kanata
+
+[Service]
+Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
+Environment=DISPLAY=:0
+Environment=HOME=/home/stephen
+Type=simple
+ExecStart=/home/stephen/.local/bin/kanata --cfg /home/stephen/.config/kanata/ducky.kbd
+Restart=never
+
+[Install]
+WantedBy=default.target

@@ -7,3 +7,5 @@ chezmoi git pull -- --autostash --rebase && chezmoi diff
 chezmoi apply --dry-run --verbose
 
 chezmoi re-add
+
+chezmoi add ~/.config/systemd/user/kanata.service
