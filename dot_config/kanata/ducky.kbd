@@ -54,6 +54,17 @@
   vd7 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 7)
   vd8 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 8)
   vd9 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 9)
+  
+  ;; source https://stackoverflow.com/a/43156436
+  vlcp (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
+  vlcb (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous)
+  vlcn (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next)
+
+  ;; I figured this out myself. find all methods by running `qdbus`
+  ;; then literally look at source code to see stuff https://github.com/KDE/plasma-browser-integration/blob/f37055ed05402316254d6bd3f8e1fd97c7bbe263/dbus/org.mpris.MediaPlayer2.Player.xml
+  ffpp (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.plasma-browser-integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
+  ffn  (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.plasma-browser-integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next)
+  ffp  (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.plasma-browser-integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous)
 )
 
 (defsrc
@@ -97,7 +108,7 @@
    _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _     _     _     _
    _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
    _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     lrld  _
-   _     _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _      
-   _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
+   _     _     _     _     _     _     _     _     _     _     _     _     _                             @ffp  @ffpp @ffn   
+   _     _     _     _     _     _     _     _     _     _     _     _                       _           @vlcb @vlcp @vlcn _
    _     _     _                 _                 _     _     _                       _     _     _     _           _
  )

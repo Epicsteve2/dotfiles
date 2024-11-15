@@ -38,6 +38,15 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	end,
 })
 
+vim.api.nvim_create_autocmd("BufReadPost", {
+	pattern = "*.env*",
+	desc = "Disable diagnostic for .env files",
+	callback = function(ev)
+		vim.diagnostic.enable(false, { bufnr = ev.buf })
+		vim.b.autoformat = false
+	end,
+})
+
 -- -- autocommand to disable TSBuf on a file. doesn't really work tho
 -- vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
 -- 	-- group = vim.api.nvim_create_augroup("timestamp_backupext", { clear = true }),

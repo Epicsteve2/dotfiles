@@ -1,6 +1,7 @@
 return {
 
 	{ "kmonad/kmonad-vim" },
+	{ "imsnif/kdl.vim" },
 	{ "alexghergh/nvim-tmux-navigation" },
 	{
 		"folke/tokyonight.nvim",

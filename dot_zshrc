@@ -8,11 +8,11 @@ source ~/code-monkey/zsh-plugins/zsh-snap/znap.zsh
 znap eval starship 'starship init zsh --print-full-init'
 znap prompt
 
-export FZF_DEFAULT_OPTS=' '
+# export FZF_DEFAULT_OPTS=' '
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source wfxr/forgit
-znap source unixorn/fzf-zsh-plugin
+# znap source unixorn/fzf-zsh-plugin
 # issue with small heights, you can only see 2 options or smth
 znap source Aloxaf/fzf-tab
 znap source Freed-Wu/fzf-tab-source
@@ -210,9 +210,9 @@ alias n='nvim'
 alias sudo='sudo -v; sudo '
 alias s='sudo'
 alias d='docker'
-alias dc='docker-compose'
+alias dc='docker compose'
 alias bm='bat --language help --plain'
-alias t="trash"
+# alias t="trash"
 alias update-grub='grub-mkconfig -o /boot/grub/grub.cfg'
 alias copy="tee /dev/tty | tr -d '\n' | xclip -sel clip"
 alias :q="exit"
@@ -223,6 +223,7 @@ alias ......="../../../../.."
 alias .......="../../../../../.."
 alias which='echo "Using type!"; type'
 alias neofetch='echo "using fastfetch"; fastfetch'
+alias tf='terraform'
 
 # alias open='handlr open'
 # alias cp="cp -v"
@@ -244,7 +245,7 @@ alias l='eza --long --icons --all --header --git --group-directories-first --cla
 alias cat="bat --plain --plain"
 alias bat="bat --number"
 globalias() {
-  EXPAND_ALIASES=(g n v vi vim d dc s t)
+  EXPAND_ALIASES=(g n v vi vim d dc s tf)
    if [[ ${EXPAND_ALIASES[(ie)$LBUFFER]} -le ${#EXPAND_ALIASES} ]]; then
      zle _expand_alias
      zle expand-word

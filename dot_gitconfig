@@ -1,11 +1,13 @@
 [user]
 name = Stephen Guo
-email = epicsteveoj@gmail.com
+email = stephenguo14@gmail.com
 [credential]
 ## I don't remember what this is
 #helper = /usr/lib/git-core/git-credential-libsecret
 ## If lazy and on a VM or something
 # helper = store
+; helper = /usr/bin/ksshaskpass
+; helper = /usr/libexec/openssh/gnome-ssh-askpass
 [color]
 ui = auto
 [pull]
