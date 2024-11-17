@@ -2,6 +2,21 @@
   danger-enable-cmd yes
 )
 
+(defalias
+  altk (tap-hold-press-timeout 200 1000 kp0 (layer-while-held altk) kp0)
+  musi (tap-hold-press-timeout 200 1000 kp0 (layer-while-held musi) kp1)
+
+  vd1 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 1)
+  vd2 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 2)
+  vd3 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 3)
+  vd4 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 4)
+  vd5 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 5)
+  vd6 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 6)
+  vd7 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 7)
+  vd8 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 8)
+  vd9 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 9)
+)
+
 (defsrc
   esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12   ssrq  del   kp*   kp/
   grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc        kp+   kp-   nlck
@@ -13,22 +28,42 @@
 )
 
 
-;; (deflayer name
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _    _              _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _    _                   _    _    _
-;;                                                          _
-;;   _    _    _              _              _    _    _    _    _              _    _    _
-;; )
+;;(deflayer name
+;;  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+;;  _     _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _
+;;  _     _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _
+;;  _     _     _     _     _     _     _     _     _     _     _     _     _                 _     _     _
+;;  _     _     _     _     _     _     _     _     _     _     _     _                       _     _     _
+;;                                                                    _
+;;  _     _     _                 _                 _     _     _     _     _                 _     _     _
+;;)
 
-(deflayer name
+(deflayer main
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _
-  _     _     _     _     _     _     _     _     _     _     _     _     _                 _     _     _
+  esc   _     _     _     _     _     _     _     _     _     _     _     _                 _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _                       _     _     _
+                                                                    _
+  _     _     _                 _                 _     _     _     _     _                 @altk @musi _
+)
+
+(deflayer altk
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _           @vd1  @vd2  @vd3   
+  caps  _     _     _     _     _     _     _     _     _     _     _     _                 @vd4  @vd5  @vd6    
+  _     _     _     _     _     _     _     _     _     _     _     _                       @vd7  @vd8  @vd9   
+                                                                    _
+  _     _     _                 _                 _     _     _     _     _                 _     _     _
+)
+
+(deflayer music-control
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _   
+  caps  _     _     _     _     _     _     _     _     _     _     _     _                 @ffp  @ffpp @ffn    
+  _     _     _     _     _     _     _     _     _     _     _     _                       @vlcb @vlcp @vlcn  
                                                                     _
   _     _     _                 _                 _     _     _     _     _                 _     _     _
 )
