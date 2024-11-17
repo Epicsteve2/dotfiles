@@ -1,12 +1,5 @@
-# bin
-windows
 LICENSE
 README.md 
 VSCode*
-# run_once_add_fonts_and_tmux.sh
-# add-fonts-and-tmux.sh
-# chezmoi-stuff.sh
-# add-mpv-plugins.bash
-# other-setup.sh
 *.sh
 *.bash
