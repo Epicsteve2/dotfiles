@@ -18,8 +18,7 @@
 
 (defalias
   altk (tap-hold-press-timeout 200 1000 kp0 (layer-while-held altk) kp0)
-  svd (tap-hold-press-timeout 200 1000 kp0 (layer-while-held switch-virtual-desktops) kp1)
-
+  musi (tap-hold-press-timeout 200 1000 kp1 (layer-while-held music-control) kp1)
 
   1 1
   2 2
@@ -91,7 +90,7 @@
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
   esc   _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
-  _     _     _                 _                 _     _     _                       _     _     _     @altk       @svd  
+  _     _     _                 _                 _     _     _                       _     _     _     @altk       @musi  
 )
 
 
@@ -104,7 +103,7 @@
   _     _     _                 _                 _     _     _                       _     _     _     _           _
 )
 
- (deflayer switch-virtual-desktops
+ (deflayer music-control
    _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     _     _     _     _     _
    _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
    _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     lrld  _

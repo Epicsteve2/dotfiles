@@ -8,31 +8,20 @@ source ~/code-monkey/zsh-plugins/zsh-snap/znap.zsh
 znap eval starship 'starship init zsh --print-full-init'
 znap prompt
 
-# export FZF_DEFAULT_OPTS=' '
+znap eval zoxide "zoxide init zsh"
+
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
-znap source wfxr/forgit
-# znap source unixorn/fzf-zsh-plugin
-# issue with small heights, you can only see 2 options or smth
 znap source Aloxaf/fzf-tab
 znap source Freed-Wu/fzf-tab-source
 znap source marzocchi/zsh-notify
 zstyle ':notify:*' expire-time 15000
-# zstyle ':notify:*' disable-urgent yes
-# znap source MichaelAquilina/zsh-auto-notify
-# znap source zsh-users/zaw
-# TODO: Fzf tmux too
-
-# znap source trystan2k/zsh-tab-title
 function zvm_config() {
   ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 }
 znap source jeffreytse/zsh-vi-mode
 function zvm_after_init() {
-  # copy all bindings cuz the plugin overwrites it
-  bindkey "${terminfo[kcuu1]}" fzf-history-widget
-  bindkey "^[[A" fzf-history-widget
-  bindkey '^R' fzf-history-widget
+  znap eval atuin "atuin init zsh"
 
   bindkey " " globalias
 
@@ -54,16 +43,6 @@ function zvm_after_lazy_keybindings() {
   bindkey -M visual '_' vi-first-non-blank
 }
 
-# znap source chriskempson/base16-shell
-# znap eval chriskempson/base16-shell base16_monokai
-# zstyle ':notify:*' expire-time 25000
-
-# ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
-# ZSH_TAB_TITLE_ONLY_FOLDER=true
-# ZSH_TAB_TITLE_CONCAT_FOLDER_PROCESS=true
-# ZSH_TAB_TITLE_ENABLE_FULL_COMMAND=true
-
-# znap eval fzf 'curl -fsSL https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh'
 zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
 zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'
 zstyle ':fzf-tab:*' continuous-trigger shift-tab
@@ -87,87 +66,22 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # Case insensitive https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-# hm, it's not working rn anymore
-# znap eval zoxide "zoxide init zsh"
-eval "$(zoxide init zsh)"
-
-# There's no good way to query this, except for hardcoding this. oh well
-export PATH="$PATH:$FORGIT_INSTALL_DIR/bin" 
-export FORGIT_HELP=$(<<<'
-Command 	Option
-Enter 	Confirm
-Tab 	Toggle mark and move up
-Shift - Tab 	Toggle mark and move down
-? 	Toggle preview window
-Alt - W 	Toggle preview wrap
-Ctrl - S 	Toggle sort
-Ctrl - R 	Toggle selection
-Ctrl - Y 	Copy commit hash*
-Ctrl - K / P 	Selection move up
-Ctrl - J / N 	Selection move down
-Alt - K / P 	Preview move up
-Alt - J / N 	Preview move down
-Alt - E 	Open file in default editor (when possible)' | column -ts "$(printf '\t')") # instead of printf, can do $'\t'
-
-export FORGIT_FZF_DEFAULT_OPTS="--reverse --header '${FORGIT_HELP}' --height '100%'"
-export FORGIT_LOG_FORMAT='%C(auto)%h %C(green)%an%C(auto)%d %C(reset)%s %C(magenta)%C(bold)%cr%Creset'
-export FORGIT_LOG_GRAPH_ENABLE=false
-export FORGIT_COPY_CMD='xclip -selection clipboard'
-
-# Lines configured by zsh-newuser-install
 export HISTFILE="${HOME}/.zsh_history"
 export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
 
-forgit() {
-    cat <<EOF | column -ts '|'
-($(tput setaf 1)ga$(tput sgr0))|Interactive git add selector
-($(tput setaf 1)glo$(tput sgr0))|Interactive git log viewer
-($(tput setaf 1)gi$(tput sgr0))|Interactive .gitignore generator
-($(tput setaf 1)gd$(tput sgr0))|Interactive git diff viewer
-($(tput setaf 1)grh$(tput sgr0))|Interactive git reset HEAD <file> selector
-($(tput setaf 1)gcf$(tput sgr0))|Interactive git checkout <file> selector
-($(tput setaf 1)gcb$(tput sgr0))|Interactive git checkout <branch> selector
-($(tput setaf 1)gbd$(tput sgr0))|Interactive git branch -D <branch> selector
-($(tput setaf 1)gct$(tput sgr0))|Interactive git checkout <tag> selector
-($(tput setaf 1)gco$(tput sgr0))|Interactive git checkout <commit> selector
-($(tput setaf 1)grc$(tput sgr0))|Interactive git revert <commit> selector 
-($(tput setaf 1)gss$(tput sgr0))|Interactive git stash viewer
-($(tput setaf 1)gsp$(tput sgr0))|Interactive git stash push selector 
-($(tput setaf 1)gclean$(tput sgr0))|Interactive git clean selector
-($(tput setaf 1)gcp$(tput sgr0))|Interactive git cherry-pick selector
-($(tput setaf 1)grb$(tput sgr0))|Interactive git rebase -i selector
-($(tput setaf 1)gbl$(tput sgr0))|Interactive git blame selector 
-($(tput setaf 1)gfu$(tput sgr0))|Interactive git commit --fixup && git rebase -i --autosquash selector
-EOF
-}
- 
 # setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
 setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
-# setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
 setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
 # setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
-# setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
-
-# bindkey -e
-# # End of lines configured by zsh-newuser-install
-# # The following lines were added by compinstall
-# #
-# zstyle :compinstall filename '/home/stephen/.zshrc'
-# 
-# autoload -Uz compinit
-# compinit
-# End of lines added by compinstall
-#
-# idk if I even need this
-# autoload bashcompinit
-# bashcompinit
 
 # when deleting word, stop at slash
 WORDCHARS='*?_-[]~\!#$%^(){}<>|`@#$%^*()+:?'
@@ -197,9 +111,6 @@ git () {
   if [[ $# -gt 0 ]]; then
     ${GIT_LOCATION} "$@"
   else
-    # forgit
-    # echo
-    # echo
     ${GIT_LOCATION} status
   fi
 }
@@ -212,8 +123,7 @@ alias s='sudo'
 alias d='docker'
 alias dc='docker compose'
 alias bm='bat --language help --plain'
-# alias t="trash"
-alias update-grub='grub-mkconfig -o /boot/grub/grub.cfg'
+alias t="trash"
 alias copy="tee /dev/tty | tr -d '\n' | xclip -sel clip"
 alias :q="exit"
 alias ...="../.."
@@ -224,28 +134,12 @@ alias .......="../../../../../.."
 alias which='echo "Using type!"; type'
 alias neofetch='echo "using fastfetch"; fastfetch'
 alias tf='terraform'
-
-# alias open='handlr open'
-# alias cp="cp -v"
-# alias mv="mv -v"
-# alias mkdir="mkdir -pv"
-# alias rmdir="rmdir -pv"
-# alias rm="rm -v"
-# alias grep="grep --color=auto"
-# alias diff="diff --color=auto"
-# alias ls="ls --color=auto"
-
-# alias ls='exa --classify --group-directories-first'
-# alias ls='lsd --classify --group-directories-first --icon=never'
-# alias l='lsd --classify --group-directories-first --long --header --git --blocks=permission,user,size,date,git,name --all' # the date sucks...
-# alias l='exa --long --icons --all --header --extended --git --group-directories-first --classify'
 alias ls='eza --classify --group-directories-first'
 alias l='eza --long --icons --all --header --git --group-directories-first --classify'
-
 alias cat="bat --plain --plain"
 alias bat="bat --number"
 globalias() {
-  EXPAND_ALIASES=(g n v vi vim d dc s tf)
+  EXPAND_ALIASES=(g n v vi vim d dc s tf t)
    if [[ ${EXPAND_ALIASES[(ie)$LBUFFER]} -le ${#EXPAND_ALIASES} ]]; then
      zle _expand_alias
      zle expand-word
@@ -255,51 +149,10 @@ globalias() {
 zle -N globalias
 bindkey " " globalias
 
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="sh -c 'col --no-backspaces --spaces | bat --language man --plain'"
 
-# cd when typing directory
+# cd when just typing directory
 setopt autocd
-# Source: https://github.com/junegunn/fzf/blob/d3311d9f43d024acb94a5f22b8f5675ee08d6f76/shell/key-bindings.zsh#L98
-# https://github.com/junegunn/fzf/issues/477#issuecomment-631707533
-# FZF_CTRL_R_OPTS='--height=100%'
-fzf-history-widget() {
-  local selected num
-  setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
-  selected=( $(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} 
-      ${FZF_DEFAULT_OPTS-} 
-      --preview='bat --color=always --plain --plain --language zsh <<<{}' 
-      --preview-window=down:3:wrap
-      -n2..,.. 
-      --scheme=history 
-      --min-height=18 
-      --bind=ctrl-r:toggle-sort,ctrl-z:ignore 
-      ${FZF_CTRL_R_OPTS-} 
-      --query=${(qqq)LBUFFER} 
-      --header='tab to edit, enter to execute' 
-      --expect=tab 
-      +m" $(__fzfcmd)) 
-    )
-  local ret=$?
-  if [ -n "$selected" ]; then
-    local select=0
-    if [[ $selected[1] == tab ]]; then
-      select=1
-      shift selected
-    fi
-    num=$selected[1]
-    if [ -n "$num" ]; then
-      zle vi-fetch-history -n $num
-      [[ $select == 0 ]] && zle accept-line
-    fi
-  fi
-  zle reset-prompt
-  return $ret
-}
-zle -N fzf-history-widget fzf-history-widget
-bindkey "${terminfo[kcuu1]}" fzf-history-widget
-bindkey "^[[A" fzf-history-widget
-bindkey '^R' fzf-history-widget
  
 # opensuse
 [[ -f /etc/zsh_command_not_found ]] && source /etc/zsh_command_not_found
@@ -309,6 +162,13 @@ export PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --
 [[ -d ${HOME}/.local/bin ]] && export PATH="${PATH}:${HOME}/.local/bin"
 export MANROFFOPT='-c' # fix man page when piping to `bat`
 
-# export NVM_DIR="$HOME/.config/nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+source <(docker completion zsh)
