@@ -40,6 +40,29 @@
     rght $macro_delay M-v 600 down $macro_delay down $macro_delay down $macro_delay ret $macro_delay C-S-v $macro_delay ret $macro_delay 
     rght $macro_delay C-; $macro_delay C-S-; $macro_delay down $macro_delay home
   )
+  adr (
+    macro 
+    @8 $short_delay 
+    @2 $short_delay 
+    spc $short_delay 
+    S-n $short_delay 
+    o $short_delay 
+    r $short_delay 
+    t $short_delay 
+    o $short_delay 
+    n $short_delay 
+    v $short_delay 
+    i $short_delay 
+    l $short_delay 
+    l $short_delay 
+    e $short_delay 
+    spc $short_delay 
+    S-d $short_delay 
+    r $short_delay 
+    i $short_delay 
+    v $short_delay 
+    e
+  )
 
   ;; doesn't work! i don't wanna bother lol
   😭 (unicode 😭)
