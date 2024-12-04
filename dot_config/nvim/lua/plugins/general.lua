@@ -4,6 +4,22 @@ return {
 	{ "imsnif/kdl.vim" },
 	{ "alexghergh/nvim-tmux-navigation" },
 	{
+		"nvim-telescope/telescope.nvim",
+		opts = {
+			defaults = {
+				layout_strategy = "horizontal",
+				layout_config = {
+					horizontal = {
+						-- prompt_position = "top",
+						width = { padding = 0 },
+						height = { padding = 0 },
+						preview_width = 0.5,
+					},
+				},
+			},
+		},
+	},
+	{
 		"folke/tokyonight.nvim",
 		opts = {
 			transparent = true,
@@ -123,24 +139,4 @@ return {
 			},
 		},
 	},
-	-- {
-	-- 	"neovim/nvim-lspconfig",
-	-- 	servers = {
-	-- 		pyright = {
-	-- 			settings = {
-	-- 				pyright = {
-	-- 					-- Using Ruff's import organizer
-	-- 					disableOrganizeImports = true,
-	-- 				},
-	-- 				python = {
-	-- 					analysis = {
-	-- 						-- Ignore all files for analysis to exclusively use Ruff for linting
-	-- 						ignore = { "*" },
-	-- 					},
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 		ruff_lsp = {},
-	-- 	},
-	-- },
 }
