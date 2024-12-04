@@ -18,7 +18,7 @@
 
 (defalias
   altk (tap-hold-press-timeout 200 1000 kp0 (layer-while-held altk) kp0)
-  musi (tap-hold-press-timeout 200 1000 kp1 (layer-while-held music-control) kp1)
+  musi (tap-hold-press-timeout 200 1000 kp. (layer-while-held music-control) kp.)
 
   1 1
   2 2
@@ -64,6 +64,10 @@
   ffpp (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.plasma-browser-integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
   ffn  (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.plasma-browser-integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next)
   ffp  (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.plasma-browser-integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous)
+  
+  elip (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.elisa /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
+  elib (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.elisa /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
+  elin (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.elisa /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
 )
 
 (defsrc
@@ -108,6 +112,8 @@
    _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
    _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     lrld  _
    _     _     _     _     _     _     _     _     _     _     _     _     _                             @ffp  @ffpp @ffn   
-   _     _     _     _     _     _     _     _     _     _     _     _                       _           @vlcb @vlcp @vlcn _
+   _     _     _     _     _     _     _     _     _     _     _     _                       _           @elib @elip @elin _
+;;  vlc SUCKS wtf
+;; _     _     _     _     _     _     _     _     _     _     _     _                       _           @vlcb @vlcp @vlcn _
    _     _     _                 _                 _     _     _                       _     _     _     _           _
  )
