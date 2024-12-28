@@ -136,10 +136,12 @@ alias neofetch='echo "using fastfetch"; fastfetch'
 alias tf='terraform'
 alias ls='eza --classify --group-directories-first'
 alias l='eza --long --icons --all --header --git --group-directories-first --classify'
+alias lg='lazygit'
+alias ldk='lazydocker'
 alias cat="bat --plain --plain"
 alias bat="bat --number"
 globalias() {
-  EXPAND_ALIASES=(g n v vi vim d dc s tf t)
+  EXPAND_ALIASES=(g n v vi vim d dc s tf t lg ldk)
    if [[ ${EXPAND_ALIASES[(ie)$LBUFFER]} -le ${#EXPAND_ALIASES} ]]; then
      zle _expand_alias
      zle expand-word
