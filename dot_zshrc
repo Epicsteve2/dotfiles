@@ -123,7 +123,7 @@ alias s='sudo'
 alias d='docker'
 alias dc='docker compose'
 alias bm='bat --language help --plain'
-alias t="trash"
+alias t="gtrash put"
 alias copy="tee /dev/tty | tr -d '\n' | xclip -sel clip"
 alias :q="exit"
 alias ...="../.."
@@ -174,3 +174,4 @@ function y() {
 }
 
 source <(docker completion zsh)
+source <(gtrash completion zsh)
