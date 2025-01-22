@@ -1,5 +1,6 @@
 (defcfg
   danger-enable-cmd yes
+  process-unmapped-keys yes
 )
 
 (defvar
@@ -30,9 +31,10 @@
   8 8
   9 9
 
-  ;;psrb (cmd strawberry --play-pause)
-  ;;nsrb (cmd strawberry --next)
-  ;;bsrb (cmd strawberry --previous)
+  psrb (cmd strawberry --play-pause)
+  nsrb (cmd strawberry --next)
+  bsrb (cmd strawberry --previous)
+
   test (cmd notify-send hi1)
   job (macro 500 C-S-v $macro_delay ret $macro_delay 
     rght $macro_delay M-v 600 down $macro_delay ret $macro_delay C-S-v $macro_delay ret $macro_delay 
@@ -90,7 +92,7 @@
 
 (deflayer main
   _     _     _     _     _     _     _     _     _     _     _     _     _           _     _     f13   _     _     _     _
-  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f14   _     _     _     prev  pp    next
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     f14   _     _     _     @bsrb @psrb @nsrb
   _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
   esc   _     _     _     _     _     _     _     _     _     _     _     _                             _     _     _
   _     _     _     _     _     _     _     _     _     _     _     _                       _           _     _     _     _
