@@ -25,6 +25,7 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.lang.git" },
 		{ import = "lazyvim.plugins.extras.lang.sql" },
 		{ import = "lazyvim.plugins.extras.lang.yaml" },
+		{ import = "lazyvim.plugins.extras.lang.nix" },
 		{ import = "lazyvim.plugins.extras.lang.vue" },
 		{ import = "lazyvim.plugins.extras.editor.illuminate" },
 		{ import = "lazyvim.plugins.extras.editor.inc-rename" },
