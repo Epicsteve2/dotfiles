@@ -7,33 +7,46 @@ return {
 		winopts = { height = 1, width = 1 },
 	} },
 	{
-		"folke/tokyonight.nvim",
+		"LazyVim/LazyVim",
 		opts = {
-			transparent = true,
-			styles = {
-				sidebars = "transparent",
-				floats = "transparent",
-			},
-			-- make line number prettier
-			on_highlights = function(hl, colors)
-				hl.CursorLineNr = {
-					fg = "#FFba00",
-				}
-				-- idk but this isn't working
-				-- hl.LineNr = {
-				-- 	fg = colors.orange,
-				-- }
-				hl.LineNrAbove = { fg = "#5081c0" }
-				hl.LineNrBelow = { fg = "#5081c0" }
-			end,
-			-- on_colors = function(colors)
-			-- 	-- vim.api.nvim_set_hl(0, "LineNr", { fg = "white", bold = true })
-			-- 	-- vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#5081c0" })
-			-- 	-- vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#5081c0" })
-			-- 	-- colors.fg_gutter = "#5081c0"
-			-- end,
+			-- colorscheme = "melange",
+			colorscheme = "gruvbox",
 		},
 	},
+	-- {
+	-- 	"savq/melange-nvim",
+	-- },
+	{ "ellisonleao/gruvbox.nvim", opts = {
+		transparent_mode = true,
+	} },
+	-- {
+	-- 	"folke/tokyonight.nvim",
+	-- 	opts = {
+	-- 		transparent = true,
+	-- 		styles = {
+	-- 			sidebars = "transparent",
+	-- 			floats = "transparent",
+	-- 		},
+	-- 		-- make line number prettier
+	-- 		on_highlights = function(hl, colors)
+	-- 			hl.CursorLineNr = {
+	-- 				fg = "#FFba00",
+	-- 			}
+	-- 			-- idk but this isn't working
+	-- 			-- hl.LineNr = {
+	-- 			-- 	fg = colors.orange,
+	-- 			-- }
+	-- 			hl.LineNrAbove = { fg = "#5081c0" }
+	-- 			hl.LineNrBelow = { fg = "#5081c0" }
+	-- 		end,
+	-- 		-- on_colors = function(colors)
+	-- 		-- 	-- vim.api.nvim_set_hl(0, "LineNr", { fg = "white", bold = true })
+	-- 		-- 	-- vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#5081c0" })
+	-- 		-- 	-- vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#5081c0" })
+	-- 		-- 	-- colors.fg_gutter = "#5081c0"
+	-- 		-- end,
+	-- 	},
+	-- },
 
 	-- {
 	-- 	"nvim-treesitter/nvim-treesitter",

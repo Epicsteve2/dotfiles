@@ -29,7 +29,7 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.lang.vue" },
 		{ import = "lazyvim.plugins.extras.editor.illuminate" },
 		{ import = "lazyvim.plugins.extras.editor.inc-rename" },
-		{ import = "lazyvim.plugins.extras.editor.refactoring" },
+		-- { import = "lazyvim.plugins.extras.editor.refactoring" },
 		{ import = "lazyvim.plugins.extras.editor.dial" },
 		-- { import = "lazyvim.plugins.extras.editor.harpoon2" },
 		{ import = "lazyvim.plugins.extras.editor.aerial" },
@@ -47,7 +47,7 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.formatting.prettier" },
 		{ import = "lazyvim.plugins.extras.util.dot" },
 		{ import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-		{ import = "lazyvim.plugins.extras.util.chezmoi" },
+		-- { import = "lazyvim.plugins.extras.util.chezmoi" },
 		{ import = "lazyvim.plugins.extras.util.rest" },
 		-- needed yarn install in app folder. see repo for more info
 		-- idk what this does anmore. i don't think i need it cuz i think commenting is in vanilla nvim
