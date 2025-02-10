@@ -4,6 +4,7 @@ if [[ ! -f ~/code-monkey/zsh-plugins/zsh-snap/znap.zsh ]]; then
     git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/code-monkey/zsh-plugins/zsh-snap/
 fi
 source ~/code-monkey/zsh-plugins/zsh-snap/znap.zsh
+znap source romkatv/zsh-defer
 
 znap eval starship 'starship init zsh --print-full-init'
 znap prompt
@@ -173,5 +174,5 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-source <(docker completion zsh)
-source <(gtrash completion zsh)
+zsh-defer -c "source <(docker completion zsh)"
+zsh-defer -c 'source <(gtrash completion zsh)'

@@ -17,7 +17,7 @@ return {
 	-- 	"savq/melange-nvim",
 	-- },
 	{ "ellisonleao/gruvbox.nvim", opts = {
-		transparent_mode = true,
+		transparent_mode = false,
 	} },
 	-- {
 	-- 	"folke/tokyonight.nvim",
