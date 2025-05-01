@@ -55,6 +55,8 @@
   vd7 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 7)
   vd8 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 8)
   vd9 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 9)
+
+  pste (cmd bash -c r#"ydotool type "$(wl-paste)""#)
   
   ;; source https://stackoverflow.com/a/43156436
   vlcp (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
@@ -105,7 +107,7 @@
   _     @test _     _     _     _     _     _     _     _     _     _     _     _     ins   _     _     _     kp/   kp*   kp-
   _     @job  @adr  _     _     _     _     _     _     _     _     _     _     _     _     _     _     @vd1  @vd2  @vd3  _
   caps  _     _     _     _     _     _     _     _     _     _     _     _                             @vd4  @vd5  @vd6   
-  _     _     _     _     _     _     _     _     _     _     _     _                       _           @vd7  @vd8  @vd9  _
+  _     _     _     _     @pste _     _     _     _     _     _     _                       _           @vd7  @vd8  @vd9  _
   _     _     _                 _                 _     _     _                       _     _     _     _           _
 )
 

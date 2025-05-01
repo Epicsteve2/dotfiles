@@ -6,6 +6,7 @@ return {
 	{ "ibhagwan/fzf-lua", opts = {
 		winopts = { height = 1, width = 1 },
 	} },
+	{ "NoahTheDuke/vim-just" },
 	{
 		"LazyVim/LazyVim",
 		opts = {
