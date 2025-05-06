@@ -1,0 +1,17 @@
+[Unit]
+Description=Starts ydotoold Daemon
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=3
+ExecStartPre=/bin/sleep 2
+
+# from https://www.reddit.com/r/archlinux/comments/142kbrk/comment/kwr6mo2/
+ExecStart=/usr/bin/ydotoold --socket-path="/run/user/1000/.ydotool_socket" --socket-own="1000:1000"
+ExecReload=/usr/bin/kill -HUP $MAINPID
+KillMode=process
+TimeoutSec=180
+
+[Install]
+WantedBy=basic.target
