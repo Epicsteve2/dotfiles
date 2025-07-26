@@ -8,30 +8,6 @@ return {
 	} },
 	{ "NoahTheDuke/vim-just" },
 	{
-		"zbirenbaum/copilot.lua",
-		opts = {
-			filetypes = {
-				-- yaml = false,
-				markdown = false,
-				-- help = false,
-				gitcommit = false,
-				gitrebase = false,
-				hgcommit = false,
-				-- svn = false,
-				-- cvs = false,
-				-- ["."] = false,
-				["*.txt"] = false,
-				python = function()
-					-- run lua in the command line to test. also just run `:lua print(vim.api.nvim_buf_get_name(0))` in vim
-					if string.match(vim.api.nvim_buf_get_name(0), "python%-%leetcode/src") then
-						return false
-					end
-					return true
-				end,
-			},
-		},
-	},
-	{
 		"LazyVim/LazyVim",
 		opts = {
 			-- colorscheme = "melange",
