@@ -1,0 +1,60 @@
+touchpad:
+  gestures:
+    - type: swipe
+      direction: right
+      fingers: 3
+      actions:
+        - on: end
+          # Source https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
+          # 29 = KEY_LEFTCTRL, 109 = KEY_PAGEDOWN
+          command: ydotool key 29:1 109:1 109:0 29:0
+
+    - type: swipe
+      direction: left
+      fingers: 3
+      actions:
+        - on: end
+          # 29 = KEY_LEFTCTRL, 104 = KEY_PAGEUP
+          command: ydotool key 29:1 104:1 104:0 29:0
+
+    - type: swipe
+      direction: down
+      fingers: 3
+      actions:
+        - on: end
+          command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut "Window Minimize"
+
+    - type: swipe
+      direction: up
+      fingers: 3
+      actions:
+        - on: begin
+          command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Window Maximize'
+
+    - type: swipe
+      direction: up
+      fingers: 4
+      actions:
+        - on: end
+          command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch One Desktop Up'
+
+    - type: swipe
+      direction: down
+      fingers: 4
+      actions:
+        - on: begin
+          command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch One Desktop Down'
+
+    - type: swipe
+      direction: left
+      fingers: 4
+      actions:
+        - on: begin
+          command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch One Desktop to the Left'
+
+    - type: swipe
+      direction: right
+      fingers: 4
+      actions:
+        - on: begin
+          command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch One Desktop to the Right'

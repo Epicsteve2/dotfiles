@@ -3,6 +3,7 @@
 
 format = """
 $battery\
+$nix_shell\
 $hostname\
 $container\
 $username\
@@ -124,7 +125,7 @@ ahead = "⇡$count"
 behind = "⇣$count"
 diverged = "⇡$ahead_count⇣$behind_count"
 up_to_date = ""
-untracked =	"?$count"
+untracked = "?$count"
 stashed = '\$$count'
 modified = "!$count"
 staged = "+$count"
