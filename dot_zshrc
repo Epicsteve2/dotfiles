@@ -177,3 +177,10 @@ function y() {
 
 zsh-defer -c "source <(docker completion zsh)"
 zsh-defer -c 'source <(gtrash completion zsh)'
+zsh-defer -c 'eval "$(direnv hook zsh)"'
+
+zvm_vi_yank () {
+	zvm_yank
+	printf %s "${CUTBUFFER}" | wl-copy --trim-newline
+	zvm_exit_visual_mode
+}
