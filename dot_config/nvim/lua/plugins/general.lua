@@ -1,11 +1,34 @@
 return {
 
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		opts = {
+			filesystem = {
+				filtered_items = {
+					hide_dotfiles = false,
+					hide_gitignored = false,
+				},
+			},
+		},
+	},
 	{ "kmonad/kmonad-vim" },
 	{ "imsnif/kdl.vim" },
 	{ "alexghergh/nvim-tmux-navigation" },
-	{ "ibhagwan/fzf-lua", opts = {
-		winopts = { height = 1, width = 1 },
-	} },
+	{
+		"ibhagwan/fzf-lua",
+		opts = {
+			winopts = { height = 1, width = 1 },
+			files = {
+				hidden = true,
+				no_ignore = true,
+			},
+
+			grep = {
+				hidden = true,
+				no_ignore = true,
+			},
+		},
+	},
 	{ "NoahTheDuke/vim-just" },
 	-- {
 	-- 	"zbirenbaum/copilot.lua",
