@@ -142,8 +142,9 @@ alias ldk='lazydocker'
 alias cat="bat --plain --plain"
 alias bat="bat --number"
 alias j="just"
+alias c="clipse"
 globalias() {
-  EXPAND_ALIASES=(g n v vi vim d dc s tf t lg ldk j)
+  EXPAND_ALIASES=(g n v vi vim d dc s tf t lg ldk j c)
    if [[ ${EXPAND_ALIASES[(ie)$LBUFFER]} -le ${#EXPAND_ALIASES} ]]; then
      zle _expand_alias
      zle expand-word
