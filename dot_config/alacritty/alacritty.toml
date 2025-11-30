@@ -4,6 +4,7 @@
 [colors.primary]
 # hard contrast background = = '#1d2021'
 background = '#282828'
+# background = '#000000' # for macOS
 # soft contrast background = = '#32302f'
 foreground = '#ebdbb2'
 
@@ -67,6 +68,7 @@ args = [
   "[ -z \"$TMUX\"  ] && { tmux attach || exec tmux new-session && exit;}",
 ]
 program = "zsh"
+# args = ["--login","-c" , "tmux attach-session || tmux new-session"] # for macOS
 
 [window]
 dynamic_title = true

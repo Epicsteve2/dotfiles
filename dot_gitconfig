@@ -39,6 +39,7 @@ renames = copies
 syntax-theme = Monokai Extended
 navigate = true
 line-numbers = true
+; plus-style = syntax "#003800" ; needed this for macOS
 # hunk-header-style = omit
 [interactive]
 diffFilter = delta --color-only --line-numbers

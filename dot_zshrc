@@ -14,11 +14,13 @@ znap eval zoxide "zoxide init zsh"
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-syntax-highlighting
 znap source Aloxaf/fzf-tab
+# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 znap source Freed-Wu/fzf-tab-source
 znap source marzocchi/zsh-notify
 zstyle ':notify:*' expire-time 15000
 function zvm_config() {
   ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+  ZVM_SYSTEM_CLIPBOARD_ENABLED=true
 }
 znap source jeffreytse/zsh-vi-mode
 function zvm_after_init() {
@@ -37,6 +39,10 @@ function zvm_after_init() {
   bindkey "^[[1;5D" backward-word
   bindkey "\C-h" backward-kill-word
   bindkey "\e[3;5~" kill-word
+  # bindkey "^[[1;3C" forward-word      # Option+Right for macOS
+  # bindkey "^[[1;3D" backward-word     # Option+Left for macOS
+  # bindkey "^[^?" backward-kill-word   # Option+Backspace (delete word backward) for macOS
+  # bindkey "^[[3;3~" kill-word         # Option+Delete (delete word forward) for macOS
 }
 
 function zvm_after_lazy_keybindings() {
@@ -84,6 +90,8 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 
+setopt globdots # include dot files when autocomplete
+
 # when deleting word, stop at slash
 WORDCHARS='*?_-[]~\!#$%^(){}<>|`@#$%^*()+:?'
 
@@ -98,6 +106,12 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "\C-h" backward-kill-word
 bindkey "\e[3;5~" kill-word
+# bindkey "^[[1;5C" forward-word          # Ctrl+Right for macOS
+# bindkey "^[[1;5D" backward-word         # Ctrl+Left for macOS
+# bindkey "^[[1;3C" forward-word          # Option+Right (duplicate for compatibility) for macOS
+# bindkey "^[[1;3D" backward-word         # Option+Left (duplicate for compatibility) for macOS
+# bindkey "\C-h" backward-kill-word       # Ctrl+H (backspace word) for macOS
+# bindkey "^[[3;5~" kill-word             # Ctrl+Delete (delete word forward) for macOS
 
 export EDITOR=nvim
 export VISUAL=${EDITOR}
@@ -155,6 +169,7 @@ zle -N globalias
 bindkey " " globalias
 
 export MANPAGER="sh -c 'col --no-backspaces --spaces | bat --language man --plain'"
+# export MANPAGER="sh -c 'col -bx | bat --language man --plain'" # for macOS
 
 # cd when just typing directory
 setopt autocd
@@ -178,10 +193,6 @@ function y() {
 
 zsh-defer -c "source <(docker completion zsh)"
 zsh-defer -c 'source <(gtrash completion zsh)'
-zsh-defer -c 'eval "$(direnv hook zsh)"'
+# zsh-defer -c 'eval "$(direnv hook zsh)"'
+eval "$(direnv hook zsh)"
 
-zvm_vi_yank () {
-	zvm_yank
-	printf %s "${CUTBUFFER}" | wl-copy --trim-newline
-	zvm_exit_visual_mode
-}
