@@ -133,7 +133,8 @@ alias vim="nvim"
 alias vi="nvim"
 alias v="nvim"
 alias n='nvim'
-alias sudo='sudo -v; sudo '
+# this breaks piping to sudo
+# alias sudo='sudo -v; sudo '
 alias s='sudo'
 alias d='docker'
 alias dc='docker compose'

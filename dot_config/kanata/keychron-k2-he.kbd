@@ -1,5 +1,6 @@
 ;; to get this working with the keychron website, do sudo chmod a+rw /dev/hidraw10 <- whatever number that is. can look at chrome://device-log/
 ;; run sudo chmod 600 /dev/hidraw10 to reset
+;; source https://bbs.archlinux.org/viewtopic.php?id=285709
 ;; TODO: maybe map function f3 and f4 to be f14, f15
 (defcfg
   danger-enable-cmd yes
