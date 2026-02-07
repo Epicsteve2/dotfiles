@@ -1,0 +1,89 @@
+;; to get this working with the keychron website, do sudo chmod a+rw /dev/hidraw10 <- whatever number that is. can look at chrome://device-log/
+;; run sudo chmod 600 /dev/hidraw10 to reset
+;; TODO: maybe map function f3 and f4 to be f14, f15
+(defcfg
+  danger-enable-cmd yes
+  process-unmapped-keys yes
+)
+
+(defalias
+  altk (layer-while-held altk)
+  alt2 (layer-switch alt2)
+  main (layer-switch main)
+
+  psrb (cmd strawberry --play-pause)
+  nsrb (cmd strawberry --next)
+  bsrb (cmd strawberry --previous)
+
+  vd1 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 1)
+  vd2 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 2)
+  vd3 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 3)
+  vd4 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 4)
+  vd5 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 5)
+  vd6 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 6)
+  vd7 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 7)
+  vd8 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 8)
+  vd9 (cmd qdbus org.kde.KWin /KWin setCurrentDesktop 9)
+
+  pste (cmd bash -c r#"ydotool type --key-delay=50 --key-hold=30 "$(wl-paste)""#)
+  
+  ;; source https://stackoverflow.com/a/43156436
+  vlcp (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
+  vlcb (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous)
+  vlcn (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.vlc /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next)
+
+  ;; I figured this out myself. find all methods by running `qdbus`
+  ;; then literally look at source code to see stuff https://github.com/KDE/plasma-browser-integration/blob/f37055ed05402316254d6bd3f8e1fd97c7bbe263/dbus/org.mpris.MediaPlayer2.Player.xml
+  ffpp (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.plasma-browser-integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
+  ffn  (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.plasma-browser-integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next)
+  ffp  (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.plasma-browser-integration /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous)
+  
+  elip (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.elisa /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
+  elib (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.elisa /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
+  elin (cmd dbus-send --type=method_call --dest=org.mpris.MediaPlayer2.elisa /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause)
+)
+
+;;(deflayer main
+;;  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+;;  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+;;  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+;;  _     _     _     _     _     _     _     _     _     _     _     _     _           _
+;;  _     _     _     _     _     _     _     _     _     _     _     _           _     _
+;;  _     _     _                 _                       _           _     _     _     _
+;;)
+
+(defsrc
+  esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12   ssrq  del   f13
+  grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc  pgup
+  tab   q     w     e     r     t     y     u     i     o     p     [     ]     \     pgdn
+  caps  a     s     d     f     g     h     j     k     l     ;     '     ret         home
+  lsft  z     x     c     v     b     n     m     ,     .     /     rsft        up    end
+  lctl  lmet  lalt              spc                     ralt        rctl  left  down  rght
+)
+
+(deflayer main
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @alt2
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  @altk _     _     _     _     _     _     _     _     _     _     _     _           _
+  _     _     _     _     _     _     _     _     _     _     _     _           _     _
+  _     _     _                 _                       _           _     _     _     _
+)
+
+(deflayer altk
+  _     _     _     _     _     _     _     @bsrb @psrb @nsrb _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     @vd1  @vd2  @vd3  _     _     _     _
+  _     _     _     _     _     _     _     _     @vd4  @vd5  @vd6  _     _           _
+  _     _     _     _     @pste _     _     _     @vd7  @vd8  @vd9  _           _     _
+  _     _     _                 _                       _           _     _     _     _
+)
+
+(deflayer alt2
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _     @main
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     kp7   kp8   kp9   _     _     _     _
+  caps  _     _     _     _     _     _     _     kp4   kp5   kp6   _     _           _
+  _     _     _     _     _     _     _     _     kp1   kp2   kp3   _           _     _
+  _     _     _                 kp0                     _           _     _     _     _
+)
