@@ -121,12 +121,11 @@ mkcd () {
 }
 
 alias g="git"
-GIT_LOCATION="$(which git)"
-git () {
+git() {
   if [[ $# -gt 0 ]]; then
-    ${GIT_LOCATION} "$@"
+    command git "$@"
   else
-    ${GIT_LOCATION} status
+    command git status
   fi
 }
 alias vim="nvim"
@@ -197,3 +196,4 @@ zsh-defer -c 'source <(gtrash completion zsh)'
 # zsh-defer -c 'eval "$(direnv hook zsh)"'
 eval "$(direnv hook zsh)"
 
+export LESSOPEN="|lesspipe.sh %s"
