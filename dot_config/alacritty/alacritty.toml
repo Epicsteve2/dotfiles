@@ -58,7 +58,7 @@ white = '#ebdbb2'
 TERM = "alacritty"
 
 [font]
-size = 16
+size = 11.5
 
 [font.normal]
 family = "FiraCode Nerd Font"
