@@ -19,6 +19,7 @@ vim.opt.backupcopy = "yes"
 
 -- vim.opt.formatoptions = "jqlnt" -- removed 'cro'
 vim.opt.formatoptions:remove({ "c", "r", "o" })
+vim.opt.spell = true
 
 -- TODO, maybe
 -- vim.cmd("au BufWritePre * let &bex = '@' . strftime(\"%F.%H:%M\")")

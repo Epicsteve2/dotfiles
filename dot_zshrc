@@ -9,6 +9,7 @@ znap source romkatv/zsh-defer
 znap eval starship 'starship init zsh --print-full-init'
 znap prompt
 
+# znap eval brew '/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh' # for ubuntu
 znap eval zoxide "zoxide init zsh"
 
 znap source zsh-users/zsh-autosuggestions
@@ -50,7 +51,7 @@ function zvm_after_lazy_keybindings() {
   bindkey -M visual '_' vi-first-non-blank
 }
 
-zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
+# zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
 zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'
 zstyle ':fzf-tab:*' continuous-trigger shift-tab
 zstyle ':fzf-tab:*' accept-line enter
@@ -63,13 +64,13 @@ zstyle ':fzf-tab:*' accept-line enter
 # zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 
 # disable preview for options and arguments... I think
-zstyle ':fzf-tab:complete:*:options' fzf-preview 
-zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
-zstyle ':completion:*:git-checkout:*' sort false
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# set descriptions format to enable group support
-zstyle ':completion:*:descriptions' format '[%d]'
+# zstyle ':fzf-tab:complete:*:options' fzf-preview 
+# zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
+# zstyle ':completion:*:git-checkout:*' sort false
+# # set list-colors to enable filename colorizing
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# # set descriptions format to enable group support
+# zstyle ':completion:*:descriptions' format '[%d]'
 # Case insensitive https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
@@ -121,32 +122,33 @@ mkcd () {
 }
 
 alias g="git"
-git() {
+GIT_LOCATION="$(which git)"
+git () {
   if [[ $# -gt 0 ]]; then
-    command git "$@"
+    /usr/bin/git "$@"
   else
-    command git status
+    /usr/bin/git status
   fi
 }
 alias vim="nvim"
 alias vi="nvim"
 alias v="nvim"
 alias n='nvim'
-# this breaks piping to sudo
-# alias sudo='sudo -v; sudo '
+# alias sudo='sudo '
 alias s='sudo'
 alias d='docker'
 alias dc='docker compose'
 alias bm='bat --language help --plain'
 alias t="gtrash put"
-alias copy="tee /dev/tty | tr -d '\n' | xclip -sel clip"
+# alias copy="tee /dev/tty | tr -d '\n' | xclip -sel clip"
+copy() { perl -pe 'chomp if eof' | tee >(wl-copy); }
 alias :q="exit"
 alias ...="../.."
 alias ....="../../.."
 alias .....="../../../.."
 alias ......="../../../../.."
 alias .......="../../../../../.."
-alias which='echo "Using type!"; type'
+# alias which='echo "Using type!"; type'
 alias neofetch='echo "using fastfetch"; fastfetch'
 alias tf='terraform'
 alias ls='eza --classify --group-directories-first'
@@ -157,8 +159,11 @@ alias cat="bat --plain --plain"
 alias bat="bat --number"
 alias j="just"
 alias c="clipse"
+alias '/exit'="exit"
+alias '/claude'="claude"
+# alias update="sudo apt update && sudo apt upgrade --yes && sudo flatpak update --assumeyes && brew upgrade && bin update --all --yes" # for ubuntu
 globalias() {
-  EXPAND_ALIASES=(g n v vi vim d dc s tf t lg ldk j c)
+  EXPAND_ALIASES=(g n v vi vim d dc s tf t lg ldk j c update)
    if [[ ${EXPAND_ALIASES[(ie)$LBUFFER]} -le ${#EXPAND_ALIASES} ]]; then
      zle _expand_alias
      zle expand-word
@@ -194,6 +199,10 @@ function y() {
 zsh-defer -c "source <(docker completion zsh)"
 zsh-defer -c 'source <(gtrash completion zsh)'
 # zsh-defer -c 'eval "$(direnv hook zsh)"'
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
+znap eval direnv "direnv hook zsh"
 
 export LESSOPEN="|lesspipe.sh %s"
+# export LESSOPEN="|/home/linuxbrew/.linuxbrew/bin/lesspipe.sh %s" # for ubuntu
+source <(mise completion zsh)
+znap eval mise "mise activate zsh"

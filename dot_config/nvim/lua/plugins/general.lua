@@ -20,12 +20,12 @@ return {
 			winopts = { height = 1, width = 1 },
 			files = {
 				hidden = true,
-				no_ignore = true,
+				-- no_ignore = true,
 			},
 
 			grep = {
 				hidden = true,
-				no_ignore = true,
+				-- no_ignore = true,
 			},
 		},
 	},

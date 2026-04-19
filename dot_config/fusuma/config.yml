@@ -1,21 +1,37 @@
 swipe:
   3:
     up:
+      ## super tab for ubuntu
+      # command: YDOTOOL_SOCKET='/tmp/.ydotool_socket' /home/stephen/bin/ydotool key 125:1 15:1 15:0 125:0
       command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Window Maximize'
     down:
+      ## super h for ubuntu
+      # command: YDOTOOL_SOCKET='/tmp/.ydotool_socket' /home/stephen/bin/ydotool key 125:1 35:1 35:0 125:0
       command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut "Window Minimize"
     left:
+      ## ctrl + page down for ubuntu
+      # command: YDOTOOL_SOCKET='/tmp/.ydotool_socket' /home/stephen/bin/ydotool key 29:1 109:1 109:0 29:0
       command: xdotool key ctrl+Page_Up
     right:
+      ## ctrl + page up for ubuntu
+      # command: YDOTOOL_SOCKET='/tmp/.ydotool_socket' /home/stephen/bin/ydotool key 29:1 104:1 104:0 29:0
       command: xdotool key ctrl+Page_Down
   4:
     up:
+      ## super up for ubuntu
+      # command: YDOTOOL_SOCKET='/tmp/.ydotool_socket' /home/stephen/bin/ydotool key 125:1 103:1 103:0 125:0
       command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch One Desktop Up'
     down:
+      ## super h for ubuntu
+      # command: YDOTOOL_SOCKET='/tmp/.ydotool_socket' /home/stephen/bin/ydotool key 125:1 35:1 35:0 125:0
       command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch One Desktop Down'
     left:
+      ## super page down for ubuntu
+      # command: YDOTOOL_SOCKET='/tmp/.ydotool_socket' /home/stephen/bin/ydotool key 125:1 109:1 109:0 125:0
       command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch One Desktop to the Left'
     right:
+      ## super page up for ubuntu
+      # command: YDOTOOL_SOCKET='/tmp/.ydotool_socket' /home/stephen/bin/ydotool key 125:1 104:1 104:0 125:0
       command: qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut 'Switch One Desktop to the Right'
 
 threshold:
