@@ -1,31 +1,33 @@
-# Download Znap, if it's not there yet.
-if [[ ! -f ~/code-monkey/zsh-plugins/zsh-snap/znap.zsh ]]; then
-    mkdir --parents ~/code-monkey/zsh-plugins/
-    git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/code-monkey/zsh-plugins/zsh-snap/
+ANTIDOTE_DIR=${ZDOTDIR:-$HOME}/.antidote
+if [[ ! -e $ANTIDOTE_DIR/antidote.zsh ]]; then
+    git clone --depth=1 https://github.com/mattmc3/antidote.git $ANTIDOTE_DIR
 fi
-source ~/code-monkey/zsh-plugins/zsh-snap/znap.zsh
-znap source romkatv/zsh-defer
 
-znap eval starship 'starship init zsh --print-full-init'
-znap prompt
+_sitefns=${XDG_DATA_HOME:-$HOME/.local/share}/zsh/site-functions
+mkdir -p $_sitefns
+fpath=($_sitefns $fpath)
 
-# znap eval brew '/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh' # for ubuntu
-znap eval zoxide "zoxide init zsh"
+autoload -Uz compinit
+# full rebuild + security scan only if the dump is >24h old; otherwise trust it (fast -C path).
+# extended_glob (scoped local) is required for the (#q...) qualifier to parse, else the test
+# is always true and the -C fast path is never taken.
+() {
+  setopt local_options extended_glob
+  if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+  else
+    compinit -C
+  fi
+}
+autoload -Uz bashcompinit && bashcompinit
 
-znap source zsh-users/zsh-autosuggestions
-znap source zsh-users/zsh-syntax-highlighting
-znap source Aloxaf/fzf-tab
-# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
-znap source Freed-Wu/fzf-tab-source
-znap source marzocchi/zsh-notify
-zstyle ':notify:*' expire-time 15000
+# zsh-vi-mode hook functions must be defined before the plugin loads
 function zvm_config() {
   ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
   ZVM_SYSTEM_CLIPBOARD_ENABLED=true
 }
-znap source jeffreytse/zsh-vi-mode
 function zvm_after_init() {
-  znap eval atuin "atuin init zsh"
+  eval "$(atuin init zsh)"
 
   bindkey " " globalias
 
@@ -51,27 +53,25 @@ function zvm_after_lazy_keybindings() {
   bindkey -M visual '_' vi-first-non-blank
 }
 
-# zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
+zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
+if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
+  source $ANTIDOTE_DIR/antidote.zsh
+  antidote bundle <${zsh_plugins}.txt >${zsh_plugins}.zsh
+fi
+source ${zsh_plugins}.zsh
+
+eval "$(starship init zsh --print-full-init)"
+eval "$(zoxide init zsh)"
+
+zstyle ':notify:*' expire-time 15000
+
 zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'
 zstyle ':fzf-tab:*' continuous-trigger shift-tab
 zstyle ':fzf-tab:*' accept-line enter
-# zstyle ':fzf-tab:*' fzf-flags --header="tab to accept and edit, enter to execute, shift+tab to continue completing, esc to cancel"
 
 # TODO: can get lesspipe and other stuff to make completions better https://github.com/Freed-Wu/fzf-tab-source
-# # don't need because of Freed-Wu/fzf-tab-source
-# preview directory's content with exa when completing cd
-# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-# zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 
-# disable preview for options and arguments... I think
-# zstyle ':fzf-tab:complete:*:options' fzf-preview 
-# zstyle ':fzf-tab:complete:*:argument-1' fzf-preview
-# zstyle ':completion:*:git-checkout:*' sort false
-# # set list-colors to enable filename colorizing
-# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# # set descriptions format to enable group support
-# zstyle ':completion:*:descriptions' format '[%d]'
-# Case insensitive https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
+# # Case insensitive https://superuser.com/questions/1092033/how-can-i-make-zsh-tab-completion-fix-capitalization-errors-for-directories-and
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 export HISTFILE="${HOME}/.zsh_history"
@@ -79,6 +79,7 @@ export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
 
 # setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+# setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.
@@ -86,7 +87,6 @@ setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming 
 setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
 setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
 setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
-# setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
@@ -122,25 +122,22 @@ mkcd () {
 }
 
 alias g="git"
-GIT_LOCATION="$(which git)"
-git () {
+git() {
   if [[ $# -gt 0 ]]; then
-    /usr/bin/git "$@"
+    command git "$@"
   else
-    /usr/bin/git status
+    command git status
   fi
 }
 alias vim="nvim"
 alias vi="nvim"
 alias v="nvim"
 alias n='nvim'
-# alias sudo='sudo '
 alias s='sudo'
 alias d='docker'
 alias dc='docker compose'
 alias bm='bat --language help --plain'
 alias t="gtrash put"
-# alias copy="tee /dev/tty | tr -d '\n' | xclip -sel clip"
 copy() { perl -pe 'chomp if eof' | tee >(wl-copy); }
 alias :q="exit"
 alias ...="../.."
@@ -148,7 +145,6 @@ alias ....="../../.."
 alias .....="../../../.."
 alias ......="../../../../.."
 alias .......="../../../../../.."
-# alias which='echo "Using type!"; type'
 alias neofetch='echo "using fastfetch"; fastfetch'
 alias tf='terraform'
 alias ls='eza --classify --group-directories-first'
@@ -159,11 +155,10 @@ alias cat="bat --plain --plain"
 alias bat="bat --number"
 alias j="just"
 alias c="clipse"
-alias '/exit'="exit"
-alias '/claude'="claude"
-# alias update="sudo apt update && sudo apt upgrade --yes && sudo flatpak update --assumeyes && brew upgrade && bin update --all --yes" # for ubuntu
+alias k="kubectl"
+alias update='sudo dnf upgrade --assumeyes && sudo flatpak update --assumeyes && bin update --all --yes'
 globalias() {
-  EXPAND_ALIASES=(g n v vi vim d dc s tf t lg ldk j c update)
+  EXPAND_ALIASES=(g n v vi vim d dc s tf t lg ldk j c k update)
    if [[ ${EXPAND_ALIASES[(ie)$LBUFFER]} -le ${#EXPAND_ALIASES} ]]; then
      zle _expand_alias
      zle expand-word
@@ -178,8 +173,7 @@ export MANPAGER="sh -c 'col --no-backspaces --spaces | bat --language man --plai
 
 # cd when just typing directory
 setopt autocd
- 
-# opensuse
+
 [[ -f /etc/zsh_command_not_found ]] && source /etc/zsh_command_not_found
 export BAT_PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
 export PAGER='less --quit-if-one-screen --chop-long-lines --RAW-CONTROL-CHARS --LONG-PROMPT --ignore-case'
@@ -196,13 +190,10 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-zsh-defer -c "source <(docker completion zsh)"
-zsh-defer -c 'source <(gtrash completion zsh)'
-# zsh-defer -c 'eval "$(direnv hook zsh)"'
-# eval "$(direnv hook zsh)"
-znap eval direnv "direnv hook zsh"
+zsh-defer -c '(( $+commands[docker] )) && [[ ! -f $_sitefns/_docker ]] && docker completion zsh >| $_sitefns/_docker'
+zsh-defer -c '(( $+commands[gtrash] )) && [[ ! -f $_sitefns/_gtrash ]] && gtrash completion zsh >| $_sitefns/_gtrash'
+zsh-defer -c 'eval "$(direnv hook zsh)"'
+zsh-defer -c 'eval "$(mise activate zsh)"'
+# export LESSOPEN="|lesspipe.sh %s"
 
-export LESSOPEN="|lesspipe.sh %s"
-# export LESSOPEN="|/home/linuxbrew/.linuxbrew/bin/lesspipe.sh %s" # for ubuntu
-source <(mise completion zsh)
-znap eval mise "mise activate zsh"
+export PATH=~/.npm-global/bin:$PATH
